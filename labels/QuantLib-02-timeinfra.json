@@ -1,0 +1,17 @@
+{
+ "0": "Cash flow accrual and BPS calculations",
+ "1": "Equity index class",
+ "2": "Calendar base and country calendars",
+ "3": "Floating rate coupon",
+ "4": "Day counter base and ActualActual",
+ "6": "Inflation coupon pricers (YoY)",
+ "5": "Cash flow duration, period and frequency",
+ "7": "CMS coupon Hagan (conundrum) pricer",
+ "9": "Digital coupon",
+ "8": "Libor market model swaption engine",
+ "11": "Libor forward model process",
+ "10": "Interest rate index and ASX futures dates",
+ "12": "Overnight/IBOR rate indexes",
+ "14": "Linear TSR (CMS) pricer",
+ "13": "Black overnight indexed coupon pricer"
+}

@@ -1,0 +1,683 @@
+{
+  "nodes": [
+    {
+      "id": "docs_userguide_pricing_accumulator_accumulator",
+      "label": "EQ/FX Accumulators and Decumulators",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/accumulator.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced via Black-Scholes with the underlying calibrated to quoted ATM volatility, valued by Monte Carlo simulation because the payoff is path-dependent (product classification SingleAssetOption)."
+    },
+    {
+      "id": "docs_userguide_pricing_ascot_ascot",
+      "label": "ASCOT",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/ascot.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced using a naive intrinsic model (described in section 8.6.1) rather than a full stochastic valuation model."
+    },
+    {
+      "id": "docs_userguide_pricing_ascot_naive_intrinsic_model",
+      "label": "Naive Intrinsic Model (Section 8.6.1)",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/ascot.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_pricing_autocallable_01_autocallable_type_01",
+      "label": "Autocallable Option Type 01",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/autocallable_01.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced with Black-Scholes calibrated to quoted ATM volatility and valued via Monte Carlo simulation as a SingleAssetOption scripted trade."
+    },
+    {
+      "id": "docs_userguide_pricing_basketoption_basket_option",
+      "label": "Basket Option",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/basketoption.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced using correlated Black-Scholes processes for each underlying, each calibrated to its own quoted ATM volatility, and valued via Monte Carlo as a MultiAssetOption because the payoff depends on a weighted basket of correlated underlyings (with FX conversion into the payoff currency)."
+    },
+    {
+      "id": "docs_userguide_pricing_bestentryoption_best_entry_option",
+      "label": "Best Entry Option",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/bestentryoption.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced in a Black-Scholes model with valuation performed via Monte Carlo simulation."
+    },
+    {
+      "id": "docs_userguide_pricing_bondforward_forward_bond",
+      "label": "Forward Bond",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/bondForward.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Discounting curve choice depends on contract phase: the OIS curve is used while the position is still a forward derivative, and the Bond Reference Yield (BRY) curve once the underlying bond is effectively held; the default-able-bond variant adds face-value recovery integrals and conditional survival probabilities so pre- vs post-default value transfer at forward maturity is captured correctly."
+    },
+    {
+      "id": "docs_userguide_pricing_bondoption_bond_option",
+      "label": "Bond Option",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/bondOption.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Valued with Black's model assuming a lognormal forward bond price; the knock-out variant extinguishes the option on issuer default before expiry, while the no-knock-out variant instead uses a survival/default-probability-weighted blend of the forward bond price and the recovery value as the effective forward price fed into Black's formula."
+    },
+    {
+      "id": "docs_userguide_pricing_bondtotalreturnswap_bond_total_return_swap",
+      "label": "Bond Total Return Swap",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/bondTotalReturnSwap.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Assumes a 'golden CSA' for discounting compensation payments, even though real-world TRS contracts typically override the CSA with a simple accrual-based daily variation-margin calculation similar to repo transactions; this simplification is noted as often invalid in practice but standard industry practice, and the model additionally ignores gap and wrong-way risk."
+    },
+    {
+      "id": "docs_userguide_pricing_bondfuture_bond_future",
+      "label": "Bond Future",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/bondfuture.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Present value is driven by the cheapest-to-deliver (CTD) bond's forward price divided by a conversion factor; because the CTD bond's security spread is calibrated to the quoted future price, present value is exactly zero immediately after daily margining, matching real-world futures behavior."
+    },
+    {
+      "id": "docs_userguide_pricing_callablebond_callable_bond",
+      "label": "Callable Bond",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/callablebond.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced in the LGM model via finite-difference/numerical-integration backward induction over a time grid of bond events; deliberately reuses the same solvers and coupon-handling logic as American/Bermudan swaption pricing for implementation consistency and supported coupon-type parity."
+    },
+    {
+      "id": "docs_userguide_pricing_cash_bond_bond",
+      "label": "Vanilla (Cash) Bond",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/cash_bond.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced by discounting future coupon and notional payments on a reference curve (typically a Libor curve in the bond currency) plus a security-specific spread; default risk is optionally incorporated by weighting payments with survival probability and adding an expected recovery value; where liquid price quotes exist, the security spread is instead implied to match the quoted price."
+    },
+    {
+      "id": "docs_userguide_pricing_cash_bondrepo_bond_repo",
+      "label": "Bond Repo",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/cash_bondrepo.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "The cash leg is priced either mark-to-market (discounted on a quoted repo curve) or on a simple accrual basis (outstanding notional plus accrued interest) depending on data availability; the security leg is priced as a cash bond; the overall repo price can be defined as security-minus-cash leg (repo), cash-minus-security (reverse repo), or the cash leg alone, depending on which side of collateralization is being measured."
+    },
+    {
+      "id": "docs_userguide_pricing_com_apo_commodity_average_price_option",
+      "label": "Commodity Average Price Option (APO)",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/com_apo.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "The averaged price is approximated as lognormal (or normal, in the Bachelier variant) by matching its first and second moments, which allows a closed-form Black-76/Bachelier valuation instead of requiring full Monte Carlo simulation of the underlying future/spot price process; the Bachelier alternative is offered because commodity prices can go negative."
+    },
+    {
+      "id": "docs_userguide_pricing_com_basisswap_commodity_basis_swap",
+      "label": "Commodity Basis Swap",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/com_basisswap.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_pricing_com_forward_commodity_forward",
+      "label": "Commodity Forward",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/com_forward.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_pricing_com_futuresoption_commodity_futures_option",
+      "label": "Commodity Futures Option",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/com_futuresoption.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Although commodity futures options can technically be American-style (e.g. LME base metal futures options), they are deliberately treated as European under a Black-76 GBM assumption on the futures price for pricing tractability."
+    },
+    {
+      "id": "docs_userguide_pricing_com_option_european_commodity_option",
+      "label": "European Commodity Option",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/com_option.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced by default with Black-Scholes/Black-76 using log-normal or shifted-lognormal volatilities; the Bachelier (normal-volatility) model is offered as an alternative because commodity spot/forward prices can become negative, which breaks the lognormal assumption underlying Black-Scholes."
+    },
+    {
+      "id": "docs_userguide_pricing_com_pm_forward_precious_metal_forward",
+      "label": "Precious Metal Forward",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/com_pm_forward.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Uses the identical NPV framework as a plain commodity forward; precious metal forwarding curves are typically (though not always) bootstrapped from FX-style quotes (a spot rate plus forward points) rather than commodity-style quotes."
+    },
+    {
+      "id": "docs_userguide_pricing_com_pm_option_european_precious_metal_option",
+      "label": "European Precious Metal Option",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/com_pm_option.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Uses the same Black-76 approach and definition as the European commodity option; precious metal forward curves and volatility surfaces are typically quoted in FX style (spot plus forward points; delta-neutral ATM, 25-delta/10-delta butterflies and risk reversals) rather than commodity style."
+    },
+    {
+      "id": "docs_userguide_pricing_com_spreadoption_commodity_spread_option",
+      "label": "Commodity Spread Option",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/com_spreadoption.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced via the Kirk approximation (correlated GBM underlyings reduced to a Black-76-type formula through Clark's ratio-process transformation) when K is small relative to the second leg, or via the Bachelier model (correlated arithmetic Brownian motions, giving an exact normal spread distribution) as an alternative that better suits commodities whose prices may go negative and avoids Kirk's lognormal approximation error."
+    },
+    {
+      "id": "docs_userguide_pricing_com_spreadoption_commodity_calendar_spread_option",
+      "label": "Commodity Calendar Spread Option",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/com_spreadoption.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced using the Kirk approximation by defining the earlier-observed leg as a process with volatility scaled by sqrt(t1/T) and zero volatility thereafter, reducing the calendar-spread payoff to the same mathematical form as a standard (non-calendar) spread option."
+    },
+    {
+      "id": "docs_userguide_pricing_com_spreadoption_commodity_asian_spread_option",
+      "label": "Commodity Asian Spread Option",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/com_spreadoption.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Combines the average-price-option moment-matching transform (applied to each averaging leg) with the Kirk approximation used for non-averaging spread options; when the two legs reference different future contract months of the same underlying, the near-end volatility is additionally scaled by sqrt(t1/T) as in the calendar spread case."
+    },
+    {
+      "id": "docs_userguide_pricing_scriptedtrades_scriptedtrade_mc",
+      "label": "Scripted Trade Monte Carlo Pricing (scriptedtrade_mc)",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/scriptedtrades.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_pricing_ir_bermswaption_bermudan_swaption",
+      "label": "American/Bermudan Swaption",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/ir_bermswaption.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_models_openxva_models_lgm_model",
+      "label": "LGM (Linear Gauss-Markov) Model",
+      "file_type": "concept",
+      "source_file": "Docs/Models/OpenXVA_Models.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_pricing_totalreturnswap_total_return_swap",
+      "label": "Generic Total Return Swap",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/totalReturnSwap.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_pricing_com_swaption_commodity_swaption",
+      "label": "Commodity Swaption",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/com_swaption.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_pricing_com_swap_commodity_swap",
+      "label": "Commodity Swap",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/com_swap.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_pricing_models_pricing_models",
+      "label": "Pricing Models Reference (Black / Shifted Black / Bachelier)",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/models.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "docs_userguide_pricing_accumulator_accumulator",
+      "target": "docs_userguide_pricing_scriptedtrades_scriptedtrade_mc",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/accumulator.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_autocallable_01_autocallable_type_01",
+      "target": "docs_userguide_pricing_scriptedtrades_scriptedtrade_mc",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/autocallable_01.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_basketoption_basket_option",
+      "target": "docs_userguide_pricing_scriptedtrades_scriptedtrade_mc",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/basketoption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_callablebond_callable_bond",
+      "target": "docs_userguide_pricing_ir_bermswaption_bermudan_swaption",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/callablebond.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_callablebond_callable_bond",
+      "target": "docs_models_openxva_models_lgm_model",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/callablebond.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_bondtotalreturnswap_bond_total_return_swap",
+      "target": "docs_userguide_pricing_bondforward_forward_bond",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/bondTotalReturnSwap.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_bondtotalreturnswap_bond_total_return_swap",
+      "target": "docs_userguide_pricing_totalreturnswap_total_return_swap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/bondTotalReturnSwap.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_cash_bondrepo_bond_repo",
+      "target": "docs_userguide_pricing_cash_bond_bond",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/cash_bondrepo.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_bondoption_bond_option",
+      "target": "docs_userguide_pricing_cash_bond_bond",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/bondOption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_com_apo_commodity_average_price_option",
+      "target": "docs_userguide_pricing_com_swaption_commodity_swaption",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/com_apo.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_com_apo_commodity_average_price_option",
+      "target": "docs_userguide_pricing_models_pricing_models",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/com_apo.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_com_basisswap_commodity_basis_swap",
+      "target": "docs_userguide_pricing_com_swap_commodity_swap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/com_basisswap.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_com_futuresoption_commodity_futures_option",
+      "target": "docs_userguide_pricing_models_pricing_models",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/com_futuresoption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_com_option_european_commodity_option",
+      "target": "docs_userguide_pricing_models_pricing_models",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/com_option.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_com_pm_forward_precious_metal_forward",
+      "target": "docs_userguide_pricing_com_forward_commodity_forward",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/com_pm_forward.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_com_pm_option_european_precious_metal_option",
+      "target": "docs_userguide_pricing_com_option_european_commodity_option",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/com_pm_option.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_com_pm_option_european_precious_metal_option",
+      "target": "docs_userguide_pricing_models_pricing_models",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/com_pm_option.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_com_spreadoption_commodity_spread_option",
+      "target": "docs_userguide_pricing_models_pricing_models",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/com_spreadoption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_com_spreadoption_commodity_asian_spread_option",
+      "target": "docs_userguide_pricing_com_apo_commodity_average_price_option",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/com_spreadoption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_bondoption_bond_option",
+      "target": "docs_userguide_pricing_bondforward_forward_bond",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "Docs/UserGuide/pricing/bondOption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_bondfuture_bond_future",
+      "target": "docs_userguide_pricing_cash_bond_bond",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "Docs/UserGuide/pricing/bondfuture.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_callablebond_callable_bond",
+      "target": "docs_userguide_pricing_cash_bond_bond",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "Docs/UserGuide/pricing/callablebond.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_bondtotalreturnswap_bond_total_return_swap",
+      "target": "docs_userguide_pricing_cash_bond_bond",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "Docs/UserGuide/pricing/bondTotalReturnSwap.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_com_futuresoption_commodity_futures_option",
+      "target": "docs_userguide_pricing_com_option_european_commodity_option",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "Docs/UserGuide/pricing/com_futuresoption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_com_spreadoption_commodity_calendar_spread_option",
+      "target": "docs_userguide_pricing_com_spreadoption_commodity_spread_option",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "Docs/UserGuide/pricing/com_spreadoption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_com_spreadoption_commodity_asian_spread_option",
+      "target": "docs_userguide_pricing_com_spreadoption_commodity_spread_option",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "Docs/UserGuide/pricing/com_spreadoption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_bestentryoption_best_entry_option",
+      "target": "docs_userguide_pricing_scriptedtrades_scriptedtrade_mc",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "Docs/UserGuide/pricing/bestentryoption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ascot_ascot",
+      "target": "docs_userguide_pricing_ascot_naive_intrinsic_model",
+      "relation": "references",
+      "confidence": "AMBIGUOUS",
+      "confidence_score": 0.2,
+      "source_file": "Docs/UserGuide/pricing/ascot.tex",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "black_scholes_mc_scripted_products",
+      "label": "Black-Scholes / Monte Carlo Scripted Trade Products",
+      "nodes": [
+        "docs_userguide_pricing_accumulator_accumulator",
+        "docs_userguide_pricing_autocallable_01_autocallable_type_01",
+        "docs_userguide_pricing_basketoption_basket_option",
+        "docs_userguide_pricing_bestentryoption_best_entry_option"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "Docs/UserGuide/pricing/scriptedtrades.tex"
+    },
+    {
+      "id": "commodity_black76_option_variants",
+      "label": "Commodity Option Variants Priced via the Black-76/Bachelier Family",
+      "nodes": [
+        "docs_userguide_pricing_com_futuresoption_commodity_futures_option",
+        "docs_userguide_pricing_com_option_european_commodity_option",
+        "docs_userguide_pricing_com_pm_option_european_precious_metal_option",
+        "docs_userguide_pricing_com_apo_commodity_average_price_option"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "Docs/UserGuide/pricing/models.tex"
+    },
+    {
+      "id": "bond_default_risk_discounting_group",
+      "label": "Bond Instruments Sharing Survival-Probability / Recovery-Adjusted Discounting",
+      "nodes": [
+        "docs_userguide_pricing_cash_bond_bond",
+        "docs_userguide_pricing_bondforward_forward_bond",
+        "docs_userguide_pricing_bondtotalreturnswap_bond_total_return_swap",
+        "docs_userguide_pricing_callablebond_callable_bond",
+        "docs_userguide_pricing_bondoption_bond_option"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "Docs/UserGuide/pricing/cash_bond.tex"
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "graphify-ore": {
+      "type": "stdio",
+      "command": "graphify-mcp",
+      "args": ["<ORE_GRAPH_OUT>/merged/graph.json"]
+    }
+  }
+}

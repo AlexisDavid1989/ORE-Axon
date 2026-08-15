@@ -1,0 +1,17 @@
+{
+ "0": "Log-Cubic Interpolation Variants",
+ "1": "ABCD Volatility Interpolation",
+ "2": "Linear Interpolation",
+ "3": "Error Function (erf)",
+ "4": "Beta & Binomial Distributions",
+ "5": "Observer Pattern (Observable)",
+ "6": "Matrix Class",
+ "8": "Simulated Annealing Optimizer",
+ "7": "Gauss-Laguerre Trigonometric Polynomials",
+ "9": "Gaussian Risk Statistics",
+ "10": "Sequence Statistics",
+ "11": "Array Class",
+ "12": "European Currencies (Implementation)",
+ "14": "Adaptive Runge-Kutta ODE Solver",
+ "13": "European Currencies (Declarations)"
+}

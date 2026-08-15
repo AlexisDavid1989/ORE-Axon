@@ -1,0 +1,17 @@
+{
+ "0": "YoY inflation cap/floor surface",
+ "1": "One-factor copula credit model",
+ "2": "Extended binomial lattice trees",
+ "3": "Saddlepoint credit loss model",
+ "5": "Random default/loss latent models",
+ "4": "Suo-Wang double barrier engine",
+ "6": "Gaussian LHP credit loss model",
+ "8": "Ornstein-Uhlenbeck process with jumps",
+ "7": "Lognormal CMS spread pricer",
+ "9": "Asian option Heston pricing engines",
+ "10": "Perturbative barrier option engine",
+ "11": "Finite-difference VPP power plant model",
+ "13": "CDO tranche pricing model",
+ "12": "Energy swap instruments",
+ "14": "Commodity price curve"
+}

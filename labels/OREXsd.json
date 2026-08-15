@@ -1,0 +1,21 @@
+{
+  "0": "Config Schema Foundations (Conventions/Calendar/Collateral/Counterparty)",
+  "1": "Curve Configuration Building Blocks",
+  "2": "Shared ORE Type Primitives (Currency/Date/DayCounter)",
+  "3": "Sensitivity Analysis Scenario Types",
+  "4": "Market Conventions (Rates/Bonds/CDS/Commodities)",
+  "5": "Trade-Data Complex Types (Accumulators/Bonds/Baskets)",
+  "6": "Leg Data Element Family (CMS/CPI/Commodity Legs)",
+  "7": "TodaysMarket Curve Set Selectors",
+  "8": "Barrier & Commodity/FX Option Trade Types",
+  "9": "Reference Data Types (Bond/CBO/Credit Index)",
+  "10": "Trade-Component Complex Types (Amortization/CDO/Indexing)",
+  "11": "ORE Top-Level Run Configuration (Analytics/Pricing Engines)",
+  "12": "SIMM Calibration Data",
+  "13": "Scripted Trade & Total Return Swap Data Types",
+  "14": "Underlying & Equity/Commodity Position Data",
+  "15": "Composite & Credit Default Swap Trade Types",
+  "16": "Counterparty Information & Correlations",
+  "17": "Bond/Equity Option Strike Data",
+  "18": "Credit Simulation Configuration"
+}

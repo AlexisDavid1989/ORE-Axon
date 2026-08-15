@@ -1,0 +1,507 @@
+{
+  "nodes": [
+    {
+      "id": "docs_userguide_pricing_fx_digitaloption_fx_digital_option",
+      "label": "FX Digital Option",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/fx_digitaloption.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced analytically via a Black-Scholes-based closed form by default; alternatively priced as a call/put spread (difference of two vanilla FX options with strikes K-eps and K+eps) when a more accurate reflection of the volatility smile is required."
+    },
+    {
+      "id": "docs_userguide_pricing_fx_doublebarrieroption_fx_double_barrier_option",
+      "label": "FX Double Barrier Option",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/fx_doublebarrieroption.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_pricing_fx_doubletouchoption_fx_double_touch_option",
+      "label": "FX Double Touch Option",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/fx_doubletouchoption.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_pricing_fx_europeanbarrieroption_fx_european_barrier_option",
+      "label": "FX European Barrier Option",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/fx_europeanbarrieroption.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Because both the barrier and the underlying option are European with the same expiry, the NPV is computed by static replication of the expiry payoff using a portfolio of vanilla and digital FX options rather than a numerical barrier-monitoring model."
+    },
+    {
+      "id": "docs_userguide_pricing_fx_forward_fx_forward",
+      "label": "FX Forward",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/fx_forward.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced under a multi-currency framework using per-currency discount and forwarding curves; if USD is the VM collateral currency, discounting uses the USD OIS curve, otherwise a Foreign Currency Discount Curve is used for non-collateral currencies."
+    },
+    {
+      "id": "docs_userguide_pricing_fx_kikobarrieroption_fx_kiko_barrier_option",
+      "label": "FX KIKO Barrier Option",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/fx_kikobarrieroption.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced by replication into three cases depending on whether the knock-in barrier has already triggered and where FX spot sits relative to the two barriers, combining single and double barrier knock-out option values rather than a dedicated closed-form KIKO formula."
+    },
+    {
+      "id": "docs_userguide_pricing_fx_option_european_fx_option",
+      "label": "European FX Option",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/fx_option.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced with the Garman-Kohlhagen model assuming the FX spot follows Geometric Brownian Motion, with drift calibrated so the expected future spot agrees with today's FX forward rate, giving a drift-free GBM for the forward under the T-forward measure and a Black76 closed form; deterministic IR rates are assumed and smile-consistent volatility structures are used where available."
+    },
+    {
+      "id": "docs_userguide_pricing_fx_swap_fx_swap",
+      "label": "FX Swap",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/fx_swap.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Treated as a portfolio of two FX Forwards; the near leg is disregarded once its cash flow time has passed, and the NPV vanishes once the far leg has also passed."
+    },
+    {
+      "id": "docs_userguide_pricing_fx_touchoption_fx_touch_option",
+      "label": "FX Touch Option",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/fx_touchoption.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced analytically using the same Garman-Kohlhagen GBM assumption for the FX spot as the European FX Option, with deterministic IR rates and smile-consistent volatilities where available."
+    },
+    {
+      "id": "docs_userguide_pricing_fx_varianceswap_fx_variance_swap",
+      "label": "FX Variance Swap",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/fx_varianceswap.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced using a replicating portfolio method under a BlackScholesMerton model via a ReplicatingVarianceSwapEngine (segment scheme, price-threshold bounds), analogous to the Equity Variance Swap pricing approach."
+    },
+    {
+      "id": "docs_userguide_pricing_generic_barrieroption_generic_barrier_option",
+      "label": "Generic Barrier Option",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/generic_barrieroption.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced with a finite-difference solver under a Black-Scholes model rather than a closed form because the payoff must track arbitrary sequences of future knock-in/knock-out events (including a transatlantic barrier condition) and associated rebates; conditional-value state variables (V_NA, V_KI, V_KO, V_KIKO, V_KOKI) are rolled back and updated at each detected knock event, and rebate NPVs are computed via analogous rollback variables R_x."
+    },
+    {
+      "id": "docs_userguide_pricing_hyb_compositetrade_composite_trade",
+      "label": "Composite Trade",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/hyb_compositetrade.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced as the sum of its component trades' NPVs; the pricing model of the composite is therefore a combination of the pricing models of each underlying component trade rather than a distinct model of its own."
+    },
+    {
+      "id": "docs_userguide_pricing_inf_yyiicapfloor_yoy_cap_floor",
+      "label": "Year-on-Year Inflation Cap/Floor",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/inf_yyiicapfloor.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "The forward year-on-year rate Y(t) is a ratio of tradable assets and hence a martingale under the T-forward measure; assuming it follows driftless Brownian motion (dY = sigma dW) yields a Bachelier (normal) formula for the caplet/floorlet, chosen because YoY rates can be negative, unlike a lognormal model."
+    },
+    {
+      "id": "docs_userguide_pricing_inf_yyiis_yoy_inflation_swap",
+      "label": "Year-on-Year Inflation Swap",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/inf_yyiis.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Swap leg cashflows are discounted using the Year-on-Year inflation index forwarding curve; associated caps/floors are priced with the Black model for (shifted) lognormal volatilities or the Bachelier model for normal volatilities, treated analogously to IBOR cap/floor pricing."
+    },
+    {
+      "id": "docs_userguide_pricing_inf_zciicapfloor_cpi_cap_floor",
+      "label": "CPI (Zero Coupon Inflation Index) Cap/Floor",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/inf_zciicapfloor.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "The forward inflation index ratio F(t,T) is a ratio of tradable assets (real rate bond price over nominal discount) and hence a martingale under the T-forward measure; assuming driftless Geometric Brownian Motion for F(t,T) yields a Black-model closed form, chosen because the CPI index ratio is multiplicative and non-negative."
+    },
+    {
+      "id": "docs_userguide_pricing_inf_zciis_cpi_swap",
+      "label": "CPI Swap (Zero Coupon Inflation Index Swap)",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/inf_zciis.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Uses the inflation fixing at contract start as the base for all flows, allowing model-independent pricing by discounting off the zero-coupon inflation forward curve; term-sheet variants subtract the un-inflated notional/redemption from coupons or final exchange."
+    },
+    {
+      "id": "docs_userguide_pricing_ir_bermswaption_bermudan_american_swaption",
+      "label": "Bermudan/American Swaption",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/ir_bermswaption.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced using a one-factor Linear Gauss Markov (LGM) model (closely related to the Hull-White one-factor model) because it admits a closed-form discount bond formula P(t,T,x), enabling efficient rollback via numerical integration or a finite-difference solver. Reversion/volatility parametrizations (HullWhite vs Hagan types) and calibration strategies (None/Bootstrap/BestFit against coterminal swaptions via Levenberg-Marquardt) are chosen to stabilize and speed up calibration; American swaptions reuse the same engine with an added ExerciseTimeStepsPerYear parameter since exercise is effectively continuous."
+    },
+    {
+      "id": "docs_userguide_pricing_ir_bma_bma_swap",
+      "label": "BMA Swap",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/ir_bma.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "A BMA swap leg pays the un-compounded arithmetic average of weekly BMA index fixings monthly; NPV is computed by discounting the sum of forward-projected average BMA rates plus spread over each period."
+    },
+    {
+      "id": "docs_userguide_pricing_ir_bs_single_currency_basis_swap",
+      "label": "Single Currency Basis Swap",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/ir_bs.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_pricing_ir_callableswap_callable_swap",
+      "label": "Callable Swap",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/ir_callableswap.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Decomposed into a plain vanilla swap plus a swaption on the residual cashflows, so the callable swap's price is built directly from the existing swap and Bermudan/American swaption pricing methodologies rather than a bespoke model."
+    }
+  ],
+  "edges": [
+    {
+      "source": "docs_userguide_pricing_fx_digitaloption_fx_digital_option",
+      "target": "docs_userguide_pricing_fx_option_european_fx_option",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/fx_digitaloption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_fx_europeanbarrieroption_fx_european_barrier_option",
+      "target": "docs_userguide_pricing_fx_option_european_fx_option",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/fx_europeanbarrieroption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_fx_europeanbarrieroption_fx_european_barrier_option",
+      "target": "docs_userguide_pricing_fx_digitaloption_fx_digital_option",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/fx_europeanbarrieroption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_fx_kikobarrieroption_fx_kiko_barrier_option",
+      "target": "docs_userguide_pricing_fx_doublebarrieroption_fx_double_barrier_option",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/fx_kikobarrieroption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_fx_kikobarrieroption_fx_kiko_barrier_option",
+      "target": "docs_userguide_pricing_fx_barrieroption_fx_barrier_option",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/fx_kikobarrieroption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_fx_swap_fx_swap",
+      "target": "docs_userguide_pricing_fx_forward_fx_forward",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/fx_swap.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_fx_varianceswap_fx_variance_swap",
+      "target": "docs_userguide_pricing_eq_varianceswap_equity_variance_swap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/fx_varianceswap.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_fx_touchoption_fx_touch_option",
+      "target": "docs_userguide_pricing_fx_option_european_fx_option",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "Docs/UserGuide/pricing/fx_touchoption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_fx_option_european_fx_option",
+      "target": "docs_userguide_pricing_models_black_model",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/fx_option.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ir_bermswaption_bermudan_american_swaption",
+      "target": "docs_models_openxva_models_lgm_model",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/ir_bermswaption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ir_bermswaption_bermudan_american_swaption",
+      "target": "docs_userguide_pricing_ir_bma_bma_swap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/ir_bermswaption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ir_callableswap_callable_swap",
+      "target": "docs_userguide_pricing_ir_bermswaption_bermudan_american_swaption",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/ir_callableswap.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ir_callableswap_callable_swap",
+      "target": "docs_userguide_pricing_ir_irs_interest_rate_swap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/ir_callableswap.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_inf_yyiicapfloor_yoy_cap_floor",
+      "target": "docs_userguide_pricing_inf_yyiis_yoy_inflation_swap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/inf_yyiicapfloor.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_inf_yyiis_yoy_inflation_swap",
+      "target": "docs_userguide_pricing_inf_yyiicapfloor_yoy_cap_floor",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/inf_yyiis.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_inf_yyiis_yoy_inflation_swap",
+      "target": "docs_userguide_pricing_inf_zciicapfloor_cpi_cap_floor",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/inf_yyiis.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_inf_zciicapfloor_cpi_cap_floor",
+      "target": "docs_userguide_pricing_inf_zciis_cpi_swap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/inf_zciicapfloor.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ir_bs_single_currency_basis_swap",
+      "target": "docs_userguide_pricing_ir_bma_bma_swap",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "Docs/UserGuide/pricing/ir_bs.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_generic_barrieroption_generic_barrier_option",
+      "target": "docs_userguide_pricing_fx_doublebarrieroption_fx_double_barrier_option",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "Docs/UserGuide/pricing/generic_barrieroption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_generic_barrieroption_generic_barrier_option",
+      "target": "docs_userguide_pricing_fx_kikobarrieroption_fx_kiko_barrier_option",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "Docs/UserGuide/pricing/generic_barrieroption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_hyb_compositetrade_composite_trade",
+      "target": "docs_userguide_pricing_ir_callableswap_callable_swap",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.55,
+      "source_file": "Docs/UserGuide/pricing/hyb_compositetrade.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_fx_doubletouchoption_fx_double_touch_option",
+      "target": "docs_userguide_pricing_fx_touchoption_fx_touch_option",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "Docs/UserGuide/pricing/fx_doubletouchoption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_fx_doublebarrieroption_fx_double_barrier_option",
+      "target": "docs_userguide_pricing_fx_europeanbarrieroption_fx_european_barrier_option",
+      "relation": "conceptually_related_to",
+      "confidence": "AMBIGUOUS",
+      "confidence_score": 0.2,
+      "source_file": "Docs/UserGuide/pricing/fx_doublebarrieroption.tex",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "fx_generic_barrier_option_family",
+      "label": "FX and Generic Barrier Option Family",
+      "nodes": [
+        "docs_userguide_pricing_fx_doublebarrieroption_fx_double_barrier_option",
+        "docs_userguide_pricing_fx_doubletouchoption_fx_double_touch_option",
+        "docs_userguide_pricing_fx_europeanbarrieroption_fx_european_barrier_option",
+        "docs_userguide_pricing_fx_kikobarrieroption_fx_kiko_barrier_option",
+        "docs_userguide_pricing_fx_touchoption_fx_touch_option",
+        "docs_userguide_pricing_generic_barrieroption_generic_barrier_option"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "Docs/UserGuide/pricing/generic_barrieroption.tex"
+    },
+    {
+      "id": "inflation_capfloor_swap_family",
+      "label": "Inflation Cap/Floor and Swap Family (Year-on-Year and Zero-Coupon)",
+      "nodes": [
+        "docs_userguide_pricing_inf_yyiicapfloor_yoy_cap_floor",
+        "docs_userguide_pricing_inf_yyiis_yoy_inflation_swap",
+        "docs_userguide_pricing_inf_zciicapfloor_cpi_cap_floor",
+        "docs_userguide_pricing_inf_zciis_cpi_swap"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "Docs/UserGuide/pricing/inf_yyiis.tex"
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

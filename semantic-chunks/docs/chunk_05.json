@@ -1,0 +1,503 @@
+{
+  "nodes": [
+    {
+      "id": "docs_userguide_parameterisation_calendaradjustment_calendar_adjustment",
+      "label": "Calendar Adjustment",
+      "file_type": "document",
+      "source_file": "Docs/UserGuide/parameterisation/calendaradjustment.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Adding a date to calendaradjustment.xml when unsure whether it is already present in the base calendar is safe practice, since duplicate additions do not raise errors; new calendars derived via BaseCalendar must be prefixed CUSTOM_ to satisfy XML schema validation."
+    },
+    {
+      "id": "docs_userguide_parameterisation_collateralbalances_collateral_balances",
+      "label": "Collateral Balances",
+      "file_type": "document",
+      "source_file": "Docs/UserGuide/parameterisation/collateralbalances.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_parameterisation_conventions_conventions",
+      "label": "Conventions",
+      "file_type": "document",
+      "source_file": "Docs/UserGuide/parameterisation/conventions.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_parameterisation_counterpartyinformation_counterparty_information",
+      "label": "Counterparty Information",
+      "file_type": "document",
+      "source_file": "Docs/UserGuide/parameterisation/counterpartyinformation.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_parameterisation_curveconfig_curve_configuration",
+      "label": "Curve Configuration",
+      "file_type": "document",
+      "source_file": "Docs/UserGuide/parameterisation/curveconfig.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_parameterisation_historicalreturnconfiguration_historical_return_configuration",
+      "label": "Historical Return Configuration",
+      "file_type": "document",
+      "source_file": "Docs/UserGuide/parameterisation/historicalreturnconfiguration.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Displacement should be set to a small positive value when a risk factor can approach zero, to avoid division-by-zero or negative-value issues in relative/log return computations; falling back to built-in default return types (log for curves, relative for spots/vols, absolute for recovery rates) preserves backward compatibility when no override file is supplied."
+    },
+    {
+      "id": "docs_userguide_parameterisation_iborfallbackconfig_ibor_fallback_configuration",
+      "label": "Ibor Fallback Configuration",
+      "file_type": "document",
+      "source_file": "Docs/UserGuide/parameterisation/iborfallbackconfig.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "A custom Ibor fallback configuration is provided mainly for testing purposes; normal operation relies on the standard built-in configuration of Ibor-to-RFR replacement rules."
+    },
+    {
+      "id": "docs_userguide_parameterisation_intro_parameterisation_overview",
+      "label": "Parameterisation Overview",
+      "file_type": "document",
+      "source_file": "Docs/UserGuide/parameterisation/intro.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_parameterisation_ore_master_input_file",
+      "label": "ORE Master Input File (ore.xml)",
+      "file_type": "document",
+      "source_file": "Docs/UserGuide/parameterisation/ore.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "The 'Disable' observationModel setting goes further than 'Unregister' by disabling QuantLib observer notifications entirely during market/fixing updates and evaluation-date shifts, relying on explicit recalculation triggers instead, trading automatic dependency tracking for simulation performance; lazyMarketBuilding defers curve construction until first use to avoid building unused curves."
+    },
+    {
+      "id": "docs_userguide_parameterisation_referencedata_reference_data",
+      "label": "Reference Data",
+      "file_type": "document",
+      "source_file": "Docs/UserGuide/parameterisation/referencedata.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_parameterisation_sensitivity_sensitivity_analysis",
+      "label": "Sensitivity Analysis",
+      "file_type": "document",
+      "source_file": "Docs/UserGuide/parameterisation/sensitivity.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_parameterisation_simmcalibration_simm_calibration",
+      "label": "SIMM Calibration",
+      "file_type": "document",
+      "source_file": "Docs/UserGuide/parameterisation/simmcalibration.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Allowing SIMM versions to be added or overridden via configuration (rather than hardcoded in source) lets users adapt quickly to new ISDA SIMM releases or bespoke calibrations without recompiling."
+    },
+    {
+      "id": "docs_userguide_parameterisation_simmcalibration_isda_simm_methodology",
+      "label": "ISDA SIMM Methodology",
+      "file_type": "paper",
+      "source_file": "Docs/UserGuide/parameterisation/simmcalibration.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_parameterisation_simulation_simulation_configuration",
+      "label": "Simulation Configuration",
+      "file_type": "document",
+      "source_file": "Docs/UserGuide/parameterisation/simulation.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Exact discretization exploits the model's analytical tractability to avoid time-discretization error, while Euler discretization is simpler but introduces error and needs small time steps (TimeStepsPerYear) for accuracy, useful mainly for testing or when more sophisticated component models are used."
+    },
+    {
+      "id": "docs_userguide_parameterisation_stressconfig_stress_scenario_analysis",
+      "label": "Stress Scenario Analysis",
+      "file_type": "document",
+      "source_file": "Docs/UserGuide/parameterisation/stressconfig.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_parameterisation_todaysmarket_todays_market",
+      "label": "Today's Market",
+      "file_type": "document",
+      "source_file": "Docs/UserGuide/parameterisation/todaysmarket.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Multiple labelled market configuration blocks (e.g. 'ois', 'xois_eur') coexist because model calibration typically needs local OIS discounting while simulation/risk-neutral evolution needs cross-currency adjusted discount curves to price FX products correctly, and because collateralised vs uncollateralised trades require different discounting curves."
+    },
+    {
+      "id": "docs_userguide_parameterisation_simulation_cross_asset_model",
+      "label": "Cross Asset Model (CAM)",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/parameterisation/simulation.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "docs_userguide_parameterisation_ore_master_input_file",
+      "target": "docs_userguide_parameterisation_calendaradjustment_calendar_adjustment",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/ore.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_parameterisation_ore_master_input_file",
+      "target": "docs_userguide_parameterisation_conventions_conventions",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/ore.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_parameterisation_ore_master_input_file",
+      "target": "docs_userguide_parameterisation_curveconfig_curve_configuration",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/ore.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_parameterisation_ore_master_input_file",
+      "target": "docs_userguide_parameterisation_referencedata_reference_data",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/ore.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_parameterisation_ore_master_input_file",
+      "target": "docs_userguide_parameterisation_iborfallbackconfig_ibor_fallback_configuration",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/ore.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_parameterisation_ore_master_input_file",
+      "target": "docs_userguide_parameterisation_todaysmarket_todays_market",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/ore.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_parameterisation_ore_master_input_file",
+      "target": "docs_userguide_parameterisation_counterpartyinformation_counterparty_information",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/ore.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_parameterisation_ore_master_input_file",
+      "target": "docs_userguide_parameterisation_simulation_simulation_configuration",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/ore.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_parameterisation_ore_master_input_file",
+      "target": "docs_userguide_parameterisation_sensitivity_sensitivity_analysis",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/ore.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_parameterisation_ore_master_input_file",
+      "target": "docs_userguide_parameterisation_stressconfig_stress_scenario_analysis",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/ore.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_parameterisation_ore_master_input_file",
+      "target": "docs_userguide_parameterisation_collateralbalances_collateral_balances",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/ore.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_parameterisation_historicalreturnconfiguration_historical_return_configuration",
+      "target": "docs_userguide_parameterisation_ore_master_input_file",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/historicalreturnconfiguration.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_parameterisation_simmcalibration_simm_calibration",
+      "target": "docs_userguide_parameterisation_ore_master_input_file",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/simmcalibration.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_parameterisation_intro_parameterisation_overview",
+      "target": "docs_userguide_parameterisation_ore_master_input_file",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/intro.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_parameterisation_todaysmarket_todays_market",
+      "target": "docs_userguide_parameterisation_curveconfig_curve_configuration",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/todaysmarket.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_parameterisation_referencedata_reference_data",
+      "target": "docs_userguide_parameterisation_curveconfig_curve_configuration",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/referencedata.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_parameterisation_stressconfig_stress_scenario_analysis",
+      "target": "docs_userguide_parameterisation_sensitivity_sensitivity_analysis",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/stressconfig.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_parameterisation_curveconfig_curve_configuration",
+      "target": "docs_userguide_parameterisation_conventions_conventions",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/curveconfig.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_parameterisation_sensitivity_sensitivity_analysis",
+      "target": "docs_userguide_parameterisation_conventions_conventions",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "Docs/UserGuide/parameterisation/sensitivity.tex",
+      "source_location": null,
+      "weight": 0.85
+    },
+    {
+      "source": "docs_userguide_parameterisation_iborfallbackconfig_ibor_fallback_configuration",
+      "target": "docs_userguide_parameterisation_todaysmarket_todays_market",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/iborfallbackconfig.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_parameterisation_iborfallbackconfig_ibor_fallback_configuration",
+      "target": "docs_userguide_parameterisation_simulation_simulation_configuration",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/iborfallbackconfig.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_parameterisation_simulation_simulation_configuration",
+      "target": "docs_userguide_parameterisation_curveconfig_curve_configuration",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "Docs/UserGuide/parameterisation/simulation.tex",
+      "source_location": null,
+      "weight": 0.85
+    },
+    {
+      "source": "docs_userguide_parameterisation_simmcalibration_simm_calibration",
+      "target": "docs_userguide_parameterisation_simmcalibration_isda_simm_methodology",
+      "relation": "cites",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/simmcalibration.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_parameterisation_simulation_cross_asset_model",
+      "target": "docs_userguide_parameterisation_simulation_simulation_configuration",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/simulation.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_parameterisation_simulation_cross_asset_model",
+      "target": "docs_userguide_parameterisation_ore_master_input_file",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/ore.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_parameterisation_collateralbalances_collateral_balances",
+      "target": "docs_userguide_parameterisation_counterpartyinformation_counterparty_information",
+      "relation": "conceptually_related_to",
+      "confidence": "AMBIGUOUS",
+      "confidence_score": 0.2,
+      "source_file": "Docs/UserGuide/parameterisation/collateralbalances.tex",
+      "source_location": null,
+      "weight": 0.2
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "sensitivity_stress_analytic_pattern",
+      "label": "SensitivityStress Analytic Combining Sensitivity and Stress Frameworks",
+      "nodes": [
+        "docs_userguide_parameterisation_ore_master_input_file",
+        "docs_userguide_parameterisation_sensitivity_sensitivity_analysis",
+        "docs_userguide_parameterisation_stressconfig_stress_scenario_analysis"
+      ],
+      "relation": "form",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/ore.tex"
+    },
+    {
+      "id": "todays_market_construction_pattern",
+      "label": "T0 Market Construction from Curve Configuration and Conventions",
+      "nodes": [
+        "docs_userguide_parameterisation_ore_master_input_file",
+        "docs_userguide_parameterisation_curveconfig_curve_configuration",
+        "docs_userguide_parameterisation_todaysmarket_todays_market"
+      ],
+      "relation": "participate_in",
+      "confidence": "EXTRACTED",
+      "confidence_score": 0.95,
+      "source_file": "Docs/UserGuide/parameterisation/todaysmarket.tex"
+    },
+    {
+      "id": "ibor_fallback_market_curve_pattern",
+      "label": "Ibor Fallback Applied to Both Today's Market and Simulation Market Curves",
+      "nodes": [
+        "docs_userguide_parameterisation_iborfallbackconfig_ibor_fallback_configuration",
+        "docs_userguide_parameterisation_todaysmarket_todays_market",
+        "docs_userguide_parameterisation_simulation_simulation_configuration"
+      ],
+      "relation": "participate_in",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/parameterisation/iborfallbackconfig.tex"
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

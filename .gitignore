@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+oregraph.toml
+graphify-out/
+.graphify_*
+*.egg-info/
+.venv/

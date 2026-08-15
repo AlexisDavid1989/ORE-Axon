@@ -1,0 +1,7 @@
+#!/bin/sh
+# Rebuild the ORE graph after `git pull`.
+# Install:  cp hooks/post-merge <Engine>/.git/hooks/post-merge && chmod +x $_
+#
+# graphify caches AST extraction per file, so an ordinary pull rebuilds in
+# seconds. Runs in the background so it never blocks the pull.
+python -m oregraph build >/dev/null 2>&1 &

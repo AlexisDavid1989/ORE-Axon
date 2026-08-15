@@ -1,0 +1,13 @@
+# Copy to oregraph.toml and edit. Every value can also be set by environment
+# variable, which takes precedence: ORE_ENGINE, ORE_GRAPH_OUT.
+#
+# If you run oregraph from inside your ORE checkout, `engine` is autodetected
+# and this file is optional.
+
+[paths]
+# Your ORE Engine checkout.
+# engine = "C:/Users/you/repos/Engine"
+
+# Where graph artifacts are written. Defaults to an OS cache dir.
+# Keep this OUT of OneDrive/Dropbox - a build writes hundreds of MB.
+# out = "C:/GraphifyOut/ORE"

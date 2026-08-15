@@ -1,0 +1,652 @@
+{
+  "nodes": [
+    {
+      "id": "docs_userguide_pricing_ir_capfloor_cap_floor",
+      "label": "IR Cap/Floor",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/ir_capfloor.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced with the Black model (log-normal/shifted log-normal) or Bachelier model (normal) because caps/floors are option-like instruments on forward rates; backward-looking RFR caplets require a Forward Market Model with a volatility scaling function g(t) since the rate is only fully realized at the end of the accrual period, and proxy vol surfaces are used when no direct market quotes exist for an underlying index."
+    },
+    {
+      "id": "docs_userguide_pricing_ir_ccs_cross_currency_swap",
+      "label": "Cross Currency Swap",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/ir_ccs.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced via a multi-currency discounted-cashflow framework (per-currency discount and forwarding curves) because XCCY swaps span two currencies; rebalancing (FX-reset) notionals are computed from FX forward rates under an assumption of zero interest-rate/FX correlation, with non-zero correlation otherwise requiring a convexity adjustment."
+    },
+    {
+      "id": "docs_userguide_pricing_ir_cmb_cmb_swap",
+      "label": "CMB Swap",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/ir_cmb.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced by simple projection of a forward-starting bond yield from bond-family reference data and its associated yield curve; unlike CMS index projections, no convexity adjustment is currently applied to projected CMB indices."
+    },
+    {
+      "id": "docs_userguide_pricing_ir_cms_cms_swap_cap_floor",
+      "label": "CMS Swap / CMS Cap-Floor",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/ir_cms.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced with a replication approach (Linear Terminal Swap Rate model) because CMS-linked cashflows require replicating the payoff against a continuum of quoted market swaption strikes to capture the swap-rate convexity adjustment under the annuity measure; supports normal, log-normal and shifted log-normal volatilities."
+    },
+    {
+      "id": "docs_userguide_pricing_ir_cmsspreadoption_cms_spread_option",
+      "label": "CMS Spread Option / Capped-Floored CMS Spread",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/ir_cmsspreadoption.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced with the bivariate BrigoMercurio swap-rate model because the CMS-spread payoff depends on the joint distribution of two correlated swap rates, requiring an explicit instantaneous correlation parameter; supports (shifted) log-normal and normal dynamics."
+    },
+    {
+      "id": "docs_userguide_pricing_ir_digital_digital_cap_floor",
+      "label": "Digital Cap/Floor",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/ir_digital.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Can be priced analytically via the Rubinstein-Reiner cash-or-nothing formula under Black-Scholes, or alternatively approximated as a vanilla cap/floor spread (strikes K-epsilon/K+epsilon) when better reflecting the volatility smile is a priority, trading exactness of the digital payoff for smile consistency."
+    },
+    {
+      "id": "docs_userguide_pricing_ir_digitalcms_digital_cms_option",
+      "label": "Digital CMS Option",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/ir_digitalcms.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Uses the same Linear Terminal Swap Rate model as the underlying CMS swap for consistency, with the digital coupon payoff replicated via call/put option spreads since a discontinuous digital payoff is not directly representable in the terminal swap rate replication integral."
+    },
+    {
+      "id": "docs_userguide_pricing_ir_digitalcmsspreadoption_digital_cms_spread_option",
+      "label": "Digital CMS Spread Option",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/ir_digitalcmsspreadoption.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Uses the bivariate BrigoMercurio swap-rate model consistent with the underlying CMS spread option, with the digital payoff replicated via call/put option spreads for the same reason as digital CMS options."
+    },
+    {
+      "id": "docs_userguide_pricing_ir_euroswaption_european_swaption",
+      "label": "European Swaption",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/ir_euroswaption.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced with closed-form Black (log-normal/shifted log-normal) or Bachelier (normal) formulas for efficiency and full smile/cube coverage; falls back to the numerical Bermudan-swaption pricing engines when the underlying has features the analytic Black pricer cannot support, e.g. embedded caps/floors."
+    },
+    {
+      "id": "docs_userguide_pricing_ir_flexiswap_flexi_swap",
+      "label": "Flexi Swap",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/ir_flexiswap.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced via Jamshidian's replication approach, decomposing the flexible-notional swap into a basket of Bermudan swaptions and reusing the existing Bermudan-swaption pricing engine configuration rather than building a bespoke numerical engine."
+    },
+    {
+      "id": "docs_userguide_pricing_ir_formulacouponirs_formula_based_coupon_irs",
+      "label": "IRS with Formula-Based Coupon",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/ir_formulacouponirs.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced via Monte Carlo simulation of correlated (shifted) log-normal or normal rate dynamics because the coupon is an arbitrary function of multiple IBOR/CMS rates for which no closed-form expectation generally exists; convexity adjustments driving the drifts can optionally be sourced from a full-smile TSR model for closer market consistency, at the cost of introducing a formal model inconsistency."
+    },
+    {
+      "id": "docs_userguide_pricing_ir_fra_forward_rate_agreement",
+      "label": "Forward Rate Agreement",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/ir_fra.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced by discounting the difference between the contractual fixed rate and the projected forward IBOR rate to the payment time; the market convention of settling at the start of the period is treated as immaterial to valuation."
+    },
+    {
+      "id": "docs_userguide_pricing_ir_irs_interest_rate_swap",
+      "label": "Interest Rate Swap",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/ir_irs.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced by discounted-cashflow decomposition of fixed and floating legs, with floating-leg forward rates derived from a forwarding curve that is generally distinct from the discount curve, reflecting standard multi-curve market practice."
+    },
+    {
+      "id": "docs_userguide_pricing_ir_ois_overnight_index_swap",
+      "label": "Overnight Index Swap",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/ir_ois.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Uses flat compounding of daily overnight fixings (spread does not compound); when the valuation date falls mid-accrual, known historical fixings are combined with curve-based projection (or Takada's approximation for the US arithmetic-average OIS convention) to compute accrued interest to date."
+    },
+    {
+      "id": "docs_userguide_pricing_ir_zero_zero_coupon_swap",
+      "label": "Zero Coupon Swap",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/ir_zero.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Compounds interest at the swap's own tenor and pays only at maturity, supporting both straight and flat compounding conventions so that the spread's compounding behaviour matches observed market practice."
+    },
+    {
+      "id": "docs_userguide_pricing_knockoutswap_knock_out_swap",
+      "label": "Knock Out Swap",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/knockoutswap.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced in a Hull-White one-factor model calibrated to ATM coterminal swaptions because the knock-out feature is path/state dependent and requires a dynamic term-structure model rather than a static replication or closed-form approach."
+    },
+    {
+      "id": "docs_userguide_pricing_liborfallback_libor_fallback",
+      "label": "LIBOR Fallback",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/liborfallback.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "After an index cessation date, fixings switch from historical Libor to a computed fallback rate (fallback overnight index plus a fixed spread, with a 2-business-day lookback) so coupons can continue to be processed without changing the trade's Ibor leg representation; for non-standard instruments (caps/floors, swaptions, in-arrears swaps, exotics) amending the trade to reference the fallback index directly is recommended to avoid approximation error, since leaving the representation unchanged prices the payoff as if known at the old Libor fixing date rather than at period end."
+    },
+    {
+      "id": "docs_userguide_pricing_methods_methods_overview",
+      "label": "Pricing Methods Overview",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/methods.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Provides a single table mapping each asset class / product type to its pricing model and calibration approach, serving as an index into the detailed per-instrument methodology sections rather than duplicating model detail per instrument."
+    },
+    {
+      "id": "docs_userguide_pricing_models_models_overview",
+      "label": "Pricing Models Overview",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/models.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Centralizes the mathematical pricing models (Bachelier, Black/shifted Black, Linear Terminal Swap Rate, bivariate BrigoMercurio, one-factor Linear Gauss Markov, Barone-Adesi-Whaley) shared across many instrument types, including documented model limitations, e.g. LGM's single-factor dynamics make it unsuitable for multi-rate/curve-shape-sensitive products like CMS spread options, and its volatility smile cannot be calibrated without local/stochastic volatility extensions."
+    },
+    {
+      "id": "docs_userguide_pricing_performanceoption_01_performance_option_type_01",
+      "label": "Performance Option Type 01",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/performanceoption_01.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced using correlated Black-Scholes processes per underlying, each calibrated to the underlying's quoted ATM volatility with externally supplied correlations, valued via Monte Carlo simulation because the payoff depends on the joint performance of multiple underlyings for which no simple closed form exists."
+    }
+  ],
+  "edges": [
+    {
+      "source": "docs_userguide_pricing_ir_capfloor_cap_floor",
+      "target": "docs_userguide_pricing_models_models_overview",
+      "relation": "cites",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/ir_capfloor.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ir_ccs_cross_currency_swap",
+      "target": "docs_userguide_pricing_ir_capfloor_cap_floor",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/ir_ccs.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ir_cmb_cmb_swap",
+      "target": "docs_userguide_pricing_ir_cms_cms_swap_cap_floor",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/ir_cmb.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ir_cms_cms_swap_cap_floor",
+      "target": "docs_userguide_pricing_models_models_overview",
+      "relation": "cites",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/ir_cms.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ir_cmsspreadoption_cms_spread_option",
+      "target": "docs_userguide_pricing_models_models_overview",
+      "relation": "cites",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/ir_cmsspreadoption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ir_digital_digital_cap_floor",
+      "target": "docs_userguide_pricing_ir_capfloor_cap_floor",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/ir_digital.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ir_digitalcms_digital_cms_option",
+      "target": "docs_userguide_pricing_ir_cms_cms_swap_cap_floor",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/ir_digitalcms.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ir_digitalcms_digital_cms_option",
+      "target": "docs_userguide_pricing_models_models_overview",
+      "relation": "cites",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/ir_digitalcms.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ir_digitalcmsspreadoption_digital_cms_spread_option",
+      "target": "docs_userguide_pricing_ir_cmsspreadoption_cms_spread_option",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/ir_digitalcmsspreadoption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ir_digitalcmsspreadoption_digital_cms_spread_option",
+      "target": "docs_userguide_pricing_models_models_overview",
+      "relation": "cites",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/ir_digitalcmsspreadoption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ir_euroswaption_european_swaption",
+      "target": "docs_userguide_pricing_models_models_overview",
+      "relation": "cites",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/ir_euroswaption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ir_euroswaption_european_swaption",
+      "target": "docs_userguide_pricing_ir_bermswaption_bermudan_swaption",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/ir_euroswaption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ir_flexiswap_flexi_swap",
+      "target": "docs_userguide_pricing_ir_bermswaption_bermudan_swaption",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/ir_flexiswap.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ir_flexiswap_flexi_swap",
+      "target": "docs_userguide_pricing_models_models_overview",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "Docs/UserGuide/pricing/methods.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ir_formulacouponirs_formula_based_coupon_irs",
+      "target": "docs_userguide_pricing_models_models_overview",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/ir_formulacouponirs.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ir_formulacouponirs_formula_based_coupon_irs",
+      "target": "docs_userguide_pricing_ir_cms_cms_swap_cap_floor",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "Docs/UserGuide/pricing/ir_formulacouponirs.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ir_fra_forward_rate_agreement",
+      "target": "docs_userguide_pricing_ir_irs_interest_rate_swap",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "Docs/UserGuide/pricing/methods.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ir_ois_overnight_index_swap",
+      "target": "docs_userguide_pricing_ir_irs_interest_rate_swap",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "Docs/UserGuide/pricing/methods.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ir_zero_zero_coupon_swap",
+      "target": "docs_userguide_pricing_ir_irs_interest_rate_swap",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "Docs/UserGuide/pricing/methods.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_ir_zero_zero_coupon_swap",
+      "target": "docs_userguide_pricing_ir_ois_overnight_index_swap",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.55,
+      "source_file": "Docs/UserGuide/pricing/ir_zero.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_knockoutswap_knock_out_swap",
+      "target": "docs_userguide_pricing_models_models_overview",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "Docs/UserGuide/pricing/knockoutswap.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_liborfallback_libor_fallback",
+      "target": "docs_userguide_pricing_ir_capfloor_cap_floor",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/liborfallback.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_liborfallback_libor_fallback",
+      "target": "docs_userguide_pricing_ir_irs_interest_rate_swap",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "Docs/UserGuide/pricing/liborfallback.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_liborfallback_libor_fallback",
+      "target": "docs_userguide_pricing_ir_euroswaption_european_swaption",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "Docs/UserGuide/pricing/liborfallback.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_methods_methods_overview",
+      "target": "docs_userguide_pricing_ir_irs_interest_rate_swap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/methods.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_methods_methods_overview",
+      "target": "docs_userguide_pricing_ir_fra_forward_rate_agreement",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/methods.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_methods_methods_overview",
+      "target": "docs_userguide_pricing_ir_ccs_cross_currency_swap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/methods.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_methods_methods_overview",
+      "target": "docs_userguide_pricing_ir_ois_overnight_index_swap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/methods.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_methods_methods_overview",
+      "target": "docs_userguide_pricing_ir_zero_zero_coupon_swap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/methods.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_methods_methods_overview",
+      "target": "docs_userguide_pricing_ir_cms_cms_swap_cap_floor",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/methods.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_methods_methods_overview",
+      "target": "docs_userguide_pricing_ir_capfloor_cap_floor",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/methods.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_methods_methods_overview",
+      "target": "docs_userguide_pricing_ir_euroswaption_european_swaption",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/methods.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_methods_methods_overview",
+      "target": "docs_userguide_pricing_ir_flexiswap_flexi_swap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/methods.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_methods_methods_overview",
+      "target": "docs_userguide_pricing_ir_formulacouponirs_formula_based_coupon_irs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/methods.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_methods_methods_overview",
+      "target": "docs_userguide_pricing_models_models_overview",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/methods.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_methods_methods_overview",
+      "target": "docs_userguide_pricing_ir_bermswaption_bermudan_swaption",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/methods.tex",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "discounted_cashflow_ir_swap_family",
+      "label": "Discounted-Cashflow IR Swap Family",
+      "nodes": [
+        "docs_userguide_pricing_ir_irs_interest_rate_swap",
+        "docs_userguide_pricing_ir_fra_forward_rate_agreement",
+        "docs_userguide_pricing_ir_ccs_cross_currency_swap",
+        "docs_userguide_pricing_ir_ois_overnight_index_swap",
+        "docs_userguide_pricing_ir_zero_zero_coupon_swap"
+      ],
+      "relation": "form",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "Docs/UserGuide/pricing/methods.tex"
+    },
+    {
+      "id": "cms_linked_replication_family",
+      "label": "CMS-Linked Replication-Priced Instruments",
+      "nodes": [
+        "docs_userguide_pricing_ir_cms_cms_swap_cap_floor",
+        "docs_userguide_pricing_ir_cmsspreadoption_cms_spread_option",
+        "docs_userguide_pricing_ir_digitalcms_digital_cms_option",
+        "docs_userguide_pricing_ir_digitalcmsspreadoption_digital_cms_spread_option"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "Docs/UserGuide/pricing/models.tex"
+    },
+    {
+      "id": "digital_payoff_replication_family",
+      "label": "Digital Payoff Replication Family",
+      "nodes": [
+        "docs_userguide_pricing_ir_digital_digital_cap_floor",
+        "docs_userguide_pricing_ir_digitalcms_digital_cms_option",
+        "docs_userguide_pricing_ir_digitalcmsspreadoption_digital_cms_spread_option"
+      ],
+      "relation": "form",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "Docs/UserGuide/pricing/ir_digital.tex"
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

@@ -1,0 +1,387 @@
+{
+  "nodes": [
+    {
+      "id": "docs_userguide_pricing_pricingengines_overview",
+      "label": "Pricing Engine Configuration Overview",
+      "file_type": "document",
+      "source_file": "Docs/UserGuide/pricing/pricingengines.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_pricing_pricingengines_scriptedtrade_engine",
+      "label": "ScriptedTrade/ScriptedTrade Pricing Engine (Product Type: ScriptedTrade)",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/pricingengines.tex",
+      "source_location": "Product Type: ScriptedTrade",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_pricing_pricingengines_equityvarianceswap",
+      "label": "EquityVarianceSwap/CommodityVarianceSwap/FxVarianceSwap Replicating Engine",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/pricingengines.tex",
+      "source_location": "Product Type: EquityVarianceSwap, CommodityVarianceSwap, FxVarianceSwap",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_pricing_pricingengines_bondtrs",
+      "label": "BondTRS Discounting Engine (Product Type: BondTRS)",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/pricingengines.tex",
+      "source_location": "Product Type: BondTRS",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_pricing_rainbow_option_rainbow_option",
+      "label": "Rainbow Option",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/rainbow_option.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced via correlated Black-Scholes processes for the underlyings calibrated to quoted market ATM volatility, valued by Monte Carlo simulation, because the payoff (call/put on max or min of a range of assets) depends jointly on multiple correlated underlyings and has no simple closed form; classified as MultiAssetOption in the scripted trade framework."
+    },
+    {
+      "id": "docs_userguide_pricing_scriptedtrades_scriptedtrades",
+      "label": "Scripted Trade Pricing Model Framework",
+      "file_type": "document",
+      "source_file": "Docs/UserGuide/pricing/scriptedtrades.tex",
+      "source_location": "Pricing Model Details for Scripted Trades",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_pricing_scriptedtrades_blackscholes_mc",
+      "label": "BlackScholes/MC Model-Engine Pair",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/scriptedtrades.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "A single or multivariate Black-Scholes process is used for SingleAssetOption/MultiAssetOption classifications; the process is evolved using exact moments (allowing large time steps) when uncorrelated, or via Sobol low-discrepancy sequences with Brownian Bridge interpolation when a multivariate process has non-zero correlations, with each component's volatility term structure taken at the ATMF strike."
+    },
+    {
+      "id": "docs_userguide_pricing_scriptedtrades_gaussiancam_mc",
+      "label": "GaussianCam/MC Model-Engine Pair",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/scriptedtrades.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "IR components are represented by LGM1F models (calibrated to ATM coterminal swaptions), FX/EQ/COMM components by Black-Scholes processes with a stochastic drift term (calibrated to ATMF options), and the inflation component by a Dodgson-Kainth model (calibrated to coterminal inflation caps/floors), coupled by time-constant instantaneous correlation, chosen so IR-sensitive exotics (SingleUnderlyingIrOption/MultiUnderlyingIrOption/IrHybrid classifications) can be evolved with exact moments and large time steps."
+    },
+    {
+      "id": "docs_userguide_pricing_strikeresettableoption_strike_resettable_option",
+      "label": "Strike Resettable Option",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/strikeresettableoption.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_userguide_pricing_tarf_tarf",
+      "label": "Target Redemption Forward (TaRF)",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/tarf.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "An EQ/FX/Comm TaRF is priced using a Black-Scholes process for the underlying calibrated to its quoted market ATM volatility, valued by Monte Carlo simulation, because the target-redemption/accumulation feature requires path-dependent simulation; classified as SingleAssetOption."
+    },
+    {
+      "id": "docs_userguide_pricing_totalreturnswap_total_return_swap",
+      "label": "Generic Total Return Swap / Contract for Difference (CFD)",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/totalReturnSwap.tex",
+      "source_location": "Rationale for the accrual method; Limitation of the accrual method",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced using the accrual method (return leg NPV = change in underlying price plus paid cashflows since the last reset, converted via FX where needed; funding leg NPV = accrued interest of the current coupon period) rather than a full discounting valuation, because a TRS typically carries a daily unwind right and, even ignoring that right, the accrual method is shown algebraically to be equivalent to no-arbitrage valuation for the current return period under a deterministic short-rate assumption. Key limitations: it assumes the TRS can be closed out immediately at no cost (no make-whole fees, no hedge/repo/cross-currency unwind costs), whereas real early termination is expensive and rarely exercised; it assumes no gap or wrong-way risk even though TRS are commonly heavily overcollateralized (30%+ haircuts) precisely because wrong-way risk is material, so the model ignores meaningful counterparty risk; it assumes a theoretical repo discounting curve consistent with par funding, whereas real TRS are collateralized under ISDA at RFR/OIS rates that differ from asset-specific repo curves; it assumes continuous dividends (no discrete dividend dates) for equity underlyings, no ex-coupon dates for bonds, no early termination triggers besides bond default, non-callable underlyings for fixed-income TRS, and unrestricted settlement (no capital-control modelling for emerging-market TRS)."
+    },
+    {
+      "id": "docs_userguide_pricing_var_and_vol_derivatives_exotic_variance_volatility_derivatives",
+      "label": "Exotic Variance and Volatility Derivatives",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/var_and_vol_derivatives.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Exotic variance/volatility swaps and options (including pairwise and basket variants) are priced using a Black-Scholes process for the underlying(s) calibrated to quoted market ATM volatility, valued via Monte Carlo simulation, because their exotic payoff structures cannot be captured by the closed-form replication formula used for vanilla variance swaps; classified as SingleAssetOption (or MultiAssetOption for pairwise/basket variants)."
+    },
+    {
+      "id": "docs_userguide_pricing_window_barrieroption_window_barrier_option",
+      "label": "Window Barrier Option",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/window_barrieroption.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "EQ/FX/COMM window barrier options are priced using a Black-Scholes process for the underlying calibrated to the option strike (rather than ATM vol) and valued via Monte Carlo simulation, in order to capture the barrier-monitoring window feature; classified as SingleAssetOption."
+    },
+    {
+      "id": "docs_userguide_pricing_worstofbasketswap_worst_of_basket_swap",
+      "label": "Worst Of Basket Swap",
+      "file_type": "concept",
+      "source_file": "Docs/UserGuide/pricing/worstofbasketswap.tex",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Priced in a Hull White model calibrated to ATM coterminal swaptions, valued via Monte Carlo simulation, because the final equity amount depends on identifying the worst-performing asset in a basket at the final valuation date (with FX conversion into the payoff currency), requiring joint simulation of underlyings and IR curves; classified as MultiUnderlyingIrOption if the basket is all-InterestRate, otherwise IrHybrid."
+    }
+  ],
+  "edges": [
+    {
+      "source": "docs_userguide_pricing_rainbow_option_rainbow_option",
+      "target": "docs_userguide_pricing_scriptedtrades_scriptedtrades",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/rainbow_option.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_tarf_tarf",
+      "target": "docs_userguide_pricing_scriptedtrades_scriptedtrades",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/tarf.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_var_and_vol_derivatives_exotic_variance_volatility_derivatives",
+      "target": "docs_userguide_pricing_scriptedtrades_scriptedtrades",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/var_and_vol_derivatives.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_window_barrieroption_window_barrier_option",
+      "target": "docs_userguide_pricing_scriptedtrades_scriptedtrades",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/window_barrieroption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_worstofbasketswap_worst_of_basket_swap",
+      "target": "docs_userguide_pricing_scriptedtrades_scriptedtrades",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/worstofbasketswap.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_strikeresettableoption_strike_resettable_option",
+      "target": "docs_userguide_pricing_scriptedtrades_scriptedtrades",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "Docs/UserGuide/pricing/strikeresettableoption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_rainbow_option_rainbow_option",
+      "target": "docs_userguide_pricing_scriptedtrades_blackscholes_mc",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "Docs/UserGuide/pricing/scriptedtrades.tex",
+      "source_location": "Scripted Trade Pricing Parameters table: MultiAssetOption -> BlackScholes/MC",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_tarf_tarf",
+      "target": "docs_userguide_pricing_scriptedtrades_blackscholes_mc",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "Docs/UserGuide/pricing/scriptedtrades.tex",
+      "source_location": "Scripted Trade Pricing Parameters table: SingleAssetOption -> BlackScholes/MC",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_window_barrieroption_window_barrier_option",
+      "target": "docs_userguide_pricing_scriptedtrades_blackscholes_mc",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "Docs/UserGuide/pricing/scriptedtrades.tex",
+      "source_location": "Scripted Trade Pricing Parameters table: SingleAssetOption -> BlackScholes/MC",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_var_and_vol_derivatives_exotic_variance_volatility_derivatives",
+      "target": "docs_userguide_pricing_scriptedtrades_blackscholes_mc",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "Docs/UserGuide/pricing/scriptedtrades.tex",
+      "source_location": "Scripted Trade Pricing Parameters table: SingleAssetOption/MultiAssetOption -> BlackScholes/MC",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_strikeresettableoption_strike_resettable_option",
+      "target": "docs_userguide_pricing_scriptedtrades_blackscholes_mc",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "Docs/UserGuide/pricing/strikeresettableoption.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_worstofbasketswap_worst_of_basket_swap",
+      "target": "docs_userguide_pricing_scriptedtrades_gaussiancam_mc",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "Docs/UserGuide/pricing/scriptedtrades.tex",
+      "source_location": "Scripted Trade Pricing Parameters table: MultiUnderlyingIrOption/IrHybrid -> GaussianCam/MC",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_scriptedtrades_scriptedtrades",
+      "target": "docs_userguide_pricing_scriptedtrades_blackscholes_mc",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/scriptedtrades.tex",
+      "source_location": "Pricing Model Details for Scripted Trades",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_scriptedtrades_scriptedtrades",
+      "target": "docs_userguide_pricing_scriptedtrades_gaussiancam_mc",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/scriptedtrades.tex",
+      "source_location": "Pricing Model Details for Scripted Trades",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_pricingengines_scriptedtrade_engine",
+      "target": "docs_userguide_pricing_scriptedtrades_scriptedtrades",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/pricingengines.tex",
+      "source_location": "Product Type: ScriptedTrade, Engine description",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_pricingengines_overview",
+      "target": "docs_userguide_pricing_pricingengines_scriptedtrade_engine",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/pricingengines.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_pricingengines_overview",
+      "target": "docs_userguide_pricing_pricingengines_equityvarianceswap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/pricingengines.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_pricingengines_overview",
+      "target": "docs_userguide_pricing_pricingengines_bondtrs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Docs/UserGuide/pricing/pricingengines.tex",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_pricingengines_bondtrs",
+      "target": "docs_userguide_pricing_totalreturnswap_total_return_swap",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "Docs/UserGuide/pricing/totalReturnSwap.tex",
+      "source_location": "Limitation of the accrual method: \"the underlying is assumed to be non-callable for fixed income TRS\"",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_userguide_pricing_pricingengines_equityvarianceswap",
+      "target": "docs_userguide_pricing_var_and_vol_derivatives_exotic_variance_volatility_derivatives",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "Docs/UserGuide/pricing/pricingengines.tex",
+      "source_location": "Product Type: EquityVarianceSwap, CommodityVarianceSwap, FxVarianceSwap",
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "scriptedtrade_blackscholes_mc_exotics_group",
+      "label": "Scripted-Trade Black-Scholes/MC Priced Exotic Instruments",
+      "nodes": [
+        "docs_userguide_pricing_rainbow_option_rainbow_option",
+        "docs_userguide_pricing_tarf_tarf",
+        "docs_userguide_pricing_window_barrieroption_window_barrier_option",
+        "docs_userguide_pricing_var_and_vol_derivatives_exotic_variance_volatility_derivatives",
+        "docs_userguide_pricing_strikeresettableoption_strike_resettable_option"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "Docs/UserGuide/pricing/scriptedtrades.tex"
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}
