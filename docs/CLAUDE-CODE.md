@@ -103,27 +103,37 @@ How many names would move, and how many are ambiguous?
 
 ### 2b. Relabel properly
 
-The proposal is token matching and collapses names that share vocabulary — don't
-just accept it. This redoes the mapping from actual community contents:
+First build the naming brief — this is what makes the job tractable:
 
-```
-Read %ORE_GRAPH_OUT%\OREAnalytics\graphify-out\.graphify_analysis.json — it maps
-community id to member node ids.
-
-For the 40 largest communities, read the member node ids and write a 2-5 word
-plain-language name for what that group of code does. The names currently in
-labels/OREAnalytics.json are good descriptions of ORE but attached to the wrong
-ids — reuse the wording where it fits a community, write new where nothing fits.
-
-Use subagents to examine communities in parallel — this is a lot of reading.
-
-Write the result to labels/OREAnalytics.json as {"<id>": "<name>"} sorted by id.
-Then show me the 10 largest communities with your chosen name and 5 sample
-member ids each so I can check them.
+```bash
+python -m oregraph relabel --digest
 ```
 
-Check that sample. Node ids contain source paths, so "SIMM CRIF record
-definitions" should sit on members with `simm` and `crif` in their ids.
+For each chunk that writes `RELABEL_BRIEF.md` into its output directory: every
+large community reduced to the source files it covers and its most connected
+symbols. About 5 KB per chunk instead of the ~1 MB analysis file, and far
+easier to name from, because what identifies a community is which files it
+spans — which the raw node ids bury.
+
+Then, one chunk at a time:
+
+```
+Read %ORE_GRAPH_OUT%\<CHUNK>\graphify-out\RELABEL_BRIEF.md.
+
+For each community listed, write a 2-5 word plain-language name for what that
+group of code does. The names in labels/<CHUNK>.json are good descriptions of
+ORE but attached to the wrong ids — reuse the wording where it fits a community
+and write new where nothing fits.
+
+Dispatch subagents in parallel, each taking a slice of the communities.
+
+Write the result to labels/<CHUNK>.json as {"<id>": "<name>"} sorted by id.
+Then re-run the label audit for this chunk and show me the match/MISMATCH
+counts. Do not run --write-anchors until the audit is clean.
+```
+
+The audit is the acceptance gate: it compares each name against the contents of
+the community it is attached to. Clean audit, then pin.
 
 ### 2c. Pin it
 

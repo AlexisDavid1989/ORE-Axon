@@ -155,8 +155,23 @@ def cmd_semantic(args):
 
 
 def cmd_relabel(args):
-    from .relabel import propose, format_proposal, write_anchors
+    from .relabel import propose, format_proposal, write_anchors, digest
     cfg = _cfg(args)
+    if args.digest:
+        targets = args.only or [c.name for c in ALL_CHUNKS
+                                if cfg.module_graph(c.name).exists()]
+        for name in targets:
+            gp = cfg.module_graph(name)
+            if not gp.exists():
+                print(f"{name}: not built - skipping")
+                continue
+            stats = digest(gp, cfg.module_out(name) / "RELABEL_BRIEF.md",
+                           top=args.top)
+            print(f"{name}: {stats['communities_briefed']}/"
+                  f"{stats['communities_total']} communities -> "
+                  f"{stats['path']} ({stats['bytes']:,} bytes)")
+        return
+
     targets = args.only or [c.name for c in ALL_CHUNKS if cfg.labels_for(c.name)]
 
     for name in targets:
@@ -234,6 +249,11 @@ def main(argv=None):
     p.add_argument("--write-anchors", action="store_true",
                    help="pin the current mapping as anchors (do this only after "
                         "confirming the labels are correct)")
+    p.add_argument("--digest", action="store_true",
+                   help="write a compact naming brief per chunk (files and key "
+                        "symbols per community) instead of proposing a mapping")
+    p.add_argument("--top", type=int, default=40,
+                   help="communities to include in --digest (default 40)")
     p.set_defaults(func=cmd_relabel)
 
     p = sub.add_parser("verify", help="sanity-check the built graph")

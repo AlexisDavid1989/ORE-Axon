@@ -99,6 +99,61 @@ def propose(analysis_path: Path, labels_path: Path) -> dict:
     return out
 
 
+def digest(graph_path: Path, out_path: Path, top: int = 40,
+           files_per: int = 10, symbols_per: int = 12) -> dict:
+    """Write a compact, readable brief for naming a chunk's communities.
+
+    Naming communities means looking at what is in them, and the raw material
+    for that — `.graphify_analysis.json` — is up to a megabyte of mangled node
+    ids per chunk. Handing that to an agent is slow, expensive, and produces
+    worse names than it should, because the ids obscure the thing that actually
+    identifies a community: which source files it covers.
+
+    This distils each community to its source files and its most connected
+    symbols, which is what the naming decision turns on. Roughly 50x smaller
+    and considerably easier to read.
+    """
+    g = json.loads(graph_path.read_text(encoding="utf-8"))
+    degree: collections.Counter = collections.Counter()
+    for link in g.get("links", g.get("edges", [])):
+        degree[link["source"]] += 1
+        degree[link["target"]] += 1
+
+    members: dict[int, list[dict]] = collections.defaultdict(list)
+    for n in g["nodes"]:
+        cid = n.get("community")
+        if cid is not None:
+            members[int(cid)].append(n)
+
+    ranked = sorted(members.items(), key=lambda kv: -len(kv[1]))[:top]
+
+    lines = [f"# Community brief — {graph_path.parent.parent.name}", "",
+             f"{len(members)} communities total; the {len(ranked)} largest are below.",
+             "Name each one in 2-5 plain words describing what that group of code does.",
+             ""]
+    for cid, group in ranked:
+        files = collections.Counter()
+        for n in group:
+            p = n.get("repo_path") or n.get("source_file") or ""
+            if p:
+                files[str(p).replace("\\", "/")] += 1
+        syms = [n["label"] for n in
+                sorted(group, key=lambda n: -degree[n["id"]])[:symbols_per]
+                if n.get("label")]
+
+        lines.append(f"## community {cid}  ({len(group)} nodes)")
+        if files:
+            lines.append("files: " + ", ".join(
+                f"{f}" for f, _ in files.most_common(files_per)))
+        if syms:
+            lines.append("symbols: " + ", ".join(syms))
+        lines.append("")
+
+    out_path.write_text("\n".join(lines), encoding="utf-8")
+    return {"communities_total": len(members), "communities_briefed": len(ranked),
+            "path": str(out_path), "bytes": out_path.stat().st_size}
+
+
 def write_anchors(graph_path: Path, mapping: dict[str, str], out_path: Path,
                   anchor_count: int = ANCHOR_COUNT) -> dict:
     """Record anchor node ids for a *confirmed* {community id: name} mapping."""
