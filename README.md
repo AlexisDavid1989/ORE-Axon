@@ -1,4 +1,4 @@
-# ore-graphify
+# ORE Axon
 
 A queryable knowledge graph of the [ORE](https://github.com/OpenSourceRisk/Engine)
 codebase, wired into Claude Code and VS Code / Copilot over MCP so an agent can
@@ -20,7 +20,7 @@ phase with the exact prompts to paste.
 ## Quick start
 
 ```bash
-git clone <this repo> && cd ore-graphify
+git clone <this repo> && cd ORE-Axon
 pip install -r requirements.txt
 
 export ORE_ENGINE=/path/to/your/Engine        # Windows: set ORE_ENGINE=C:\path\to\Engine

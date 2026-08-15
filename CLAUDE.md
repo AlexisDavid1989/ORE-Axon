@@ -1,4 +1,4 @@
-# ore-graphify
+# ORE Axon
 
 Build pipeline for a knowledge graph of the ORE codebase. Claude Code reads this file
 automatically at session start.

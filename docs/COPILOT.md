@@ -250,7 +250,7 @@ Once phases 1–4 are done and `labels/` and `semantic-chunks/` are committed, a
 teammate needs only:
 
 ```bash
-git clone <repo> && cd ore-graphify
+git clone <repo> && cd ORE-Axon
 pip install -r requirements.txt
 setx ORE_ENGINE "<their Engine path>"
 python -m oregraph build

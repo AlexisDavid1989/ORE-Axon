@@ -238,7 +238,7 @@ Once it verifies, point your old MCP config at `ORE-v2` and retire
 ## Handing it to the team
 
 ```bash
-git clone <repo> && cd ore-graphify
+git clone <repo> && cd ORE-Axon
 pip install -r requirements.txt
 setx ORE_ENGINE "<their Engine path>"
 python -m oregraph build && python -m oregraph mcp --host both

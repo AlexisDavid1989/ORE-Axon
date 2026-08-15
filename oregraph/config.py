@@ -65,7 +65,7 @@ def _default_out_dir() -> Path:
         base = os.path.join(os.path.expanduser("~"), "Library", "Caches")
     else:
         base = os.environ.get("XDG_CACHE_HOME") or os.path.join(os.path.expanduser("~"), ".cache")
-    return Path(base) / "ore-graphify"
+    return Path(base) / "ore-axon"
 
 
 SYNCED_MARKERS = ("onedrive", "dropbox", "google drive", "icloud", "box sync")

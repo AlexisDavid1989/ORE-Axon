@@ -1,4 +1,4 @@
-# ore-graphify
+# ORE Axon
 
 Build pipeline for a knowledge graph of the ORE codebase. VS Code and Copilot
 read this file automatically as workspace context.
