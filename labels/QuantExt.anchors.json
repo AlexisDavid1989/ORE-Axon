@@ -840,6 +840,552 @@
     "pricingengines_fdconvertiblebondevents_fdconvertiblebondevents_dc",
     "pricingengines_fdconvertiblebondevents_fdconvertiblebondevents_dividendpassthroughdata"
    ]
+  },
+  {
+   "label": "Cross-asset state process",
+   "size": 57,
+   "anchors": [
+    "processes_crossassetstateprocess_crossassetstateprocess",
+    "processes_crossassetstateprocess",
+    "processes_crossassetstateprocess_cpp_array",
+    "processes_crossassetstateprocess_cpp_time",
+    "processes_crossassetstateprocess_applyfxdriftadjustment",
+    "processes_crossassetstateprocess_cpp_matrix",
+    "processes_crossassetstateprocess_cpp_size",
+    "processes_crossassetstateprocess_crossassetstateprocess_diffusiononcorrelatedbrownians",
+    "processes_crossassetstateprocess_crossassetstateprocess_diffusiononcorrelatedbrowniansimpl",
+    "processes_crossassetstateprocess_crossassetstateprocess_evolve",
+    "processes_crossassetstateprocess_crossassetstateprocess_exactdiscretization_driftimpl2",
+    "processes_crossassetstateprocess_setvalue",
+    "processes_crossassetstateprocess_setvalue2",
+    "processes_crossassetstateprocess_getprojectedarray",
+    "processes_crossassetstateprocess_cpp_stochasticprocess"
+   ]
+  },
+  {
+   "label": "Total return swap cash flows",
+   "size": 54,
+   "anchors": [
+    "cashflows_trscashflow_trscashflow",
+    "cashflows_trscashflow_trsleg",
+    "cashflows_bondtrscashflow_bondtrscashflow",
+    "cashflows_bondtrscashflow_bondtrsleg_bondtrsleg",
+    "cashflows_trscashflow_cpp_real",
+    "cashflows_trscashflow_trscashflow_amount",
+    "cashflows_trscashflow_trsleg_trsleg",
+    "cashflows_bondtrscashflow_bondtrscashflow_bondtrscashflow",
+    "cashflows_trscashflow_trscashflow_trscashflow",
+    "cashflows_bondtrscashflow_bondtrscashflow_notional",
+    "cashflows_trscashflow_cpp_date",
+    "cashflows_trscashflow_trscashflow_fxend",
+    "cashflows_trscashflow_trscashflow_fxstart",
+    "cashflows_bondtrscashflow_bondtrscashflow_accept",
+    "cashflows_bondtrscashflow_cpp_date"
+   ]
+  },
+  {
+   "label": "Floating annuity coupons and nominals",
+   "size": 54,
+   "anchors": [
+    "cashflows_floatingannuitycoupon_floatingannuitycoupon",
+    "cashflows_floatingannuitycoupon",
+    "cashflows_floatingannuitycoupon_floatingannuitycoupon_floatingannuitycoupon",
+    "cashflows_floatingannuitynominal_floatingannuitynominal",
+    "cashflows_floatingannuitynominal",
+    "cashflows_floatingannuitycoupon_cpp_real",
+    "cashflows_floatingannuitycoupon_floatingannuitycoupon_price",
+    "cashflows_floatingannuitynominal_floatingannuitynominal_floatingannuitynominal",
+    "cashflows_floatingannuitycoupon_floatingannuitycoupon_accruedamount",
+    "cashflows_floatingannuitycoupon_floatingannuitycoupon_amount",
+    "cashflows_floatingannuitycoupon_floatingannuitycoupon_indexfixing",
+    "cashflows_floatingannuitycoupon_cpp_date",
+    "cashflows_floatingannuitycoupon_cpp_rate",
+    "cashflows_floatingannuitycoupon_floatingannuitycoupon_accept",
+    "cashflows_floatingannuitycoupon_floatingannuitycoupon_adjustedfixing"
+   ]
+  },
+  {
+   "label": "Regression, conditional expectation and PCA",
+   "size": 55,
+   "anchors": [
+    "math_randomvariable_cpp_randomvariable",
+    "math_randomvariable_resumecalcstats",
+    "math_randomvariable_stopcalcstats",
+    "math_randomvariable_regressioncoefficients",
+    "math_randomvariable_cpp_real",
+    "math_randomvariable_conditionalexpectation",
+    "math_randomvariable_cpp_filter",
+    "math_randomvariable_applyfilter",
+    "math_randomvariable_conditionalresult",
+    "math_randomvariable_indicatorgeq",
+    "math_randomvariable_multipathbasissystem",
+    "math_randomvariable_pcacoordinatetransform",
+    "math_randomvariable_randomvariable_randomvariable",
+    "math_randomvariable_black",
+    "math_randomvariable_indicatorgt"
+   ]
+  },
+  {
+   "label": "Generic optionlet volatility stripper",
+   "size": 55,
+   "anchors": [
+    "termstructures_optionletstripper_optionletstripper",
+    "termstructures_optionletstripper",
+    "termstructures_optionletstripper_optionletstripper_optionletstripper",
+    "termstructures_optionletstripper_optionletstripper_populatedates",
+    "termstructures_optionletstripper_optionletstripper_index",
+    "termstructures_optionletstripper_optionletstripper_termvolsurface",
+    "termstructures_optionletstripper_cpp_shared_ptr",
+    "termstructures_optionletstripper_optionletstripper_businessdayconvention",
+    "termstructures_optionletstripper_optionletstripper_calendar",
+    "termstructures_optionletstripper_optionletstripper_daycounter",
+    "termstructures_optionletstripper_optionletstripper_displacement",
+    "termstructures_optionletstripper_optionletstripper_optionletmaturities",
+    "termstructures_optionletstripper_optionletstripper_settlementdays",
+    "termstructures_optionletstripper_optionletstripper_volatilitytype",
+    "termstructures_piecewiseoptionletstripper_piecewiseoptionletstripper_interpolator_bootstrap_performcalculations"
+   ]
+  },
+  {
+   "label": "Stripped YoY inflation optionlet vol",
+   "size": 55,
+   "anchors": [
+    "termstructures_strippedyoyinflationoptionletvol_strippedyoyinflationoptionletvol",
+    "termstructures_strippedyoyinflationoptionletvol",
+    "termstructures_strippedyoyinflationoptionletvol_strippedyoyinflationoptionletvol_strippedyoyinflationoptionletvol",
+    "termstructures_strippedyoyinflationoptionletvol_strippedyoyinflationoptionletvol_volatilityimpl",
+    "termstructures_strippedyoyinflationoptionletvol_cpp_rate",
+    "termstructures_strippedyoyinflationoptionletvol_strippedyoyinflationoptionletvol_businessdayconvention",
+    "termstructures_strippedyoyinflationoptionletvol_strippedyoyinflationoptionletvol_calendar",
+    "termstructures_strippedyoyinflationoptionletvol_strippedyoyinflationoptionletvol_daycounter",
+    "termstructures_strippedyoyinflationoptionletvol_strippedyoyinflationoptionletvol_displacement",
+    "termstructures_strippedyoyinflationoptionletvol_strippedyoyinflationoptionletvol_maxdate",
+    "termstructures_strippedyoyinflationoptionletvol_strippedyoyinflationoptionletvol_maxstrike",
+    "termstructures_strippedyoyinflationoptionletvol_strippedyoyinflationoptionletvol_minstrike",
+    "termstructures_strippedyoyinflationoptionletvol_strippedyoyinflationoptionletvol_settlementdays",
+    "termstructures_strippedyoyinflationoptionletvol_strippedyoyinflationoptionletvol_volatilitytype",
+    "termstructures_strippedyoyinflationoptionletvol_strippedyoyinflationoptionletvol_yoyoptionletvolquotes"
+   ]
+  },
+  {
+   "label": "Index CDS option and vol curve",
+   "size": 55,
+   "anchors": [
+    "termstructures_creditvolcurve_creditvolcurve",
+    "termstructures_creditvolcurve_interpolatingcreditvolcurve",
+    "termstructures_indexcdsvolstripper",
+    "termstructures_creditvolcurve_spreadedcreditvolcurve",
+    "pricingengines_indexcdsoptionbaseengine",
+    "blackvolatilitytermstructure",
+    "termstructures_creditvolcurve_blackvolfromcreditvolwrapper",
+    "termstructures_creditvolcurve_creditvolcurvesvi",
+    "termstructures_creditvolcurve_hpp_handle",
+    "termstructures_creditvolcurve_proxycreditvolcurve",
+    "instruments_indexcdsoption_indexcdsoption_swap",
+    "termstructures_creditvolcurve_hpp_date",
+    "termstructures_creditvolcurve_hpp_real",
+    "termstructures_creditvolcurve_hpp_vector",
+    "termstructures_creditvolcurve_spreadedcreditvolcurve_performcalculations"
+   ]
+  },
+  {
+   "label": "Exotic swaptions and annuity mapping",
+   "size": 54,
+   "anchors": [
+    "instruments_fixedbmaswap",
+    "models_crossassetmodelimpliedswaptionvoltermstructure",
+    "instruments_balanceguaranteedswap",
+    "instruments_flexiswap",
+    "instruments_genericswaption",
+    "instruments_genericswaption_genericswaption",
+    "instruments_genericswaption_hpp_swap",
+    "instruments_genericswaption_genericswaption_arguments",
+    "termstructures_basistwoswaphelper_hpp_vanillaswap",
+    "instruments_convertiblebond_convertiblebond_option_setuparguments",
+    "models_annuitymapping",
+    "instruments_genericswaption_genericswaption_genericswaption",
+    "instruments_flexiswap_flexiswap_results",
+    "instruments_genericswaption_genericswaption_results",
+    "instruments_genericswaption_genericswaption_results_reset"
+   ]
+  },
+  {
+   "label": "Analytic LGM swaption pricing engine",
+   "size": 54,
+   "anchors": [
+    "pricingengines_analyticlgmswaptionengine_analyticlgmswaptionengine",
+    "pricingengines_analyticlgmswaptionengine_analyticlgmswaptionengine_analyticlgmswaptionengine",
+    "methods_lgmswaptionvegaparconverter",
+    "pricingengines_analyticlgmswaptionengine_flatamount",
+    "pricingengines_analyticlgmswaptionengine_analyticlgmswaptionengine_c",
+    "pricingengines_analyticlgmswaptionengine_analyticlgmswaptionengine_setzetashift",
+    "pricingengines_analyticlgmswaptionengine_cpp_real",
+    "pricingengines_analyticlgmswaptionengine_analyticlgmswaptionengine_calculate",
+    "pricingengines_analyticlgmswaptionengine_analyticlgmswaptionengine_clearcache",
+    "pricingengines_analyticlgmswaptionengine_analyticlgmswaptionengine_enablecache",
+    "pricingengines_analyticlgmswaptionengine_analyticlgmswaptionengine_ystarhelper",
+    "pricingengines_analyticlgmswaptionengine_analyticlgmswaptionengine_resetzetashift",
+    "pricingengines_analyticlgmswaptionengine_cpp_handle",
+    "pricingengines_analyticlgmswaptionengine_cpp_shared_ptr",
+    "pricingengines_analyticlgmswaptionengine_cpp_yieldtermstructure"
+   ]
+  },
+  {
+   "label": "YoY inflation cap-floor price surface",
+   "size": 55,
+   "anchors": [
+    "termstructures_interpolatedyoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface",
+    "termstructures_interpolatedyoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface_interpolator2d_interpolator1d_interpolatedyoycapfloortermpricesurface",
+    "termstructures_interpolatedyoycapfloortermpricesurface",
+    "termstructures_interpolatedyoycapfloortermpricesurface_hpp_date",
+    "termstructures_interpolatedyoycapfloortermpricesurface_hpp_rate",
+    "termstructures_interpolatedyoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface_atmyoyswaprate",
+    "termstructures_interpolatedyoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface_i2d_i1d_performcalculations",
+    "termstructures_interpolatedyoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface_i2d_i1d_price",
+    "termstructures_interpolatedyoycapfloortermpricesurface_closeenoughcomparator",
+    "termstructures_interpolatedyoycapfloortermpricesurface_closeenoughcomparator_closeenoughcomparator",
+    "termstructures_interpolatedyoycapfloortermpricesurface_hpp_period",
+    "termstructures_interpolatedyoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface_atmyoyswapdaterates",
+    "termstructures_interpolatedyoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface_atmyoyswaptimerates",
+    "termstructures_interpolatedyoycapfloortermpricesurface_hpp_vector",
+    "termstructures_interpolatedyoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface_atmyoyrate"
+   ]
+  },
+  {
+   "label": "Lognormal CMS spread coupon pricer",
+   "size": 54,
+   "anchors": [
+    "cashflows_lognormalcmsspreadpricer_lognormalcmsspreadpricer",
+    "cashflows_lognormalcmsspreadpricer",
+    "swapspreadindex",
+    "cashflows_lognormalcmsspreadpricer_cmsspreadcoupon",
+    "cashflows_lognormalcmsspreadpricer_yieldtermstructure",
+    "cashflows_lognormalcmsspreadpricer_hpp_cmscouponpricer",
+    "cashflows_lognormalcmsspreadpricer_hpp_cumulativenormaldistribution",
+    "cashflows_lognormalcmsspreadpricer_hpp_date",
+    "cashflows_lognormalcmsspreadpricer_hpp_shared_ptr",
+    "cashflows_lognormalcmsspreadpricer_hpp_type",
+    "cashflows_lognormalcmsspreadpricer_lognormalcmsspreadpricer_a",
+    "cashflows_lognormalcmsspreadpricer_lognormalcmsspreadpricer_adjustedrate1",
+    "cashflows_lognormalcmsspreadpricer_lognormalcmsspreadpricer_adjustedrate2",
+    "cashflows_lognormalcmsspreadpricer_lognormalcmsspreadpricer_alpha",
+    "cashflows_lognormalcmsspreadpricer_lognormalcmsspreadpricer_b"
+   ]
+  },
+  {
+   "label": "OIS bootstrapping rate helpers",
+   "size": 54,
+   "anchors": [
+    "termstructures_oisratehelper_oisratehelper",
+    "termstructures_oisratehelper_datedoisratehelper",
+    "termstructures_oisratehelper",
+    "instruments_brlcdiswap",
+    "termstructures_oisratehelper_hpp_overnightindexedswap",
+    "termstructures_oisratehelper_hpp_shared_ptr",
+    "termstructures_oisratehelper_datedoisratehelper_swap",
+    "termstructures_oisratehelper_oisratehelper_swap",
+    "termstructures_oisratehelper_hpp_businessdayconvention",
+    "termstructures_oisratehelper_hpp_calendar",
+    "termstructures_oisratehelper_hpp_choice",
+    "termstructures_oisratehelper_hpp_daycounter",
+    "termstructures_oisratehelper_hpp_frequency",
+    "termstructures_oisratehelper_hpp_handle",
+    "termstructures_oisratehelper_hpp_natural"
+   ]
+  },
+  {
+   "label": "Average OIS swap builder",
+   "size": 54,
+   "anchors": [
+    "instruments_makeaverageois_makeaverageois",
+    "instruments_makeaverageois_hpp_averageonindexedcouponpricer",
+    "instruments_makeaverageois_hpp_businessdayconvention",
+    "instruments_makeaverageois_hpp_calendar",
+    "instruments_makeaverageois_hpp_date",
+    "instruments_makeaverageois_hpp_daycounter",
+    "instruments_makeaverageois_hpp_natural",
+    "instruments_makeaverageois_hpp_overnightindex",
+    "instruments_makeaverageois_hpp_period",
+    "instruments_makeaverageois_hpp_pricingengine",
+    "instruments_makeaverageois_hpp_rate",
+    "instruments_makeaverageois_hpp_real",
+    "instruments_makeaverageois_hpp_rule",
+    "instruments_makeaverageois_hpp_shared_ptr",
+    "instruments_makeaverageois_hpp_spread"
+   ]
+  },
+  {
+   "label": "Random variable and filter type",
+   "size": 54,
+   "anchors": [
+    "math_randomvariable",
+    "math_randomvariable_randomvariable",
+    "math_randomvariable_filter",
+    "math_randomvariable_randomvariablestats",
+    "math_randomvariable_hpp_size",
+    "math_randomvariable_stopdatastats",
+    "math_randomvariable_resumedatastats",
+    "math_randomvariable_cpp_size",
+    "math_randomvariable_hpp_real",
+    "math_randomvariable_randomvariable_copytomatrixcol",
+    "math_randomvariable_randomvariable_expand",
+    "math_randomvariable_filter_filter",
+    "math_randomvariable_randomvariable_set",
+    "math_randomvariable_filter_expand",
+    "math_randomvariable_filter_set"
+   ]
+  },
+  {
+   "label": "YoY inflation swap calibration helper",
+   "size": 52,
+   "anchors": [
+    "models_yoyswaphelper_yoyswaphelper",
+    "models_yoyswaphelper",
+    "models_yoyswaphelper_yoyswaphelper_yoyswaphelper",
+    "models_yoyswaphelper_yoyswaphelper_createswap",
+    "models_yoyswaphelper_yoyswaphelper_setpricingengine",
+    "models_yoyswaphelper_yoyswaphelper_yoyswap",
+    "models_yoyswaphelper_cpp_real",
+    "models_yoyswaphelper_cpp_shared_ptr",
+    "models_yoyswaphelper_yoyswaphelper_calibrationerror",
+    "models_yoyswaphelper_yoyswaphelper_fixedtenor",
+    "models_yoyswaphelper_yoyswaphelper_marketrate",
+    "models_yoyswaphelper_yoyswaphelper_modelrate",
+    "models_yoyswaphelper_yoyswaphelper_update",
+    "models_yoyswaphelper_hpp_yearonyearinflationswap",
+    "models_yoyswaphelper_cpp_businessdayconvention"
+   ]
+  },
+  {
+   "label": "FX broker-fly risk-reversal surface",
+   "size": 53,
+   "anchors": [
+    "termstructures_blackvolsurfacebfrr_blackvolatilitysurfacebfrr",
+    "termstructures_blackvolsurfacebfrr_hpp_atmtype",
+    "termstructures_blackvolsurfacebfrr_hpp_deltatype",
+    "termstructures_blackvolsurfacebfrr_hpp_real",
+    "termstructures_blackvolsurfacebfrr_hpp_smileinterpolation",
+    "termstructures_blackvolsurfacebfrr_blackvolatilitysurfacebfrr_atmtype",
+    "termstructures_blackvolsurfacebfrr_blackvolatilitysurfacebfrr_deltatype",
+    "termstructures_blackvolsurfacebfrr_blackvolatilitysurfacebfrr_longtermatmtype",
+    "termstructures_blackvolsurfacebfrr_blackvolatilitysurfacebfrr_longtermdeltatype",
+    "termstructures_blackvolsurfacebfrr_blackvolatilitysurfacebfrr_maxdate",
+    "termstructures_blackvolsurfacebfrr_blackvolatilitysurfacebfrr_maxstrike",
+    "termstructures_blackvolsurfacebfrr_blackvolatilitysurfacebfrr_minstrike",
+    "termstructures_blackvolsurfacebfrr_blackvolatilitysurfacebfrr_riskreversalinfavorof",
+    "termstructures_blackvolsurfacebfrr_blackvolatilitysurfacebfrr_smileinterpolation",
+    "termstructures_blackvolsurfacebfrr_hpp_date"
+   ]
+  },
+  {
+   "label": "Cross-currency fix-float MtM helper",
+   "size": 52,
+   "anchors": [
+    "termstructures_crossccyfixfloatmtmresetswaphelper_crossccyfixfloatmtmresetswaphelper",
+    "termstructures_crossccyfixfloatmtmresetswaphelper_crossccyfixfloatmtmresetswaphelper_initializedates",
+    "termstructures_crossccyfixfloatmtmresetswaphelper_crossccyfixfloatmtmresetswaphelper_accept",
+    "termstructures_crossccyfixfloatmtmresetswaphelper_crossccyfixfloatmtmresetswaphelper_fixeddaycount",
+    "termstructures_crossccyfixfloatmtmresetswaphelper_crossccyfixfloatmtmresetswaphelper_impliedquote",
+    "termstructures_crossccyfixfloatmtmresetswaphelper_crossccyfixfloatmtmresetswaphelper_settermstructure",
+    "termstructures_crossccyfixfloatmtmresetswaphelper_crossccyfixfloatmtmresetswaphelper_swap",
+    "termstructures_crossccyfixfloatmtmresetswaphelper_cpp_yieldtermstructure",
+    "termstructures_crossccyfixfloatmtmresetswaphelper_crossccyfixfloatmtmresetswaphelper_update",
+    "termstructures_crossccyfixfloatmtmresetswaphelper_hpp_shared_ptr",
+    "termstructures_crossccyfixfloatmtmresetswaphelper_cpp_acyclicvisitor",
+    "termstructures_crossccyfixfloatmtmresetswaphelper_cpp_real",
+    "termstructures_crossccyfixfloatmtmresetswaphelper_crossccyfixfloatmtmresetswaphelper_endofmonth",
+    "termstructures_crossccyfixfloatmtmresetswaphelper_crossccyfixfloatmtmresetswaphelper_fixedconvention",
+    "termstructures_crossccyfixfloatmtmresetswaphelper_crossccyfixfloatmtmresetswaphelper_fixedcurrency"
+   ]
+  },
+  {
+   "label": "Single-fixing commodity indexed cashflow",
+   "size": 52,
+   "anchors": [
+    "cashflows_commodityindexedcashflow_commodityindexedleg",
+    "cashflows_commodityindexedcashflow_commodityindexedcashflow",
+    "cashflows_commodityindexedcashflow_hpp_date",
+    "cashflows_commodityindexedcashflow_hpp_integer",
+    "cashflows_commodityindexedcashflow_hpp_natural",
+    "cashflows_commodityindexedcashflow_hpp_real",
+    "cashflows_commodityindexedcashflow_commodityindexedcashflow_dailyexpiryoffset",
+    "cashflows_commodityindexedcashflow_commodityindexedcashflow_date",
+    "cashflows_commodityindexedcashflow_commodityindexedcashflow_futuremonthoffset",
+    "cashflows_commodityindexedcashflow_commodityindexedcashflow_lastpricingdate",
+    "cashflows_commodityindexedcashflow_commodityindexedcashflow_periodquantity",
+    "cashflows_commodityindexedcashflow_hpp_shared_ptr",
+    "cashflows_commodityindexedcashflow_hpp_vector",
+    "cashflows_commodityindexedcashflow_commodityindexedcashflow_indices",
+    "cashflows_commodityindexedcashflow_commodityindexedcashflow_isaveraging"
+   ]
+  },
+  {
+   "label": "CUDA compute environment",
+   "size": 52,
+   "anchors": [
+    "math_cudaenvironment_cudacontext",
+    "cufunction",
+    "math_cudaenvironment_cpp_computestate",
+    "math_cudaenvironment_cpp_debuginfo",
+    "math_cudaenvironment_cudacontext_basisfunctionce",
+    "math_cudaenvironment_cudacontext_basisfunctionhelper",
+    "math_cudaenvironment_cudacontext_currentid",
+    "math_cudaenvironment_cudacontext_currentstate",
+    "math_cudaenvironment_cudacontext_d_mt",
+    "math_cudaenvironment_cudacontext_d_randomvariables",
+    "math_cudaenvironment_cudacontext_debuginfo",
+    "math_cudaenvironment_cudacontext_device",
+    "math_cudaenvironment_cudacontext_disposed",
+    "math_cudaenvironment_cudacontext_expectationcount",
+    "math_cudaenvironment_cudacontext_expectationkernelcount"
+   ]
+  },
+  {
+   "label": "Cap/floor volatility bootstrap helper",
+   "size": 51,
+   "anchors": [
+    "termstructures_capfloorhelper_capfloorhelper",
+    "termstructures_oiscapfloorhelper",
+    "termstructures_capfloorhelper_capfloorhelper_capfloorhelper",
+    "termstructures_capfloorhelper_capfloorhelper_tenor",
+    "termstructures_capfloorhelper_capfloorhelper_accept",
+    "termstructures_capfloorhelper_capfloorhelper_capfloor",
+    "termstructures_capfloorhelper_capfloorhelper_impliedquote",
+    "termstructures_capfloorhelper_capfloorhelper_npv",
+    "termstructures_capfloorhelper_capfloorhelper_settermstructure",
+    "termstructures_capfloorhelper_cpp_real",
+    "termstructures_capfloorhelper_capfloorhelper_initializedates",
+    "termstructures_capfloorhelper_hpp_shared_ptr",
+    "termstructures_capfloorhelper_capfloorhelper_capfloorcopy",
+    "termstructures_capfloorhelper_capfloorhelper_discounthandle",
+    "termstructures_capfloorhelper_capfloorhelper_effectivedate"
+   ]
+  },
+  {
+   "label": "CPI cap/floor volatility stripper",
+   "size": 52,
+   "anchors": [
+    "termstructures_strippedcpivolatilitystructure_strippedcpivolatilitysurface",
+    "termstructures_strippedcpivolatilitystructure",
+    "termstructures_strippedcpivolatilitystructure_strippedcpivolatilitysurface_interpolator2d_strippedcpivolatilitysurface",
+    "termstructures_strippedcpivolatilitystructure_hpp_real",
+    "termstructures_strippedcpivolatilitystructure_strippedcpivolatilitysurface_interpolator2d_objectivefunction_objectivefunction",
+    "termstructures_strippedcpivolatilitystructure_strippedcpivolatilitysurface_interpolator2d_atmstrike",
+    "termstructures_strippedcpivolatilitystructure_strippedcpivolatilitysurface_interpolator2d_volatilityimpl",
+    "termstructures_strippedcpivolatilitystructure_strippedcpivolsurfacedefaultvalues",
+    "termstructures_strippedcpivolatilitystructure_hpp_date",
+    "termstructures_strippedcpivolatilitystructure_strippedcpivolatilitysurface_vols",
+    "termstructures_strippedcpivolatilitystructure_hpp_cpicapfloortermpricesurface",
+    "termstructures_strippedcpivolatilitystructure_hpp_handle",
+    "termstructures_strippedcpivolatilitystructure_hpp_shared_ptr",
+    "termstructures_strippedcpivolatilitystructure_hpp_zeroinflationindex",
+    "termstructures_strippedcpivolatilitystructure_strippedcpivolatilitysurface_interpolator2d_objectivefunction_operator"
+   ]
+  },
+  {
+   "label": "Linear Gauss-Markov model and calibration",
+   "size": 51,
+   "anchors": [
+    "models_lgm_lineargaussmarkovmodel",
+    "models_lgm",
+    "models_lgm_lineargaussmarkovmodel_calibratereversionsiterative",
+    "models_lgm_lineargaussmarkovmodel_calibratevolatilitiesiterative",
+    "models_lgm_lineargaussmarkovmodel_numeraire",
+    "models_lgm_lineargaussmarkovmodel_calibratereversions",
+    "models_lgm_lineargaussmarkovmodel_calibratevolatilities",
+    "models_lgm_hpp_real",
+    "models_lgm_hpp_shared_ptr",
+    "models_lgm_lineargaussmarkovmodel_discountbond",
+    "models_lgm_lineargaussmarkovmodel_discountbondoption",
+    "models_lgm_lineargaussmarkovmodel_reduceddiscountbond",
+    "models_lgm_hpp_vector",
+    "models_lgm_lineargaussmarkovmodel_shortrate",
+    "models_lgm_lineargaussmarkovmodel_termstructure"
+   ]
+  },
+  {
+   "label": "Callable bond FD events (+ LGM multi-leg)",
+   "size": 50,
+   "anchors": [
+    "pricingengines_fdcallablebondevents_fdcallablebondevents",
+    "pricingengines_numericlgmcallablebondengine_numericlgmcallablebondenginebase_calculate",
+    "pricingengines_mccamcallablebondengine_mccamcallablebondbaseengine_generateexercisedates",
+    "pricingengines_fdcallablebondevents_fdcallablebondevents_getbondcashflow",
+    "pricingengines_numericlgmmultilegoptionengine_numericlgmmultilegoptionengine",
+    "pricingengines_fdcallablebondevents_cpp_date",
+    "pricingengines_fdcallablebondevents_cpp_size",
+    "pricingengines_fdcallablebondevents_fdcallablebondevents_finalise",
+    "pricingengines_fdcallablebondevents_fdcallablebondevents_getassociateddate",
+    "pricingengines_fdcallablebondevents_fdcallablebondevents_hascall",
+    "pricingengines_fdcallablebondevents_fdcallablebondevents_hasput",
+    "pricingengines_fdcallablebondevents_fdcallablebondevents_nextexercisedate",
+    "pricingengines_fdcallablebondevents_fdcallablebondevents_processexercisedata",
+    "pricingengines_fdcallablebondevents_fdcallablebondevents_registerbondcashflow",
+    "pricingengines_fdcallablebondevents_fdcallablebondevents_registercall"
+   ]
+  },
+  {
+   "label": "Multi-asset quanto Heston process",
+   "size": 50,
+   "anchors": [
+    "processes_multiassetquantohestonprocess_multiassetquantohestonprocess",
+    "processes_multiassetquantohestonprocess_multiassetquantohestonprocess_multiassetquantohestonprocess",
+    "processes_multiassetquantohestonprocess_cpp_array",
+    "processes_multiassetquantohestonprocess_cpp_time",
+    "processes_multiassetquantohestonprocess_multiassetquantohestonprocess_evolve",
+    "processes_multiassetquantohestonprocess_multiassetquantohestonprocess_ptddriftadjustment",
+    "processes_multiassetquantohestonprocess_multiassetquantohestonprocess_decorrelationmatrix",
+    "processes_multiassetquantohestonprocess_multiassetquantohestonprocess_diffusion",
+    "processes_multiassetquantohestonprocess_multiassetquantohestonprocess_driftadjustment",
+    "processes_multiassetquantohestonprocess_multiassetquantohestonprocess_locate",
+    "processes_multiassetquantohestonprocess_cpp_matrix",
+    "processes_multiassetquantohestonprocess_cpp_size",
+    "processes_multiassetquantohestonprocess_hpp_matrix",
+    "processes_multiassetquantohestonprocess_multiassetquantohestonprocess_checkcorrelations",
+    "processes_multiassetquantohestonprocess_multiassetquantohestonprocess_drift"
+   ]
+  },
+  {
+   "label": "2D option price interpolator",
+   "size": 50,
+   "anchors": [
+    "interpolators_optioninterpolator2d_optioninterpolator2d",
+    "interpolators_optioninterpolator2d_optioninterpolatorbase",
+    "interpolators_optioninterpolator2d",
+    "interpolators_optioninterpolator2d_hpp_vector",
+    "interpolators_optioninterpolator2d_hpp_real",
+    "interpolators_optioninterpolator2d_optioninterpolator2d_interpolatorstrike_interpolatorexpiry_optioninterpolator2d",
+    "interpolators_optioninterpolator2d_optioninterpolator2d_is_ie_initialise",
+    "interpolators_optioninterpolator2d_hpp_date",
+    "interpolators_optioninterpolator2d_optioninterpolator2d_is_ie_getvalue",
+    "interpolators_optioninterpolator2d_closeenoughcomparator",
+    "interpolators_optioninterpolator2d_hpp_daycounter",
+    "interpolators_optioninterpolator2d_hpp_time",
+    "interpolators_optioninterpolator2d_optioninterpolator2d_is_ie_expiries",
+    "interpolators_optioninterpolator2d_optioninterpolator2d_is_ie_getvalueforstrike",
+    "interpolators_optioninterpolator2d_optioninterpolator2d_is_ie_strikes"
+   ]
+  },
+  {
+   "label": "SABR parametric volatility model",
+   "size": 50,
+   "anchors": [
+    "termstructures_sabrparametricvolatility_sabrparametricvolatility",
+    "termstructures_sabrparametricvolatility_sabrparametricvolatility_evaluate",
+    "termstructures_sabrparametricvolatility_sabrparametricvolatility_calculate",
+    "termstructures_sabrparametricvolatility_cpp_marketquotetype",
+    "termstructures_sabrparametricvolatility_sabrparametricvolatility_preferredoutputquotetype",
+    "termstructures_sabrparametricvolatility_cpp_matrix",
+    "termstructures_sabrparametricvolatility_sabrparametricvolatility_alphainterpolation",
+    "termstructures_sabrparametricvolatility_sabrparametricvolatility_beta",
+    "termstructures_sabrparametricvolatility_sabrparametricvolatility_betainterpolation",
+    "termstructures_sabrparametricvolatility_sabrparametricvolatility_nu",
+    "termstructures_sabrparametricvolatility_sabrparametricvolatility_nuinterpolation",
+    "termstructures_sabrparametricvolatility_sabrparametricvolatility_rhointerpolation",
+    "termstructures_sabrparametricvolatility_cpp_optional",
+    "termstructures_sabrparametricvolatility_cpp_type",
+    "termstructures_sabrparametricvolatility_hpp_calibrationresult"
+   ]
   }
  ]
 }
