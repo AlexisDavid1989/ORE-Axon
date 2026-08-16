@@ -128,10 +128,10 @@ Louvain, but the static label files were never regenerated, so they describe an
 older clustering. In the last build `QuantLib-01-foundations` community 2 was
 named "Linear Interpolation" while holding the error-function code, and
 community 3 was "Error Function (erf)" while holding currency definitions.
-*Fixed:* the merge carries names through; `relabel` diagnoses the drift and pins
-names to content anchors so they survive future re-clustering. **See
-[docs/RELABELLING.md](docs/RELABELLING.md) — this needs one human pass before
-the names can be trusted.**
+*Fixed:* the merge carries names through, and all 530 names have since been
+rewritten against the current clustering, audited and pinned to content anchors
+so they survive future re-clustering. See
+[docs/RELABELLING.md](docs/RELABELLING.md) for how to maintain them.
 
 **4. Silent coverage gaps.** `ql/processes`, every top-level `ql/*.hpp` (the base
 classes the rest of ORE inherits from), `Examples/`, `ORE-SWIG/`, `Tools/`,
@@ -145,22 +145,30 @@ includes every chunk.
 
 ## Status
 
+The current build:
+
+| | |
+|---|---|
+| Nodes | 90,374 |
+| Edges | 190,503 |
+| Cross-module edges | 14,168 |
+| Curated community names | 530 |
+
 | Area | State |
 |---|---|
 | Code chunks (AST) | Complete, including the previously missing paths |
 | Docs — 329 `.tex` | Complete, committed under `semantic-chunks/docs/` |
 | XSD — 23 schemas | Complete, committed under `semantic-chunks/xsd/` |
-| Cross-module links | Implemented, verified on a fixture |
-| Community names | **Need one verification pass — see docs/RELABELLING.md** |
+| Cross-module links | Complete — 14,168 edges, verified on every build |
+| Community names | Complete — 530 names, curated, audited and pinned |
 | `Examples/` XML & CSV | Not yet extracted — see below |
 
-### Remaining work
+Community names cover 92% of communities of 50 nodes or more. They are pinned to
+content anchors, so they survive re-clustering when you rebuild against a newer
+ORE; `verify` checks on every build that each one still reaches the merged graph.
+To add or correct a name, see [docs/RELABELLING.md](docs/RELABELLING.md).
 
-**Community names.** 272 curated names are in `labels/`, but their mapping to
-communities is stale. `oregraph relabel` proposes a corrected mapping and flags
-what is ambiguous; once confirmed, `--write-anchors` pins it permanently. Budget
-an hour with an agent. Until then names are attached by raw id and reported as
-`id-unverified`.
+### Remaining work
 
 **Examples config files.** ~1,100 XML portfolios and CSV market-data files are
 scanned for code but not semantically extracted. That pass needs an LLM: set

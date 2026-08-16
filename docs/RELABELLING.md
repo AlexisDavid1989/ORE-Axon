@@ -1,100 +1,171 @@
-# Fixing the community names
+# Community names
 
-**Status: needs one human pass. Until it is done, treat community names in the
-graph as unreliable.**
+**Status: complete and pinned.** 530 curated names cover 92% of communities of
+50 nodes or more. `oregraph verify` checks on every build that each of them
+still reaches the merged graph.
 
-## What is wrong
+This document is for maintaining them — adding a name, correcting one, or
+recovering after an ORE upgrade re-clusters the corpus.
 
-`labels/<chunk>.json` maps a community id to a name someone wrote by hand:
+## What a community name is
+
+graphify runs Louvain community detection over each chunk, producing groups of
+tightly-connected nodes. A group is only useful to a reader if it has a name, so
+`labels/<chunk>.json` maps a community id to a short plain-language description:
 
 ```json
-{ "0": "Log-Cubic Interpolation Variants", "2": "Linear Interpolation" }
+{ "0": "Log-linear and log-cubic interpolation", "3": "Error function (erf) approximation" }
 ```
 
-Those ids come out of Louvain community detection. **Every build re-runs
-Louvain**, and the partition it produces depends on the exact graph — so the ids
-are only meaningful for the one build the names were written against. The
-original pipeline re-clustered on every rebuild and never regenerated the label
-files, so the names came unstuck from the groups they describe.
+Those names are what the MCP server surfaces when an agent asks about the
+architecture, which is why a wrong name is worse than no name: it misleads a
+reader who has no way to tell it is wrong.
 
-It fails silently. Reports still render, the MCP server still answers, and the
-names are simply wrong. From the last build of `QuantLib-01-foundations`:
+## Why anchors exist
 
-| id | name it carries | what is actually in it |
-|---|---|---|
-| 0 | Log-Cubic Interpolation Variants | `loginterpolation.hpp` — correct |
-| 1 | ABCD Volatility Interpolation | `abcdinterpolation.hpp` — correct |
-| 2 | Linear Interpolation | `errorfunction.hpp` — **wrong** |
-| 3 | Error Function (erf) | `currencies/america.hpp` — **wrong** |
-| 4 | Beta & Binomial Distributions | `patterns/observable.cpp` — **wrong** |
+Community ids come out of Louvain, and **every build re-runs Louvain**. The
+partition depends on the exact graph, so the ids are only meaningful for the one
+build the names were written against. The original pipeline re-clustered on every
+rebuild and never regenerated the label files, so the names came unstuck from the
+groups they described — silently. Reports still rendered and the MCP server still
+answered; the names were simply wrong. In one build of `QuantLib-01-foundations`,
+community 2 was named "Linear Interpolation" while holding the error-function
+code, and community 3 was "Error Function (erf)" while holding currency
+definitions.
 
-`oregraph relabel --only QuantLib-01-foundations` reports 15 of 15 names would
-move. The names themselves are good; only the mapping is broken.
+`labels/<chunk>.anchors.json` fixes this. For each named community it records the
+~15 highest-degree member node ids. On a later build, `labels.py` scores every
+new community against every anchor set and gives each name to the community
+holding most of its anchors. Node ids derive from source paths, so they survive
+re-clustering and ordinary code churn far better than community numbering does.
 
-## Fixing it
+Measured on `QuantLib-01-foundations`: 15/15 names recovered on an unchanged
+corpus, 15/15 with 10% of files removed, 14/15 with 25% removed.
 
-### 1. See the damage
+A name that cannot win its own best-match community is **dropped, not
+relocated**. An earlier version reassigned it to its second choice, which put
+names on groups they did not describe.
+
+## Adding or fixing a name
+
+The loop is: digest → name → audit → pin.
+
+### 1. Build the naming brief
 
 ```bash
-python -m oregraph build --only <chunk>
-python -m oregraph relabel --only <chunk>
+python -m oregraph relabel --digest --top 80 --only <chunk>
 ```
 
-Output marks each name `same`, `MOVE` (a better community exists) or `AMBIG`
-(several names best-match one community, so the proposal cannot separate them).
+Writes `RELABEL_BRIEF.md` into the chunk's output directory: each community
+reduced to the source files it spans and its most connected symbols. About 25 KB
+instead of the ~1 MB raw analysis, and far easier to name from — what identifies
+a community is which files it covers, which the raw node ids bury. `--top`
+controls how many of the largest communities are included.
 
-### 2. Correct the mapping
+### 2. Write names
 
-The proposal is a heuristic — token overlap between the name and its members'
-node ids. It is reliable on distinctive names ("Adaptive Runge-Kutta ODE Solver"
-lands exactly) and weak where names share vocabulary (three interpolation names
-all score highest on the same community). Do not accept it blindly.
+Read the brief and write a 2–5 word plain-language name per community. What
+makes this hard is that names must be distinguishable **from each other**: a bare
+"Interpolation" is useless in a chunk where a dozen communities are
+interpolation. Name the specific family — "Log-cubic interpolation", "ABCD
+volatility interpolation".
 
-For anything marked `AMBIG`, or if you would rather redo it properly, relabel
-from scratch — this is graphify's own Step 5, and an agent does it well:
+Guidelines that survived the first full pass:
 
-> Read `<ORE_GRAPH_OUT>/<chunk>/graphify-out/.graphify_analysis.json`. For each
-> community, look at its member node ids and write a 2–5 word plain-language
-> name. Write the result as `{"<community id>": "<name>"}` to
-> `labels/<chunk>.json`.
+- Name what the code does, in words — not the filename. "Error function (erf)
+  approximation", not `errorfunction.hpp`.
+- Use ORE and QuantLib vocabulary: term structure, coupon pricer, lattice, path
+  generator, calibration helper, stochastic process, curve config, engine builder.
+- Skip anything not worth naming. Communities under ~10 nodes, or that are just a
+  bag of primitives, belong out of the file entirely. A missing name is honest.
+- Where a community genuinely holds more than one subject, say so rather than
+  naming only the dominant part — `"FFT pricing engines (+ analytic Heston)"`,
+  `"Null and weekends-only calendars (mixed)"`.
+- Where one subject is split across headers and implementations, mark them
+  `(declarations)` / `(implementations)`.
 
-Reuse the existing names where they still fit — they are good descriptions of
-ORE, just misfiled.
+A useful cross-check for names that fail to distinguish:
 
-### 3. Pin it so it cannot rot again
+```bash
+python -c "
+import json,sys,collections,re
+d=json.load(open(sys.argv[1]))
+k=collections.defaultdict(list)
+for i,n in d.items(): k[frozenset(re.findall(r'[a-z]{4,}',n.lower()))].append((i,n))
+for v in k.values():
+    if len(v)>1: print('NEAR-DUPLICATE:',v)
+" labels/<chunk>.json
+```
+
+It only sees one chunk, so it cannot catch a name that collides with one in a
+*different* chunk. That happened once — QuantExt carries its own fork of
+QuantLib's experimental `LognormalCmsSpreadPricer`, and both communities were
+named identically. Qualify such names (`(QuantExt fork)`) rather than leaving a
+reader to inspect the code to tell them apart.
+
+### 3. Audit
+
+```bash
+python -m oregraph relabel --only <chunk> --audit
+```
+
+The acceptance gate. It checks each name against the actual contents of the
+community it sits on — a name should share vocabulary with its own files and
+symbols. Matching is deliberately generous: one shared token passes. It is a trap
+detector, not a quality score, so a clean audit means "nothing is obviously
+misfiled", not "these are good names". Short acronyms can false-positive; if the
+audit flags a name you have verified by eye, prefer explaining why over
+contorting the name to satisfy the check.
+
+Must report `CLEAN` before you pin.
+
+### 4. Pin
 
 ```bash
 python -m oregraph relabel --only <chunk> --write-anchors
+git add labels/ && git commit -m "relabel: <chunk>"
 ```
 
-This writes `labels/<chunk>.anchors.json`, recording the 15 highest-degree
-members of each named community. On later builds `labels.py` re-attaches names
-by anchor overlap instead of by id, so a name follows its content through
-re-clustering and ordinary code churn.
+## The standing rule
 
-Measured on `QuantLib-01-foundations` with a correct mapping, anchor matching
-recovered 15/15 names on an unchanged corpus, 15/15 with 10% of files removed,
-and 14/15 with 25% removed.
+**Never modify or remove an existing curated name or its anchor list. Adding a
+name for a previously unnamed community is always allowed.**
 
-A name whose anchors no longer win any community is **dropped**, not relocated.
-An earlier version reassigned it to its second-best community, which put names
-on groups they did not describe — a wrong name is worse than a missing one.
+Anchors are permanent — pinning a wrong mapping bakes the bug in. `relabel`
+without `--write-anchors` only proposes.
 
-### 4. Commit
+When adding names to a chunk that already has some, the change should be purely
+additive. Check it before committing:
 
 ```bash
-git add labels/ && git commit -m "relabel <chunk>: fix community mapping, pin anchors"
+git diff --numstat labels/<chunk>.anchors.json    # deletions must be 0
 ```
 
-Then it is done for everyone — teammates get correct names without repeating any
-of this.
+For a stronger check, compare the parsed structures and assert that every
+pre-existing entry is unchanged and still in the same order — a clean-looking
+diff is not proof on its own.
 
-## Order of work
+## After an ORE upgrade
 
-Highest value first, by how much each chunk is queried:
+Anchors re-attach names automatically; there is nothing to do by hand. Rebuild,
+then check the two label lines in `verify`:
 
-1. `OREAnalytics` (40 names) — XVA, SIMM, SA-CCR, exposure
-2. `OREData` (40) — portfolio, trade builders, curve config
-3. `QuantExt` (40) — ORE's QuantLib extensions
-4. `OREDocs` (43) and `OREXsd` (19) — cheap, and the doc/schema graphs are small
-5. QuantLib chunks (15 each) — least often the subject of a question
+```bash
+python -m oregraph build
+python -m oregraph verify
+```
+
+```
+[PASS] curated labels attached            530 named communities covering 25,746 nodes
+[PASS] all curated names attached         every curated name reached the merged graph
+```
+
+The second line is the one that matters. `--audit` tests name-against-content on
+the per-chunk graph, but attachment happens later, through anchor overlap at
+merge. Nothing spanned the two until this check existed, which is how four
+OREDocs names once passed every gate and still vanished from the merged graph.
+If it reports a shortfall it names the missing labels: their anchors no longer
+win any community, so re-run the digest → name → audit → pin loop for that chunk.
+
+Also run `python -m oregraph coverage` after an upgrade — if ORE's layout has
+shifted, new paths may belong to no chunk at all.

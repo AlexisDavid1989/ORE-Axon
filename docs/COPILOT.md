@@ -12,7 +12,7 @@ panel says *Ask* / *Edit* / *Agent*. Ask mode cannot run terminal commands or
 write files, and most of this needs both. If you only see Ask and Edit, update
 the GitHub Copilot Chat extension.
 
-Total time: about 30 minutes of terminal work, 1–2 hours of review for phase 2,
+Total time: about 30 minutes of terminal work,
 and phase 3 is either 10 minutes or several hours depending on one decision.
 
 ---
@@ -74,57 +74,14 @@ The one result worth reading yourself:
 
 ---
 
-## Phase 2 — Fix the community names (1–2 hours, the valuable part)
+## Phase 2 — Community names — **done**
 
-All 272 curated names are currently attached to the wrong communities. See
-[RELABELLING.md](RELABELLING.md) for why. Do the chunks your team actually
-queries; you do not have to do all eleven.
+Nothing to do here. All 530 community names have been rewritten against the
+current clustering, audited and pinned to content anchors; they now re-attach
+themselves on every rebuild. Skip to phase 3.
 
-### 2a. See the damage
-
-> Run `python -m oregraph relabel --only OREAnalytics` and show me the full
-> output. Explain how many names would move and how many are ambiguous.
-
-### 2b. Relabel one chunk properly
-
-Do not just accept the proposal — it is token matching and it collapses names
-that share vocabulary. This prompt has Copilot redo the mapping from the actual
-community contents, which is what produces a correct result:
-
-> Read `%ORE_GRAPH_OUT%\OREAnalytics\graphify-out\.graphify_analysis.json`. It
-> maps community id to a list of member node ids.
->
-> For each of the 40 largest communities, look at the member node ids and write
-> a 2–5 word plain-language name describing what that group of code does. The
-> existing names in `labels/OREAnalytics.json` are good descriptions of ORE but
-> are attached to the wrong ids — reuse the wording where a name fits a
-> community, and write a new one where nothing fits.
->
-> Write the result to `labels/OREAnalytics.json` as `{"<community id>": "<name>"}`,
-> sorted by community id. Then show me the ten largest communities with your
-> chosen name and five sample member ids each, so I can check them.
-
-Check that sample. Node ids contain the source path, so a name like "SIMM CRIF
-record definitions" should sit on members with `simm` and `crif` in their ids.
-
-### 2c. Pin it so it never rots again
-
-```bash
-python -m oregraph relabel --only OREAnalytics --write-anchors
-```
-
-This records the 15 highest-degree members of each named community. Future
-builds re-attach names by content overlap rather than by id, so re-clustering no
-longer breaks them. Measured recovery on a correct mapping: 15/15 names with an
-unchanged corpus, 15/15 at 10% file churn, 14/15 at 25%.
-
-Repeat 2b–2c per chunk. Suggested order — `OREAnalytics`, `OREData`, `QuantExt`,
-`OREDocs`, `OREXsd`, then the QuantLib chunks.
-
-### 2d. Commit
-
-> Commit the labels directory with the message
-> "relabel: fix community mapping and pin anchors".
+For maintenance — adding a name, correcting one, or recovering after an ORE
+upgrade re-clusters the corpus — see **[RELABELLING.md](RELABELLING.md)**.
 
 ---
 
@@ -270,7 +227,7 @@ have.
 | `could not locate the ORE Engine repo` | `ORE_ENGINE` unset in this shell | reopen the terminal after `setx`, or pass `--engine` |
 | `graphify is not importable` | installed to a different interpreter | `python -m pip install graphifyy` with the same `python` |
 | `verify` says 0 cross-module edges | chunks built but merge used stale graphs | `python -m oregraph merge` again |
-| `verify` says labels `id-unverified` | phase 2 not done for that chunk | expected until you relabel it |
+| `verify`: names did not attach | anchors no longer win a community after re-clustering | re-run the loop in [RELABELLING.md](RELABELLING.md) |
 | a chunk reports FAILED | that path is absent in your checkout | usually fine; check with `python -m oregraph coverage` |
 | build is very slow | first run has no cache | subsequent builds reuse it and take seconds |
 | Copilot won't run commands | Chat is in Ask mode | switch to Agent |

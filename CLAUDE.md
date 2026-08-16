@@ -29,10 +29,14 @@ made the previous version unusable by anyone but its author.
 
 ## Current state
 
-- Curated names in `labels/` are attached to the wrong communities — see
-  `docs/RELABELLING.md`. Until fixed, `verify` reports them `id-unverified`.
+- Community names are done: 530 curated names in `labels/`, audited and pinned to
+  content anchors, covering 92% of communities of 50+ nodes. They re-attach
+  themselves on rebuild. To add or fix one, follow `docs/RELABELLING.md`.
 - `semantic-chunks/examples/` is not populated yet; everything else is.
-- Run `oregraph verify` after any change to the build or merge path.
+- Run `oregraph verify` after any change to the build or merge path. Two of its
+  checks are about names: `curated labels attached` and `all curated names
+  attached`. The second is the one that catches a name passing `--audit` on the
+  per-chunk graph and still vanishing at merge.
 
 ## Conserving plan usage
 

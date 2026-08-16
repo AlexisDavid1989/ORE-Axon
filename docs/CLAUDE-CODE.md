@@ -22,8 +22,8 @@ Pro has a rolling five-hour window and a weekly cap. This job fits comfortably
 if you avoid the two things that waste it:
 
 - **Use Sonnet for the mechanical phases.** `/model sonnet` before phases 1 and
-  4. Building and verifying is command-running, not reasoning. Phase 2 is worth
-  Opus — naming communities is judgement.
+  4. Building and verifying is command-running, not reasoning. Judgement work —
+  naming communities, per [RELABELLING.md](RELABELLING.md) — is worth Opus.
 - **`/clear` between phases.** Every request re-sends the whole conversation, so
   a session left open across all four phases pays for phase 1's context while
   doing phase 3.
@@ -78,77 +78,23 @@ Specifically compare the cross_module_edges count against the old build, which
 had 0, and the node count against the old build's 78,619.
 ```
 
-`verify` must end with **All checks passed**. Labels will report
-`id-unverified` — expected until phase 2.
+`verify` must end with **All checks passed**, including both label lines —
+`curated labels attached` and `all curated names attached`. The names come from
+`labels/` in this repo and re-attach themselves; there is no manual step.
 
 `ORESwig` may extract thin; graphify has no SWIG `.i` extractor, so you mostly
 get its Python tests. Not a problem.
 
 ---
 
-## Phase 2 — Fix the community names (1–2 hours, the valuable part)
+## Phase 2 — Community names — **done**
 
-`/clear`, then `/model opus`. This is judgement work.
+Nothing to do here. All 530 community names have been rewritten against the
+current clustering, audited and pinned to content anchors; they now re-attach
+themselves on every rebuild. Skip to phase 3.
 
-All 272 curated names are attached to the wrong communities — see
-[RELABELLING.md](RELABELLING.md). Do the chunks your team queries most; you do
-not have to do all eleven.
-
-### 2a. See the damage
-
-```
-Run `python -m oregraph relabel --only OREAnalytics` and show me the output.
-How many names would move, and how many are ambiguous?
-```
-
-### 2b. Relabel properly
-
-First build the naming brief — this is what makes the job tractable:
-
-```bash
-python -m oregraph relabel --digest
-```
-
-For each chunk that writes `RELABEL_BRIEF.md` into its output directory: every
-large community reduced to the source files it covers and its most connected
-symbols. About 5 KB per chunk instead of the ~1 MB analysis file, and far
-easier to name from, because what identifies a community is which files it
-spans — which the raw node ids bury.
-
-Then, one chunk at a time:
-
-```
-Read %ORE_GRAPH_OUT%\<CHUNK>\graphify-out\RELABEL_BRIEF.md.
-
-For each community listed, write a 2-5 word plain-language name for what that
-group of code does. The names in labels/<CHUNK>.json are good descriptions of
-ORE but attached to the wrong ids — reuse the wording where it fits a community
-and write new where nothing fits.
-
-Dispatch subagents in parallel, each taking a slice of the communities.
-
-Write the result to labels/<CHUNK>.json as {"<id>": "<name>"} sorted by id.
-Then re-run the label audit for this chunk and show me the match/MISMATCH
-counts. Do not run --write-anchors until the audit is clean.
-```
-
-The audit is the acceptance gate: it compares each name against the contents of
-the community it is attached to. Clean audit, then pin.
-
-### 2c. Pin it
-
-```bash
-python -m oregraph relabel --only OREAnalytics --write-anchors
-```
-
-Records the 15 highest-degree members per named community, so future builds
-re-attach names by content rather than by id. Measured recovery: 15/15 on an
-unchanged corpus, 15/15 at 10% file churn, 14/15 at 25%.
-
-Repeat 2b–2c per chunk. Order: `OREAnalytics`, `OREData`, `QuantExt`,
-`OREDocs`, `OREXsd`, then QuantLib.
-
-Commit when done: `git commit -m "relabel: fix community mapping and pin anchors"`
+For maintenance — adding a name, correcting one, or recovering after an ORE
+upgrade re-clusters the corpus — see **[RELABELLING.md](RELABELLING.md)**.
 
 ---
 
@@ -266,7 +212,7 @@ against their own checkout.
 | `could not locate the ORE Engine repo` | env var not in this shell | restart the terminal after `setx`, or pass `--engine` |
 | `graphify is not importable` | installed to a different interpreter | `python -m pip install graphifyy` with the same `python` |
 | `verify`: 0 cross-module edges | merge used stale chunk graphs | `python -m oregraph merge` again |
-| `verify`: labels `id-unverified` | phase 2 not done for that chunk | expected |
+| `verify`: names did not attach | anchors no longer win a community after re-clustering | re-run the loop in [RELABELLING.md](RELABELLING.md) for that chunk |
 | a chunk reports FAILED | that path is absent in your checkout | check with `python -m oregraph coverage` |
 | build very slow | first run, no cache | later builds reuse it and take seconds |
 | hit a usage limit | long session or agent reading many files | `/clear`, switch to Sonnet, set `GEMINI_API_KEY` |
