@@ -32,12 +32,14 @@ SOURCE_EXTS = {".hpp", ".h", ".hxx", ".hh", ".inl", ".ipp",
 
 
 def _iter_sources(paths: list[Path]):
-    for p in paths:
+    # Sorted throughout: rglob order is filesystem-dependent, and anything that
+    # varies here varies in the edge list downstream.
+    for p in sorted(paths):
         if p.is_file():
             if p.suffix.lower() in SOURCE_EXTS:
                 yield p
         else:
-            for f in p.rglob("*"):
+            for f in sorted(p.rglob("*")):
                 if f.is_file() and f.suffix.lower() in SOURCE_EXTS:
                     yield f
 
@@ -85,8 +87,11 @@ def build_index(graphs: dict[str, dict], engine_roots: dict[str, str]) -> dict[s
                 key = f"{root}/{sf}" if root not in ("", ".") else sf
             # File-level nodes carry no symbol suffix, so for a given path the
             # shortest id is the file node rather than one of its members.
+            # Compare (length, id) rather than length alone: two ids of equal
+            # length would otherwise resolve by iteration order, so the same
+            # corpus could index a different node between runs.
             prev = index.get(key)
-            if prev is None or len(n["id"]) < len(prev):
+            if prev is None or (len(n["id"]), n["id"]) < (len(prev), prev):
                 index[key] = n["id"]
     return index
 
@@ -106,11 +111,17 @@ def link(engine: Path, chunks: list[Chunk], graphs: dict[str, dict],
     seen: set[tuple[str, str]] = set()
     unresolved = 0
     intra = 0
-    for src_rel, targets in includes.items():
+    # Iterate in sorted order throughout. `includes` maps to sets of strings, and
+    # Python randomises string hashing per process (PYTHONHASHSEED), so set and
+    # dict iteration order varies between runs. That fed straight into edge
+    # order, and through it into the clustering - two builds of an unchanged
+    # corpus produced different partitions and dropped curated names.
+    for src_rel in sorted(includes):
+        targets = includes[src_rel]
         src_id = index.get(src_rel)
         if src_id is None:
             continue
-        for tgt_rel in targets:
+        for tgt_rel in sorted(targets):
             tgt_id = index.get(tgt_rel)
             if tgt_id is None:
                 unresolved += 1
@@ -133,6 +144,7 @@ def link(engine: Path, chunks: list[Chunk], graphs: dict[str, dict],
                 "source_file": src_rel,
                 "_origin": "cross_link",
             })
+    edges.sort(key=lambda e: (e["source"], e["target"]))
     return edges, {
         "files_scanned": len(includes),
         "cross_module_edges": len(edges),
