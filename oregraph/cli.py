@@ -3,9 +3,18 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+import subprocess
 import sys
 import time
 from pathlib import Path
+
+#: Upstream bug behind the PYTHONHASHSEED relaunch in main(). graphify's
+#: build_from_json drops edges depending on string-hash iteration order. If you
+#: are here to remove the relaunch, check this issue is fixed in the pinned
+#: graphify version first - and re-run the two-build comparison in
+#: docs/RELABELLING.md before trusting the result.
+UPSTREAM_ISSUE = "graphify: build_from_json drops edges depending on hash order"
 
 from . import chunks as chunkmod
 from . import config as configmod
@@ -285,6 +294,35 @@ def main(argv=None):
     p.set_defaults(func=cmd_verify)
 
     args = ap.parse_args(argv)
+
+    # Reproducible builds need PYTHONHASHSEED pinned, and it can only be set
+    # before the interpreter starts - so relaunch once, for the two commands
+    # that construct or cluster a graph.
+    #
+    # Why: graphify's build_from_json has a set- or dict-keyed step whose
+    # iteration order varies with Python's per-process string hash
+    # randomisation. Given byte-identical extraction input, three runs produced
+    # 7,517 / 7,518 / 7,511 edges and 220 / 205 / 216 communities; with
+    # PYTHONHASHSEED=0, three runs produced 7,522 edges and 209 communities
+    # every time. Every unpinned run loses edges relative to the pinned one, so
+    # pinning does not fix the loss - it only makes it consistent, which is what
+    # the clustering (and therefore the curated names) needs to be reproducible.
+    # The underlying edge loss is an upstream bug: see UPSTREAM_ISSUE below.
+    #
+    # subprocess, not os.execve: Windows implements exec as spawn-and-exit, so
+    # cmd.exe frequently returns to the prompt while the replacement is still
+    # running.
+    if args.cmd in ("build", "merge") and os.environ.get("PYTHONHASHSEED") != "0":
+        env = {**os.environ, "PYTHONHASHSEED": "0"}
+        # flush before spawning: stdout is block-buffered when piped or
+        # redirected, so without this the notice lands *after* the child's
+        # entire output and reads as if it belonged to the next command.
+        print("Relaunching with PYTHONHASHSEED=0 for a reproducible build.",
+              flush=True)
+        r = subprocess.run([sys.executable, "-m", "oregraph", *sys.argv[1:]],
+                           env=env)
+        raise SystemExit(r.returncode)
+
     return args.func(args)
 
 
