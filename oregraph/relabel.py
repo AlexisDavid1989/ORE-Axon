@@ -49,8 +49,11 @@ ANCHOR_COUNT = 15
 
 
 def _tokens(text: str) -> list[str]:
+    # Length >= 3, not > 3: the domain is full of three-letter terms that carry
+    # all the meaning in a name — cbo, xva, cva, dim, irs, cds, fx. An earlier
+    # cutoff of 4 dropped them and reported correct names as mismatches.
     return [t for t in re.split(r"[^a-z0-9]+", text.lower())
-            if len(t) > 2 and t not in STOPWORDS]
+            if len(t) >= 3 and t not in STOPWORDS]
 
 
 def propose(analysis_path: Path, labels_path: Path) -> dict:
@@ -97,6 +100,67 @@ def propose(analysis_path: Path, labels_path: Path) -> dict:
     for name, v in out.items():
         v["ambiguous"] = collisions[v["proposed_id"]] > 1 if v["proposed_id"] else True
     return out
+
+
+def audit(graph_path: Path, labels_path: Path) -> dict:
+    """Check each curated name against the contents of the community it sits on.
+
+    The acceptance gate for relabelling. A name should share vocabulary with the
+    files and symbols in its own community: "SIMM CRIF record definitions"
+    belongs on members whose paths contain `simm` and `crif`. When it doesn't,
+    the name is almost certainly on the wrong group — which is exactly the
+    failure that went unnoticed in the original build.
+
+    Matching is deliberately generous: one shared token is enough. It is a trap
+    detector, not a quality score, and a clean audit means "nothing is obviously
+    misfiled", not "these are good names".
+    """
+    g = json.loads(graph_path.read_text(encoding="utf-8"))
+    labels = json.loads(labels_path.read_text(encoding="utf-8"))
+
+    members: dict[int, list[dict]] = collections.defaultdict(list)
+    for n in g["nodes"]:
+        cid = n.get("community")
+        if cid is not None:
+            members[int(cid)].append(n)
+
+    matched, mismatched = [], []
+    for cid_str, name in labels.items():
+        group = members.get(int(cid_str), [])
+        blob = " ".join(
+            [str(n.get("repo_path") or n.get("source_file") or "") for n in group]
+            + [str(n.get("label") or "") for n in group]
+        ).lower()
+        name_tokens = _tokens(name)
+        hit = [t for t in name_tokens if t in blob]
+        entry = {
+            "id": int(cid_str), "name": name, "size": len(group),
+            "matched_tokens": hit,
+            "files": sorted({str(n.get("repo_path") or n.get("source_file") or "")
+                             for n in group if n.get("repo_path") or n.get("source_file")})[:4],
+        }
+        if not group:
+            entry["note"] = "community id not present in this build"
+            mismatched.append(entry)
+        elif hit:
+            matched.append(entry)
+        else:
+            mismatched.append(entry)
+
+    return {"chunk": labels_path.stem, "total": len(labels),
+            "matched": len(matched), "mismatched": len(mismatched),
+            "detail": mismatched, "clean": not mismatched}
+
+
+def format_audit(result: dict) -> str:
+    lines = [f"{result['chunk']:36s} match={result['matched']:3d}  "
+             f"MISMATCH={result['mismatched']:3d}  (of {result['total']})"]
+    for e in result["detail"]:
+        note = f"  [{e['note']}]" if e.get("note") else ""
+        lines.append(f"    id {e['id']:>4}  \"{e['name']}\"{note}")
+        if e["files"]:
+            lines.append(f"           files: {', '.join(e['files'])}")
+    return "\n".join(lines)
 
 
 def digest(graph_path: Path, out_path: Path, top: int = 40,

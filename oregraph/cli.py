@@ -155,8 +155,23 @@ def cmd_semantic(args):
 
 
 def cmd_relabel(args):
-    from .relabel import propose, format_proposal, write_anchors, digest
+    from .relabel import (propose, format_proposal, write_anchors, digest,
+                          audit, format_audit)
     cfg = _cfg(args)
+
+    if args.audit:
+        targets = args.only or [c.name for c in ALL_CHUNKS if cfg.labels_for(c.name)]
+        dirty = 0
+        for name in targets:
+            gp, lp = cfg.module_graph(name), cfg.labels_for(name)
+            if not gp.exists() or not lp:
+                continue
+            res = audit(gp, lp)
+            print(format_audit(res))
+            dirty += res["mismatched"]
+        print(f"\n{'CLEAN - safe to --write-anchors' if not dirty else f'{dirty} name(s) look misfiled - fix before pinning'}")
+        return
+
     if args.digest:
         targets = args.only or [c.name for c in ALL_CHUNKS
                                 if cfg.module_graph(c.name).exists()]
@@ -249,6 +264,9 @@ def main(argv=None):
     p.add_argument("--write-anchors", action="store_true",
                    help="pin the current mapping as anchors (do this only after "
                         "confirming the labels are correct)")
+    p.add_argument("--audit", action="store_true",
+                   help="check each curated name against its community's actual "
+                        "contents; the gate to pass before --write-anchors")
     p.add_argument("--digest", action="store_true",
                    help="write a compact naming brief per chunk (files and key "
                         "symbols per community) instead of proposing a mapping")
