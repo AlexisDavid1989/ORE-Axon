@@ -49,7 +49,7 @@
  "47": "Exotic swaptions and annuity mapping",
  "48": "Analytic LGM swaption pricing engine",
  "49": "YoY inflation cap-floor price surface",
- "50": "Lognormal CMS spread coupon pricer",
+ "50": "Lognormal CMS spread pricer (QuantExt fork)",
  "51": "OIS bootstrapping rate helpers",
  "52": "Average OIS swap builder",
  "53": "Random variable and filter type",

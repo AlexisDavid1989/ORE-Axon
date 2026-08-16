@@ -54,12 +54,46 @@ def verify(cfg) -> dict:
     check("curated labels attached", distinct > 0,
           f"{distinct} named communities covering {named:,} nodes")
 
-    # 5. every expected chunk contributed
+    # 5. every curated name in a label file actually reached the merged graph.
+    #    `relabel --audit` tests name-against-content on the *per-chunk* graph;
+    #    attachment happens later, through anchor overlap in labels.py at merge
+    #    time. Nothing spanned the two, so a name could pass every gate and
+    #    still vanish - four OREDocs names did exactly that, dropped by an
+    #    overlap guard they could not satisfy, with no error anywhere.
+    attached: dict[str, set[str]] = defaultdict(set)
+    for n in nodes:
+        nm, chunk = n.get("community_name"), n.get("repo")
+        if not nm or "Community " in str(nm):
+            continue
+        # labels.py joins names with " / " when two of them claim one community.
+        for part in str(nm).split(" / "):
+            attached[chunk].add(part)
+
+    built = {n.get("repo") for n in nodes}
+    missing: dict[str, list[str]] = {}
+    for lf in sorted(cfg.labels_dir.glob("*.json")):
+        if lf.name.endswith(".anchors.json"):
+            continue
+        chunk = lf.stem
+        if chunk not in built:
+            continue
+        want = set(json.loads(lf.read_text(encoding="utf-8")).values())
+        gap = sorted(want - attached.get(chunk, set()))
+        if gap:
+            missing[chunk] = gap
+
+    n_missing = sum(len(v) for v in missing.values())
+    check("all curated names attached", not missing,
+          "every curated name reached the merged graph" if not missing
+          else f"{n_missing} name(s) did not attach: " + "; ".join(
+              f"{c}: {', '.join(repr(x) for x in v)}" for c, v in missing.items()))
+
+    # 6. every expected chunk contributed
     present = Counter(n.get("repo") for n in nodes)
     check("all built chunks merged", len(present) > 0,
           ", ".join(f"{k}={v:,}" for k, v in present.most_common()))
 
-    # 6. docs and xsd survived the merge (they were dropped by the old
+    # 7. docs and xsd survived the merge (they were dropped by the old
     #    rebuild_all.py, which merged only the code chunks)
     check("docs present", present.get("OREDocs", 0) > 0,
           f"{present.get('OREDocs', 0)} doc nodes")

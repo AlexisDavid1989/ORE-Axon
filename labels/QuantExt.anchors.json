@@ -1052,7 +1052,7 @@
    ]
   },
   {
-   "label": "Lognormal CMS spread coupon pricer",
+   "label": "Lognormal CMS spread pricer (QuantExt fork)",
    "size": 54,
    "anchors": [
     "cashflows_lognormalcmsspreadpricer_lognormalcmsspreadpricer",

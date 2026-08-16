@@ -26,8 +26,12 @@ from pathlib import Path
 
 #: Minimum share of a label's anchors that must land in one community.
 MATCH_THRESHOLD = 0.40
-#: Minimum absolute number of anchors in that community. Guards against a
-#: label attaching to a tiny community on the strength of one or two hits.
+#: Ceiling on the absolute number of anchors required in that community - not a
+#: floor. Guards against a label attaching to a tiny community on the strength
+#: of one or two hits, but a label can never be asked for more anchors than it
+#: has: a community with three members yields three anchors, and requiring four
+#: dropped it at merge however perfectly it matched. The requirement is
+#: therefore min(MIN_OVERLAP, len(anchors)) - see attach_labels.
 MIN_OVERLAP = 4
 #: When two labels both best-match the same community, the corpus has merged
 #: two previously separate groups; keep up to this many names for it rather
@@ -82,7 +86,13 @@ def attach_labels(chunk: str, graph: dict, labels_dir: Path) -> tuple[dict[int, 
             if hit > best_hit:
                 best_cid, best_hit = cid, hit
         recall = best_hit / len(anchors)
-        if best_cid is None or recall < MATCH_THRESHOLD or best_hit < MIN_OVERLAP:
+        # Scale the overlap requirement to what this label can actually offer.
+        # A small community contributes fewer anchors than MIN_OVERLAP, so a
+        # fixed guard made it unattachable no matter how well it matched: four
+        # OREDocs names each matched their community with recall 1.00 on three
+        # anchors and were still dropped here, silently, at merge time.
+        need = min(MIN_OVERLAP, len(anchors))
+        if best_cid is None or recall < MATCH_THRESHOLD or best_hit < need:
             dropped += 1
             continue
         claims[best_cid].append((recall, entry["label"]))

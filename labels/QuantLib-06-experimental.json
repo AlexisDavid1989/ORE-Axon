@@ -5,7 +5,7 @@
  "3": "Extended Black-Scholes process variants",
  "4": "Spot-recovery random-loss latent model",
  "5": "Square-root CLV collocation model",
- "6": "Lognormal CMS spread coupon pricer",
+ "6": "Lognormal CMS spread pricer (QuantLib experimental)",
  "7": "Ext-OU jump and Kluge processes",
  "8": "Perturbative barrier option engine",
  "9": "ABCD parametric ATM vol curve",

@@ -128,7 +128,7 @@
    ]
   },
   {
-   "label": "Lognormal CMS spread coupon pricer",
+   "label": "Lognormal CMS spread pricer (QuantLib experimental)",
    "size": 57,
    "anchors": [
     "experimental_coupons_lognormalcmsspreadpricer_lognormalcmsspreadpricer",
