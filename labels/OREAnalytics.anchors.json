@@ -840,6 +840,153 @@
     "engine_saccrcalculator_hpp_set",
     "engine_saccrcalculator_hpp_shared_ptr"
    ]
+  },
+  {
+   "label": "Slim CRIF record accessors",
+   "size": 51,
+   "anchors": [
+    "simm_crif_cpp_string",
+    "simm_crif_slimcrifrecord_updatefromcrifrecord",
+    "simm_crif_slimcrifrecord_setcrif",
+    "simm_crif_slimcrifrecord_slimcrifrecord",
+    "simm_crif_cpp_crifrecord",
+    "simm_crif_slimcrifrecord_setenddate",
+    "simm_crif_slimcrifrecord_setqualifier",
+    "simm_crif_slimcrifrecord_settradeid",
+    "simm_crif_slimcrifrecord_tocrifrecord",
+    "simm_crif_slimcrifrecord_setbbrw",
+    "simm_crif_slimcrifrecord_setbucket",
+    "simm_crif_slimcrifrecord_setcounterpartyid",
+    "simm_crif_slimcrifrecord_setcounterpartyname",
+    "simm_crif_slimcrifrecord_setcoveredbondind",
+    "simm_crif_slimcrifrecord_setcreditquality"
+   ]
+  },
+  {
+   "label": "XVA sensitivity analytic",
+   "size": 50,
+   "anchors": [
+    "app_analytics_xvasensitivityanalytic",
+    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl",
+    "app_analytics_xvasensitivityanalytic_xvaresults",
+    "app_analytics_xvasensitivityanalytic_zerosensiresults",
+    "app_analytics_xvaanalytic_xvavariables_storecreditstatenpvs",
+    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_computexvaunderscenarios",
+    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_createdetailreport",
+    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_runanalytic",
+    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_convertxvaresultstosensicubes",
+    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_parconversion",
+    "app_analytics_xvasensitivityanalytic_cpp_shared_ptr",
+    "app_analytics_xvasensitivityanalytic_parsensiresults",
+    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_computezeroxvasensitivity",
+    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_createparreports",
+    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_buildsimmarket"
+   ]
+  },
+  {
+   "label": "Netted exposure calculator",
+   "size": 51,
+   "anchors": [
+    "aggregation_nettedexposurecalculator_nettedexposurecalculator",
+    "aggregation_nettedexposurecalculator_hpp_calculationtype",
+    "aggregation_nettedexposurecalculator_hpp_collateralbalances",
+    "aggregation_nettedexposurecalculator_hpp_mporcashflowmode",
+    "aggregation_nettedexposurecalculator_hpp_npvcube",
+    "aggregation_nettedexposurecalculator_hpp_portfolio",
+    "aggregation_nettedexposurecalculator_hpp_shared_ptr",
+    "aggregation_nettedexposurecalculator_hpp_size",
+    "aggregation_nettedexposurecalculator_hpp_timeaveragedexposure",
+    "aggregation_nettedexposurecalculator_nettedexposurecalculator_allocatedeneindex",
+    "aggregation_nettedexposurecalculator_nettedexposurecalculator_allocatedepeindex",
+    "aggregation_nettedexposurecalculator_nettedexposurecalculator_applyinitialmargin",
+    "aggregation_nettedexposurecalculator_nettedexposurecalculator_basecurrency",
+    "aggregation_nettedexposurecalculator_nettedexposurecalculator_calctype",
+    "aggregation_nettedexposurecalculator_nettedexposurecalculator_collateralbalances"
+   ]
+  },
+  {
+   "label": "AMC valuation engine",
+   "size": 51,
+   "anchors": [
+    "engine_amcvaluationengine_amcvaluationengine",
+    "engine_amcvaluationengine_amcvaluationengine_outputcubes",
+    "engine_amcvaluationengine_amcvaluationengine_iborfallbackconfig",
+    "engine_amcvaluationengine_hpp_npvcube",
+    "engine_amcvaluationengine_hpp_shared_ptr",
+    "engine_amcvaluationengine_hpp_vector",
+    "engine_amcvaluationengine_amcvaluationengine_aggdatacurrencies",
+    "engine_amcvaluationengine_amcvaluationengine_aggdataindices",
+    "engine_amcvaluationengine_amcvaluationengine_aggdatanumbercreditstates",
+    "engine_amcvaluationengine_amcvaluationengine_allowmodelfallbacks",
+    "engine_amcvaluationengine_amcvaluationengine_amcindividualtraininginput",
+    "engine_amcvaluationengine_amcvaluationengine_amcindividualtrainingoutput",
+    "engine_amcvaluationengine_amcvaluationengine_amcpathdatainput",
+    "engine_amcvaluationengine_amcvaluationengine_amcpathdataoutput",
+    "engine_amcvaluationengine_amcvaluationengine_asd"
+   ]
+  },
+  {
+   "label": "CRIF generators per risk type",
+   "size": 50,
+   "anchors": [
+    "simm_crifrecordgenerator_cpp_string",
+    "simm_crifrecordgenerator_crifrecorddata",
+    "simm_crifrecordgenerator_crifrecordgenerator_operator",
+    "simm_crifrecordgenerator_cpp_vector",
+    "simm_crifrecordgenerator_crifrecordgenerator_defaultrecord",
+    "simm_crifrecordgenerator_simmrecordgenerator",
+    "simm_crifrecordgenerator_crifrecordgenerator_yieldcurveimpl",
+    "simm_crifrecordgenerator_crifrecordgenerator_yieldvolatilityimpl",
+    "simm_crifrecordgenerator_crifrecordgenerator_indexcurveimpl",
+    "simm_crifrecordgenerator_crifrecordgenerator_irvolatilityimpl",
+    "simm_crifrecordgenerator_crifrecordgenerator_crifqualifier",
+    "simm_crifrecordgenerator_crifrecordgenerator_discountcurveimpl",
+    "simm_crifrecordgenerator_crifrecordgenerator_fxspotimpl",
+    "simm_crifrecordgenerator_crifrecordgenerator_fxvolatilityimpl",
+    "simm_crifrecordgenerator_hpp_string"
+   ]
+  },
+  {
+   "label": "SIMM configuration base (ISDA v1)",
+   "size": 51,
+   "anchors": [
+    "simm_simmconfigurationbase_simmconfigurationbase",
+    "simm_simmconfigurationisdav1_0_simmconfiguration_isda_v1_0",
+    "simm_simmconfigurationisdav1_0",
+    "simm_simmconfigurationisdav1_3",
+    "simm_simmconfigurationbase_hpp_risktype",
+    "simm_simmconfigurationbase_simmconfigurationbase_concentrationthreshold",
+    "simm_simmconfigurationbase_hpp_real",
+    "simm_simmconfigurationbase_hpp_string",
+    "simm_simmconfigurationbase_simmconfigurationbase_addlabels2",
+    "simm_simmconfigurationbase_hpp_size",
+    "simm_simmconfigurationbase_simmconfigurationbase_curvaturemarginscaling",
+    "simm_simmconfigurationbase_simmconfigurationbase_isvalidrisktype",
+    "simm_simmconfigurationbase_simmconfigurationbase_mpordays",
+    "simm_simmconfigurationisdav1_3_simmconfiguration_isda_v1_3",
+    "simm_simmconfigurationbase_hpp_amounts"
+   ]
+  },
+  {
+   "label": "SA-CCR trade data mapping",
+   "size": 50,
+   "anchors": [
+    "engine_saccrtradedata_saccrtradedata",
+    "engine_saccrtradedata_cpp_string",
+    "engine_saccrtradedata_saccrdefaults",
+    "engine_saccrtradedata_saccrtradedata_saccrtradedata",
+    "engine_saccrtradedata_saccrtradedata_getsimmqualifier",
+    "engine_saccrtradedata_saccrtradedata_initialise",
+    "engine_saccrtradedata_saccrtradedata_getcommodityhedgingsubset",
+    "engine_saccrtradedata_saccrtradedata_getunderlyingname",
+    "engine_saccrtradedata_saccrtradedata_oreassetclasstosaccr",
+    "engine_saccrtradedata_saccrtradedata_saccrassetclasstoore",
+    "engine_saccrtradedata_saccrtradedata_validate",
+    "engine_saccrtradedata_getcmsindexperiod",
+    "engine_saccrtradedata_hpp_size",
+    "engine_saccrtradedata_saccrtradedata_getcommodityhedgingset",
+    "engine_saccrtradedata_saccrtradedata_getfxrate"
+   ]
   }
  ]
 }

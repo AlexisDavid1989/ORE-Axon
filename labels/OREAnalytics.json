@@ -38,5 +38,12 @@
  "36": "SIMM configuration & risk weights",
  "37": "Scenario sim market XML/smile config",
  "38": "CRIF loaders (CSV/stream)",
- "39": "SA-CCR capital calculator"
+ "39": "SA-CCR capital calculator",
+ "40": "Slim CRIF record accessors",
+ "41": "XVA sensitivity analytic",
+ "42": "Netted exposure calculator",
+ "44": "AMC valuation engine",
+ "45": "CRIF generators per risk type",
+ "46": "SIMM configuration base (ISDA v1)",
+ "48": "SA-CCR trade data mapping"
 }
