@@ -37,14 +37,21 @@ def verify(cfg) -> dict:
     check("cross-module edges present", cross > 0, f"{cross:,} cross-module edges")
 
     # 3. communities are namespaced per chunk (old merge concatenated raw ids,
-    #    so one community id spanned a dozen unrelated modules)
+    #    so one community id spanned a dozen unrelated modules). Ids are ints
+    #    offset by chunk position, so this also catches a chunk overrunning
+    #    COMMUNITY_STRIDE and colliding with the next chunk's range. A bare int
+    #    is unreadable, so report the readable `community_key` on failure.
     spans = defaultdict(set)
+    keys = {}
     for n in nodes:
-        if n.get("community") is not None:
-            spans[n["community"]].add(n.get("repo"))
+        cid = n.get("community")
+        if cid is not None:
+            spans[cid].add(n.get("repo"))
+            keys.setdefault(cid, n.get("community_key", cid))
     bad = [c for c, r in spans.items() if len(r) > 1]
     check("communities do not span chunks", not bad,
-          f"{len(bad)} communities span >1 chunk")
+          f"{len(bad)} communities span >1 chunk"
+          + ("" if not bad else ": " + ", ".join(str(keys[c]) for c in bad[:5])))
 
     # 4. curated labels actually landed
     named = sum(1 for n in nodes

@@ -38,6 +38,34 @@ Then ask your agent, from inside the Engine checkout:
 and schemas were extracted once by an LLM and the results are committed under
 `semantic-chunks/`, so your build just reads them.
 
+### What it answers well, and what it doesn't
+
+**Works well — structural questions.** "What inherits from `X`" (`get_neighbors`),
+"how does A reach B" (`shortest_path`), "what is in this cluster"
+(`get_community`). Cross-module traversal works: OREData → QuantExt → QuantLib
+resolves in 3 hops.
+
+```
+Shortest path (3 hops):
+  SwapEngineBuilder <--contains-- swap.hpp --includes--> discountingswapengine.hpp --contains--> DiscountingSwapEngine
+```
+
+**Does not work — documentation-to-code questions.** Docs, XSD and code are
+separate layers with **zero edges between them**. "Which code implements what the
+ScriptedTrade docs describe" cannot be answered. Worse, the tools do not say so:
+asked that question, `shortest_path` matches the `ScriptedTrade` *class* and
+returns a confident-looking code-to-code path, never touching the 31 documentation
+nodes on the subject. Treat any docs↔code answer as unfounded. Planned for v1.1.
+
+**Use the right tool.** `shortest_path` answers "is there a route", not "what does
+X depend on" — asked the latter it returns co-inclusion artefacts (two files that
+both include `actual365fixed.hpp` are not a dependency). For dependency and
+blast-radius questions use `get_neighbors`. Avoid `query_graph` in DFS mode on
+broad questions; it returns thousands of loosely related nodes.
+
+**Queries need a real symbol as the entry point.** `"portfolio/swap.hpp"` finds
+nothing; `"TradeFactory"` works. Start from a class or function name, not a path.
+
 ### Keeping it current
 
 ```bash

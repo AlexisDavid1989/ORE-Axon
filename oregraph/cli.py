@@ -118,13 +118,20 @@ def cmd_mcp(args):
     """Write MCP config for Claude Code and/or VS Code into the Engine repo."""
     cfg = _cfg(args)
     graph = str(cfg.merged_graph)
-    exe = "graphify-mcp"
+
+    # Bind the server to *this* interpreter rather than writing a bare
+    # `graphify-mcp`. A bare name resolves through PATH, and `pip install --user`
+    # on Windows drops the console script in %APPDATA%\Python\PythonXY\Scripts,
+    # which is not on PATH by default - so the config was written successfully
+    # and then failed to start, with no indication of why. The module entry
+    # point exists (`python -m graphify.serve`) and needs no console script.
+    command, pre_args = sys.executable, ["-m", "graphify.serve"]
 
     wrote = []
     if args.host in ("claude", "both"):
         p = cfg.engine / ".mcp.json"
         payload = {"mcpServers": {"graphify-ore": {
-            "type": "stdio", "command": exe, "args": [graph]}}}
+            "type": "stdio", "command": command, "args": pre_args + [graph]}}}
         p.write_text(json.dumps(payload, indent=2), encoding="utf-8")
         wrote.append(p)
     if args.host in ("vscode", "both"):
@@ -132,7 +139,7 @@ def cmd_mcp(args):
         d.mkdir(exist_ok=True)
         p = d / "mcp.json"
         payload = {"servers": {"graphify-ore": {
-            "type": "stdio", "command": exe, "args": [graph]}}}
+            "type": "stdio", "command": command, "args": pre_args + [graph]}}}
         p.write_text(json.dumps(payload, indent=2), encoding="utf-8")
         wrote.append(p)
     for p in wrote:

@@ -52,6 +52,21 @@ def merge(engine: Path, chunks: list[Chunk], graph_paths: dict[str, Path],
     hyperedges: list[dict] = []
     label_stats: dict[str, dict] = {}
 
+    # Community ids must stay globally unique across chunks - every chunk numbers
+    # its own communities from 0 - but they must also remain *integers*: graphify's
+    # MCP server does int(cid) when it reconstructs communities from the graph, and
+    # a namespaced string crashes it on startup. So the id is offset by the chunk's
+    # position and the readable form is kept beside it in `community_key`.
+    #
+    # These integer ids are EPHEMERAL. They depend on chunk_index, which is the
+    # position of a chunk in this merge, so adding or removing a chunk renumbers
+    # every community after it - and Louvain itself repartitions on every build
+    # anyway. Never persist one, and never treat it as stable across builds.
+    # Nothing does today: anchors reference node ids, which derive from source
+    # paths. The temptation to key something off a community id will arise; don't.
+    COMMUNITY_STRIDE = 1_000_000
+    chunk_index = {name: i for i, name in enumerate(graphs)}
+
     for name, g in graphs.items():
         names, stats = attach_labels(name, g, labels_dir)
         label_stats[name] = stats
@@ -63,7 +78,8 @@ def merge(engine: Path, chunks: list[Chunk], graph_paths: dict[str, Path],
             n["repo"] = name
             cid = n.get("community")
             if cid is not None:
-                n["community"] = f"{name}:{cid}"
+                n["community"] = chunk_index[name] * COMMUNITY_STRIDE + int(cid)
+                n["community_key"] = f"{name}:{cid}"
                 n["community_name"] = names.get(int(cid), f"{name} / Community {cid}")
             merged_nodes.append(n)
 
