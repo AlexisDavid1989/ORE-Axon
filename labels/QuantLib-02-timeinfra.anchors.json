@@ -23,7 +23,7 @@
    ]
   },
   {
-   "label": "Calendar base class and country calendars",
+   "label": "Calendar base class and country calendars (mixed)",
    "size": 58,
    "anchors": [
     "time_calendar_calendar",
@@ -443,7 +443,7 @@
    ]
   },
   {
-   "label": "Null and weekends-only calendars",
+   "label": "Null and weekends-only calendars (mixed)",
    "size": 32,
    "anchors": [
     "time_calendars_all",

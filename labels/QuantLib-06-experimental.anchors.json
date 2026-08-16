@@ -758,7 +758,7 @@
    ]
   },
   {
-   "label": "FFT option pricing engines",
+   "label": "FFT pricing engines (+ analytic Heston)",
    "size": 33,
    "anchors": [
     "experimental_variancegamma_fftengine_fftengine",

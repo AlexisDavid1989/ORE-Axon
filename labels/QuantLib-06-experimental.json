@@ -35,7 +35,7 @@
  "33": "CMS spread coupon and leg",
  "34": "One-factor affine hazard rate curve",
  "35": "MC Himalaya option engine",
- "36": "FFT option pricing engines",
+ "36": "FFT pricing engines (+ analytic Heston)",
  "37": "Vanna-Volga interpolation",
  "38": "Commodity price curve",
  "41": "Particle swarm optimization"

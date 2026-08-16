@@ -1,6 +1,6 @@
 {
  "0": "Cash flow and coupon base class",
- "1": "Calendar base class and country calendars",
+ "1": "Calendar base class and country calendars (mixed)",
  "2": "Floating rate coupon base class",
  "3": "Digital coupon call/put payoff",
  "4": "Year-on-year inflation coupon pricer",
@@ -20,7 +20,7 @@
  "18": "GBP, ZAR and PLN indexes",
  "19": "ECB and ASX futures dates",
  "20": "Day counter conventions",
- "21": "Null and weekends-only calendars",
+ "21": "Null and weekends-only calendars (mixed)",
  "22": "Period length and units",
  "23": "Coupon pricer assignment visitor",
  "24": "Digital Ibor coupon leg builder",
