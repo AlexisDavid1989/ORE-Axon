@@ -1,0 +1,436 @@
+{
+ "anchor_count": 15,
+ "communities": [
+  {
+   "label": "Time series container",
+   "size": 52,
+   "anchors": [
+    "timeseries_timeseries",
+    "timeseries",
+    "rebatedexercise_rebatedexercise_rebatedexercise",
+    "timeseries_hpp_const_reverse_iterator",
+    "timeseries_hpp_date",
+    "timeseries_timeseries_begin",
+    "timeseries_timeseries_end",
+    "timeseries_timeseries_t_c_dates",
+    "timeseries_timeseries_t_c_values",
+    "container",
+    "timeseries_reverse",
+    "timeseries_reverse_container_std_bidirectional_iterator_tag",
+    "timeseries_timeseries_cend",
+    "timeseries_timeseries_operator",
+    "timeseries_timeseries_rbegin"
+   ]
+  },
+  {
+   "label": "Stochastic process base classes",
+   "size": 43,
+   "anchors": [
+    "stochasticprocess",
+    "stochasticprocess_stochasticprocess",
+    "stochasticprocess_stochasticprocess1d",
+    "stochasticprocess_stochasticprocess1d_size",
+    "stochasticprocess_hpp_array",
+    "stochasticprocess_stochasticprocess1d_stddeviation",
+    "stochasticprocess_stochasticprocess1d_covariance",
+    "stochasticprocess_stochasticprocess1d_evolve",
+    "stochasticprocess_stochasticprocess1d_expectation",
+    "stochasticprocess_cpp_time",
+    "stochasticprocess_hpp_time",
+    "stochasticprocess_stochasticprocess1d_apply",
+    "stochasticprocess_stochasticprocess1d_diffusion",
+    "stochasticprocess_cpp_array",
+    "stochasticprocess_cpp_real"
+   ]
+  },
+  {
+   "label": "Discretized assets and option rollback",
+   "size": 40,
+   "anchors": [
+    "discretizedasset_discretizedasset",
+    "discretizedasset",
+    "discretizedasset_discretizedoption",
+    "discretizedasset_hpp_time",
+    "discretizedasset_hpp_vector",
+    "money_close_enough",
+    "discretizedasset_discretizedasset_isontime",
+    "discretizedasset_discretizedasset_postadjustvalues",
+    "discretizedasset_discretizedasset_preadjustvalues",
+    "discretizedasset_discretizedoption_discretizedoption",
+    "discretizedasset_discretizedasset_initialize",
+    "discretizedasset_discretizedasset_time",
+    "discretizedasset_discretizeddiscountbond",
+    "discretizedasset_discretizedoption_postadjustvaluesimpl",
+    "discretizedasset_discretizedasset_adjustvalues"
+   ]
+  },
+  {
+   "label": "Time grids and lattice interface",
+   "size": 40,
+   "anchors": [
+    "timegrid_timegrid",
+    "numericalmethod_lattice",
+    "timegrid_hpp_time",
+    "timegrid",
+    "timegrid_timegrid_index",
+    "timegrid_hpp_size",
+    "timegrid_timegrid_closestindex",
+    "timegrid_timegrid_timegrid",
+    "numericalmethod",
+    "discretizedasset_hpp_array",
+    "iterator",
+    "timegrid_cpp_time",
+    "timegrid_timegrid_at",
+    "timegrid_timegrid_closesttime",
+    "timegrid_timegrid_dt"
+   ]
+  },
+  {
+   "label": "Currency definition and attributes",
+   "size": 39,
+   "anchors": [
+    "currency_currency",
+    "currency_currency_data",
+    "currency",
+    "errors",
+    "currency_currency_data_data",
+    "currency_currency_currency",
+    "errors_error",
+    "currency_hpp_shared_ptr",
+    "currency_currency_checknonempty",
+    "currency_currency_fractionsperunit",
+    "currency_currency_numericcode",
+    "currency_hpp_string",
+    "currency_operator",
+    "currency_currency_empty",
+    "currency_hpp_integer"
+   ]
+  },
+  {
+   "label": "Option Greeks and generic engine",
+   "size": 39,
+   "anchors": [
+    "pricingengine_genericengine",
+    "option_greeks",
+    "option_moregreeks",
+    "option_option",
+    "option_option_arguments",
+    "option",
+    "pricingengine_genericengine_results",
+    "option_exercise",
+    "option_hpp_shared_ptr",
+    "option_payoff",
+    "pricingengine_genericengine_arguments",
+    "option_option_option",
+    "option_option_exercise",
+    "option_option_payoff",
+    "option_option_setuparguments"
+   ]
+  },
+  {
+   "label": "Instrument NPV calculation",
+   "size": 36,
+   "anchors": [
+    "instrument_instrument",
+    "instrument",
+    "instrument_instrument_results",
+    "pricingengine_pricingengine",
+    "instrument_instrument_calculate",
+    "instrument_instrument_performcalculations",
+    "any",
+    "instrument_hpp_real",
+    "instrument_instrument_errorestimate",
+    "instrument_instrument_fetchresults",
+    "instrument_instrument_npv",
+    "instrument_instrument_result",
+    "instrument_instrument_setpricingengine",
+    "instrument_instrument_setuparguments",
+    "lazyobject"
+   ]
+  },
+  {
+   "label": "Index fixing history",
+   "size": 34,
+   "anchors": [
+    "index_index",
+    "observable",
+    "index",
+    "index_index_checknativefixingsallowed",
+    "index_addfixings",
+    "index_index_addfixing",
+    "index_index_addfixings",
+    "index_index_pastfixing",
+    "pricingengine",
+    "observer",
+    "index_index_clearfixings",
+    "index_index_hashistoricalfixing",
+    "index_index_isvalidfixingdate",
+    "index_index_notifier",
+    "pricingengine_pricingengine_arguments"
+   ]
+  },
+  {
+   "label": "Interest rate compounding conversions",
+   "size": 30,
+   "anchors": [
+    "interestrate_interestrate",
+    "quantlib",
+    "interestrate_interestrate_impliedrate",
+    "interestrate_interestrate_compoundfactor",
+    "interestrate_interestrate_equivalentrate",
+    "interestrate",
+    "interestrate_hpp_compounding",
+    "interestrate_interestrate_interestrate",
+    "interestrate_interestrate_discountfactor",
+    "interestrate_hpp_date",
+    "interestrate_hpp_daycounter",
+    "interestrate_cpp_real",
+    "interestrate_hpp_frequency",
+    "interestrate_hpp_real",
+    "interestrate_cpp_time"
+   ]
+  },
+  {
+   "label": "Quotes and relinkable handles",
+   "size": 29,
+   "anchors": [
+    "handle_handle",
+    "handle",
+    "quote_quote",
+    "handle_hpp_shared_ptr",
+    "handle_hpp_t",
+    "handle_relinkablehandle",
+    "quote",
+    "quote_handlefromvariant",
+    "handle_handle_t_link_link",
+    "handle_operator",
+    "handle_relinkablehandle_linkto",
+    "handle_relinkablehandle_t_linkto",
+    "handle_handle_handle",
+    "handle_handle_t_link_linkto",
+    "handle_relinkablehandle_t_relinkablehandle"
+   ]
+  },
+  {
+   "label": "Term structure base class",
+   "size": 27,
+   "anchors": [
+    "termstructure_termstructure",
+    "termstructure",
+    "termstructure_termstructure_checkrange",
+    "termstructure_termstructure_termstructure",
+    "termstructure_termstructure_maxtime",
+    "termstructure_termstructure_timefromreference",
+    "termstructure_termstructure_daycounter",
+    "termstructure_termstructure_calendar",
+    "termstructure_termstructure_maxdate",
+    "termstructure_termstructure_settlementdays",
+    "termstructure_cpp_date",
+    "termstructure_hpp_calendar",
+    "termstructure_hpp_date",
+    "termstructure_hpp_daycounter",
+    "termstructure_hpp_natural"
+   ]
+  },
+  {
+   "label": "Exercise constructors and rebates (implementations)",
+   "size": 20,
+   "anchors": [
+    "rebatedexercise_rebatedexercise",
+    "rebatedexercise",
+    "exercise_cpp_date",
+    "rebatedexercise_rebatedexercise_rebate",
+    "rebatedexercise_rebatedexercise_rebatepaymentdate",
+    "exercise_bermudanexercise_bermudanexercise",
+    "exercise_exercise_lastdate",
+    "exercise_americanexercise_americanexercise",
+    "exercise_europeanexercise_europeanexercise",
+    "rebatedexercise_hpp_real",
+    "rebatedexercise_hpp_size",
+    "exercise_cpp_vector",
+    "rebatedexercise_hpp_businessdayconvention",
+    "rebatedexercise_hpp_date",
+    "rebatedexercise_hpp_natural"
+   ]
+  },
+  {
+   "label": "Money arithmetic and currency conversion",
+   "size": 20,
+   "anchors": [
+    "money",
+    "money_money",
+    "money_apply",
+    "money_money_money",
+    "money_operator",
+    "money_convertto",
+    "money_converttobase",
+    "money_hpp_decimal",
+    "money_money_operator",
+    "money_money_value",
+    "money_close",
+    "money_money_rounded",
+    "money_cpp_size",
+    "money_money_basecurrencyproxy_operator_currency_const",
+    "money_money_conversiontypeproxy_operator_money_conversiontype_const"
+   ]
+  },
+  {
+   "label": "Open-high-low-close interval prices",
+   "size": 20,
+   "anchors": [
+    "prices_intervalprice",
+    "prices",
+    "prices_cpp_real",
+    "prices_intervalprice_extractvalues",
+    "prices_intervalprice_extractcomponent",
+    "prices_intervalprice_makeseries",
+    "prices_hpp_real",
+    "prices_cpp_type",
+    "prices_intervalprice_setvalue",
+    "prices_intervalprice_value",
+    "prices_intervalprice_setvalues",
+    "prices_cpp_vector",
+    "prices_intervalprice_close",
+    "prices_intervalprice_high",
+    "prices_intervalprice_intervalprice"
+   ]
+  },
+  {
+   "label": "Exercise types and dates (declarations)",
+   "size": 17,
+   "anchors": [
+    "exercise",
+    "exercise_exercise",
+    "exercise_earlyexercise",
+    "exercise_hpp_type",
+    "exercise_exercise_date",
+    "exercise_exercise_dateat",
+    "exercise_hpp_date",
+    "exercise_americanexercise",
+    "exercise_bermudanexercise",
+    "exercise_earlyexercise_earlyexercise",
+    "exercise_europeanexercise",
+    "exercise_exercise_exercise",
+    "exercise_exercise_type",
+    "exercise_hpp_size",
+    "exercise_earlyexercise_payoffatexpiry"
+   ]
+  },
+  {
+   "label": "Exchange rates and chaining",
+   "size": 14,
+   "anchors": [
+    "exchangerate_exchangerate",
+    "exchangerate",
+    "exchangerate_exchangerate_exchange",
+    "exchangerate_exchangerate_exchangerate",
+    "exchangerate_exchangerate_rate",
+    "exchangerate_exchangerate_type",
+    "exchangerate_hpp_decimal",
+    "exchangerate_exchangerate_chain",
+    "exchangerate_hpp_type",
+    "exchangerate_exchangerate_ratechain",
+    "exchangerate_exchangerate_source",
+    "exchangerate_exchangerate_target",
+    "exchangerate_hpp_shared_ptr",
+    "pair"
+   ]
+  },
+  {
+   "label": "Cash flow base class",
+   "size": 13,
+   "anchors": [
+    "cashflow_cashflow",
+    "cashflow",
+    "cashflow_cashflow_hasoccurred",
+    "cashflow_cashflow_tradingexcoupon",
+    "cashflow_cashflow_excoupondate",
+    "cashflow_earlier_than_cashflow_operator",
+    "cashflow_cashflow_date",
+    "cashflow_cpp_date",
+    "cashflow_earlier_than_cashflow",
+    "cashflow_cashflow_amount",
+    "cashflow_cashflow_cashflow",
+    "cashflow_cashflow_performcalculations",
+    "cashflow_cpp_optional"
+   ]
+  },
+  {
+   "label": "Global settings and saved state",
+   "size": 14,
+   "anchors": [
+    "settings",
+    "event",
+    "settings_hpp_optional",
+    "cashflow_hpp_date",
+    "settings_savedsettings",
+    "settings_settings_includetodayscashflows",
+    "settings_settings_enforcestodayshistoricfixings",
+    "settings_settings_includereferencedateevents",
+    "optional",
+    "settings_hpp_date",
+    "settings_savedsettings_enforcestodayshistoricfixings",
+    "settings_savedsettings_evaluationdate",
+    "settings_savedsettings_includereferencedateevents",
+    "settings_savedsettings_includetodayscashflows"
+   ]
+  },
+  {
+   "label": "Event base class and visitor",
+   "size": 9,
+   "anchors": [
+    "event_event",
+    "event_event_hasoccurred",
+    "cashflow_cashflow_accept",
+    "event_acyclicvisitor",
+    "event_event_accept",
+    "event_cpp_date",
+    "event_cpp_optional",
+    "event_event_date",
+    "event_event_event"
+   ]
+  },
+  {
+   "label": "Evaluation date anchoring (implementations)",
+   "size": 9,
+   "anchors": [
+    "settings_settings",
+    "instrument_instrument_instrument",
+    "settings_savedsettings_savedsettings",
+    "settings_settings_anchorevaluationdate",
+    "settings_settings_resetevaluationdate",
+    "dateproxy",
+    "settings_settings_dateproxy_dateproxy",
+    "settings_settings_evaluationdate",
+    "settings_settings_settings"
+   ]
+  },
+  {
+   "label": "Volatility model interfaces",
+   "size": 8,
+   "anchors": [
+    "volatilitymodel_volatilitycompositor",
+    "volatilitymodel_localvolatilityestimator",
+    "volatilitymodel",
+    "volatilitymodel_localvolatilityestimator_calculate",
+    "volatilitymodel_localvolatilityestimator_localvolatilityestimator",
+    "volatilitymodel_volatilitycompositor_calculate",
+    "volatilitymodel_volatilitycompositor_calibrate",
+    "volatilitymodel_volatilitycompositor_volatilitycompositor"
+   ]
+  },
+  {
+   "label": "Payoff interface and vanilla payoffs",
+   "size": 7,
+   "anchors": [
+    "payoff_payoff",
+    "payoff_payoff_accept",
+    "payoff",
+    "payoff_payoff_description",
+    "payoff_payoff_name",
+    "payoff_payoff_operator",
+    "payoff_payoff_payoff"
+   ]
+  }
+ ]
+}

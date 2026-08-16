@@ -1,0 +1,344 @@
+{
+ "anchor_count": 15,
+ "communities": [
+  {
+   "label": "Config Schema Foundations (Conventions/Calendar/Collateral/Counterparty)",
+   "size": 39,
+   "anchors": [
+    "xsd_schema_coverage_caveat",
+    "xsd_input_schema",
+    "xsd_iborfallbackconfig_schema",
+    "xsd_nettingsetdefinitions_schema",
+    "xsd_ore_types_schema",
+    "xsd_baseltrafficlightconfig_schema",
+    "xsd_calendaradjustment_schema",
+    "xsd_collateralbalance_schema",
+    "xsd_conventions_schema",
+    "xsd_counterparty_schema",
+    "xsd_creditsimulation_schema",
+    "xsd_currencyconfig_schema",
+    "xsd_historicalreturnconfig_schema",
+    "xsd_nettingsetdefinitions_csa_details",
+    "xsd_ore_schema"
+   ]
+  },
+  {
+   "label": "Curve Configuration Building Blocks",
+   "size": 34,
+   "anchors": [
+    "xsd_curveconfig_curveconfiguration",
+    "xsd_curveconfig_segments_type",
+    "xsd_curveconfig_parametric_smile_config",
+    "xsd_curveconfig_bootstrap_config_type",
+    "xsd_curveconfig_default_curve",
+    "xsd_curveconfig_volatility_strike_surface_config",
+    "xsd_curveconfig_yield_curve",
+    "xsd_curveconfig_cap_floor_volatility",
+    "xsd_curveconfig_commodity_volatility",
+    "xsd_curveconfig_equity_volatility",
+    "xsd_curveconfig_fx_volatility",
+    "xsd_curveconfig_quote_type",
+    "xsd_curveconfig_sim_commodity_curve",
+    "xsd_curveconfig_swaption_volatility",
+    "xsd_curveconfig_volatility_delta_surface_config"
+   ]
+  },
+  {
+   "label": "Shared ORE Type Primitives (Currency/Date/DayCounter)",
+   "size": 30,
+   "anchors": [
+    "xsd_simulation_cross_asset_model",
+    "xsd_simulation_calibration_type_type",
+    "xsd_simulation_jarrow_yildrim",
+    "xsd_simulation_parameters",
+    "xsd_ore_types_currency_code",
+    "xsd_simulation_dodgson_kainth",
+    "xsd_ore_types_premium_data",
+    "xsd_simulation_calibration_basket",
+    "xsd_simulation_hw",
+    "xsd_simulation_lgm",
+    "xsd_simulation_market",
+    "xsd_simulation_simulation",
+    "xsd_ore_types_day_counter",
+    "xsd_ore_types_extended_currency_code",
+    "xsd_ore_types_premium_currency_code"
+   ]
+  },
+  {
+   "label": "Sensitivity Analysis Scenario Types",
+   "size": 30,
+   "anchors": [
+    "xsd_sensitivity_sensitivityanalysis",
+    "xsd_stress_stresstest",
+    "xsd_sensitivity_parconversion",
+    "xsd_sensitivity_capfloorvolatility",
+    "xsd_sensitivity_commodity_curve",
+    "xsd_sensitivity_creditcurve",
+    "xsd_sensitivity_discountcurve",
+    "xsd_sensitivity_equityspot",
+    "xsd_sensitivity_equityvolatility",
+    "xsd_sensitivity_fxspot",
+    "xsd_sensitivity_indexcurve",
+    "xsd_sensitivity_swaptionvolatility",
+    "xsd_sensitivity_yieldcurve",
+    "xsd_stress_stressdiscountcurve",
+    "xsd_stress_stressindexcurve"
+   ]
+  },
+  {
+   "label": "Market Conventions (Rates/Bonds/CDS/Commodities)",
+   "size": 26,
+   "anchors": [
+    "xsd_conventions_conventions_type",
+    "xsd_conventions_average_ois_type",
+    "xsd_conventions_bma_basis_swap_type",
+    "xsd_conventions_bond_yield",
+    "xsd_conventions_cds_conventions_type",
+    "xsd_conventions_cms_spread_option_type",
+    "xsd_conventions_commodity_forward_type",
+    "xsd_conventions_commodity_future_type",
+    "xsd_conventions_cross_currency_basis_type",
+    "xsd_conventions_cross_currency_fix_float_type",
+    "xsd_conventions_deposit_type",
+    "xsd_conventions_fra_type",
+    "xsd_conventions_future_type",
+    "xsd_conventions_fx_option",
+    "xsd_conventions_fx_option_time_weighting"
+   ]
+  },
+  {
+   "label": "Trade-Data Complex Types (Accumulators/Bonds/Baskets)",
+   "size": 20,
+   "anchors": [
+    "xsd_instruments_ore_trade_data_group",
+    "xsd_instruments_bond_data",
+    "xsd_instruments_st_free_style_group",
+    "xsd_instruments_bond_repo_data",
+    "xsd_instruments_bond_trs_data",
+    "xsd_instruments_convertible_bond_data",
+    "xsd_instruments_index_credit_default_swap_data",
+    "xsd_instruments_index_credit_default_swap_option_data",
+    "xsd_instruments_accumulator_data",
+    "xsd_instruments_autocallable01_data",
+    "xsd_instruments_basket_option_data",
+    "xsd_instruments_callable_bond_data",
+    "xsd_instruments_forward_bond_data",
+    "xsd_instruments_generic_barrier_option_data",
+    "xsd_instruments_rainbow_option_data"
+   ]
+  },
+  {
+   "label": "Leg Data Element Family (CMS/CPI/Commodity Legs)",
+   "size": 18,
+   "anchors": [
+    "xsd_instruments_leg_data_type_group",
+    "xsd_instruments_floating_leg_data",
+    "xsd_instruments_cpi_leg_data",
+    "xsd_instruments_caps",
+    "xsd_instruments_cms_leg_data",
+    "xsd_instruments_floors",
+    "xsd_instruments_gearings",
+    "xsd_instruments_range_accrual_leg_data",
+    "xsd_instruments_spreads",
+    "xsd_instruments_yy_leg_data",
+    "xsd_instruments_cashflow_data",
+    "xsd_instruments_cmb_leg_data",
+    "xsd_instruments_cms_spread_leg_data",
+    "xsd_instruments_commodity_fixed_leg_data",
+    "xsd_instruments_commodity_floating_leg_data"
+   ]
+  },
+  {
+   "label": "TodaysMarket Curve Set Selectors",
+   "size": 17,
+   "anchors": [
+    "xsd_todaysmarket_todaysmarket",
+    "xsd_todaysmarket_configuration_type",
+    "xsd_todaysmarket_discount_curves_type",
+    "xsd_todaysmarket_fx_spots_type",
+    "xsd_todaysmarket_index_forwarding_curves_type",
+    "xsd_todaysmarket_yield_curves_type",
+    "xsd_todaysmarket_cap_floor_volatilities_type",
+    "xsd_todaysmarket_cds_volatilities_type",
+    "xsd_todaysmarket_commodity_curves_type",
+    "xsd_todaysmarket_correlations_type",
+    "xsd_todaysmarket_default_curves_type",
+    "xsd_todaysmarket_equity_curves_type",
+    "xsd_todaysmarket_fx_volatilities_type",
+    "xsd_todaysmarket_securities_type",
+    "xsd_todaysmarket_swap_index_curves_type"
+   ]
+  },
+  {
+   "label": "Barrier & Commodity/FX Option Trade Types",
+   "size": 16,
+   "anchors": [
+    "xsd_instruments_option_data",
+    "xsd_instruments_barrier_data",
+    "xsd_instruments_rpa_data",
+    "xsd_instruments_commodity_average_price_option_data",
+    "xsd_instruments_commodity_swaption_data",
+    "xsd_instruments_fx_barrier_option_data",
+    "xsd_instruments_fx_kiko_barrier_option_data",
+    "xsd_instruments_fx_option_data",
+    "xsd_instruments_commodity_option_data",
+    "xsd_instruments_fx_digital_option_data",
+    "xsd_instruments_option_payment_data",
+    "xsd_instruments_barrier_type",
+    "xsd_instruments_option_exercise_data",
+    "xsd_ore_types_business_day_convention",
+    "xsd_ore_types_settlement_method"
+   ]
+  },
+  {
+   "label": "Reference Data Types (Bond/CBO/Credit Index)",
+   "size": 15,
+   "anchors": [
+    "xsd_referencedata_reference_data_types_group",
+    "xsd_referencedata_bond_reference_datum",
+    "xsd_input_portfolio",
+    "xsd_input_trade",
+    "xsd_referencedata_callable_bond_reference_datum",
+    "xsd_referencedata_convertible_bond_reference_datum",
+    "xsd_referencedata_portfolio_basket_reference_datum",
+    "xsd_referencedata_reference_data",
+    "xsd_referencedata_bond_future_reference_datum",
+    "xsd_referencedata_cbo_reference_datum",
+    "xsd_referencedata_credit_index_reference_datum",
+    "xsd_referencedata_currency_hedged_index_reference_datum",
+    "xsd_referencedata_equity_reference_datum",
+    "xsd_referencedata_index_reference_datum",
+    "xsd_referencedata_reference_datum"
+   ]
+  },
+  {
+   "label": "Trade-Component Complex Types (Amortization/CDO/Indexing)",
+   "size": 13,
+   "anchors": [
+    "xsd_instruments_leg_data",
+    "xsd_instruments_leg_data_capfloor",
+    "xsd_instruments_swaption_data",
+    "xsd_instruments_capfloor_data",
+    "xsd_instruments_commodity_swap_data",
+    "xsd_instruments_swap_data",
+    "xsd_instruments_cdo_data",
+    "xsd_instruments_credit_linked_swap_data",
+    "xsd_instruments_exchanges",
+    "xsd_instruments_fxreset",
+    "xsd_instruments_leg_type",
+    "xsd_instruments_amortization_data",
+    "xsd_instruments_indexing_data"
+   ]
+  },
+  {
+   "label": "ORE Top-Level Run Configuration (Analytics/Pricing Engines)",
+   "size": 11,
+   "anchors": [
+    "xsd_ore_ore",
+    "xsd_ore_parameter_list_type",
+    "xsd_pricingengines_parameter",
+    "xsd_pricingengines_pricingengines",
+    "xsd_pricingengines_product",
+    "xsd_scriptlibrary_ore_script",
+    "xsd_ore_analytics_type",
+    "xsd_pricingengines_global_parameters",
+    "xsd_scriptlibrary_pricing_engine_config_overwrite",
+    "xsd_scriptlibrary_script_library",
+    "xsd_scriptlibrary_amc_cg"
+   ]
+  },
+  {
+   "label": "SIMM Calibration Data",
+   "size": 11,
+   "anchors": [
+    "xsd_simmcalibration_simm_calibration",
+    "xsd_simmcalibration_concentration_thresholds",
+    "xsd_simmcalibration_fx",
+    "xsd_simmcalibration_interest_rate",
+    "xsd_simmcalibration_irfx_concentration_thresholds",
+    "xsd_simmcalibration_calibration_data_element",
+    "xsd_simmcalibration_commodity",
+    "xsd_simmcalibration_credit_non_qualifying",
+    "xsd_simmcalibration_credit_qualifying",
+    "xsd_simmcalibration_currency_lists",
+    "xsd_simmcalibration_equity"
+   ]
+  },
+  {
+   "label": "Scripted Trade & Total Return Swap Data Types",
+   "size": 9,
+   "anchors": [
+    "xsd_ore_types_schedule_data",
+    "xsd_instruments_scripted_trade_data",
+    "xsd_instruments_total_return_swap_data",
+    "xsd_instruments_cliquet_option_data",
+    "xsd_instruments_trade_action",
+    "xsd_instruments_trs_return_data",
+    "xsd_instruments_trade_actions",
+    "xsd_instruments_trs_underlying_data",
+    "xsd_ore_types_derived_schedule_type"
+   ]
+  },
+  {
+   "label": "Underlying & Equity/Commodity Position Data",
+   "size": 9,
+   "anchors": [
+    "xsd_instruments_underlying_types_group",
+    "xsd_instruments_eq_barrier_option_data",
+    "xsd_instruments_underlying",
+    "xsd_instruments_commodity_position_data",
+    "xsd_instruments_equity_forward_data",
+    "xsd_instruments_equity_leg_data",
+    "xsd_instruments_equity_position_data",
+    "xsd_instruments_underlyings",
+    "xsd_instruments_variance_swap_data"
+   ]
+  },
+  {
+   "label": "Composite & Credit Default Swap Trade Types",
+   "size": 8,
+   "anchors": [
+    "xsd_instruments_ore_trade_type",
+    "xsd_instruments_credit_default_swap_data",
+    "xsd_instruments_credit_default_swap_option_data",
+    "xsd_instruments_cash_position_data",
+    "xsd_instruments_cbo_data",
+    "xsd_instruments_composite_trade_data",
+    "xsd_instruments_fx_forward_data",
+    "xsd_instruments_credit_curve_id_type_group"
+   ]
+  },
+  {
+   "label": "Counterparty Information & Correlations",
+   "size": 5,
+   "anchors": [
+    "xsd_counterparty_counterparty_information",
+    "xsd_counterparty_counterparties",
+    "xsd_counterparty_counterparty",
+    "xsd_counterparty_counter_party_correlations",
+    "xsd_counterparty_credit_quality_type"
+   ]
+  },
+  {
+   "label": "Bond/Equity Option Strike Data",
+   "size": 5,
+   "anchors": [
+    "xsd_instruments_equity_option_data",
+    "xsd_instruments_bond_option_data",
+    "xsd_instruments_strike_group",
+    "xsd_instruments_strike_price_data",
+    "xsd_instruments_strike_yield_data"
+   ]
+  },
+  {
+   "label": "Credit Simulation Configuration",
+   "size": 4,
+   "anchors": [
+    "xsd_creditsimulation_creditsimulation",
+    "xsd_creditsimulation_entity",
+    "xsd_creditsimulation_transitionmatrix",
+    "xsd_creditsimulation_risk"
+   ]
+  }
+ ]
+}

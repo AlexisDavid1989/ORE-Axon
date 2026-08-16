@@ -1,0 +1,678 @@
+{
+ "anchor_count": 15,
+ "communities": [
+  {
+   "label": "Pricing Engines & Model-Engine Pairs (Product Configuration)",
+   "size": 52,
+   "anchors": [
+    "docs_userguide_tradecomponents_scheduledata_schedule_data",
+    "docs_userguide_tradecomponents_underlying_underlying",
+    "docs_userguide_pricing_scriptedtrades_scriptedtrades",
+    "docs_userguide_tradedata_scriptedtrades_scripted_trade_catalog",
+    "docs_userguide_tradedata_rainbow_option_rainbow_option",
+    "docs_userguide_tradedata_var_and_vol_derivatives_exotic_variance_volatility_derivatives",
+    "docs_userguide_pricing_scriptedtrades_blackscholes_mc",
+    "docs_userguide_tradecomponents_underlying_underlying_basket",
+    "docs_userguide_tradedata_tarf_target_redemption_forward",
+    "docs_userguide_pricing_rainbow_option_rainbow_option",
+    "docs_userguide_pricing_var_and_vol_derivatives_exotic_variance_volatility_derivatives",
+    "docs_userguide_tradedata_genericscriptedproducts_generic_scripted_products_doc",
+    "docs_userguide_pricing_pricingengines_overview",
+    "docs_userguide_pricing_strikeresettableoption_strike_resettable_option",
+    "docs_userguide_pricing_tarf_tarf"
+   ]
+  },
+  {
+   "label": "Inflation & CMS-Family Leg Instruments",
+   "size": 45,
+   "anchors": [
+    "docs_userguide_tradecomponents_legdatanotionals_leg_data",
+    "docs_userguide_tradecomponents_cmsleg_cms_leg",
+    "docs_userguide_tradecomponents_commodityfloatingleg_commodity_floating_leg",
+    "docs_userguide_tradedata_knockoutswap_knock_out_swap_data",
+    "docs_userguide_tradecomponents_indexings_indexings",
+    "docs_userguide_tradedata_capfloor_capfloor_trade",
+    "docs_userguide_tradedata_commodityswaption_commodity_swaption_trade",
+    "docs_userguide_tradecomponents_cmsspreadleg_cms_spread_leg",
+    "docs_userguide_tradecomponents_commodityfixedleg_commodity_fixed_leg",
+    "docs_userguide_tradecomponents_legdatanotionals_floating_leg_data",
+    "docs_userguide_tradedata_commodityswap_commodity_swap_trade",
+    "docs_userguide_pricing_inf_yyiis_yoy_inflation_swap",
+    "docs_userguide_tradecomponents_cpileg_cpi_leg",
+    "docs_userguide_tradecomponents_durationadjustedcmsleg_duration_adjusted_cms_leg",
+    "docs_userguide_tradecomponents_equityleg_equity_leg"
+   ]
+  },
+  {
+   "label": "Exposure & Margining Methodology (AMC/DIM/SIMM)",
+   "size": 41,
+   "anchors": [
+    "docs_userguide_examples_examples",
+    "docs_userguide_methods_simulation",
+    "docs_userguide_methods_xva",
+    "docs_userguide_examples_legacyexamples",
+    "docs_userguide_methods_simulation_cross_asset_model",
+    "docs_userguide_methods_marketrisk",
+    "docs_userguide_examples_examples_dynamic_initial_margin",
+    "docs_userguide_methods_simulation_exposure_measures",
+    "docs_userguide_methods_simulation_lgm_model",
+    "docs_userguide_curve_configurations_yieldcurves_discountratio_segment",
+    "docs_userguide_examples_examples_amc",
+    "docs_userguide_methods_simulation_amc_engine",
+    "docs_userguide_methods_simulation_gabillon_model",
+    "docs_userguide_methods_xva_kva_ccr",
+    "docs_userguide_methods_xva_mva"
+   ]
+  },
+  {
+   "label": "Volatility Smile & Cap/Floor Surface Models",
+   "size": 38,
+   "anchors": [
+    "docs_userguide_curve_configurations_yieldcurves",
+    "docs_userguide_curve_configurations_capfloorvolatility",
+    "docs_userguide_curve_configurations_commodity_volatilities",
+    "docs_userguide_curve_configurations_commodity_curves",
+    "docs_userguide_curve_configurations_yieldcurves_yieldcurve",
+    "docs_userguide_curve_configurations_capfloorvolatility_capfloorvolatility",
+    "docs_userguide_curve_configurations_capfloorvolatility_parametric_smile_configuration",
+    "docs_userguide_curve_configurations_default_curves_from_cds_default_curve_cds",
+    "docs_userguide_curve_configurations_default_curves_other",
+    "docs_userguide_curve_configurations_yieldcurves_bootstrapconfig",
+    "docs_scriptedtrade_docs_models_heston_model",
+    "docs_svimodel_svimodel_svi_model",
+    "docs_userguide_curve_configurations_capfloorvolatility_sabr_model",
+    "docs_userguide_curve_configurations_default_curves_from_cds",
+    "docs_userguide_curve_configurations_default_curves_other_benchmark_default_curve"
+   ]
+  },
+  {
+   "label": "Scripted Trade XML Data Model & Diagnostics",
+   "size": 35,
+   "anchors": [
+    "docs_scriptedtrade_docs_models_pricing_engine_configuration",
+    "docs_scriptedtrade_docs_compacttradexml_compact_trade_xml",
+    "docs_scriptedtrade_docs_datanode_data_node",
+    "docs_scriptedtrade_docs_scriptnode_script_node",
+    "docs_scriptedtrade_docs_generalstructure_general_structure",
+    "docs_scriptedtrade_docs_index_index_type",
+    "docs_scriptedtrade_docs_language_scripting_language",
+    "docs_scriptedtrade_docs_language_pay_function",
+    "docs_scriptedtrade_docs_implementationdetails_abstract_syntax_tree",
+    "docs_scriptedtrade_docs_implementationdetails_static_analysis",
+    "docs_scriptedtrade_docs_scripting_amc_amc_cg",
+    "docs_scriptedtrade_docs_scripting_amc_amc_scripting",
+    "docs_scriptedtrade_docs_currency_currency_type",
+    "docs_scriptedtrade_docs_daycounter_daycounter_type",
+    "docs_scriptedtrade_docs_errordiagnostics_error_diagnostics"
+   ]
+  },
+  {
+   "label": "User Guide Structure, Methodology & Build Tooling",
+   "size": 34,
+   "anchors": [
+    "docs_userguide_userguide_intro_ore",
+    "docs_userguide_userguide_document",
+    "docs_userguide_userguide_intro_document",
+    "docs_userguide_userguide_process_document",
+    "docs_userguide_userguide_releasenotes_document",
+    "docs_userguide_userguide_buildore_document",
+    "docs_userguide_structuredmessages_structured_message",
+    "docs_userguide_userguide_intro_ore_python",
+    "docs_userguide_userguide_launchers_document",
+    "docs_userguide_products_document",
+    "docs_userguide_userguide_process_configuration_xml",
+    "docs_userguide_userguide_process_npv_cube",
+    "docs_userguide_userguide_process_xva_postprocessing",
+    "docs_userguide_methods_document",
+    "docs_userguide_references_document"
+   ]
+  },
+  {
+   "label": "Scripted Trade Exotic Instruments (Accumulators, Autocallables, Baskets)",
+   "size": 33,
+   "anchors": [
+    "docs_userguide_pricing_models_black_model",
+    "docs_userguide_tradedata_eq_asianoption_equity_asian_option_trade",
+    "docs_userguide_tradedata_scriptedtradesappendix_scripted_trade_framework",
+    "docs_userguide_pricing_eq_accumulator_equity_accumulator",
+    "docs_userguide_pricing_eq_asianoption_equity_asian_option",
+    "docs_userguide_pricing_models_pricing_models",
+    "docs_scriptedtrade_scriptedtrade_scripted_trade_framework",
+    "docs_userguide_pricing_com_option_european_commodity_option",
+    "docs_userguide_pricing_com_swaption_commodity_swaption",
+    "docs_userguide_pricing_scriptedtrades_scriptedtrade_mc",
+    "docs_userguide_pricing_basketoption_basket_option",
+    "docs_userguide_pricing_com_apo_commodity_average_price_option",
+    "docs_userguide_pricing_com_spreadoption_commodity_spread_option",
+    "docs_userguide_pricing_doubledigitaloption_double_digital_option",
+    "docs_userguide_pricing_eq_barrieroption_equity_barrier_option"
+   ]
+  },
+  {
+   "label": "LGM Model & Exotic Rate/Bond/FX Instruments",
+   "size": 30,
+   "anchors": [
+    "docs_userguide_pricing_methods_methods_overview",
+    "docs_userguide_pricing_models_models_overview",
+    "docs_userguide_pricing_ir_irs_interest_rate_swap",
+    "docs_userguide_pricing_cr_rpa_risk_participation_agreement",
+    "docs_userguide_pricing_ir_euroswaption_european_swaption",
+    "docs_userguide_pricing_ir_bermswaption_bermudan_swaption",
+    "docs_userguide_pricing_ir_capfloor_cap_floor",
+    "docs_userguide_pricing_ir_cms_cms_swap_cap_floor",
+    "docs_userguide_pricing_ir_flexiswap_flexi_swap",
+    "docs_userguide_pricing_ir_bermswaption_bermudan_american_swaption",
+    "docs_userguide_pricing_ir_ccs_cross_currency_swap",
+    "docs_userguide_pricing_ir_zero_zero_coupon_swap",
+    "docs_userguide_pricing_callablebond_callable_bond",
+    "docs_userguide_pricing_ir_callableswap_callable_swap",
+    "docs_userguide_pricing_ir_formulacouponirs_formula_based_coupon_irs"
+   ]
+  },
+  {
+   "label": "AMC & Commodity/Credit Model Foundations",
+   "size": 27,
+   "anchors": [
+    "docs_models_openxva_models_cross_asset_model",
+    "docs_amc_amc_amc",
+    "docs_design_ore_design_scripted_trade_design",
+    "docs_scriptedtrade_scriptedtrade_scripted_trade_module",
+    "docs_design_aad_automatic_differentiation",
+    "docs_dim_dynamicsimm_dynamic_simm",
+    "docs_design_aad_computation_graph",
+    "docs_models_openxva_models_lgm_1f_model",
+    "docs_scriptedtrade_scriptedtrades_analysis_scripted_trades_analysis",
+    "docs_bondpricingconfig_bondpricingconfig_bond_pricing_configuration",
+    "docs_commoditymodel_commoditymodel_multi_factor_commodity_model",
+    "docs_commoditymodel_commoditymodel_one_factor_commodity_model",
+    "docs_creditmodel_creditmodel_credit_migration_model",
+    "docs_formulabasedcoupon_formulabasedcoupon_formula_based_coupon",
+    "docs_hullwhitemodel_hullwhitemodel_commodity_model_section"
+   ]
+  },
+  {
+   "label": "Allowable Values & Reference-Data Files",
+   "size": 26,
+   "anchors": [
+    "docs_userguide_marketdata_document",
+    "docs_userguide_marketdata_instrument_quote_type",
+    "docs_userguide_allowablevalues_document",
+    "docs_userguide_nettingdata_csa_details",
+    "docs_userguide_allowablevalues_date_formats",
+    "docs_userguide_marketdata_market_txt_file",
+    "docs_userguide_fixingdata_fixings_txt_file",
+    "docs_userguide_nettingdata_document",
+    "docs_userguide_nettingdata_netting_xml_file",
+    "docs_userguide_tradedata_nettingsetdetails_netting_set_details",
+    "docs_userguide_allowablevalues_currency_codes",
+    "docs_userguide_dividenddata_dividends_txt_file",
+    "docs_userguide_fixingdata_document",
+    "docs_userguide_fixingdata_ir_index_convention",
+    "docs_userguide_marketdata_cds_spread"
+   ]
+  },
+  {
+   "label": "Bond & Convertible-Bond Related Trade Types",
+   "size": 26,
+   "anchors": [
+    "docs_userguide_tradedata_bond_bond_data",
+    "docs_userguide_tradedata_bondtotalreturnswap_bondtrs_trade",
+    "docs_userguide_tradedata_ascot_ascot_trade",
+    "docs_userguide_tradedata_callablebond_callable_bond_trade",
+    "docs_userguide_tradedata_bondforward_refdata_forward_bond_trade",
+    "docs_userguide_tradedata_bondfuture_bond_future_trade",
+    "docs_userguide_tradedata_bondoption_bond_option_trade",
+    "docs_userguide_tradedata_bondrepo_bond_repo_trade",
+    "docs_userguide_tradedata_bondfuture_reference_data",
+    "docs_userguide_tradedata_bondoption_refdata_bond_option_refdata_variant",
+    "docs_userguide_tradedata_ascot_doc",
+    "docs_userguide_tradedata_ascot_reference_swap_data",
+    "docs_userguide_tradedata_bond_doc",
+    "docs_userguide_tradedata_bondforward_refdata_doc",
+    "docs_userguide_tradedata_bondforward_refdata_tlock_jlock"
+   ]
+  },
+  {
+   "label": "ORE Parameterisation Config Files (Conventions/Curves/Counterparty)",
+   "size": 17,
+   "anchors": [
+    "docs_userguide_parameterisation_ore_master_input_file",
+    "docs_userguide_parameterisation_curveconfig_curve_configuration",
+    "docs_userguide_parameterisation_simulation_simulation_configuration",
+    "docs_userguide_parameterisation_conventions_conventions",
+    "docs_userguide_parameterisation_iborfallbackconfig_ibor_fallback_configuration",
+    "docs_userguide_parameterisation_sensitivity_sensitivity_analysis",
+    "docs_userguide_parameterisation_todaysmarket_todays_market",
+    "docs_userguide_parameterisation_collateralbalances_collateral_balances",
+    "docs_userguide_parameterisation_counterpartyinformation_counterparty_information",
+    "docs_userguide_parameterisation_referencedata_reference_data",
+    "docs_userguide_parameterisation_simmcalibration_simm_calibration",
+    "docs_userguide_parameterisation_simulation_cross_asset_model",
+    "docs_userguide_parameterisation_stressconfig_stress_scenario_analysis",
+    "docs_userguide_parameterisation_calendaradjustment_calendar_adjustment",
+    "docs_userguide_parameterisation_historicalreturnconfiguration_historical_return_configuration"
+   ]
+  },
+  {
+   "label": "Bond-Derivative Trade Family (Forward/Future/Option/TRS/Repo)",
+   "size": 16,
+   "anchors": [
+    "docs_userguide_pricing_cash_bond_bond",
+    "docs_userguide_tradedata_totalreturnswap_total_return_swap",
+    "docs_userguide_pricing_totalreturnswap_total_return_swap",
+    "docs_userguide_pricing_bondtotalreturnswap_bond_total_return_swap",
+    "docs_userguide_tradedata_rpa_risk_participation_agreement",
+    "docs_userguide_tradedata_totalreturnswap_underlying_data_block",
+    "docs_userguide_pricing_bondforward_forward_bond",
+    "docs_userguide_pricing_bondoption_bond_option",
+    "docs_userguide_pricing_pricingengines_bondtrs",
+    "docs_userguide_tradedata_commodityposition_commodity_position_trade",
+    "docs_userguide_tradedata_commodityposition_weighted_basket_pricing",
+    "docs_userguide_tradedata_rpa_treasury_lock_underlying",
+    "docs_userguide_tradedata_totalreturnswap_return_data_block",
+    "docs_userguide_pricing_bondfuture_bond_future",
+    "docs_userguide_pricing_cash_bondrepo_bond_repo"
+   ]
+  },
+  {
+   "label": "Structured Credit & BGS/CallableSwap Components",
+   "size": 15,
+   "anchors": [
+    "docs_userguide_tradecomponents_bondbasketdata_bond_basket_data",
+    "docs_userguide_tradedata_balanceguaranteedswap_bgs_trade",
+    "docs_userguide_tradedata_cbodata_cbo_trade",
+    "docs_userguide_tradecomponents_cbotranches_cbo_tranches",
+    "docs_userguide_tradedata_bondposition_bond_position_trade",
+    "docs_userguide_tradedata_cbodata_cbo_structure",
+    "docs_userguide_tradedata_callableswap_callable_swap_trade",
+    "docs_userguide_tradedata_cashposition_cash_position_trade",
+    "docs_userguide_tradedata_balanceguaranteedswap_doc",
+    "docs_userguide_tradedata_balanceguaranteedswap_tranches",
+    "docs_userguide_tradedata_bondposition_doc",
+    "docs_userguide_tradedata_callableswap_doc",
+    "docs_userguide_tradedata_cashposition_doc",
+    "docs_userguide_tradedata_cbodata_cbo_investment",
+    "docs_userguide_tradedata_cbodata_doc"
+   ]
+  },
+  {
+   "label": "Option Settlement & Premium Components",
+   "size": 14,
+   "anchors": [
+    "docs_userguide_tradecomponents_optiondata_option_data",
+    "docs_userguide_tradecomponents_premiums_premiums",
+    "docs_userguide_tradedata_fx_digitalbarrieroption_fx_digital_barrier_option_data",
+    "docs_userguide_tradedata_swaption_swaption",
+    "docs_userguide_tradecomponents_optiondata_settlement_data",
+    "docs_userguide_tradedata_fx_digitaloption_fx_digital_option_data",
+    "docs_userguide_pricing_fx_digitalbarrieroption_digital_fx_barrier_option",
+    "docs_userguide_tradecomponents_optiondata_exercise_fees",
+    "docs_userguide_tradecomponents_optiondata_payment_data",
+    "docs_userguide_tradecomponents_premiums_premium",
+    "docs_userguide_tradedata_ratedigitaloption_rate_digital_option",
+    "docs_userguide_tradedata_swaption_swaption_straddle",
+    "docs_userguide_tradecomponents_premiums_deprecated_premium_schema",
+    "docs_userguide_tradedata_fx_digitalbarrieroption_fx_index_daily_lows_highs_concept"
+   ]
+  },
+  {
+   "label": "Accumulator & Barrier-Contingent Scripted Trades",
+   "size": 13,
+   "anchors": [
+    "docs_userguide_tradedata_fxaccumulator_fx_accumulator_data",
+    "docs_tradedata_eqaccumulator_eq_accumulator_trade",
+    "docs_userguide_pricing_fx_accumulator_fx_accumulator",
+    "docs_tradedata_eqaccumulator_range_leverage_concept",
+    "docs_tradedata_extendedaccumulator_extended_accumulator_trade",
+    "docs_userguide_pricing_europeanoptioncontingentonabarrier_european_option_contingent_on_a_barrier",
+    "docs_userguide_pricing_extendedaccumulator_extended_accumulator",
+    "docs_userguide_pricing_performanceoption_01_performance_option_type_01",
+    "docs_userguide_tradedata_fxaccumulator_range_leverage_knockout_concept",
+    "docs_userguide_tradedata_performanceoption_01_performance_option_01",
+    "docs_tradedata_eqaccumulator_accumulator_script_concept",
+    "docs_tradedata_extendedaccumulator_extension_decision_concept",
+    "docs_userguide_pricing_scriptedtrades_scripted_trade_monte_carlo"
+   ]
+  },
+  {
+   "label": "FX Barrier & KIKO Option Family",
+   "size": 12,
+   "anchors": [
+    "docs_userguide_tradedata_generic_barrieroption_generic_barrier_option_data",
+    "docs_userguide_tradedata_fx_doublebarrieroption_fx_double_barrier_option_data",
+    "docs_userguide_tradedata_fx_kikobarrieroption_fx_kiko_barrier_option_data",
+    "docs_userguide_pricing_fx_doublebarrieroption_fx_double_barrier_option",
+    "docs_userguide_pricing_fx_kikobarrieroption_fx_kiko_barrier_option",
+    "docs_userguide_pricing_fx_barrieroption_fx_barrier_option",
+    "docs_userguide_pricing_generic_barrieroption_generic_barrier_option",
+    "docs_userguide_tradedata_fx_kikobarrieroption_barriers_ki_ko_pair_concept",
+    "docs_userguide_tradedata_fx_doublebarrieroption_put_call_currency_switch_concept",
+    "docs_userguide_tradedata_generic_barrieroption_barriers_node_concept",
+    "docs_userguide_tradedata_generic_barrieroption_payofftype_concept",
+    "docs_userguide_tradedata_generic_barrieroption_transatlantic_barrier_concept"
+   ]
+  },
+  {
+   "label": "Capital Methodology (CVA/SA-CCR/Collateral)",
+   "size": 11,
+   "anchors": [
+    "docs_userguide_methods_capital",
+    "docs_userguide_methods_capital_saccr_sa_ccr",
+    "docs_userguide_methods_capital_cva",
+    "docs_userguide_methods_capital_cva_cva_capital",
+    "docs_userguide_methods_capital_collateralbalances_collateralbalances",
+    "docs_userguide_methods_capital_saccr",
+    "docs_userguide_methods_capital_saccr_cem",
+    "docs_userguide_methods_capital_smrc_smrc",
+    "docs_userguide_methods_capital_collateralbalances",
+    "docs_userguide_methods_capital_cva_sa_cva",
+    "docs_userguide_methods_capital_smrc"
+   ]
+  },
+  {
+   "label": "Equity/Commodity Barrier & APO Trade Data",
+   "size": 11,
+   "anchors": [
+    "docs_userguide_tradecomponents_barrierdata_barrier_data",
+    "docs_userguide_tradedata_eq_barrieroption_equity_barrier_option_trade",
+    "docs_userguide_tradedata_eq_doublebarrieroption_equity_double_barrier_option_trade",
+    "docs_userguide_pricing_eq_doublebarrieroption_equity_double_barrier_option",
+    "docs_userguide_pricing_eq_doubletouchoption_equity_double_touch_option",
+    "docs_userguide_tradedata_eq_doubletouchoption_equity_double_touch_option_trade",
+    "docs_userguide_tradedata_commodityapo_commodity_apo_trade",
+    "docs_userguide_tradedata_eq_barrieroption_barrier_breach_check",
+    "docs_userguide_tradedata_window_barrieroption_window_barrier_option",
+    "docs_userguide_pricing_eq_touchoption_equity_touch_option",
+    "docs_userguide_tradedata_commodityapo_doc"
+   ]
+  },
+  {
+   "label": "Equity/FX European Barrier Option Trades",
+   "size": 9,
+   "anchors": [
+    "docs_tradedata_eq_europeanbarrieroption_equity_european_barrier_option_trade",
+    "docs_userguide_tradedata_fx_europeanbarrieroption_fx_european_barrier_option_data",
+    "docs_tradedata_fx_barrieroption_fx_barrier_option_trade",
+    "docs_tradedata_europeanoptioncontingentonabarrier_european_option_contingent_on_barrier_trade",
+    "docs_tradedata_eq_europeanbarrieroption_barrier_currency_convention_concept",
+    "docs_tradedata_europeanoptioncontingentonabarrier_barrier_style_concept",
+    "docs_tradedata_fx_barrieroption_fx_index_daily_highs_lows_concept",
+    "docs_tradedata_fx_barrieroption_put_call_convention_concept",
+    "docs_userguide_tradedata_fx_europeanbarrieroption_settlement_cash_physical_concept"
+   ]
+  },
+  {
+   "label": "Commodity Forward & Swap Instruments",
+   "size": 9,
+   "anchors": [
+    "docs_userguide_pricing_com_swap_commodity_swap",
+    "docs_userguide_pricing_curves_curve_building",
+    "docs_userguide_tradedata_commodityforward_commodity_forward_trade",
+    "docs_userguide_pricing_com_forward_commodity_forward",
+    "docs_userguide_tradedata_commodityforward_precious_metal_forward_note",
+    "docs_userguide_pricing_com_basisswap_commodity_basis_swap",
+    "docs_userguide_pricing_com_pm_forward_precious_metal_forward",
+    "docs_userguide_tradedata_commodityforward_future_expiry_mechanism",
+    "docs_userguide_tradedata_commodityforward_settlement_data"
+   ]
+  },
+  {
+   "label": "Convertible Bond Components",
+   "size": 9,
+   "anchors": [
+    "docs_userguide_tradedata_convertiblebond_convertible_bond_trade",
+    "docs_userguide_pricing_convertiblebond_convertible_bond",
+    "docs_userguide_tradedata_convertiblebond_conversion_data",
+    "docs_userguide_tradedata_convertiblebond_call_data",
+    "docs_userguide_tradedata_convertiblebond_dividend_protection_data",
+    "docs_userguide_tradedata_convertiblebond_exchangeable_data",
+    "docs_userguide_tradedata_convertiblebond_makewhole",
+    "docs_userguide_tradedata_convertiblebond_mandatory_conversion_peps",
+    "docs_userguide_tradedata_convertiblebond_put_data"
+   ]
+  },
+  {
+   "label": "FX/Equity Touch & Double-Touch Options",
+   "size": 8,
+   "anchors": [
+    "docs_userguide_tradedata_fx_touchoption_fx_touch_option_data",
+    "docs_userguide_tradedata_fx_doubletouchoption_fx_double_touch_option_data",
+    "docs_tradedata_eq_touchoption_equity_touch_option_trade",
+    "docs_userguide_pricing_fx_touchoption_fx_touch_option",
+    "docs_userguide_pricing_fx_doubletouchoption_fx_double_touch_option",
+    "docs_tradedata_eq_touchoption_cash_or_nothing_payoff_concept",
+    "docs_userguide_tradedata_fx_doubletouchoption_payoffatexpiry_concept",
+    "docs_userguide_tradedata_fx_touchoption_optiontype_inferred_concept"
+   ]
+  },
+  {
+   "label": "FX Digital & European Option Trades",
+   "size": 8,
+   "anchors": [
+    "docs_userguide_pricing_fx_digitaloption_fx_digital_option",
+    "docs_userguide_pricing_fx_option_european_fx_option",
+    "docs_userguide_tradedata_fxoption_fx_option_data",
+    "docs_userguide_pricing_fx_europeanbarrieroption_fx_european_barrier_option",
+    "docs_userguide_tradedata_doubledigitaloption_double_digital_option_trade",
+    "docs_userguide_tradedata_doubledigitaloption_underlying_spread_feature",
+    "docs_userguide_tradedata_fxoption_automaticexercise_concept",
+    "docs_userguide_tradedata_fxoption_delta_derived_strike_concept"
+   ]
+  },
+  {
+   "label": "Credit Index Tranche & CDS Reference Data",
+   "size": 8,
+   "anchors": [
+    "docs_userguide_tradedata_indexcds_index_credit_default_swap_data",
+    "docs_userguide_tradecomponents_basketdata_basket_data",
+    "docs_userguide_tradedata_indextranche_cdo_data",
+    "docs_userguide_tradecomponents_cdsreferenceinformation_cds_reference_information",
+    "docs_userguide_tradedata_syntheticcdo_synthetic_cdo",
+    "docs_userguide_tradedata_indexcds_notional_conventions_concept",
+    "docs_userguide_tradedata_indexcds_settlesaccrual_protectionpaymenttime_concept",
+    "docs_userguide_tradedata_indextranche_attachment_detachment_concept"
+   ]
+  },
+  {
+   "label": "Commodity Option Strip & Strike Data",
+   "size": 8,
+   "anchors": [
+    "docs_userguide_tradedata_commodityoption_commodity_option_trade",
+    "docs_userguide_tradedata_commodityoptionstrip_commodity_option_strip_trade",
+    "docs_userguide_tradecomponents_strikedata_strike_data",
+    "docs_userguide_tradedata_commodityoption_commodity_digital_option_trade",
+    "docs_userguide_tradedata_commodityoptionstrip_calls_puts_nodes",
+    "docs_userguide_tradecomponents_strikedata_strike_price",
+    "docs_userguide_tradecomponents_strikedata_strike_yield",
+    "docs_userguide_tradedata_commodityoptionstrip_is_averaged_flag"
+   ]
+  },
+  {
+   "label": "Composite & Cross-Currency Swap Trades",
+   "size": 8,
+   "anchors": [
+    "docs_userguide_tradedata_envelope_envelope_node",
+    "docs_userguide_tradedata_crosscurrencyswap_cross_currency_swap_trade",
+    "docs_userguide_tradedata_compositetrade_composite_trade",
+    "docs_userguide_tradedata_compositetrade_notional_calculation",
+    "docs_userguide_tradedata_crosscurrencyswap_fx_reset",
+    "docs_userguide_tradedata_crosscurrencyswap_non_deliverable_swap",
+    "docs_userguide_tradedata_envelope_netting_set_id",
+    "docs_userguide_tradedata_envelope_portfolio_and_additional_fields"
+   ]
+  },
+  {
+   "label": "Equity Option Position & Basket Pricing",
+   "size": 7,
+   "anchors": [
+    "docs_tradedata_equityoption_equity_option_trade",
+    "docs_tradedata_equityoptionposition_equity_option_position_trade",
+    "docs_tradedata_equityposition_equity_position_trade",
+    "docs_tradedata_equityoption_paymentdata_concept",
+    "docs_tradedata_equityoption_quanto_compo_concept",
+    "docs_tradedata_equityoptionposition_weighted_basket_concept",
+    "docs_tradedata_equityposition_weighted_basket_price_concept"
+   ]
+  },
+  {
+   "label": "Credit Derivative Instrument Family (CDS/CDO/CBO)",
+   "size": 7,
+   "anchors": [
+    "docs_userguide_pricing_cr_cds_credit_default_swap",
+    "docs_userguide_pricing_cr_cdo_synthetic_cdo",
+    "docs_userguide_pricing_cr_cdsoption_cds_option",
+    "docs_userguide_pricing_cr_indexcdsoption_index_cds_option",
+    "docs_userguide_pricing_cr_cbo_collateralized_bond_obligation",
+    "docs_userguide_pricing_cr_cds_index_credit_default_swap",
+    "docs_userguide_pricing_cr_cds_asset_backed_credit_default_swap"
+   ]
+  },
+  {
+   "label": "Equity Digital/Barrier/Position Option Family",
+   "size": 7,
+   "anchors": [
+    "docs_userguide_pricing_eq_option_european_equity_option",
+    "docs_userguide_pricing_eq_digitaloption_equity_digital_option",
+    "docs_userguide_pricing_eq_europeanbarrieroption_equity_european_barrier_option",
+    "docs_userguide_tradedata_eq_digitaloption_equity_digital_option_trade",
+    "docs_userguide_pricing_equityoptionposition_equity_option_position",
+    "docs_userguide_pricing_eq_europeancompositeoption_european_equity_composite_option",
+    "docs_userguide_pricing_equityposition_equity_position"
+   ]
+  },
+  {
+   "label": "Variance & Volatility Swap Family",
+   "size": 6,
+   "anchors": [
+    "docs_userguide_pricing_eq_varianceswap_equity_variance_swap",
+    "docs_userguide_tradedata_fxvarianceswap_fx_variance_swap_data",
+    "docs_userguide_pricing_com_varianceswap_commodity_variance_swap",
+    "docs_userguide_pricing_fx_varianceswap_fx_variance_swap",
+    "docs_userguide_tradedata_commodityvarianceswap_commodity_variance_swap_trade",
+    "docs_userguide_tradedata_fxvarianceswap_momenttype_concept"
+   ]
+  },
+  {
+   "label": "FX Forward & Swap Trade Types",
+   "size": 6,
+   "anchors": [
+    "docs_userguide_tradedata_fxforward_fx_forward_data",
+    "docs_userguide_pricing_fx_forward_fx_forward",
+    "docs_userguide_pricing_fx_swap_fx_swap",
+    "docs_userguide_tradedata_fxswap_fx_swap_data",
+    "docs_userguide_tradedata_fxforward_fx_average_forward_data",
+    "docs_userguide_tradedata_fxforward_settlement_data_concept"
+   ]
+  },
+  {
+   "label": "Basket Option Payoff Variants",
+   "size": 6,
+   "anchors": [
+    "docs_userguide_tradedata_basketoption_doc",
+    "docs_userguide_tradedata_basketoption_asian_basket_option",
+    "docs_userguide_tradedata_basketoption_average_strike_basket_option",
+    "docs_userguide_tradedata_basketoption_lookback_call_basket_option",
+    "docs_userguide_tradedata_basketoption_lookback_put_basket_option",
+    "docs_userguide_tradedata_basketoption_vanilla_basket_option"
+   ]
+  },
+  {
+   "label": "Credit Linked Swap Family",
+   "size": 5,
+   "anchors": [
+    "docs_userguide_tradedata_creditdefaultswap_credit_default_swap_trade",
+    "docs_userguide_tradedata_creditlinkedswap_credit_linked_swap_trade",
+    "docs_userguide_pricing_creditlinkedswap_credit_linked_swap",
+    "docs_userguide_tradedata_creditdefaultswap_quanto_cds",
+    "docs_userguide_tradedata_creditlinkedswap_payment_categories"
+   ]
+  },
+  {
+   "label": "Accumulator Trade Types (Commodity/Equity/FX)",
+   "size": 5,
+   "anchors": [
+    "docs_userguide_tradedata_accumulator_doc",
+    "docs_userguide_tradedata_accumulator_equity_accumulator",
+    "docs_userguide_tradedata_accumulator_fx_accumulator",
+    "docs_userguide_tradedata_accumulator_scripted_accumulator",
+    "docs_userguide_tradedata_accumulator_commodity_accumulator"
+   ]
+  },
+  {
+   "label": "Equity Swap & Cross-Currency Equity Concepts",
+   "size": 4,
+   "anchors": [
+    "docs_tradedata_equityswap_equity_swap_trade",
+    "docs_tradedata_equityswap_cross_currency_concept",
+    "docs_tradedata_equityswap_dividend_swap_variant",
+    "docs_tradedata_equityswap_notional_reset_indexing_concept"
+   ]
+  },
+  {
+   "label": "Forward Bond & T-Lock/J-Lock Settlement",
+   "size": 4,
+   "anchors": [
+    "docs_tradedata_forwardbond_forward_bond_trade",
+    "docs_tradedata_forwardbond_income_curve_concept",
+    "docs_tradedata_forwardbond_lock_rate_settlement_concept",
+    "docs_tradedata_forwardbond_tlock_jlock_variant"
+   ]
+  },
+  {
+   "label": "Autocallable & Best-Entry Option Trade Data",
+   "size": 4,
+   "anchors": [
+    "docs_userguide_tradedata_autocallable_01_autocallable_trade",
+    "docs_userguide_tradedata_bestentryoption_best_entry_option_trade",
+    "docs_userguide_tradedata_autocallable_01_doc",
+    "docs_userguide_tradedata_bestentryoption_doc"
+   ]
+  },
+  {
+   "label": "Index CDS Option & Strike Resolution",
+   "size": 4,
+   "anchors": [
+    "docs_userguide_tradedata_indexcdsoption_index_cds_option_data",
+    "docs_userguide_tradedata_indexcdsoption_frontendprotection_concept",
+    "docs_userguide_tradedata_indexcdsoption_indexterm_concept",
+    "docs_userguide_tradedata_indexcdsoption_strike_striketype_resolution_concept"
+   ]
+  },
+  {
+   "label": "Equity Outperformance Option",
+   "size": 3,
+   "anchors": [
+    "docs_tradedata_eq_outperformance_equity_outperformance_option_trade",
+    "docs_tradedata_eq_outperformance_knockin_knockout_concept",
+    "docs_tradedata_eq_outperformance_underlying1_underlying2_concept"
+   ]
+  },
+  {
+   "label": "Equity Cliquet Option",
+   "size": 3,
+   "anchors": [
+    "docs_tradedata_equitycliquetoption_equity_cliquet_option_trade",
+    "docs_tradedata_equitycliquetoption_local_global_cap_floor_concept",
+    "docs_tradedata_equitycliquetoption_moneyness_concept"
+   ]
+  },
+  {
+   "label": "Flexi Swap Trade",
+   "size": 3,
+   "anchors": [
+    "docs_tradedata_flexiswap_flexi_swap_trade",
+    "docs_tradedata_flexiswap_option_long_short_concept",
+    "docs_tradedata_flexiswap_prepayment_option_concept"
+   ]
+  },
+  {
+   "label": "Equity Forward & Reference Text",
+   "size": 3,
+   "anchors": [
+    "docs_userguide_pricing_eq_forward_lichters_stamm_gallagher_2015",
+    "docs_userguide_pricing_eq_forward_equity_forward",
+    "docs_userguide_pricing_eq_outperformanceoption_equity_outperformance_option"
+   ]
+  }
+ ]
+}
