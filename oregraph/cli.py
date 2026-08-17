@@ -50,7 +50,12 @@ def cmd_info(args):
     print(f"Engine repo : {cfg.engine}")
     print(f"Graph output: {cfg.out}")
     print(f"Interpreter : {cfg.python}")
-    print(f"graphify CLI: {cfg.graphify_cli or '(not on PATH)'}")
+    # Only shown when it resolves. Nothing depends on the console script any
+    # more - the MCP config binds to this interpreter via `-m graphify.serve` -
+    # so printing "(not on PATH)" reported a failure that wasn't one, in the
+    # first command a new user runs.
+    if cfg.graphify_cli:
+        print(f"graphify CLI: {cfg.graphify_cli}")
     print(f"graphify lib: {'importable' if configmod.check_graphify_importable(cfg.python) else 'NOT INSTALLED - pip install graphifyy'}")
     print(f"\nChunks: {len(CODE_CHUNKS)} code, {len(SEMANTIC)} semantic")
     for c in ALL_CHUNKS:
@@ -123,6 +128,29 @@ def cmd_merge(args):
     print(json.dumps({k: v for k, v in stats.items() if k != "labels"}, indent=2))
 
 
+def _gitignore_covers(repo: Path, rel_paths: list[str]) -> list[bool]:
+    """Whether each repo-relative path is git-ignored. Ask git, don't parse.
+
+    `git check-ignore` implements the full ignore semantics (negations,
+    directory rules, nested .gitignore, core.excludesFile); a hand-rolled scan
+    of .gitignore gets those wrong and would warn spuriously.
+    """
+    try:
+        # Bytes, not text=True: on Windows, text mode rewrites the "\n"
+        # joining these paths to "\r\n" on the way into the child's stdin, so
+        # every path but the last one arrives with a trailing "\r" git's
+        # matcher doesn't strip - silently failing to match a real .gitignore
+        # rule and reporting a covered file as unguarded.
+        r = subprocess.run(["git", "-C", str(repo), "check-ignore", "--stdin"],
+                           input="\n".join(rel_paths).encode("utf-8"),
+                           capture_output=True, timeout=30)
+    except (OSError, subprocess.SubprocessError):
+        return [False] * len(rel_paths)   # can't tell - warn rather than stay quiet
+    ignored = {line.strip().replace("\\", "/")
+              for line in r.stdout.decode("utf-8").splitlines()}
+    return [p in ignored for p in rel_paths]
+
+
 def cmd_mcp(args):
     """Write MCP config for Claude Code and/or VS Code into the Engine repo."""
     cfg = _cfg(args)
@@ -136,23 +164,70 @@ def cmd_mcp(args):
     # point exists (`python -m graphify.serve`) and needs no console script.
     command, pre_args = sys.executable, ["-m", "graphify.serve"]
 
-    wrote = []
+    def _existing_graph(p: Path) -> str | None:
+        """The graph path an existing config points at, or None."""
+        try:
+            d = json.loads(p.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            return None
+        for section in ("mcpServers", "servers"):
+            entry = (d.get(section) or {}).get("graphify-ore")
+            if entry and entry.get("args"):
+                return str(entry["args"][-1])
+        return None
+
+    planned: list[tuple[Path, dict]] = []
     if args.host in ("claude", "both"):
-        p = cfg.engine / ".mcp.json"
-        payload = {"mcpServers": {"graphify-ore": {
-            "type": "stdio", "command": command, "args": pre_args + [graph]}}}
-        p.write_text(json.dumps(payload, indent=2), encoding="utf-8")
-        wrote.append(p)
+        planned.append((cfg.engine / ".mcp.json",
+                        {"mcpServers": {"graphify-ore": {
+                            "type": "stdio", "command": command,
+                            "args": pre_args + [graph]}}}))
     if args.host in ("vscode", "both"):
-        d = cfg.engine / ".vscode"
-        d.mkdir(exist_ok=True)
-        p = d / "mcp.json"
-        payload = {"servers": {"graphify-ore": {
-            "type": "stdio", "command": command, "args": pre_args + [graph]}}}
+        planned.append((cfg.engine / ".vscode" / "mcp.json",
+                        {"servers": {"graphify-ore": {
+                            "type": "stdio", "command": command,
+                            "args": pre_args + [graph]}}}))
+
+    # Refuse to silently replace a working config. These files live in the
+    # shared Engine repo and point at a machine-specific graph, so overwriting
+    # one repoints somebody's working setup at a graph they may not have built.
+    conflicts = []
+    for p, payload in planned:
+        if not p.exists():
+            continue
+        if p.read_text(encoding="utf-8") == json.dumps(payload, indent=2):
+            continue
+        conflicts.append((p, _existing_graph(p)))
+    if conflicts and not args.force:
+        print("refusing to overwrite an existing MCP config:\n")
+        for p, old in conflicts:
+            print(f"  {p}")
+            print(f"    currently points at: {old or '(unrecognised format)'}")
+            print(f"    would be changed to: {graph}")
+        print("\nRe-run with --force to replace it.")
+        return 1
+
+    wrote = []
+    for p, payload in planned:
+        p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text(json.dumps(payload, indent=2), encoding="utf-8")
         wrote.append(p)
     for p in wrote:
         print(f"wrote {p}")
+
+    # These files contain an absolute interpreter path and an absolute graph
+    # path - valid only on the machine that generated them - and they land in
+    # the shared Engine repo. Committing one breaks the server for everyone
+    # else. We do not edit the Engine repo's .gitignore: it isn't ours.
+    ignored = _gitignore_covers(cfg.engine, [p.relative_to(cfg.engine).as_posix()
+                                             for p in wrote])
+    unguarded = [p for p, ok in zip(wrote, ignored) if not ok]
+    if unguarded:
+        print("\nwarning: these files are NOT covered by the Engine repo's .gitignore:")
+        for p in unguarded:
+            print(f"  {p.relative_to(cfg.engine).as_posix()}")
+        print("They are per-machine (absolute interpreter and graph paths) and\n"
+              "must not be committed. Each person runs `oregraph mcp` themselves.")
     if not cfg.merged_graph.exists():
         print("\nnote: the merged graph does not exist yet - run "
               "`python -m oregraph build` first.")
@@ -172,20 +247,47 @@ def cmd_semantic(args):
 
 def cmd_relabel(args):
     from .relabel import (propose, format_proposal, write_anchors, digest,
-                          audit, format_audit)
+                          audit, format_audit, sync)
     cfg = _cfg(args)
+
+    if args.sync:
+        if not cfg.merged_graph.exists():
+            print(f"error: {cfg.merged_graph} not found - run `build` or "
+                  "`merge` first", file=sys.stderr)
+            return 1
+        targets = args.only or [c.name for c in ALL_CHUNKS
+                                if (cfg.labels_dir / f"{c.name}.anchors.json").exists()]
+        written = sync(cfg.merged_graph, cfg.labels_dir, targets)
+        for name in targets:
+            n = written.get(name)
+            if n is None:
+                print(f"{name}: no attached curated names in the merged graph "
+                      "- left {name}.json untouched")
+            else:
+                print(f"{name}: {n} name(s) -> {cfg.labels_dir / f'{name}.json'}")
+        return
 
     if args.audit:
         targets = args.only or [c.name for c in ALL_CHUNKS if cfg.labels_for(c.name)]
         dirty = 0
+        stale = []
         for name in targets:
             gp, lp = cfg.module_graph(name), cfg.labels_for(name)
             if not gp.exists() or not lp:
                 continue
             res = audit(gp, lp)
             print(format_audit(res))
-            dirty += res["mismatched"]
-        print(f"\n{'CLEAN - safe to --write-anchors' if not dirty else f'{dirty} name(s) look misfiled - fix before pinning'}")
+            if res["stale"]:
+                stale.append(name)
+            else:
+                dirty += res["mismatched"]
+        if stale:
+            print(f"\n{len(stale)} chunk(s) look stale relative to this build - "
+                  f"run `oregraph relabel --sync` first: {', '.join(stale)}")
+        elif dirty:
+            print(f"\n{dirty} name(s) look misfiled - fix before pinning")
+        else:
+            print("\nCLEAN - safe to --write-anchors")
         return
 
     if args.digest:
@@ -233,7 +335,11 @@ def cmd_relabel(args):
 def cmd_verify(args):
     from .verify import verify, format_report
     cfg = _cfg(args)
-    print(format_report(verify(cfg)))
+    result = verify(cfg)
+    print(format_report(result))
+    # Exit non-zero on failure so CI and the post-merge hook can gate on it.
+    # Printing "FAILED" while exiting 0 made every check advisory.
+    return 1 if any(not c["ok"] for c in result["checks"]) else 0
 
 
 def main(argv=None):
@@ -263,6 +369,8 @@ def main(argv=None):
 
     p = sub.add_parser("mcp", help="write MCP config into the Engine repo")
     p.add_argument("--host", choices=["claude", "vscode", "both"], default="both")
+    p.add_argument("--force", action="store_true",
+                   help="replace an existing MCP config that points elsewhere")
     p.set_defaults(func=cmd_mcp)
 
     p = sub.add_parser("semantic",
@@ -280,6 +388,10 @@ def main(argv=None):
     p.add_argument("--write-anchors", action="store_true",
                    help="pin the current mapping as anchors (do this only after "
                         "confirming the labels are correct)")
+    p.add_argument("--sync", action="store_true",
+                   help="regenerate labels/<chunk>.json from what the merged "
+                        "graph currently attaches; run this before --audit "
+                        "whenever a chunk is already anchored")
     p.add_argument("--audit", action="store_true",
                    help="check each curated name against its community's actual "
                         "contents; the gate to pass before --write-anchors")
@@ -323,8 +435,8 @@ def main(argv=None):
                            env=env)
         raise SystemExit(r.returncode)
 
-    return args.func(args)
+    return args.func(args) or 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
