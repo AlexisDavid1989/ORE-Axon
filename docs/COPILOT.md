@@ -19,29 +19,15 @@ and phase 3 is either 10 minutes or several hours depending on one decision.
 
 ## Phase 0 — Setup (5 min, terminal)
 
-Clone this repo next to your ORE checkout, then in the VS Code terminal:
-
-```bash
-pip install -r requirements.txt
-```
-
-Set the Engine path — permanently, so every later command finds it:
-
-```powershell
-# PowerShell, persists across sessions
-setx ORE_ENGINE "C:\Users\<you>\OneDrive\Documents\repos\Engine"
-setx ORE_GRAPH_OUT "C:\GraphifyOut\ORE"
-```
-
-Reopen the terminal, then check:
+See [docs/INSTALL.md](INSTALL.md) for install and setup (steps 1-3). Do this
+from the VS Code integrated terminal, then reopen it before continuing. Once
+set, check:
 
 ```bash
 python -m oregraph info
 ```
 
-Every line should resolve, and `graphify lib` should say `importable`. If
-`ORE_GRAPH_OUT` warns about OneDrive, point it somewhere local — builds write
-hundreds of megabytes and OneDrive will try to sync all of it.
+Every line should resolve, and `graphify lib` should say `importable`.
 
 ---
 
@@ -204,19 +190,9 @@ between the two modules.
 ## Handing it to the team
 
 Once phases 1–4 are done and `labels/` and `semantic-chunks/` are committed, a
-teammate needs only:
-
-```bash
-git clone <repo> && cd ORE-Axon
-pip install -r requirements.txt
-setx ORE_ENGINE "<their Engine path>"
-python -m oregraph build
-python -m oregraph mcp --host both
-```
-
-No API key, no relabelling, no extraction — they inherit all of it. The build
-runs against their own checkout, so the graph describes the code they actually
-have.
+teammate needs only [docs/INSTALL.md](INSTALL.md). No API key, no
+relabelling, no extraction — they inherit all of it. The build runs against
+their own checkout, so the graph describes the code they actually have.
 
 ---
 

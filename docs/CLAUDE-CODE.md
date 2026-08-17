@@ -38,24 +38,12 @@ Check with `/usage` at any point.
 
 ## Phase 0 — Setup (5 min)
 
+See [docs/INSTALL.md](INSTALL.md) for install and setup (steps 1-3). Once
+`ORE_ENGINE` is set and the terminal is restarted, ask Claude Code:
+
 ```
-Read README.md and docs/CLAUDE-CODE.md in this repo, then help me set up.
-
-I'm on Windows. My ORE checkout is at
-  C:\Users\Alexis\OneDrive\Documents\repos\Engine
-I want graph output at a NEW directory:
-  C:\GraphifyOut\ORE-v2
-My old build is at C:\GraphifyOut\ORE — leave it completely alone, it's my
-working fallback until the new one verifies.
-
-Do this:
-1. pip install -r requirements.txt
-2. Set ORE_ENGINE and ORE_GRAPH_OUT with setx, then tell me to restart the
-   terminal so they take effect
-3. python -m oregraph info
-4. python -m oregraph coverage
-
-Show me the output of info and coverage. Do NOT start the build yet.
+Run `python -m oregraph info` and `python -m oregraph coverage` and show me
+the output. Do NOT start the build yet.
 ```
 
 `info` should show every path resolved and `graphify lib: importable`.
@@ -193,15 +181,8 @@ Once it verifies, point your old MCP config at `ORE-v2` and retire
 
 ## Handing it to the team
 
-```bash
-git clone <repo> && cd ORE-Axon
-pip install -r requirements.txt
-setx ORE_ENGINE "<their Engine path>"
-python -m oregraph build && python -m oregraph mcp --host both
-```
-
-No API key, no relabelling, no extraction — they inherit all of it, built
-against their own checkout.
+See [docs/INSTALL.md](INSTALL.md). No API key, no relabelling, no
+extraction — they inherit all of it, built against their own checkout.
 
 ---
 

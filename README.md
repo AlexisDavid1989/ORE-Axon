@@ -19,20 +19,7 @@ phase with the exact prompts to paste.
 
 ## Quick start
 
-```bash
-git clone <this repo> && cd ORE-Axon
-pip install -r requirements.txt
-
-export ORE_ENGINE=/path/to/your/Engine        # Windows: set ORE_ENGINE=C:\path\to\Engine
-python -m oregraph info                       # check what resolved
-python -m oregraph build                      # extract, cluster, merge  (~5-15 min first run)
-python -m oregraph verify                     # sanity-check the result
-python -m oregraph mcp --host both            # write MCP config into the Engine repo
-```
-
-Then ask your agent, from inside the Engine checkout:
-
-> How does OREData's swap trade builder reach QuantExt's pricing engines?
+See [docs/INSTALL.md](docs/INSTALL.md) for setup.
 
 **No API key is required.** Code is extracted structurally (AST); the documents
 and schemas were extracted once by an LLM and the results are committed under

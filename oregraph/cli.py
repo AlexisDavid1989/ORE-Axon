@@ -109,7 +109,12 @@ def cmd_build(args):
 
     if not args.no_merge:
         cmd_merge(args)
-    return results
+    # Exit non-zero only on a genuine per-chunk failure, mirroring cmd_verify.
+    # Returning `results` here made main()'s `results or 0` pick the dict
+    # itself as the exit code whenever anything built at all - Python's
+    # SystemExit(<non-int>) handling reports that as a plain process
+    # failure, so every successful build still exited 1.
+    return 1 if any(isinstance(r, dict) and "error" in r for r in results.values()) else 0
 
 
 def _semantic_dir(name: str) -> str:
