@@ -14,7 +14,7 @@ from pathlib import Path
 #: are here to remove the relaunch, check this issue is fixed in the pinned
 #: graphify version first - and re-run the two-build comparison in
 #: docs/RELABELLING.md before trusting the result.
-UPSTREAM_ISSUE = "graphify: build_from_json drops edges depending on hash order"
+UPSTREAM_ISSUE = "https://github.com/Graphify-Labs/graphify/issues/2817"
 
 from . import chunks as chunkmod
 from . import config as configmod

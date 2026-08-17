@@ -39,7 +39,8 @@ project. See the comment above the `PYTHONHASHSEED` relaunch in
 `oregraph/cli.py` for the exact numbers.
 
 Worked around here by relaunching every `build`/`merge` under
-`PYTHONHASHSEED=0`. Upstream issue: *filed, URL pending update to this file.*
+`PYTHONHASHSEED=0`. Upstream issue:
+https://github.com/Graphify-Labs/graphify/issues/2817
 
 ## Docs and XSD have zero edges to code (v1.1)
 
