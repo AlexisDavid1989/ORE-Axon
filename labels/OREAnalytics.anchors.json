@@ -3,7 +3,7 @@
  "communities": [
   {
    "label": "Input parameters core accessors",
-   "size": 238,
+   "size": 240,
    "anchors": [
     "app_inputparameters_inputparameters",
     "app_inputparameters_hpp_size",
@@ -33,14 +33,14 @@
     "scenario_sensitivityscenariogenerator_cpp_string",
     "scenario_stressscenariogenerator_stressscenariogenerator",
     "scenario_sensitivityscenariogenerator_sensitivityscenariogenerator_generatescenarios",
-    "scenario_stressscenariogenerator",
     "scenario_sensitivityscenariogenerator_sensitivityscenariogenerator_getshiftscheme",
     "scenario_sensitivityscenariogenerator_trygetbasescenariovalue",
     "scenario_sensitivityscenariogenerator_sensitivityscenariogenerator_getshiftsize",
     "scenario_sensitivityscenariogenerator_sensitivityscenariogenerator_getshifttype",
     "scenario_sensitivityscenariogenerator_sensitivityscenariogenerator_isscenariorelevant",
     "scenario_sensitivityscenariogenerator_cpp_scenariodescription",
-    "scenario_sensitivityscenariogenerator_cpp_shiftscheme"
+    "scenario_sensitivityscenariogenerator_cpp_shiftscheme",
+    "scenario_sensitivityscenariogenerator_vectorsubset"
    ]
   },
   {
@@ -48,6 +48,7 @@
    "size": 140,
    "anchors": [
     "engine_xvaenginecg_xvaenginecg",
+    "gaussiancamcg",
     "doubleprecisionsensicube",
     "dynamiciminfo",
     "engine_xvaenginecg_hpp_crossassetmodeldata",
@@ -60,13 +61,12 @@
     "engine_xvaenginecg_hpp_mode",
     "engine_xvaenginecg_hpp_npvcube",
     "engine_xvaenginecg_hpp_pair",
-    "engine_xvaenginecg_hpp_portfolio",
-    "engine_xvaenginecg_hpp_randomvariable"
+    "engine_xvaenginecg_hpp_portfolio"
    ]
   },
   {
    "label": "XVA analytic configuration",
-   "size": 137,
+   "size": 138,
    "anchors": [
     "app_analytics_xvaanalytic_xvavariables",
     "app_analytics_xvaanalytic_hpp_collateralbalances",
@@ -87,7 +87,7 @@
   },
   {
    "label": "Input parameter setters from files",
-   "size": 135,
+   "size": 136,
    "anchors": [
     "app_oreapp_oreappinputparameters_loadparameters",
     "app_inputparameters_cpp_string",
@@ -104,6 +104,27 @@
     "app_inputparameters_inputparameters_setparstresspricingenginefromfile",
     "app_inputparameters_inputparameters_setparstressscenariodatafromfile",
     "app_inputparameters_inputparameters_setparstresssensitivityscenariodatafromfile"
+   ]
+  },
+  {
+   "label": "Analytics manager & analytic modules",
+   "size": 98,
+   "anchors": [
+    "orea",
+    "app_analytics_xvaanalytic",
+    "app_analytic",
+    "app_analytic_inmemoryreport",
+    "app_oreapp",
+    "app_analytics_crifanalytic",
+    "app_analyticsmanager_hpp_inputparameters",
+    "app_structuredanalyticserror_structuredanalyticserrormessage",
+    "app_analyticsmanager_hpp_analytic",
+    "simm_simmcalculator",
+    "app_analytics_sensitivitystressanalytic",
+    "app_analytics_xvastressanalytic",
+    "app_analytics_pnlexplainanalytic",
+    "app_analytics_pnlanalytic",
+    "app_structuredanalyticswarning_structuredanalyticswarningmessage_structuredanalyticswarningmessage"
    ]
   },
   {
@@ -128,34 +149,16 @@
    ]
   },
   {
-   "label": "Analytics manager & analytic modules",
-   "size": 71,
-   "anchors": [
-    "orea",
-    "app_analytic_inmemoryreport",
-    "app_analytics_crifanalytic",
-    "app_analyticsmanager_hpp_inputparameters",
-    "app_structuredanalyticserror_structuredanalyticserrormessage_structuredanalyticserrormessage",
-    "app_analyticsmanager_hpp_analytic",
-    "app_analytics_pnlexplainanalytic",
-    "app_reportwriter_addmapresults",
-    "app_structuredanalyticswarning_structuredanalyticswarningmessage",
-    "cube_jaggedcube_hpp_trade",
-    "app_analytics_pnlanalytic",
-    "engine_observationmode",
-    "scenario_scenarioutilities",
-    "app_analytics_sacvaanalytic",
-    "app_analytics_simmanalytic"
-   ]
-  },
-  {
    "label": "Scenario sim market parameters",
-   "size": 93,
+   "size": 96,
    "anchors": [
     "scenario_scenariosimmarketparameters_scenariosimmarketparameters",
+    "scenario_scenariosimmarketparameters",
     "scenario_scenariosimmarketparameters_hpp_size",
     "scenario_scenariosimmarketparameters_scenariosimmarketparameters_additionalscenariodatanumberofcreditstates",
     "scenario_scenariosimmarketparameters_scenariosimmarketparameters_numberofcreditstates",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_operator",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_reset",
     "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setadditionalscenariodatanumberofcreditstates",
     "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setnumberofcreditstates",
     "curvealgebradata",
@@ -163,19 +166,15 @@
     "scenario_scenariosimmarketparameters_hpp_map",
     "scenario_scenariosimmarketparameters_hpp_pair",
     "scenario_scenariosimmarketparameters_hpp_period",
-    "scenario_scenariosimmarketparameters_hpp_rate",
-    "scenario_scenariosimmarketparameters_hpp_real",
-    "scenario_scenariosimmarketparameters_hpp_set",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_additionalscenariodataccys"
+    "scenario_scenariosimmarketparameters_hpp_rate"
    ]
   },
   {
    "label": "XVA analytic orchestration",
-   "size": 90,
+   "size": 82,
    "anchors": [
     "app_analytic_analytic_impl_analytic",
     "app_analytics_xvaanalytic_xvaanalyticimpl",
-    "app_analytics_xvaanalytic",
     "app_analytics_xvaanalytic_xvaanalyticimpl_runanalytic",
     "app_analytics_xvaanalytic_cpp_shared_ptr",
     "app_analytics_xvaanalytic_xvaanalyticimpl_amcrun",
@@ -186,50 +185,51 @@
     "app_analytics_xvaanalytic_xvaanalyticimpl_classicrun",
     "app_analytics_xvaanalytic_xvaanalyticimpl_initclassicrun",
     "app_analytics_xvaanalytic_xvaanalyticimpl_initcube",
-    "engine_xvaenginecg_parsexvaenginecgmode",
-    "app_analytics_xvaanalytic_xvaanalyticimpl_getnettingsetids"
+    "app_analytics_xvaanalytic_xvaanalyticimpl_getnettingsetids",
+    "app_analytics_xvaanalytic_xvaanalyticimpl_runpostprocessor",
+    "app_analytics_xvaanalytic_cpp_portfolio"
+   ]
+  },
+  {
+   "label": "CRIF generators per risk type",
+   "size": 75,
+   "anchors": [
+    "simm_crifrecordgenerator_crifrecordgenerator",
+    "simm_crifrecordgenerator_cpp_string",
+    "simm_crifrecordgenerator_crifrecorddata",
+    "simm_crifrecordgenerator_crifrecordgenerator_operator",
+    "simm_crifrecordgenerator_cpp_vector",
+    "simm_crifrecordgenerator_crifrecordgenerator_defaultrecord",
+    "simm_crifrecordgenerator_simmrecordgenerator",
+    "simm_crifrecordgenerator_crifrecordgenerator_yieldcurveimpl",
+    "simm_crifrecordgenerator_crifrecordgenerator_indexcurveimpl",
+    "simm_crifrecordgenerator_crifrecordgenerator_irvolatilityimpl",
+    "simm_crifrecordgenerator_crifrecordgenerator_crifqualifier",
+    "simm_crifrecordgenerator_crifrecordgenerator_discountcurveimpl",
+    "simm_crifrecordgenerator_crifrecordgenerator_fxspotimpl",
+    "simm_crifrecordgenerator_crifrecordgenerator_fxvolatilityimpl",
+    "simm_crifrecordgenerator_hpp_string"
    ]
   },
   {
    "label": "Market risk backtesting",
-   "size": 86,
+   "size": 73,
    "anchors": [
     "engine_marketriskbacktest_marketriskbacktest",
-    "engine_marketriskreport_marketriskgroupbase",
     "engine_marketriskbacktest_marketriskbacktest_calculatesummary",
     "engine_marketriskbacktest_cpp_shared_ptr",
     "engine_marketriskbacktest_marketriskbacktest_calculatebenchmarks",
     "engine_marketriskbacktest_marketriskbacktest_marketriskbacktest",
     "engine_marketriskbacktest_marketriskbacktest_writereports",
-    "engine_marketriskbacktest_backtestpnlcalculator",
     "engine_marketriskbacktest_marketriskbacktest_addpnlrow",
     "engine_marketriskbacktest_marketriskbacktest_createreports",
     "engine_marketriskbacktest_marketriskbacktest_handlefullrevalresults",
     "engine_marketriskbacktest_marketriskbacktest_handlesensiresults",
     "engine_marketriskbacktest_backtestpnlcalculator_writepnl",
     "engine_marketriskbacktest_cpp_reports",
-    "engine_marketriskbacktest_cpp_string"
-   ]
-  },
-  {
-   "label": "Dependency market data curves",
-   "size": 75,
-   "anchors": [
-    "engine_dependencymarket_cpp_handle",
-    "engine_dependencymarket_cpp_string",
-    "engine_dependencymarket_dependencymarket_addmarketobject",
-    "engine_dependencymarket_dependencymarket_addriskfactor",
-    "app_hwhistoricalcalibrationdataloader_hwhistoricalcalibrationdataloader_parsecurrency",
-    "engine_dependencymarket_dependencymarket_iborindex",
-    "engine_dependencymarket_dependencymarket_yieldcurve",
-    "engine_dependencymarket_dependencymarket_commoditypricecurve",
-    "engine_dependencymarket_dependencymarket_capfloorvol",
-    "engine_dependencymarket_dependencymarket_equitycurve",
-    "engine_dependencymarket_dependencymarket_flatrateyts",
-    "engine_dependencymarket_dependencymarket_fxvolimpl",
-    "engine_dependencymarket_dependencymarket_asofdate",
-    "engine_dependencymarket_dependencymarket_commodityvolatility",
-    "engine_dependencymarket_dependencymarket_cpiinflationcapfloorvolatilitysurface"
+    "engine_marketriskbacktest_cpp_string",
+    "engine_marketriskbacktest_marketriskbacktest_disablesall",
+    "engine_marketriskbacktest_marketriskbacktest_reset"
    ]
   },
   {
@@ -254,27 +254,6 @@
    ]
   },
   {
-   "label": "Cross-asset model scenario generator",
-   "size": 72,
-   "anchors": [
-    "scenario_crossassetmodelscenariogenerator_crossassetmodelscenariogenerator",
-    "scenario_crossassetmodelscenariogenerator",
-    "cirppimplieddefaulttermstructure",
-    "crossassetmodelimpliedeqvoltermstructure",
-    "crossassetmodelimpliedfxvoltermstructure",
-    "crossassetmodelimpliedswaptionvoltermstructure",
-    "lgmimplieddefaulttermstructure",
-    "modelimpliedpricetermstructure",
-    "modelimpliedyieldtermstructure",
-    "scenario_crossassetmodelscenariogenerator_hpp_iborindex",
-    "modeltype",
-    "scenario_crossassetmodelscenariogenerator_crossassetmodelscenariogenerator_amcpathdataoutput",
-    "scenario_crossassetmodelscenariogenerator_crossassetmodelscenariogenerator_cirppdefaultcurves",
-    "scenario_crossassetmodelscenariogenerator_crossassetmodelscenariogenerator_comcurves",
-    "scenario_crossassetmodelscenariogenerator_crossassetmodelscenariogenerator_configuration"
-   ]
-  },
-  {
    "label": "SIMM CRIF record definitions",
    "size": 72,
    "anchors": [
@@ -293,48 +272,6 @@
     "simm_crif_slimcrifrecord_setpostregulations",
     "simm_crif_hpp_immodel",
     "simm_crif_hpp_size"
-   ]
-  },
-  {
-   "label": "Joint NPV cube wrappers",
-   "size": 69,
-   "anchors": [
-    "cube_jointnpvcube_jointnpvcube",
-    "cube_jointnpvsensicube_jointnpvsensicube",
-    "cube_jointnpvcube_jointnpvcube_cubeandid",
-    "cube_jointnpvsensicube_cpp_size",
-    "cube_jointnpvcube_cpp_size",
-    "cube_jointnpvcube_jointnpvcube_jointnpvcube",
-    "cube_jointnpvcube_jointnpvcube_depth",
-    "cube_jointnpvcube_jointnpvcube_get",
-    "cube_jointnpvcube_jointnpvcube_gett0",
-    "cube_jointnpvsensicube_jointnpvsensicube_gettradenpvs",
-    "cube_jointnpvsensicube_jointnpvsensicube_jointnpvsensicube",
-    "cube_jointnpvcube_cpp_real",
-    "cube_jointnpvcube_jointnpvcube_set",
-    "cube_jointnpvcube_jointnpvcube_sett0",
-    "cube_jointnpvsensicube_cpp_real"
-   ]
-  },
-  {
-   "label": "Singleton cleanup & setup variables",
-   "size": 68,
-   "anchors": [
-    "app_inputparameters_setupvariables",
-    "app_inputparameters_hpp_date",
-    "app_inputparameters_calendaradjustmentconfig",
-    "app_inputparameters_currencyconfig",
-    "app_inputparameters_inputparameters_setcalendaradjustmentptr",
-    "app_inputparameters_inputparameters_setcurrencyconfigptr",
-    "app_inputparameters_hpp_period",
-    "app_inputparameters_inputparameters_setmpordate",
-    "app_inputparameters_inputparameters_fixingcutoffdate",
-    "app_inputparameters_inputparameters_setenddate",
-    "app_inputparameters_inputparameters_setfixingcutoffdate",
-    "app_inputparameters_inputparameters_setstartdate",
-    "app_inputparameters_inputparameters_setthetaperiod",
-    "app_inputparameters_inputparameters_thetaperiod",
-    "app_cleanupsingletons_cleanuplogsingleton_cleanuplogsingleton"
    ]
   },
   {
@@ -359,56 +296,16 @@
    ]
   },
   {
-   "label": "Credit migration PnL simulation",
-   "size": 66,
-   "anchors": [
-    "aggregation_creditmigrationhelper_creditmigrationhelper",
-    "aggregation_creditmigrationhelper_creditmigrationhelper_creditmigrationhelper",
-    "aggregation_creditmigrationhelper_creditmigrationhelper_generateconditionalmigrationpnl",
-    "aggregation_creditmigrationhelper_creditmigrationhelper_pnldistribution",
-    "aggregation_creditmigrationhelper_creditmigrationhelper_initentitystatesimulation",
-    "aggregation_creditmigrationhelper_cpp_size",
-    "aggregation_creditmigrationhelper_creditmigrationhelper_rescaledtransitionmatrices",
-    "aggregation_creditmigrationhelper_cpp_string",
-    "aggregation_creditmigrationhelper_creditmigrationhelper_build",
-    "aggregation_creditmigrationhelper_creditmigrationhelper_simulateentitystates",
-    "aggregation_creditmigrationhelper_creditmigrationhelper_generatemigrationpnl",
-    "aggregation_creditmigrationcalculator_creditmigrationcalculator_build",
-    "aggregation_creditmigrationhelper_cpp_matrix",
-    "aggregation_creditmigrationhelper_conditionalprob",
-    "aggregation_creditmigrationhelper_cpp_real"
-   ]
-  },
-  {
-   "label": "Analytic factory/builder registry",
-   "size": 67,
-   "anchors": [
-    "app_oreapp",
-    "app_analytics_analyticfactory_analyticfactory",
-    "impl",
-    "app_analytics_analyticfactory",
-    "app_analytic_analytic_impl_adddependentanalytic",
-    "app_analytics_analyticfactory_analyticfactory_build",
-    "app_analytics_bacvaanalytic_bacvaanalyticimpl",
-    "app_analytics_bacvaanalytic_bacvaanalyticimpl_runanalytic",
-    "app_analytics_sacvaanalytic_sacvaanalyticimpl",
-    "app_analytics_analyticfactory_abstractanalyticbuilder",
-    "app_analytics_analyticfactory_analyticfactory_getbuilder",
-    "app_analytics_analyticfactory_analyticbuilder_build",
-    "app_analytics_analyticfactory_analyticfactory_addbuilder",
-    "app_analytics_bacvaanalytic_bacvavariables",
-    "app_analytics_bacvaanalytic_hpp_analyticsmanager"
-   ]
-  },
-  {
    "label": "Market risk report generation",
-   "size": 68,
+   "size": 69,
    "anchors": [
     "engine_marketriskreport_marketriskreport",
+    "engine_marketriskreport_marketriskgroupbase",
     "engine_marketriskreport_hpp_shared_ptr",
-    "engine_marketriskreport_tradegroup",
-    "engine_marketriskreport_hpp_string",
     "engine_marketriskreport_marketriskreport_marketriskreport",
+    "engine_marketriskreport_marketriskreport_runfullreval",
+    "engine_marketriskreport_marketriskreport_runtraderiskgroup",
+    "engine_marketriskreport_marketriskreport_updatefilter",
     "engine_marketriskreport_marketriskreport_writereports",
     "engine_marketriskreport_hpp_reports",
     "engine_marketriskreport_hpp_timeperiod",
@@ -416,38 +313,56 @@
     "engine_marketriskreport_marketriskreport_addpnlcalculators",
     "engine_marketriskreport_marketriskreport_generatecube",
     "engine_marketriskreport_marketriskreport_includedeltamargin",
-    "engine_marketriskreport_marketriskreport_includegammamargin",
-    "engine_marketriskreport_marketriskreport_runtradedetail",
-    "engine_marketriskreport_marketriskreport_timeperiods"
+    "engine_marketriskreport_marketriskreport_includegammamargin"
    ]
   },
   {
-   "label": "SIMM margin calculator",
-   "size": 65,
+   "label": "Scenario sim market parameter setters",
+   "size": 66,
    "anchors": [
-    "simm_simmcalculator_simmcalculator",
-    "simm_simmcalculator_simmcalculator_simmcalculator",
-    "simm_simmcalculator_simmcalculator_calculateregulationsimm",
-    "simm_simmcalculator_simmcalculator_curvaturemargin",
-    "simm_simmcalculator_simmcalculator_ircurvaturemargin",
-    "simm_simmcalculator_simmcalculator_irdeltamargin",
-    "simm_simmcalculator_simmcalculator_irvegamargin",
-    "simm_simmcalculator_simmcalculator_margin",
-    "simm_simmcalculator_cpp_nettingsetdetails",
-    "simm_simmcalculator_simmcalculator_add",
-    "simm_simmcalculator_simmcalculator_getqualifiers",
-    "simm_simmcalculator_cpp_simmside",
-    "simm_simmcalculator_cpp_crif",
-    "simm_simmcalculator_cpp_string",
-    "simm_simmcalculator_simmcalculator_calcaddmargin"
+    "scenario_scenariosimmarketparameters_cpp_string",
+    "scenario_scenariosimmarketparameters_cpp_vector",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_addparamsname",
+    "scenario_scenariosimmarketparameters_cpp_period",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setdefaultnames",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setequitynames",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setswapvolstrikespreads",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setbasecorrelationnames",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setcapfloorvolkeys",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setcdsvolnames",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setcommoditycurves",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setcommoditynames",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setcommodityvolnames",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setcorrelationpairs",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setcpiindices"
+   ]
+  },
+  {
+   "label": "Pricing & stress test analytics",
+   "size": 64,
+   "anchors": [
+    "inputvariables",
+    "analytic",
+    "app_analytics_stresstestanalytic",
+    "app_analytics_pricinganalytic",
+    "app_analytics_bacvaanalytic",
+    "app_analytics_portfoliodetailsanalytic",
+    "app_analytics_portfoliodetailsanalytic_portfoliodetailsanalyticimpl",
+    "app_analytics_portfoliodetailsanalytic_portfoliodetailsanalyticimpl_runanalytic",
+    "app_analytics_bacvaanalytic_bacvavariables",
+    "app_analytics_sacvaanalytic_sacvavariables",
+    "app_analytics_sacvaanalytic_sacvavariables_loadvariablesimpl",
+    "app_analytics_stresstestanalytic_stresstestvariables",
+    "app_analytics_bacvaanalytic_bacvaanalytic_bacvaanalytic",
+    "app_analytics_portfoliodetailsanalytic_portfoliodetailsanalytic_portfoliodetailsanalytic",
+    "app_analytics_sacvaanalytic_sacvaanalytic_sacvaanalytic"
    ]
   },
   {
    "label": "Exposure allocation calculator",
-   "size": 61,
+   "size": 60,
    "anchors": [
     "aggregation_exposureallocator_exposureallocator",
-    "aggregation_exposureallocator",
     "aggregation_exposureallocator_cpp_size",
     "aggregation_exposureallocator_relativexvaexposureallocator",
     "aggregation_exposureallocator_cpp_string",
@@ -455,33 +370,55 @@
     "aggregation_exposureallocator_cpp_real",
     "aggregation_exposureallocator_relativefairvaluegrossexposureallocator",
     "aggregation_exposureallocator_cpp_date",
-    "aggregation_exposureallocator_relativefairvaluegrossexposureallocator_calculateallocatedepe",
     "aggregation_exposureallocator_relativexvaexposureallocator_relativexvaexposureallocator",
     "aggregation_exposureallocator_exposureallocator_exposureallocator",
     "aggregation_exposureallocator_noneexposureallocator_calculateallocatedene",
     "aggregation_exposureallocator_noneexposureallocator_calculateallocatedepe",
-    "aggregation_exposureallocator_relativefairvaluegrossexposureallocator_calculateallocatedene"
+    "aggregation_exposureallocator_relativefairvaluegrossexposureallocator_calculateallocatedene",
+    "aggregation_exposureallocator_relativefairvaluegrossexposureallocator_calculateallocatedepe",
+    "aggregation_exposureallocator_relativefairvaluenetexposureallocator_calculateallocatedene"
    ]
   },
   {
-   "label": "SACCR, SMRC & conversion analytics",
-   "size": 62,
+   "label": "Observation mode & scenario sim market",
+   "size": 60,
    "anchors": [
-    "app_analytic_analytic_impl_setlabel",
-    "app_analytics_zerotoparshiftanalytic",
-    "app_analytics_parstressconversionanalytic",
-    "app_analytics_smrcanalytic",
-    "app_analytics_parstressconversionanalytic_parstressconversionanalyticimpl_runanalytic",
-    "app_analytics_zerotoparshiftanalytic_zerotoparshiftanalyticimpl_runanalytic",
-    "app_analytic_analytic_impl_setgenerateadditionalresults",
-    "app_analytics_saccranalytic_saccranalyticimpl_runanalytic",
-    "app_analytics_smrcanalytic_smrcanalyticimpl_runanalytic",
-    "app_analytics_parstressconversionanalytic_parstressconversionanalyticimpl",
-    "app_analytics_smrcanalytic_smrcanalyticimpl",
-    "app_analytics_zerotoparshiftanalytic_zerotoparshiftanalyticimpl",
-    "app_analytics_parstressconversionanalytic_parstressconversionanalytic_parstressconversionanalytic",
-    "app_analytics_saccranalytic_saccranalyticimpl",
-    "app_analytics_smrcanalytic_smrcanalytic_smrcanalytic"
+    "scenario_scenariosimmarket_scenariosimmarket",
+    "scenario_scenarioshiftcalculator_scenarioshiftcalculator",
+    "scenario_scenarioshiftcalculator_scenarioshiftcalculator_transform",
+    "scenario_scenarioshiftcalculator_scenarioshiftcalculator_shift",
+    "scenario_zerotoparscenariogenerator_zerotoparscenariogenerator_zerotoparscenariogenerator",
+    "scenario_scenarioshiftcalculator_scenarioshiftcalculator_scenarioshiftcalculator",
+    "scenario_scenariosimmarket_hpp_scenario",
+    "scenario_scenariosimmarket_hpp_shared_ptr",
+    "scenario_scenariosimmarket_scenariosimmarket_basescenario",
+    "scenario_scenariosimmarket_scenariosimmarket_basescenarioabsolute",
+    "scenario_scenariosimmarket_scenariosimmarket_offsetscenario",
+    "scenario_scenarioshiftcalculator_cpp_real",
+    "scenario_scenarioshiftcalculator_cpp_riskfactorkey",
+    "asdcachedata",
+    "scenario_scenarioshiftcalculator_cpp_date"
+   ]
+  },
+  {
+   "label": "Singleton cleanup & setup variables",
+   "size": 61,
+   "anchors": [
+    "app_inputparameters_setupvariables",
+    "app_inputparameters_hpp_date",
+    "app_inputparameters_hpp_period",
+    "app_inputparameters_inputparameters_setmpordate",
+    "app_inputparameters_inputparameters_fixingcutoffdate",
+    "app_inputparameters_inputparameters_setenddate",
+    "app_inputparameters_inputparameters_setfixingcutoffdate",
+    "app_inputparameters_inputparameters_setstartdate",
+    "app_inputparameters_inputparameters_setthetaperiod",
+    "app_inputparameters_inputparameters_thetaperiod",
+    "app_inputparameters_setupvariables_additionalresultsreportprecision",
+    "app_inputparameters_setupvariables_allfixings",
+    "app_inputparameters_setupvariables_allowmodelbuilderfallbacks",
+    "app_inputparameters_setupvariables_asof",
+    "app_inputparameters_setupvariables_basecurrency"
    ]
   },
   {
@@ -495,7 +432,7 @@
     "app_marketcalibrationreport_marketcalibrationreport",
     "app_marketcalibrationreport_marketcalibrationreportbase_populatereport",
     "app_marketcalibrationreport_cpp_date",
-    "app_marketcalibrationreport_marketcalibrationreport_addcpivolimpl",
+    "app_marketcalibrationreport_marketcalibrationreportbase_addirvol",
     "app_marketcalibrationreport_marketcalibrationreport_addrowreport",
     "app_marketcalibrationreport_marketcalibrationreportbase_addyieldcurve",
     "app_marketcalibrationreport_marketcalibrationreport_addyieldcurveimpl",
@@ -524,27 +461,6 @@
     "scenario_scenariosimmarketparameters_scenariosimmarketparameters_defaultnames",
     "scenario_scenariosimmarketparameters_scenariosimmarketparameters_equitynames",
     "scenario_scenariosimmarketparameters_scenariosimmarketparameters_equityvolnames"
-   ]
-  },
-  {
-   "label": "Observation mode & scenario sim market",
-   "size": 60,
-   "anchors": [
-    "scenario_scenariosimmarket_scenariosimmarket",
-    "engine_observationmode_observationmode",
-    "scenario_scenariosimmarket_scenariosimmarket_updateasd",
-    "scenario_scenariosimmarket_scenariosimmarket_postupdate",
-    "scenario_scenariosimmarket_cpp_date",
-    "scenario_scenariosimmarket_hpp_scenario",
-    "scenario_scenariosimmarket_hpp_shared_ptr",
-    "scenario_scenariosimmarket_scenariosimmarket_setasd",
-    "scenario_scenariosimmarket_scenariosimmarket_updatedate",
-    "engine_observationmode_hpp_mode",
-    "engine_observationmode_observationmode_setmode",
-    "scenario_scenariosimmarket_scenariosimmarket_basescenario",
-    "scenario_scenariosimmarket_scenariosimmarket_basescenarioabsolute",
-    "scenario_scenariosimmarket_scenariosimmarket_offsetscenario",
-    "scenario_scenariosimmarket_scenariosimmarket_preupdate"
    ]
   },
   {
@@ -590,155 +506,29 @@
    ]
   },
   {
-   "label": "Credit simulation & stress config",
-   "size": 56,
+   "label": "SIMM configuration base (ISDA v1)",
+   "size": 59,
    "anchors": [
-    "aggregation_creditsimulationparameters_creditsimulationparameters",
-    "scenario_stressscenariodata_stresstestscenariodata",
-    "scenario_stressscenariodata_stresstestscenariodata_toxml",
-    "scenario_stressscenariodata_commodityvolshiftdatatoxml",
-    "scenario_stressscenariodata_curveshiftdatatoxml",
-    "scenario_stressscenariodata_fxvoldatatoxml",
-    "scenario_stressscenariodata_spotshiftdatatoxml",
-    "scenario_stressscenariodata_volshiftdatatoxml",
-    "scenario_stressscenariodata_cpp_xmlnode",
-    "xmlserializable",
-    "scenario_stressscenariodata_cpp_xmldocument",
-    "aggregation_creditsimulationparameters",
-    "scenario_stressscenariodata_cpp_map",
-    "scenario_stressscenariodata_cpp_shared_ptr",
-    "scenario_stressscenariodata_cpp_string"
-   ]
-  },
-  {
-   "label": "Risk engine header declarations",
-   "size": 57,
-   "anchors": [
-    "engine_dependencymarket",
-    "simm_crifrecordgenerator",
-    "engine_marketriskreport",
-    "scenario_scenariosimmarket",
-    "engine_parsensitivityanalysis",
-    "engine_saccrcalculator",
-    "app_inputparameters_todaysmarketparameters",
-    "engine_marketriskbacktest",
-    "engine_parstressscenarioconverter",
-    "simm_crifgenerator",
-    "aggregation_collateralaccount_hpp_vector",
-    "engine_sensitivityanalysis",
-    "engine_historicalsimulationvar",
-    "aggregation_creditmigrationcalculator_hpp_matrix",
-    "app_marketcalibrationreport_hpp_report"
-   ]
-  },
-  {
-   "label": "Scenario sim market parameter setters",
-   "size": 57,
-   "anchors": [
-    "scenario_scenariosimmarketparameters_cpp_string",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_fromxml",
-    "scenario_scenariosimmarketparameters_cpp_vector",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_addparamsname",
-    "scenario_scenariosimmarketparameters_cpp_period",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setdefaultnames",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setequitynames",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setswapvolstrikespreads",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setbasecorrelationnames",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setcapfloorvolkeys",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setcdsvolnames",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setcommoditycurves",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setcommoditynames",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setcommodityvolnames",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setcorrelationpairs"
-   ]
-  },
-  {
-   "label": "SIMM trade data & bucket mapping",
-   "size": 56,
-   "anchors": [
-    "simm_simmtradedata_simmtradedata",
-    "simm_simmtradedata",
-    "simm_simmtradedata_cpp_string",
-    "simm_simmtradedata_simmtradedata_processportfolio",
-    "simm_simmtradedata_simmtradedata_get",
-    "simm_simmtradedata_simmtradedata_setattributes",
-    "simm_simmtradedata_simmtradedata_tradeattributes_setextendedattributes",
-    "simm_simmtradedata_simmtradedata_simmtradedata",
-    "simm_simmtradedata_cpp_set",
-    "simm_simmtradedata_simmtradedata_add",
-    "simm_simmtradedata_simmtradedata_counterpartyids",
-    "simm_simmtradedata_simmtradedata_hasattributes",
-    "simm_simmtradedata_simmtradedata_portfolioids",
-    "simm_simmtradedata_cpp_nettingsetdetails",
-    "simm_simmtradedata_cpp_shared_ptr"
-   ]
-  },
-  {
-   "label": "Pricing & stress test analytics",
-   "size": 56,
-   "anchors": [
-    "inputvariables",
-    "app_analytics_pricinganalytic_pricinganalyticimpl",
-    "app_analytics_stresstestanalytic",
-    "app_analytics_pricinganalytic",
-    "app_analytics_pricinganalytic_pricingvariables",
-    "app_analytics_stresstestanalytic_stresstestanalyticimpl_runanalytic",
-    "app_analytics_pricinganalytic_pricinganalyticimpl_runanalytic",
-    "app_analytics_stresstestanalytic_stresstestanalyticimpl",
-    "app_analytics_stresstestanalytic_stresstestvariables",
-    "app_analytics_pricinganalytic_hpp_shared_ptr",
-    "app_analytics_pricinganalytic_pricinganalytic_pricinganalytic",
-    "app_analytics_stresstestanalytic_stresstestanalytic_stresstestanalytic",
-    "app_analytics_pricinganalytic_pricingvariables_loadvariablesimpl",
-    "app_analytics_stresstestanalytic_stresstestanalyticimpl_setupconfigurations",
-    "app_analytics_stresstestanalytic_stresstestanalyticimpl_stresstestanalyticimpl"
-   ]
-  },
-  {
-   "label": "Cross-asset model calibration analytic",
-   "size": 55,
-   "anchors": [
-    "app_analytics_calibrationanalytic_calibrationvariables",
-    "app_analytics_calibrationanalytic",
-    "app_analytics_calibrationanalytic_calibrationanalyticimpl",
-    "app_analytics_calibrationanalytic_calibrationanalyticimpl_runanalytic",
-    "app_analytics_calibrationanalytic_calibrationanalytic_calibrationanalytic",
-    "app_analytics_calibrationanalytic_calibrationanalyticimpl_enginefactory",
-    "app_analytics_calibrationanalytic_calibrationvariables_loadvariablesimpl",
-    "app_analytics_calibrationanalytic_calibrationanalytic",
-    "app_analytics_calibrationanalytic_calibrationanalyticimpl_calibrationanalyticimpl",
-    "app_analytics_calibrationanalytic_hpp_shared_ptr",
-    "app_analytics_calibrationanalytic_calibrationanalyticimpl_buildcrossassetmodel",
-    "app_analytics_calibrationanalytic_calibrationanalyticimpl_setupconfigurations",
-    "app_analytics_calibrationanalytic_cpp_shared_ptr",
-    "app_analytics_calibrationanalytic_inputparameters",
-    "app_analytics_calibrationanalytic_calibrationanalytic_requiresmarketdata"
-   ]
-  },
-  {
-   "label": "In-memory & overlay NPV cubes",
-   "size": 53,
-   "anchors": [
-    "cube_inmemorycubeopt_inmemorycubeopt",
-    "cube_overlaynpvcube_overlaynpvcube",
-    "cube_overlaynpvcube",
-    "cube_inmemorycubeopt_hpp_size",
-    "cube_inmemorycubeopt_inmemorycubeopt_check",
-    "cube_overlaynpvcube_cpp_size",
-    "cube_overlaynpvcube_overlaynpvcube_correction",
-    "cube_inmemorycubeopt_inmemorycubeopt_get",
-    "cube_inmemorycubeopt_inmemorycubeopt_inmemorycubeopt",
-    "cube_overlaynpvcube_overlaynpvcube_get",
-    "cube_overlaynpvcube_overlaynpvcube_gett0",
-    "cube_overlaynpvcube_overlaynpvcube_overlaynpvcube",
-    "cube_overlaynpvcube_overlaynpvcube_set",
-    "cube_overlaynpvcube_overlaynpvcube_sett0",
-    "cube_inmemorycubeopt_hpp_real"
+    "simm_simmconfigurationbase_simmconfigurationbase",
+    "simm_simmconfigurationisdav2_0",
+    "simm_simmconfigurationisdav1_3_38",
+    "simm_simmconfigurationisdav2_0_simmconfiguration_isda_v2_0_label2",
+    "simm_simmconfigurationisdav2_0_simmconfiguration_isda_v2_0_addlabels2",
+    "simm_simmconfigurationbase_hpp_risktype",
+    "simm_simmconfigurationbase_simmconfigurationbase_concentrationthreshold",
+    "simm_simmconfigurationisdav1_3_38_simmconfiguration_isda_v1_3_38",
+    "simm_simmconfigurationisdav2_0_simmconfiguration_isda_v2_0",
+    "simm_simmconfigurationisdav2_0_simmconfiguration_isda_v2_0_simmconfiguration_isda_v2_0",
+    "simm_simmconfigurationbase_hpp_real",
+    "simm_simmconfigurationbase_hpp_string",
+    "simm_simmconfigurationbase_simmconfigurationbase_addlabels2",
+    "simm_simmconfigurationisdav2_0_cpp_string",
+    "simm_simmconfigurationbase_hpp_size"
    ]
   },
   {
    "label": "Par stress scenario conversion",
-   "size": 54,
+   "size": 55,
    "anchors": [
     "engine_parstressscenarioconverter_parstressscenarioconverter",
     "engine_parstressscenarioconverter_parstressscenarioconverter_convertscenario",
@@ -758,66 +548,24 @@
    ]
   },
   {
-   "label": "SIMM configuration & risk weights",
-   "size": 53,
+   "label": "SIMM trade data & bucket mapping",
+   "size": 55,
    "anchors": [
-    "simm_simmconfigurationbase_simmconfigurationbase_correlation",
-    "simm_simmconfigurationbase_simmconfigurationbase_weight",
-    "simm_simmconfigurationbase_lookup",
-    "simm_simmconfigurationcalibration_simmconfigurationcalibration",
-    "simm_simmconfigurationbase_cpp_string",
-    "simm_simmconfigurationbase_cpp_risktype",
-    "simm_simmconfigurationcalibration",
-    "simm_simmconfigurationbase_simmconfigurationbase_makekey",
-    "simm_simmconfigurationcalibration_simmconfigurationcalibration_weight",
-    "simm_simmconfigurationbase_cpp_real",
-    "simm_simmconfigurationbase_simmconfigurationbase_sigma",
-    "simm_simmconfigurationcalibration_simmconfigurationcalibration_correlation",
-    "simm_simmconfigurationbase_cpp_vector",
-    "simm_simmconfigurationbase_simmconfigurationbase_buckets",
-    "simm_simmconfigurationbase_simmconfigurationbase_curvatureweight"
-   ]
-  },
-  {
-   "label": "Scenario sim market XML/smile config",
-   "size": 53,
-   "anchors": [
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setdefaults",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setparamssimulate",
-    "scenario_scenariosimmarketparameters_cpp_xmlnode",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setcommoditycurvesimulate",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setcommodityvolsimulate",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setsecurityspreadssimulate",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setsimulatebasecorrelations",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setsimulatecapfloorvols",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setsimulatecdsvols",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setsimulatecorrelations",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setsimulatedividendyield",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setsimulateequityvols",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setsimulatefxspots",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setsimulatefxvols",
-    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setsimulaterecoveryrates"
-   ]
-  },
-  {
-   "label": "CRIF loaders (CSV/stream)",
-   "size": 53,
-   "anchors": [
-    "simm_crifloader",
-    "simm_crifloader_stringstreamcrifloader",
-    "simm_crifloader_crifloader",
-    "simm_crifloader_crifloader_addrecordtocrif",
-    "simm_crifloader_stringstreamcrifloader_loadfromstream",
-    "simm_crifloader_csvbuffercrifloader",
-    "simm_crifloader_csvfilecrifloader",
-    "simm_crifloader_hpp_shared_ptr",
-    "simm_crifloader_hpp_string",
-    "simm_crifloader_stringstreamcrifloader_loadcrifimpl",
-    "simm_crifloader_stringstreamcrifloader_stringstreamcrifloader",
-    "simm_crifloader_crifloader_validatesimmrecord",
-    "simm_crifloader_stringstreamcrifloader_processheader",
-    "simm_crifloader_cpp_crifrecord",
-    "simm_crifloader_cpp_shared_ptr"
+    "simm_simmtradedata_simmtradedata",
+    "simm_simmtradedata_cpp_string",
+    "simm_simmtradedata_simmtradedata_processportfolio",
+    "simm_simmtradedata_simmtradedata_get",
+    "simm_simmtradedata_simmtradedata_setattributes",
+    "simm_simmtradedata_simmtradedata_tradeattributes_setextendedattributes",
+    "simm_simmtradedata_simmtradedata_simmtradedata",
+    "simm_simmtradedata_cpp_set",
+    "simm_simmtradedata_simmtradedata_add",
+    "simm_simmtradedata_simmtradedata_counterpartyids",
+    "simm_simmtradedata_simmtradedata_hasattributes",
+    "simm_simmtradedata_simmtradedata_portfolioids",
+    "simm_simmtradedata_cpp_nettingsetdetails",
+    "simm_simmtradedata_cpp_shared_ptr",
+    "simm_simmtradedata_hpp_string"
    ]
   },
   {
@@ -863,27 +611,6 @@
    ]
   },
   {
-   "label": "XVA sensitivity analytic",
-   "size": 50,
-   "anchors": [
-    "app_analytics_xvasensitivityanalytic",
-    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl",
-    "app_analytics_xvasensitivityanalytic_xvaresults",
-    "app_analytics_xvasensitivityanalytic_zerosensiresults",
-    "app_analytics_xvaanalytic_xvavariables_storecreditstatenpvs",
-    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_computexvaunderscenarios",
-    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_createdetailreport",
-    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_runanalytic",
-    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_convertxvaresultstosensicubes",
-    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_parconversion",
-    "app_analytics_xvasensitivityanalytic_cpp_shared_ptr",
-    "app_analytics_xvasensitivityanalytic_parsensiresults",
-    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_computezeroxvasensitivity",
-    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_createparreports",
-    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_buildsimmarket"
-   ]
-  },
-  {
    "label": "Netted exposure calculator",
    "size": 51,
    "anchors": [
@@ -910,7 +637,7 @@
    "anchors": [
     "engine_amcvaluationengine_amcvaluationengine",
     "engine_amcvaluationengine_amcvaluationengine_outputcubes",
-    "engine_amcvaluationengine_amcvaluationengine_iborfallbackconfig",
+    "engine_amcvaluationengine_amcvaluationengine_amcpathdataoutput",
     "engine_amcvaluationengine_hpp_npvcube",
     "engine_amcvaluationengine_hpp_shared_ptr",
     "engine_amcvaluationengine_hpp_vector",
@@ -921,50 +648,50 @@
     "engine_amcvaluationengine_amcvaluationengine_amcindividualtraininginput",
     "engine_amcvaluationengine_amcvaluationengine_amcindividualtrainingoutput",
     "engine_amcvaluationengine_amcvaluationengine_amcpathdatainput",
-    "engine_amcvaluationengine_amcvaluationengine_amcpathdataoutput",
-    "engine_amcvaluationengine_amcvaluationengine_asd"
+    "engine_amcvaluationengine_amcvaluationengine_asd",
+    "engine_amcvaluationengine_amcvaluationengine_configurationcrcalibration"
    ]
   },
   {
-   "label": "CRIF generators per risk type",
-   "size": 50,
+   "label": "XVA sensitivity analytic",
+   "size": 49,
    "anchors": [
-    "simm_crifrecordgenerator_cpp_string",
-    "simm_crifrecordgenerator_crifrecorddata",
-    "simm_crifrecordgenerator_crifrecordgenerator_operator",
-    "simm_crifrecordgenerator_cpp_vector",
-    "simm_crifrecordgenerator_crifrecordgenerator_defaultrecord",
-    "simm_crifrecordgenerator_simmrecordgenerator",
-    "simm_crifrecordgenerator_crifrecordgenerator_yieldcurveimpl",
-    "simm_crifrecordgenerator_crifrecordgenerator_yieldvolatilityimpl",
-    "simm_crifrecordgenerator_crifrecordgenerator_indexcurveimpl",
-    "simm_crifrecordgenerator_crifrecordgenerator_irvolatilityimpl",
-    "simm_crifrecordgenerator_crifrecordgenerator_crifqualifier",
-    "simm_crifrecordgenerator_crifrecordgenerator_discountcurveimpl",
-    "simm_crifrecordgenerator_crifrecordgenerator_fxspotimpl",
-    "simm_crifrecordgenerator_crifrecordgenerator_fxvolatilityimpl",
-    "simm_crifrecordgenerator_hpp_string"
+    "app_analytics_xvasensitivityanalytic",
+    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl",
+    "app_analytics_xvasensitivityanalytic_xvaresults",
+    "app_analytics_xvasensitivityanalytic_zerosensiresults",
+    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_computexvaunderscenarios",
+    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_createdetailreport",
+    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_runanalytic",
+    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_convertxvaresultstosensicubes",
+    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_parconversion",
+    "app_analytics_xvasensitivityanalytic_cpp_shared_ptr",
+    "app_analytics_xvasensitivityanalytic_parsensiresults",
+    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_computezeroxvasensitivity",
+    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_createparreports",
+    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_buildsimmarket",
+    "app_analytics_xvasensitivityanalytic_xvasensitivityanalyticimpl_buildscenariogenerator"
    ]
   },
   {
-   "label": "SIMM configuration base (ISDA v1)",
-   "size": 51,
+   "label": "Risk engine header declarations",
+   "size": 49,
    "anchors": [
-    "simm_simmconfigurationbase_simmconfigurationbase",
-    "simm_simmconfigurationisdav1_0_simmconfiguration_isda_v1_0",
-    "simm_simmconfigurationisdav1_0",
-    "simm_simmconfigurationisdav1_3",
-    "simm_simmconfigurationbase_hpp_risktype",
-    "simm_simmconfigurationbase_simmconfigurationbase_concentrationthreshold",
-    "simm_simmconfigurationbase_hpp_real",
-    "simm_simmconfigurationbase_hpp_string",
-    "simm_simmconfigurationbase_simmconfigurationbase_addlabels2",
-    "simm_simmconfigurationbase_hpp_size",
-    "simm_simmconfigurationbase_simmconfigurationbase_curvaturemarginscaling",
-    "simm_simmconfigurationbase_simmconfigurationbase_isvalidrisktype",
-    "simm_simmconfigurationbase_simmconfigurationbase_mpordays",
-    "simm_simmconfigurationisdav1_3_simmconfiguration_isda_v1_3",
-    "simm_simmconfigurationbase_hpp_amounts"
+    "engine_xvaenginecg",
+    "engine_dependencymarket",
+    "simm_crifrecordgenerator",
+    "engine_marketriskreport",
+    "scenario_scenariosimmarket",
+    "app_analytics_pnlanalytic_hpp_scenario",
+    "engine_parstressscenarioconverter",
+    "simm_crifgenerator",
+    "engine_marketriskbacktest",
+    "engine_decomposedsensitivitystream",
+    "engine_historicalsimulationvar",
+    "aggregation_creditmigrationcalculator_hpp_matrix",
+    "engine_parametricvar",
+    "app_inputparameters_iborfallbackconfig",
+    "engine_historicalsensipnlcalculator"
    ]
   },
   {
@@ -986,6 +713,273 @@
     "engine_saccrtradedata_hpp_size",
     "engine_saccrtradedata_saccrtradedata_getcommodityhedgingset",
     "engine_saccrtradedata_saccrtradedata_getfxrate"
+   ]
+  },
+  {
+   "label": "SACCR, SMRC & conversion analytics",
+   "size": 47,
+   "anchors": [
+    "impl",
+    "app_analytics_parstressconversionanalytic",
+    "app_analytics_parstressconversionanalytic_parstressconversionanalyticimpl_runanalytic",
+    "app_analytics_stresstestanalytic_stresstestanalyticimpl_runanalytic",
+    "app_analytic_analytic_impl_setgenerateadditionalresults",
+    "app_analytics_saccranalytic_saccranalyticimpl_runanalytic",
+    "app_analytics_parconversionanalytic_parconversionanalyticimpl",
+    "app_analytics_parstressconversionanalytic_parstressconversionanalyticimpl",
+    "app_analytics_stresstestanalytic_stresstestanalyticimpl",
+    "app_analytics_parconversionanalytic_parconversionanalytic_parconversionanalytic",
+    "app_analytics_parstressconversionanalytic_parstressconversionanalytic_parstressconversionanalytic",
+    "app_analytics_saccranalytic_saccranalyticimpl",
+    "app_analytics_parconversionanalytic_parconversionanalytic",
+    "app_analytics_parconversionanalytic_parconversionanalyticimpl_parconversionanalyticimpl",
+    "app_analytics_parstressconversionanalytic_parstressconversionanalyticimpl_parstressconversionanalyticimpl"
+   ]
+  },
+  {
+   "label": "Dependency market data curves",
+   "size": 42,
+   "anchors": [
+    "engine_dependencymarket_cpp_handle",
+    "engine_dependencymarket_cpp_string",
+    "engine_dependencymarket_dependencymarket_addmarketobject",
+    "engine_dependencymarket_dependencymarket_addriskfactor",
+    "engine_dependencymarket_dependencymarket_fxvolimpl",
+    "engine_dependencymarket_dependencymarket_commodityvolatility",
+    "engine_dependencymarket_dependencymarket_cpiinflationcapfloorvolatilitysurface",
+    "engine_dependencymarket_dependencymarket_equityspot",
+    "engine_dependencymarket_dependencymarket_flatratefxv",
+    "engine_dependencymarket_dependencymarket_fxindeximpl",
+    "engine_dependencymarket_dependencymarket_yoycapfloorvol",
+    "engine_dependencymarket_dependencymarket_yoyinflationindex",
+    "engine_dependencymarket_dependencymarket_zeroinflationindex",
+    "engine_dependencymarket_cpp_quote",
+    "engine_dependencymarket_dependencymarket_cdsvol"
+   ]
+  },
+  {
+   "label": "Analytic factory/builder registry",
+   "size": 41,
+   "anchors": [
+    "app_analytics_analyticfactory_analyticfactory",
+    "app_analytics_analyticfactory",
+    "app_analytics_analyticfactory_analyticfactory_build",
+    "app_analytics_bacvaanalytic_bacvaanalyticimpl",
+    "app_analytics_bacvaanalytic_bacvaanalyticimpl_runanalytic",
+    "app_analytics_analyticfactory_abstractanalyticbuilder",
+    "app_analytics_analyticfactory_analyticfactory_getbuilder",
+    "app_analytics_analyticfactory_analyticbuilder_build",
+    "app_analytics_analyticfactory_analyticfactory_addbuilder",
+    "app_analytics_analyticfactory_analyticfactory_getbuilders",
+    "app_analytics_bacvaanalytic_bacvaanalyticimpl_builddependencies",
+    "app_analytics_analyticfactory_cpp_string",
+    "app_analytics_analyticfactory_analytic",
+    "app_analytics_analyticfactory_analyticbuilder",
+    "app_analytics_analyticfactory_cpp_pair"
+   ]
+  },
+  {
+   "label": "CRIF loaders (CSV/stream)",
+   "size": 42,
+   "anchors": [
+    "simm_crifloader_crifloader",
+    "simm_crifloader_stringstreamcrifloader",
+    "simm_crifloader_crifloader_addrecordtocrif",
+    "simm_crifloader_csvbuffercrifloader",
+    "simm_crifloader_csvfilecrifloader",
+    "simm_crifloader_hpp_shared_ptr",
+    "simm_crifloader_hpp_string",
+    "simm_crifloader_stringstreamcrifloader_loadcrifimpl",
+    "simm_crifloader_crifloader_validatesimmrecord",
+    "simm_crifloader_cpp_crifrecord",
+    "simm_crifloader_crifloader_currencyoverrides",
+    "simm_crifloader_crifloader_loadcrif",
+    "simm_crifloader_csvbuffercrifloader_csvbuffercrifloader",
+    "simm_crifloader_csvbuffercrifloader_stream",
+    "simm_crifloader_csvfilecrifloader_csvfilecrifloader"
+   ]
+  },
+  {
+   "label": "Joint NPV cube wrappers",
+   "size": 37,
+   "anchors": [
+    "cube_jointnpvcube_jointnpvcube",
+    "cube_jointnpvcube_jointnpvcube_cubeandid",
+    "cube_jointnpvcube_cpp_size",
+    "cube_jointnpvcube_jointnpvcube_jointnpvcube",
+    "cube_jointnpvcube_jointnpvcube_get",
+    "cube_jointnpvcube_jointnpvcube_gett0",
+    "cube_jointnpvcube_jointnpvcube_numdates",
+    "cube_jointnpvcube_cpp_real",
+    "cube_jointnpvcube_jointnpvcube_set",
+    "cube_jointnpvcube_jointnpvcube_sett0",
+    "cube_jointnpvcube_jointnpvcube_accumulator",
+    "npvcube",
+    "cube_jointnpvcube_jointnpvcube_asof",
+    "cube_jointnpvcube_jointnpvcube_depth",
+    "cube_jointnpvcube_jointnpvcube_numids"
+   ]
+  },
+  {
+   "label": "Scenario sim market XML/smile config",
+   "size": 38,
+   "anchors": [
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_fromxml",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setdefaults",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setparamssimulate",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setcommoditycurvesimulate",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setcommodityvolsimulate",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setsecurityspreadssimulate",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setsimulatebasecorrelations",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setsimulatecapfloorvols",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setsimulatecdsvols",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setsimulatecorrelations",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setsimulatedividendyield",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setsimulateequityvols",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setsimulatefxspots",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setsimulatefxvols",
+    "scenario_scenariosimmarketparameters_scenariosimmarketparameters_setsimulaterecoveryrates"
+   ]
+  },
+  {
+   "label": "SIMM margin calculator",
+   "size": 37,
+   "anchors": [
+    "simm_simmcalculator_simmcalculator_curvaturemargin",
+    "simm_simmcalculator_simmcalculator_simmcalculator",
+    "simm_simmcalculator_simmcalculator_calculateregulationsimm",
+    "simm_simmcalculator_simmcalculator_ircurvaturemargin",
+    "simm_simmcalculator_simmcalculator_irdeltamargin",
+    "simm_simmcalculator_simmcalculator_irvegamargin",
+    "simm_simmcalculator_simmcalculator_margin",
+    "simm_simmcalculator_cpp_nettingsetdetails",
+    "simm_simmcalculator_simmcalculator_add",
+    "simm_simmcalculator_simmcalculator_getqualifiers",
+    "simm_simmcalculator_cpp_simmside",
+    "simm_simmcalculator_cpp_crif",
+    "simm_simmcalculator_cpp_string",
+    "simm_simmcalculator_simmcalculator_calcaddmargin",
+    "simm_simmcalculator_simmcalculator_fxrate"
+   ]
+  },
+  {
+   "label": "SIMM configuration & risk weights",
+   "size": 29,
+   "anchors": [
+    "simm_simmconfigurationbase_simmconfigurationbase_correlation",
+    "simm_simmconfigurationbase_simmconfigurationbase_addlabels2impl",
+    "simm_simmconfigurationbase_simmconfigurationbase_weight",
+    "simm_simmconfigurationbase_lookup",
+    "simm_simmconfigurationbase_cpp_string",
+    "simm_simmconfigurationbase_cpp_risktype",
+    "simm_simmconfigurationbase_simmconfigurationbase_makekey",
+    "simm_simmconfigurationbase_cpp_real",
+    "simm_simmconfigurationbase_simmconfigurationbase_sigma",
+    "simm_simmconfigurationbase_cpp_vector",
+    "simm_simmconfigurationbase_simmconfigurationbase_buckets",
+    "simm_simmconfigurationbase_simmconfigurationbase_curvatureweight",
+    "simm_simmconfigurationbase_simmconfigurationbase_labelindex",
+    "simm_simmconfigurationbase_simmconfigurationbase_labels1",
+    "simm_simmconfigurationbase_simmconfigurationbase_labels2"
+   ]
+  },
+  {
+   "label": "In-memory & overlay NPV cubes",
+   "size": 20,
+   "anchors": [
+    "cube_overlaynpvcube_overlaynpvcube",
+    "cube_overlaynpvcube",
+    "cube_overlaynpvcube_cpp_size",
+    "cube_overlaynpvcube_overlaynpvcube_correction",
+    "cube_overlaynpvcube_overlaynpvcube_depth",
+    "cube_overlaynpvcube_overlaynpvcube_get",
+    "cube_overlaynpvcube_overlaynpvcube_gett0",
+    "cube_overlaynpvcube_overlaynpvcube_set",
+    "cube_overlaynpvcube_overlaynpvcube_sett0",
+    "cube_overlaynpvcube_cpp_real",
+    "cube_overlaynpvcube_overlaynpvcube_asof",
+    "cube_overlaynpvcube_overlaynpvcube_numdates",
+    "cube_overlaynpvcube_overlaynpvcube_numids",
+    "cube_overlaynpvcube_overlaynpvcube_samples",
+    "cube_overlaynpvcube_overlaynpvcube_usesdoubleprecision"
+   ]
+  },
+  {
+   "label": "Credit migration PnL simulation",
+   "size": 18,
+   "anchors": [
+    "aggregation_creditmigrationhelper_creditmigrationhelper_creditmigrationhelper",
+    "aggregation_creditmigrationhelper_creditmigrationhelper_generateconditionalmigrationpnl",
+    "aggregation_creditmigrationhelper_creditmigrationhelper_pnldistribution",
+    "aggregation_creditmigrationhelper_creditmigrationhelper_initentitystatesimulation",
+    "aggregation_creditmigrationhelper_cpp_size",
+    "aggregation_creditmigrationhelper_creditmigrationhelper_rescaledtransitionmatrices",
+    "aggregation_creditmigrationhelper_creditmigrationhelper_simulateentitystates",
+    "aggregation_creditmigrationhelper_creditmigrationhelper_generatemigrationpnl",
+    "aggregation_creditmigrationhelper_cpp_matrix",
+    "aggregation_creditmigrationhelper_conditionalprob",
+    "aggregation_creditmigrationhelper_cpp_real",
+    "aggregation_creditmigrationhelper_creditmigrationhelper_simulatedentitystate",
+    "aggregation_creditmigrationhelper_cpp_vector",
+    "aggregation_creditmigrationhelper_creditmigrationhelper_init",
+    "aggregation_creditmigrationhelper_prob_taua_lt_taub_lt_t"
+   ]
+  },
+  {
+   "label": "Cross-asset model calibration analytic",
+   "size": 19,
+   "anchors": [
+    "app_analytics_calibrationanalytic",
+    "app_analytics_calibrationanalytic_calibrationanalyticimpl",
+    "app_analytics_calibrationanalytic_calibrationanalytic_calibrationanalytic",
+    "app_analytics_calibrationanalytic_calibrationanalytic",
+    "app_analytics_calibrationanalytic_calibrationanalyticimpl_calibrationanalyticimpl",
+    "app_analytics_calibrationanalytic_hpp_shared_ptr",
+    "app_analytics_calibrationanalytic_calibrationanalyticimpl_buildcrossassetmodel",
+    "app_analytics_calibrationanalytic_calibrationanalyticimpl_setupconfigurations",
+    "app_analytics_calibrationanalytic_calibrationanalytic_requiresmarketdata",
+    "app_analytics_calibrationanalytic_hwhistoricalcalibrationmodelbuilder",
+    "app_analytics_calibrationanalytic_hwhistoricalcalibrationmodeldata",
+    "app_analytics_calibrationanalytic_calibrationanalyticimpl_builder",
+    "app_analytics_calibrationanalytic_calibrationanalyticimpl_hwhistoricalmodelbuilder",
+    "app_analytics_calibrationanalytic_calibrationanalyticimpl_hwhistoricalmodeldata",
+    "app_analytics_calibrationanalytic_calibrationanalyticimpl_label"
+   ]
+  },
+  {
+   "label": "Credit simulation & stress config",
+   "size": 17,
+   "anchors": [
+    "scenario_stressscenariodata_stresstestscenariodata_toxml",
+    "scenario_stressscenariodata_commodityvolshiftdatatoxml",
+    "scenario_stressscenariodata_curveshiftdatatoxml",
+    "scenario_stressscenariodata_fxvoldatatoxml",
+    "scenario_stressscenariodata_spotshiftdatatoxml",
+    "scenario_stressscenariodata_volshiftdatatoxml",
+    "scenario_stressscenariodata_cpp_xmlnode",
+    "scenario_stressscenariodata_cpp_xmldocument",
+    "scenario_stressscenariodata_cpp_map",
+    "scenario_stressscenariodata_cpp_shared_ptr",
+    "scenario_stressscenariodata_cpp_string",
+    "scenario_stressscenariodata_stresstestscenariodata_fromxml",
+    "commodityvolshiftdata",
+    "fxvolshiftdata",
+    "scenario_stressscenariodata_cpp_curveshiftdata"
+   ]
+  },
+  {
+   "label": "Cross-asset model scenario generator",
+   "size": 9,
+   "anchors": [
+    "scenario_crossassetmodelscenariogenerator",
+    "scenario_crossassetmodelscenariogenerator_hpp_multipathgeneratorbase",
+    "cirppimplieddefaulttermstructure",
+    "crossassetmodelimpliedeqvoltermstructure",
+    "crossassetmodelimpliedfxvoltermstructure",
+    "crossassetmodelimpliedswaptionvoltermstructure",
+    "lgmimplieddefaulttermstructure",
+    "modelimpliedpricetermstructure",
+    "modelimpliedyieldtermstructure"
    ]
   }
  ]

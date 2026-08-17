@@ -24,7 +24,7 @@
   },
   {
    "label": "ABCD volatility function calibration",
-   "size": 65,
+   "size": 66,
    "anchors": [
     "termstructures_volatility_abcdcalibration_abcdcalibration",
     "termstructures_volatility_abcdcalibration",
@@ -32,20 +32,41 @@
     "termstructures_volatility_abcd_abcdfunction",
     "termstructures_volatility_abcd_cpp_real",
     "termstructures_volatility_abcd_cpp_time",
-    "termstructures_volatility_abcd_abcdfunction_volatility",
     "termstructures_volatility_abcd_abcdsquared",
     "termstructures_volatility_abcdcalibration_abcdcalibration_value",
     "termstructures_volatility_abcdcalibration_abcdcalibration_abcdcalibration",
     "termstructures_volatility_abcd_abcdfunction_covariance",
     "termstructures_volatility_abcd_abcdfunction_instantaneousvariance",
     "termstructures_volatility_abcd_abcdfunction_instantaneousvolatility",
+    "termstructures_volatility_abcd_abcdfunction_volatility",
     "termstructures_volatility_abcd_abcdblackvolatility",
     "termstructures_volatility_abcd_abcdfunction_instantaneouscovariance"
    ]
   },
   {
+   "label": "ZABR smile section",
+   "size": 63,
+   "anchors": [
+    "termstructures_volatility_zabrsmilesection_zabrsmilesection",
+    "termstructures_volatility_zabr_zabrmodel",
+    "termstructures_volatility_zabrsmilesection",
+    "termstructures_volatility_zabr_cpp_real",
+    "termstructures_volatility_zabrsmilesection_hpp_real",
+    "termstructures_volatility_zabrsmilesection_zabrsmilesection_evaluation_optionprice",
+    "termstructures_volatility_zabrsmilesection_zabrsmilesection_evaluation_volatilityimpl",
+    "termstructures_volatility_zabrsmilesection_zabrsmilesection_evaluation_zabrsmilesection",
+    "termstructures_volatility_zabr_hpp_real",
+    "termstructures_volatility_zabr_zabrmodel_x",
+    "termstructures_volatility_zabrsmilesection_zabrshortmaturitylognormal",
+    "termstructures_volatility_zabrsmilesection_zabrsmilesection_evaluation_init",
+    "termstructures_volatility_zabrsmilesection_zabrsmilesection_init",
+    "termstructures_volatility_zabr_zabrmodel_localvolatility",
+    "termstructures_volatility_zabr_zabrmodel_lognormalvolatility"
+   ]
+  },
+  {
    "label": "Heston-Hull-White FD operator",
-   "size": 53,
+   "size": 52,
    "anchors": [
     "methods_finitedifferences_operators_fdmhestonhullwhiteop_fdmhestonhullwhiteop",
     "methods_finitedifferences_operators_fdmhestonhullwhiteop_fdmhestonhullwhiteequitypart",
@@ -77,8 +98,8 @@
     "methods_lattices_binomialtree_joshi4",
     "methods_lattices_binomialtree_leisenreimer",
     "methods_lattices_binomialtree_tian",
-    "methods_lattices_binomialtree_equaljumpsbinomialtree_equaljumpsbinomialtree",
     "methods_lattices_binomialtree_binomialtree_binomialtree",
+    "methods_lattices_binomialtree_equaljumpsbinomialtree_equaljumpsbinomialtree",
     "methods_lattices_binomialtree_equalprobabilitiesbinomialtree_equalprobabilitiesbinomialtree",
     "methods_lattices_binomialtree_hpp_time",
     "methods_lattices_binomialtree_equaljumpsbinomialtree_probability",
@@ -87,7 +108,7 @@
   },
   {
    "label": "Stripped optionlet volatility surface",
-   "size": 49,
+   "size": 50,
    "anchors": [
     "termstructures_volatility_optionlet_strippedoptionlet_strippedoptionlet",
     "termstructures_volatility_optionlet_strippedoptionlet_strippedoptionlet_strippedoptionlet",
@@ -104,6 +125,27 @@
     "termstructures_volatility_optionlet_strippedoptionlet_cpp_daycounter",
     "termstructures_volatility_optionlet_strippedoptionlet_cpp_natural",
     "termstructures_volatility_optionlet_strippedoptionlet_cpp_real"
+   ]
+  },
+  {
+   "label": "YoY inflation optionlet volatility surface",
+   "size": 49,
+   "anchors": [
+    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_yoyoptionletvolatilitysurface",
+    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure",
+    "termstructures_volatility_sabr",
+    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_constantyoyoptionletvolatility_constantyoyoptionletvolatility",
+    "termstructures_volatility_atmadjustedsmilesection_hpp_volatilitytype",
+    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_constantyoyoptionletvolatility",
+    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_yoyoptionletvolatilitysurface_volatility",
+    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_yoyoptionletvolatilitysurface_yoyoptionletvolatilitysurface",
+    "termstructures_volatility_optionlet_strippedoptionletbase",
+    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_yoyoptionletvolatilitysurface_totalvariance",
+    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_yoyoptionletvolatilitysurface_checkrange",
+    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_yoyoptionletvolatilitysurface_timefrombase",
+    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_constantyoyoptionletvolatility_volatilityimpl",
+    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_cpp_period",
+    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_cpp_rate"
    ]
   },
   {
@@ -128,6 +170,27 @@
    ]
   },
   {
+   "label": "Swaption cube interpolation grid",
+   "size": 49,
+   "anchors": [
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube",
+    "termstructures_volatility_swaption_swaptionvolcube_swaptionvolatilitycube_atmstrike",
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_createinterpolation",
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_hpp_real",
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_hpp_vector",
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_hpp_matrix",
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_hpp_size",
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_model_cube_cube",
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_model_recalibration",
+    "cube",
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_hpp_period",
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_hpp_shared_ptr",
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_hpp_time",
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_model_spreadvolinterpolation",
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrmodeltraits_createsmilesection"
+   ]
+  },
+  {
    "label": "Finite-difference inner value calculator",
    "size": 47,
    "anchors": [
@@ -149,45 +212,66 @@
    ]
   },
   {
-   "label": "Fitted bond discount curve",
-   "size": 47,
+   "label": "Local volatility density calculator",
+   "size": 46,
    "anchors": [
-    "termstructures_yield_fittedbonddiscountcurve",
-    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_fittingmethod",
-    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve",
-    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_fittingmethod_calculate",
-    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_fittingmethod_discount",
-    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_discountimpl",
-    "termstructures_yield_fittedbonddiscountcurve_hpp_array",
-    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_fittingmethod_optimizationmethod",
-    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_maxdate",
-    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_numberofbonds",
-    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_fittingmethod_errorcode",
-    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_fittingmethod_l2",
-    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_fittingmethod_minimumcostvalue",
-    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_fittingmethod_numberofiterations",
-    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_fittingmethod_solution"
+    "methods_finitedifferences_utilities_localvolrndcalculator_localvolrndcalculator",
+    "methods_finitedifferences_utilities_localvolrndcalculator",
+    "methods_finitedifferences_utilities_localvolrndcalculator_hpp_quote",
+    "methods_finitedifferences_utilities_localvolrndcalculator_timegrid",
+    "termstructures_volatility_optionlet_strippedoptionlet",
+    "methods_finitedifferences_utilities_localvolrndcalculator_localvolrndcalculator_localvolrndcalculator",
+    "methods_finitedifferences_utilities_localvolrndcalculator_cpp_real",
+    "methods_finitedifferences_utilities_localvolrndcalculator_cpp_time",
+    "methods_finitedifferences_utilities_localvolrndcalculator_localvolrndcalculator_invcdf",
+    "methods_finitedifferences_utilities_localvolrndcalculator_localvolrndcalculator_mesher",
+    "methods_finitedifferences_utilities_localvolrndcalculator_localvolrndcalculator_pdf",
+    "methods_finitedifferences_utilities_localvolrndcalculator_localvolrndcalculator_probabilityinterpolation",
+    "methods_finitedifferences_utilities_localvolrndcalculator_cpp_size",
+    "methods_finitedifferences_utilities_localvolrndcalculator_localvolrndcalculator_cdf",
+    "methods_finitedifferences_utilities_localvolrndcalculator_localvolrndcalculator_performcalculations"
    ]
   },
   {
-   "label": "Global term structure bootstrap",
-   "size": 46,
+   "label": "Black variance surface",
+   "size": 45,
    "anchors": [
-    "termstructures_globalbootstrap_globalbootstrap",
-    "termstructures_globalbootstrap",
-    "termstructures_globalbootstrap_globalbootstrap_curve_globalbootstrap",
-    "termstructures_globalbootstrapvars",
-    "termstructures_globalbootstrap_additionalbootstrapvariables",
-    "termstructures_globalbootstrap_additionalbootstrapvariables_update",
-    "termstructures_globalbootstrap_globalbootstrap_curve_calculate",
-    "termstructures_globalbootstrap_hpp_array",
-    "termstructures_globalbootstrap_globalbootstrap_curve_evaluatecostfunction",
-    "termstructures_globalbootstrap_globalbootstrap_curve_setcostfunctionargument",
-    "termstructures_globalbootstrap_globalbootstrap_curve_setupcostfunction",
-    "termstructures_globalbootstrap_hpp_optimizationmethod",
-    "termstructures_globalbootstrap_hpp_vector",
-    "additionalpenalties",
-    "termstructures_globalbootstrap_globalbootstrap_additionaldates"
+    "termstructures_volatility_equityfx_blackvariancesurface_blackvariancesurface",
+    "termstructures_volatility_equityfx_blackvoltimeextrapolation_blackvoltimeextrapolation_extrapolatedvariance",
+    "termstructures_volatility_equityfx_blackvariancesurface",
+    "termstructures_volatility_equityfx_blackvariancesurface_blackvariancesurface_blackvariancesurface",
+    "termstructures_volatility_equityfx_blackvoltimeextrapolation",
+    "termstructures_volatility_equityfx_blackvoltimeextrapolation_timeextrapolationblackvariancelinear",
+    "termstructures_volatility_equityfx_blackvoltimeextrapolation_timeextrapolationblackvolatilitylinear",
+    "termstructures_volatility_equityfx_blackvariancesurface_blackvariancesurface_accept",
+    "termstructures_volatility_equityfx_blackvariancesurface_blackvariancesurface_blackvarianceimpl",
+    "termstructures_volatility_equityfx_blackvoltimeextrapolation_blackvoltimeextrapolation",
+    "termstructures_volatility_equityfx_blackvoltimeextrapolation_timeextrapolationblackvarianceflat",
+    "termstructures_volatility_equityfx_blackvoltimeextrapolation_cpp_real",
+    "termstructures_volatility_equityfx_blackvoltimeextrapolation_cpp_time",
+    "termstructures_volatility_equityfx_blackvoltimeextrapolation_linearextrapolation",
+    "termstructures_volatility_equityfx_blackvoltimeextrapolation_cpp_function"
+   ]
+  },
+  {
+   "label": "Overnight index swap rate helper",
+   "size": 47,
+   "anchors": [
+    "termstructures_yield_oisratehelper_oisratehelper",
+    "termstructures_yield_oisratehelper",
+    "termstructures_volatility_optionlet_optionletstripper_hpp_optional",
+    "overnightindexedswap",
+    "termstructures_yield_oisratehelper_floatingratecouponpricer",
+    "termstructures_yield_oisratehelper_oisratehelper_swap",
+    "termstructures_yield_oisratehelper_hpp_shared_ptr",
+    "termstructures_yield_oisratehelper_hpp_businessdayconvention",
+    "termstructures_yield_oisratehelper_hpp_choice",
+    "termstructures_yield_oisratehelper_hpp_frequency",
+    "termstructures_yield_oisratehelper_hpp_handle",
+    "termstructures_yield_oisratehelper_hpp_integer",
+    "termstructures_yield_oisratehelper_hpp_natural",
+    "termstructures_yield_oisratehelper_hpp_optional",
+    "termstructures_yield_oisratehelper_hpp_overnightindex"
    ]
   },
   {
@@ -212,66 +296,24 @@
    ]
   },
   {
-   "label": "Local volatility density calculator",
-   "size": 44,
+   "label": "Global term structure bootstrap",
+   "size": 45,
    "anchors": [
-    "methods_finitedifferences_utilities_localvolrndcalculator_localvolrndcalculator",
-    "methods_finitedifferences_utilities_localvolrndcalculator",
-    "methods_finitedifferences_utilities_localvolrndcalculator_timegrid",
-    "methods_finitedifferences_utilities_localvolrndcalculator_localvolrndcalculator_localvolrndcalculator",
-    "methods_finitedifferences_utilities_localvolrndcalculator_cpp_real",
-    "methods_finitedifferences_utilities_localvolrndcalculator_cpp_time",
-    "methods_finitedifferences_utilities_localvolrndcalculator_localvolrndcalculator_invcdf",
-    "methods_finitedifferences_utilities_localvolrndcalculator_localvolrndcalculator_mesher",
-    "methods_finitedifferences_utilities_localvolrndcalculator_localvolrndcalculator_pdf",
-    "methods_finitedifferences_utilities_localvolrndcalculator_localvolrndcalculator_probabilityinterpolation",
-    "methods_finitedifferences_utilities_localvolrndcalculator_localvolrndcalculator_rescaletimesteps",
-    "methods_finitedifferences_utilities_localvolrndcalculator_cpp_size",
-    "methods_finitedifferences_utilities_localvolrndcalculator_localvolrndcalculator_cdf",
-    "methods_finitedifferences_utilities_localvolrndcalculator_localvolrndcalculator_performcalculations",
-    "methods_finitedifferences_utilities_localvolrndcalculator_localvolrndcalculator_rescalepdf"
-   ]
-  },
-  {
-   "label": "Zero and YoY inflation curves",
-   "size": 44,
-   "anchors": [
-    "termstructures_inflationtermstructure",
-    "termstructures_inflation_seasonality_seasonality",
-    "termstructures_inflationtermstructure_inflationtermstructure",
-    "termstructures_inflationtermstructure_inflationtermstructure_checkrange",
-    "termstructures_inflationtermstructure_inflationtermstructure_inflationtermstructure",
-    "termstructures_inflationtermstructure_yoyinflationtermstructure_yoyrate",
-    "termstructures_inflationtermstructure_zeroinflationtermstructure_zerorate",
-    "termstructures_inflationtermstructure_yoyinflationtermstructure_yoyinflationtermstructure",
-    "termstructures_inflationtermstructure_zeroinflationtermstructure",
-    "termstructures_inflationtermstructure_yoyinflationtermstructure",
-    "termstructures_inflationtermstructure_zeroinflationtermstructure_zeroinflationtermstructure",
-    "termstructures_inflationtermstructure_inflationtermstructure_seasonality",
-    "termstructures_inflationtermstructure_inflationyearfraction",
-    "termstructures_inflationtermstructure_cpp_frequency",
-    "termstructures_inflationtermstructure_cpp_period"
-   ]
-  },
-  {
-   "label": "YoY inflation optionlet volatility surface",
-   "size": 44,
-   "anchors": [
-    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_yoyoptionletvolatilitysurface",
-    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_constantyoyoptionletvolatility_constantyoyoptionletvolatility",
-    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_constantyoyoptionletvolatility",
-    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_yoyoptionletvolatilitysurface_volatility",
-    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_yoyoptionletvolatilitysurface_yoyoptionletvolatilitysurface",
-    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_yoyoptionletvolatilitysurface_totalvariance",
-    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_yoyoptionletvolatilitysurface_checkrange",
-    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_yoyoptionletvolatilitysurface_timefrombase",
-    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_constantyoyoptionletvolatility_volatilityimpl",
-    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_cpp_period",
-    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_cpp_rate",
-    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_cpp_time",
-    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_cpp_volatility",
-    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_hpp_real",
-    "termstructures_volatility_inflation_yoyinflationoptionletvolatilitystructure_yoyoptionletvolatilitysurface_displacement"
+    "termstructures_globalbootstrap_globalbootstrap",
+    "termstructures_globalbootstrap",
+    "termstructures_globalbootstrap_globalbootstrap_curve_globalbootstrap",
+    "termstructures_globalbootstrap_additionalbootstrapvariables",
+    "termstructures_globalbootstrap_globalbootstrap_curve_calculate",
+    "termstructures_globalbootstrap_hpp_array",
+    "termstructures_globalbootstrap_globalbootstrap_curve_evaluatecostfunction",
+    "termstructures_globalbootstrap_globalbootstrap_curve_setcostfunctionargument",
+    "termstructures_globalbootstrap_globalbootstrap_curve_setupcostfunction",
+    "termstructures_globalbootstrap_hpp_optimizationmethod",
+    "termstructures_globalbootstrap_hpp_vector",
+    "additionalpenalties",
+    "termstructures_globalbootstrap_additionalbootstrapvariables_update",
+    "termstructures_globalbootstrap_globalbootstrap_additionaldates",
+    "termstructures_globalbootstrap_globalbootstrap_additionalpenalties"
    ]
   },
   {
@@ -296,69 +338,6 @@
    ]
   },
   {
-   "label": "Swaption cube interpolation grid",
-   "size": 44,
-   "anchors": [
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_createinterpolation",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_hpp_real",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_hpp_vector",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_hpp_matrix",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_hpp_size",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_model_cube_cube",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_model_recalibration",
-    "cube",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_hpp_period",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_hpp_shared_ptr",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_hpp_time",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_model_spreadvolinterpolation",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrmodeltraits_createsmilesection",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_model_cube_setpoint"
-   ]
-  },
-  {
-   "label": "Multi-dimensional finite-difference solvers",
-   "size": 41,
-   "anchors": [
-    "lazyobject",
-    "methods_finitedifferences_solvers_fdmbackwardsolver_fdmbackwardsolver_rollback",
-    "methods_finitedifferences_solvers_fdmbatessolver_fdmbatessolver",
-    "methods_finitedifferences_solvers_fdmbatessolver",
-    "methods_finitedifferences_solvers_all",
-    "methods_finitedifferences_solvers_fdmg2solver_fdmg2solver",
-    "methods_finitedifferences_solvers_fdmg2solver",
-    "fdm2dimsolver",
-    "methods_finitedifferences_solvers_fdmbatessolver_cpp_real",
-    "methods_finitedifferences_solvers_fdmg2solver_fdmg2solver_valueat",
-    "methods_finitedifferences_solvers_fdmhestonsolver_fdmhestonsolver_leveragefct",
-    "methods_finitedifferences_solvers_fdmbatessolver_fdmbatessolver_deltaat",
-    "methods_finitedifferences_solvers_fdmbatessolver_fdmbatessolver_gammaat",
-    "methods_finitedifferences_solvers_fdmbatessolver_fdmbatessolver_solverdesc",
-    "methods_finitedifferences_solvers_fdmbatessolver_fdmbatessolver_thetaat"
-   ]
-  },
-  {
-   "label": "CMS calibration objective functions",
-   "size": 42,
-   "anchors": [
-    "termstructures_volatility_swaption_cmsmarketcalibration_objectivefunction",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_endcriteria",
-    "termstructures_volatility_swaption_cmsmarketcalibration_cmsmarketcalibration_compute",
-    "termstructures_volatility_swaption_cmsmarketcalibration_cmsmarketcalibration_computeparametric",
-    "termstructures_volatility_swaption_cmsmarketcalibration_cpp_array",
-    "termstructures_volatility_swaption_cmsmarketcalibration_cpp_real",
-    "termstructures_volatility_swaption_cmsmarketcalibration_cmsmarketcalibration_betatransformdirect",
-    "termstructures_volatility_swaption_cmsmarketcalibration_cmsmarketcalibration_reversiontransformdirect",
-    "termstructures_volatility_swaption_cmsmarketcalibration_objectivefunction_value",
-    "termstructures_volatility_swaption_cmsmarketcalibration_objectivefunction6_updatevolatilitycubeandcmsmarket",
-    "termstructures_volatility_swaption_cmsmarketcalibration_cmsmarketcalibration_cmsmarketcalibration",
-    "termstructures_volatility_swaption_cmsmarketcalibration_objectivefunction2",
-    "termstructures_volatility_swaption_cmsmarketcalibration_objectivefunction4",
-    "termstructures_volatility_swaption_cmsmarketcalibration_objectivefunction5",
-    "termstructures_volatility_swaption_cmsmarketcalibration_objectivefunction3_updatevolatilitycubeandcmsmarket"
-   ]
-  },
-  {
    "label": "Forward-spreaded yield term structure",
    "size": 43,
    "anchors": [
@@ -368,10 +347,10 @@
     "termstructures_yield_piecewiseforwardspreadedtermstructure_hpp_time",
     "termstructures_yield_piecewiseforwardspreadedtermstructure_interpolatedpiecewiseforwardspreadedtermstructure_t_calcspread",
     "termstructures_yield_piecewiseforwardspreadedtermstructure_interpolatedpiecewiseforwardspreadedtermstructure_t_calcspreadprimitive",
-    "termstructures_yield_piecewiseforwardspreadedtermstructure_interpolatedpiecewiseforwardspreadedtermstructure_t_daycounter",
     "termstructures_yield_piecewiseforwardspreadedtermstructure_interpolatedpiecewiseforwardspreadedtermstructure_t_zeroyieldimpl",
     "termstructures_yield_piecewiseforwardspreadedtermstructure_hpp_spread",
     "termstructures_yield_piecewiseforwardspreadedtermstructure_interpolatedpiecewiseforwardspreadedtermstructure_t_calendar",
+    "termstructures_yield_piecewiseforwardspreadedtermstructure_interpolatedpiecewiseforwardspreadedtermstructure_t_daycounter",
     "termstructures_yield_piecewiseforwardspreadedtermstructure_interpolatedpiecewiseforwardspreadedtermstructure_t_maxdate",
     "termstructures_yield_piecewiseforwardspreadedtermstructure_interpolatedpiecewiseforwardspreadedtermstructure_t_settlementdays",
     "termstructures_yield_piecewiseforwardspreadedtermstructure_interpolatedpiecewiseforwardspreadedtermstructure_updateinterpolation",
@@ -380,8 +359,50 @@
    ]
   },
   {
-   "label": "Andreasen-Huge volatility interpolation",
+   "label": "XABR swaption cube calibration",
    "size": 42,
+   "anchors": [
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube",
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_model_xabrswaptionvolatilitycube",
+    "termstructures_volatility_swaption_all",
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_optimizationmethod",
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_model_fillvolatilitycube",
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_hpp_handle",
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_hpp_quote",
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_createsparsesmiles",
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_recalibration",
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_registerwithparametersguess",
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_requirednumberofstrikes",
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_sabrcalibrationsection",
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_setparameterguess",
+    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_spreadvolinterpolation",
+    "termstructures_volatility_swaption_zabrswaptionvolatilitycube_xabrmodeltraits_swaptionvolcubezabrmodel_kernel_nparams"
+   ]
+  },
+  {
+   "label": "Inflation seasonality adjustment",
+   "size": 40,
+   "anchors": [
+    "termstructures_volatility_optionlet_strippedoptionletbase_date",
+    "termstructures_inflation_seasonality",
+    "termstructures_inflationtermstructure_inflationperiod",
+    "termstructures_inflation_seasonality_multiplicativepriceseasonality",
+    "inflationtermstructure",
+    "termstructures_inflation_seasonality_cpp_rate",
+    "termstructures_credit_defaultprobabilityhelpers_hpp_daycounter",
+    "termstructures_inflation_seasonality_multiplicativepriceseasonality_seasonalityfactor",
+    "termstructures_inflation_seasonality_kerkhofseasonality_removeseasonalityadjustment",
+    "termstructures_inflation_seasonality_kerkhofseasonality_seasonalitycorrection",
+    "termstructures_inflation_seasonality_multiplicativepriceseasonality_removeseasonalityadjustment",
+    "termstructures_inflation_seasonality_multiplicativepriceseasonality_seasonalitycorrection",
+    "termstructures_inflation_seasonality_multiplicativepriceseasonality_set",
+    "termstructures_inflation_seasonality_kerkhofseasonality",
+    "termstructures_inflation_seasonality_kerkhofseasonality_seasonalityfactor"
+   ]
+  },
+  {
+   "label": "Andreasen-Huge volatility interpolation",
+   "size": 41,
    "anchors": [
     "termstructures_volatility_equityfx_andreasenhugevolatilityinterpl_andreasenhugevolatilityinterpl",
     "termstructures_volatility_equityfx_andreasenhugevolatilityinterpl",
@@ -396,29 +417,29 @@
     "termstructures_volatility_equityfx_andreasenhugevolatilityinterpl_andreasenhugevolatilityinterpl_dt",
     "termstructures_volatility_equityfx_andreasenhugevolatilityinterpl_andreasenhugevolatilityinterpl_endcriteria",
     "termstructures_volatility_equityfx_andreasenhugevolatilityinterpl_andreasenhugevolatilityinterpl_expiries",
-    "termstructures_volatility_equityfx_andreasenhugevolatilityinterpl_andreasenhugevolatilityinterpl_expirytimes",
-    "termstructures_volatility_equityfx_andreasenhugevolatilityinterpl_andreasenhugevolatilityinterpl_gridinfwd"
+    "termstructures_volatility_equityfx_andreasenhugevolatilityinterpl_andreasenhugevolatilityinterpl_gridinfwd",
+    "termstructures_volatility_equityfx_andreasenhugevolatilityinterpl_andreasenhugevolatilityinterpl_gridpoints"
    ]
   },
   {
-   "label": "Overnight index swap rate helper",
-   "size": 42,
+   "label": "Swaption volatility cube base",
+   "size": 41,
    "anchors": [
-    "termstructures_yield_oisratehelper_oisratehelper",
-    "termstructures_yield_oisratehelper_hpp_businessdayconvention",
-    "termstructures_yield_oisratehelper_hpp_choice",
-    "termstructures_yield_oisratehelper_hpp_frequency",
-    "termstructures_yield_oisratehelper_hpp_handle",
-    "termstructures_yield_oisratehelper_hpp_integer",
-    "termstructures_yield_oisratehelper_hpp_natural",
-    "termstructures_yield_oisratehelper_hpp_optional",
-    "termstructures_yield_oisratehelper_hpp_overnightindex",
-    "termstructures_yield_oisratehelper_hpp_period",
-    "termstructures_yield_oisratehelper_hpp_quote",
-    "termstructures_yield_oisratehelper_hpp_relinkablehandle",
-    "termstructures_yield_oisratehelper_hpp_rule",
-    "termstructures_yield_oisratehelper_hpp_type",
-    "termstructures_yield_oisratehelper_hpp_yieldtermstructure"
+    "termstructures_volatility_swaption_swaptionvolcube_swaptionvolatilitycube",
+    "termstructures_volatility_swaption_swaptionvolcube",
+    "termstructures_volatility_swaption_swaptionvolcube_swaptionvolatilitycube_atmvol",
+    "termstructures_volatility_swaption_swaptionvolcube_swaptionvolatilitycube_volatilityimpl",
+    "termstructures_volatility_swaption_swaptionvolcube_swaptionvolatilitycube_performcalculations",
+    "termstructures_volatility_swaption_swaptionvoldiscrete_swaptionvolatilitydiscrete_optiontenors",
+    "termstructures_volatility_swaption_swaptionvolcube_hpp_rate",
+    "termstructures_volatility_swaption_swaptionvolcube_swapindex",
+    "termstructures_volatility_swaption_swaptionvolcube_swaptionvolatilitycube_shiftimpl",
+    "termstructures_volatility_swaption_interpolatedswaptionvolatilitycube_interpolatedswaptionvolatilitycube_performcalculations",
+    "termstructures_volatility_swaption_swaptionvolcube_hpp_shared_ptr",
+    "termstructures_volatility_swaption_swaptionvolcube_hpp_time",
+    "termstructures_volatility_swaption_swaptionvolcube_swaptionvolatilitycube_requirednumberofstrikes",
+    "termstructures_volatility_swaption_swaptionvolcube_swaptionvolatilitycube_shortswapindexbase",
+    "termstructures_volatility_swaption_swaptionvolcube_swaptionvolatilitycube_swapindexbase"
    ]
   },
   {
@@ -430,79 +451,16 @@
     "termstructures_yield_piecewisezerospreadedtermstructure_interpolatedpiecewisezerospreadedtermstructure_t_interpolatedpiecewisezerospreadedtermstructure",
     "termstructures_yield_piecewisezerospreadedtermstructure_interpolatedpiecewisezerospreadedtermstructure_t_zeroyieldimpl",
     "termstructures_yield_piecewisezerospreadedtermstructure_interpolatedpiecewisezerospreadedtermstructure_t_calcspread",
+    "termstructures_yield_piecewisezerospreadedtermstructure_interpolatedpiecewisezerospreadedtermstructure_t_update",
     "termstructures_yield_piecewisezerospreadedtermstructure_hpp_time",
     "termstructures_yield_piecewisezerospreadedtermstructure_interpolatedpiecewisezerospreadedtermstructure_daycounter",
     "termstructures_yield_piecewisezerospreadedtermstructure_interpolatedpiecewisezerospreadedtermstructure_t_calendar",
     "termstructures_yield_piecewisezerospreadedtermstructure_interpolatedpiecewisezerospreadedtermstructure_t_daycounter",
     "termstructures_yield_piecewisezerospreadedtermstructure_interpolatedpiecewisezerospreadedtermstructure_t_maxdate",
     "termstructures_yield_piecewisezerospreadedtermstructure_interpolatedpiecewisezerospreadedtermstructure_t_settlementdays",
-    "termstructures_yield_piecewisezerospreadedtermstructure_interpolatedpiecewisezerospreadedtermstructure_t_update",
     "termstructures_yield_piecewisezerospreadedtermstructure_interpolatedpiecewisezerospreadedtermstructure_updateinterpolation",
     "termstructures_yield_piecewisezerospreadedtermstructure_hpp_compounding",
     "termstructures_yield_piecewisezerospreadedtermstructure_hpp_daycounter"
-   ]
-  },
-  {
-   "label": "Swaption volatility cube base",
-   "size": 40,
-   "anchors": [
-    "termstructures_volatility_swaption_swaptionvolcube_swaptionvolatilitycube",
-    "termstructures_volatility_swaption_swaptionvolcube",
-    "termstructures_volatility_swaption_swaptionvolcube_swaptionvolatilitycube_volatilityimpl",
-    "termstructures_volatility_swaption_swaptionvolcube_swaptionvolatilitycube_performcalculations",
-    "termstructures_volatility_swaption_swaptionvolcube_hpp_rate",
-    "termstructures_volatility_swaption_swaptionvolcube_swapindex",
-    "termstructures_volatility_swaption_swaptionvolcube_swaptionvolatilitycube_shiftimpl",
-    "termstructures_volatility_swaption_interpolatedswaptionvolatilitycube_interpolatedswaptionvolatilitycube_performcalculations",
-    "termstructures_volatility_swaption_swaptionvolcube_hpp_shared_ptr",
-    "termstructures_volatility_swaption_swaptionvolcube_hpp_time",
-    "termstructures_volatility_swaption_swaptionvolcube_swaptionvolatilitycube_atmvol",
-    "termstructures_volatility_swaption_swaptionvolcube_swaptionvolatilitycube_requirednumberofstrikes",
-    "termstructures_volatility_swaption_swaptionvolcube_swaptionvolatilitycube_shortswapindexbase",
-    "termstructures_volatility_swaption_swaptionvolcube_swaptionvolatilitycube_swapindexbase",
-    "termstructures_volatility_swaption_swaptionvolcube_swaptionvolatilitycube_volatilitytype"
-   ]
-  },
-  {
-   "label": "ZABR smile section",
-   "size": 40,
-   "anchors": [
-    "termstructures_volatility_zabrsmilesection_zabrsmilesection",
-    "termstructures_volatility_zabrsmilesection",
-    "termstructures_volatility_zabrsmilesection_hpp_real",
-    "termstructures_volatility_zabrsmilesection_zabrsmilesection_evaluation_optionprice",
-    "termstructures_volatility_zabrsmilesection_zabrsmilesection_evaluation_volatilityimpl",
-    "termstructures_volatility_zabrsmilesection_zabrsmilesection_evaluation_zabrsmilesection",
-    "termstructures_volatility_zabrsmilesection_zabrshortmaturitylognormal",
-    "termstructures_volatility_zabrsmilesection_zabrsmilesection_evaluation_init",
-    "termstructures_volatility_zabrsmilesection_zabrsmilesection_init",
-    "termstructures_volatility_zabrsmilesection_hpp_rate",
-    "termstructures_volatility_zabrsmilesection_zabrfullfd",
-    "termstructures_volatility_zabrsmilesection_zabrlocalvolatility",
-    "termstructures_volatility_zabrsmilesection_zabrshortmaturitynormal",
-    "termstructures_volatility_zabrsmilesection_zabrsmilesection_evaluation_init3",
-    "termstructures_volatility_zabrsmilesection_zabrsmilesection_optionprice"
-   ]
-  },
-  {
-   "label": "Local volatility forward FD operator",
-   "size": 38,
-   "anchors": [
-    "methods_finitedifferences_operators_fdmlocalvolfwdop_fdmlocalvolfwdop",
-    "methods_finitedifferences_operators_fdmlocalvolfwdop_fdmlocalvolfwdop_fdmlocalvolfwdop",
-    "methods_finitedifferences_operators_fdmlocalvolfwdop_cpp_array",
-    "methods_finitedifferences_operators_fdmlocalvolfwdop_fdmlocalvolfwdop_solve_splitting",
-    "methods_finitedifferences_operators_fdmlocalvolfwdop_cpp_size",
-    "methods_finitedifferences_operators_fdmlocalvolfwdop_fdmlocalvolfwdop_apply_direction",
-    "methods_finitedifferences_operators_fdmlocalvolfwdop_fdmlocalvolfwdop_preconditioner",
-    "methods_finitedifferences_operators_fdmlocalvolfwdop_fdmlocalvolfwdop_tomatrixdecomp",
-    "methods_finitedifferences_operators_fdmlocalvolfwdop_fdmlocalvolfwdop_apply",
-    "methods_finitedifferences_operators_fdmlocalvolfwdop_fdmlocalvolfwdop_apply_mixed",
-    "methods_finitedifferences_operators_fdmlocalvolfwdop_fdmlocalvolfwdop_settime",
-    "methods_finitedifferences_operators_fdmlocalvolfwdop_fdmlocalvolfwdop_size",
-    "methods_finitedifferences_operators_fdmlocalvolfwdop_cpp_real",
-    "methods_finitedifferences_operators_fdmlocalvolfwdop_cpp_fdmmesher",
-    "methods_finitedifferences_operators_fdmlocalvolfwdop_cpp_localvoltermstructure"
    ]
   },
   {
@@ -527,66 +485,24 @@
    ]
   },
   {
-   "label": "Cap/floor term volatility curve",
+   "label": "Zero and YoY inflation curves",
    "size": 38,
    "anchors": [
-    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve",
-    "termstructures_volatility_capfloor_capfloortermvolcurve",
-    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve_capfloortermvolcurve",
-    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve_volatilityimpl",
-    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve_maxdate",
-    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve_initializeoptiondatesandtimes",
-    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve_interpolate",
-    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve_maxstrike",
-    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve_minstrike",
-    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve_update",
-    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve_checkinputs",
-    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve_interpolation",
-    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve_performcalculations",
-    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve_registerwithmarketdata",
-    "termstructures_volatility_capfloor_capfloortermvolcurve_hpp_real"
-   ]
-  },
-  {
-   "label": "Delta-based Black volatility surface",
-   "size": 39,
-   "anchors": [
-    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta",
-    "termstructures_volatility_equityfx_blackvolsurfacedelta",
-    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta_accept",
-    "termstructures_volatility_equityfx_blackvolsurfacedelta_hpp_real",
-    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta_maxdate",
-    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta_maxstrike",
-    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta_minstrike",
-    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta_atmdeltatype",
-    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta_atmtype",
-    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta_calldeltas",
-    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta_dates",
-    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta_deltatype",
-    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta_domesticts",
-    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta_flatstrikeextrapolation",
-    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta_foreignts"
-   ]
-  },
-  {
-   "label": "Local volatility surface",
-   "size": 38,
-   "anchors": [
-    "termstructures_volatility_equityfx_localvolsurface_localvolsurface",
-    "termstructures_volatility_equityfx_localvolsurface",
-    "termstructures_volatility_equityfx_localvolsurface_localvolsurface_localvolimpl",
-    "termstructures_volatility_equityfx_localvolsurface_localvolsurface_localvolsurface",
-    "termstructures_volatility_equityfx_noexceptlocalvolsurface_noexceptlocalvolsurface",
-    "termstructures_volatility_equityfx_noexceptlocalvolsurface_noexceptlocalvolsurface_localvolimpl",
-    "termstructures_volatility_equityfx_noexceptlocalvolsurface_noexceptlocalvolsurface_noexceptlocalvolsurface",
-    "termstructures_volatility_equityfx_localvolsurface_cpp_real",
-    "termstructures_volatility_equityfx_localvolsurface_localvolsurface_accept",
-    "termstructures_volatility_equityfx_localvolsurface_localvolsurface_daycounter",
-    "termstructures_volatility_equityfx_localvolsurface_localvolsurface_maxdate",
-    "termstructures_volatility_equityfx_localvolsurface_localvolsurface_maxstrike",
-    "termstructures_volatility_equityfx_localvolsurface_localvolsurface_minstrike",
-    "termstructures_volatility_equityfx_noexceptlocalvolsurface_hpp_real",
-    "termstructures_volatility_equityfx_localvolsurface_blackvoltermstructure"
+    "termstructures_inflationtermstructure",
+    "termstructures_inflation_seasonality_seasonality",
+    "termstructures_inflationtermstructure_inflationtermstructure",
+    "termstructures_inflationtermstructure_inflationtermstructure_checkrange",
+    "termstructures_inflationtermstructure_inflationtermstructure_inflationtermstructure",
+    "termstructures_inflationtermstructure_yoyinflationtermstructure_yoyrate",
+    "termstructures_inflationtermstructure_zeroinflationtermstructure_zerorate",
+    "termstructures_inflationtermstructure_yoyinflationtermstructure_yoyinflationtermstructure",
+    "termstructures_inflationtermstructure_zeroinflationtermstructure_zeroinflationtermstructure",
+    "termstructures_inflationtermstructure_inflationtermstructure_seasonality",
+    "termstructures_inflationtermstructure_inflationyearfraction",
+    "termstructures_inflationtermstructure_cpp_frequency",
+    "termstructures_inflationtermstructure_cpp_period",
+    "termstructures_inflationtermstructure_inflationtermstructure_frequency",
+    "termstructures_inflationtermstructure_cpp_daycounter"
    ]
   },
   {
@@ -608,27 +524,6 @@
     "termstructures_volatility_swaption_cmsmarket_cmsmarket_fwdswaps",
     "termstructures_volatility_swaption_cmsmarket_cmsmarket_iborindex",
     "termstructures_volatility_swaption_cmsmarket_cmsmarket_mdlfwdcmslegnpv"
-   ]
-  },
-  {
-   "label": "ZABR interpolated smile section",
-   "size": 39,
-   "anchors": [
-    "termstructures_volatility_zabrinterpolatedsmilesection_zabrinterpolatedsmilesection",
-    "termstructures_volatility_zabrinterpolatedsmilesection_zabrinterpolatedsmilesection_evaluation_zabrinterpolatedsmilesection",
-    "termstructures_volatility_zabrinterpolatedsmilesection_hpp_rate",
-    "termstructures_volatility_zabrinterpolatedsmilesection_zabrinterpolatedsmilesection_evaluation_performcalculations",
-    "termstructures_volatility_zabrinterpolatedsmilesection_hpp_handle",
-    "termstructures_volatility_zabrinterpolatedsmilesection_hpp_optimizationmethod",
-    "termstructures_volatility_zabrinterpolatedsmilesection_hpp_quote",
-    "termstructures_volatility_zabrinterpolatedsmilesection_hpp_shared_ptr",
-    "termstructures_volatility_zabrinterpolatedsmilesection_hpp_vector",
-    "termstructures_volatility_zabrinterpolatedsmilesection_hpp_volatility",
-    "termstructures_volatility_zabrinterpolatedsmilesection_zabrinterpolatedsmilesection_beta",
-    "termstructures_volatility_zabrinterpolatedsmilesection_zabrinterpolatedsmilesection_createinterpolation",
-    "termstructures_volatility_zabrinterpolatedsmilesection_zabrinterpolatedsmilesection_gamma",
-    "termstructures_volatility_zabrinterpolatedsmilesection_zabrinterpolatedsmilesection_rho",
-    "termstructures_volatility_zabrinterpolatedsmilesection_zabrinterpolatedsmilesection_rmserror"
    ]
   },
   {
@@ -659,107 +554,107 @@
     "methods_finitedifferences_operators_fdmblackscholesfwdop_fdmblackscholesfwdop",
     "methods_finitedifferences_operators_fdmblackscholesfwdop_fdmblackscholesfwdop_fdmblackscholesfwdop",
     "methods_finitedifferences_operators_fdmblackscholesfwdop_cpp_array",
+    "methods_finitedifferences_operators_fdmblackscholesfwdop_fdmblackscholesfwdop_preconditioner",
     "methods_finitedifferences_operators_fdmblackscholesfwdop_fdmblackscholesfwdop_solve_splitting",
     "methods_finitedifferences_operators_fdmblackscholesfwdop_cpp_size",
     "methods_finitedifferences_operators_fdmblackscholesfwdop_fdmblackscholesfwdop_apply_direction",
-    "methods_finitedifferences_operators_fdmblackscholesfwdop_fdmblackscholesfwdop_preconditioner",
     "methods_finitedifferences_operators_fdmblackscholesfwdop_fdmblackscholesfwdop_tomatrixdecomp",
     "methods_finitedifferences_operators_fdmblackscholesfwdop_cpp_real",
     "methods_finitedifferences_operators_fdmblackscholesfwdop_fdmblackscholesfwdop_apply",
     "methods_finitedifferences_operators_fdmblackscholesfwdop_fdmblackscholesfwdop_apply_mixed",
     "methods_finitedifferences_operators_fdmblackscholesfwdop_fdmblackscholesfwdop_settime",
     "methods_finitedifferences_operators_fdmblackscholesfwdop_fdmblackscholesfwdop_size",
-    "methods_finitedifferences_operators_fdmblackscholesfwdop_fdmblackscholesfwdop_volts",
-    "methods_finitedifferences_operators_fdmblackscholesfwdop_cpp_fdmmesher"
+    "methods_finitedifferences_operators_fdmblackscholesfwdop_cpp_fdmmesher",
+    "methods_finitedifferences_operators_fdmblackscholesfwdop_cpp_generalizedblackscholesprocess"
    ]
   },
   {
-   "label": "Inflation seasonality adjustment",
+   "label": "Local volatility forward FD operator",
    "size": 37,
    "anchors": [
-    "termstructures_volatility_optionlet_strippedoptionletbase_date",
-    "termstructures_inflation_seasonality",
-    "termstructures_inflationtermstructure_inflationperiod",
-    "termstructures_inflation_seasonality_multiplicativepriceseasonality",
-    "inflationtermstructure",
-    "termstructures_inflation_seasonality_cpp_rate",
-    "termstructures_inflation_seasonality_multiplicativepriceseasonality_seasonalityfactor",
-    "termstructures_inflation_seasonality_kerkhofseasonality_removeseasonalityadjustment",
-    "termstructures_inflation_seasonality_kerkhofseasonality_seasonalitycorrection",
-    "termstructures_inflation_seasonality_multiplicativepriceseasonality_removeseasonalityadjustment",
-    "termstructures_inflation_seasonality_multiplicativepriceseasonality_seasonalitycorrection",
-    "termstructures_inflation_seasonality_multiplicativepriceseasonality_set",
-    "termstructures_inflation_seasonality_kerkhofseasonality",
-    "termstructures_inflation_seasonality_kerkhofseasonality_seasonalityfactor",
-    "termstructures_inflation_seasonality_multiplicativepriceseasonality_correctyoyrate"
+    "methods_finitedifferences_operators_fdmlocalvolfwdop_fdmlocalvolfwdop",
+    "methods_finitedifferences_operators_fdmlocalvolfwdop_fdmlocalvolfwdop_fdmlocalvolfwdop",
+    "methods_finitedifferences_operators_fdmlocalvolfwdop_cpp_array",
+    "methods_finitedifferences_operators_fdmlocalvolfwdop_fdmlocalvolfwdop_solve_splitting",
+    "methods_finitedifferences_operators_fdmlocalvolfwdop_cpp_size",
+    "methods_finitedifferences_operators_fdmlocalvolfwdop_fdmlocalvolfwdop_apply_direction",
+    "methods_finitedifferences_operators_fdmlocalvolfwdop_fdmlocalvolfwdop_preconditioner",
+    "methods_finitedifferences_operators_fdmlocalvolfwdop_fdmlocalvolfwdop_tomatrixdecomp",
+    "methods_finitedifferences_operators_fdmlocalvolfwdop_fdmlocalvolfwdop_apply",
+    "methods_finitedifferences_operators_fdmlocalvolfwdop_fdmlocalvolfwdop_apply_mixed",
+    "methods_finitedifferences_operators_fdmlocalvolfwdop_fdmlocalvolfwdop_settime",
+    "methods_finitedifferences_operators_fdmlocalvolfwdop_fdmlocalvolfwdop_size",
+    "methods_finitedifferences_operators_fdmlocalvolfwdop_cpp_real",
+    "methods_finitedifferences_operators_fdmlocalvolfwdop_cpp_fdmmesher",
+    "methods_finitedifferences_operators_fdmlocalvolfwdop_cpp_localvoltermstructure"
    ]
   },
   {
-   "label": "XABR swaption cube calibration",
+   "label": "Multi-dimensional finite-difference solvers",
+   "size": 36,
+   "anchors": [
+    "lazyobject",
+    "methods_finitedifferences_solvers_fdmbatessolver_fdmbatessolver",
+    "methods_finitedifferences_solvers_fdmbatessolver",
+    "methods_finitedifferences_solvers_fdmg2solver",
+    "methods_finitedifferences_solvers_fdmg2solver_fdmg2solver",
+    "fdm2dimsolver",
+    "methods_finitedifferences_solvers_fdmbatessolver_cpp_real",
+    "methods_finitedifferences_solvers_fdmg2solver_fdm2dimsolver",
+    "methods_finitedifferences_solvers_fdmg2solver_fdmg2solver_fdmg2solver",
+    "methods_finitedifferences_solvers_fdmbatessolver_fdmbatessolver_deltaat",
+    "methods_finitedifferences_solvers_fdmbatessolver_fdmbatessolver_gammaat",
+    "methods_finitedifferences_solvers_fdmbatessolver_fdmbatessolver_integrointegrationorder",
+    "methods_finitedifferences_solvers_fdmbatessolver_fdmbatessolver_thetaat",
+    "methods_finitedifferences_solvers_fdmbatessolver_fdmbatessolver_valueat",
+    "methods_finitedifferences_solvers_fdmg2solver_fdmg2solver_valueat"
+   ]
+  },
+  {
+   "label": "Delta-based Black volatility surface",
    "size": 38,
    "anchors": [
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_model_xabrswaptionvolatilitycube",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_model_fillvolatilitycube",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_hpp_handle",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_hpp_quote",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_createsparsesmiles",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_recalibration",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_registerwithparametersguess",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_requirednumberofstrikes",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_sabrcalibrationsection",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_setparameterguess",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_xabrswaptionvolatilitycube_spreadvolinterpolation",
-    "privateobserver",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_hpp_spread",
-    "termstructures_volatility_swaption_sabrswaptionvolatilitycube_hpp_swapindex"
+    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta",
+    "termstructures_volatility_equityfx_blackvolsurfacedelta",
+    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta_accept",
+    "termstructures_volatility_equityfx_blackvolsurfacedelta_hpp_real",
+    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta_maxdate",
+    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta_maxstrike",
+    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta_minstrike",
+    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta_atmdeltatype",
+    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta_atmtype",
+    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta_calldeltas",
+    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta_dates",
+    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta_deltatype",
+    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta_domesticts",
+    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta_flatstrikeextrapolation",
+    "termstructures_volatility_equityfx_blackvolsurfacedelta_blackvolatilitysurfacedelta_foreignts"
    ]
   },
   {
-   "label": "One-dimensional FD backward solver",
-   "size": 36,
+   "label": "CMS calibration objective functions",
+   "size": 37,
    "anchors": [
-    "methods_finitedifferences_solvers_fdmbackwardsolver",
-    "methods_finitedifferences_solvers_fdm1dimsolver_fdm1dimsolver",
-    "methods_finitedifferences_solvers_fdm1dimsolver",
-    "methods_finitedifferences_solvers_fdmbackwardsolver_fdmbackwardsolver",
-    "methods_finitedifferences_solvers_fdm1dimsolver_fdm1dimsolver_fdm1dimsolver",
-    "methods_finitedifferences_solvers_fdm1dimsolver_cpp_real",
-    "methods_finitedifferences_solvers_fdm1dimsolver_cubicinterpolation",
-    "methods_finitedifferences_solvers_fdm1dimsolver_fdm1dimsolver_derivativex",
-    "methods_finitedifferences_solvers_fdm1dimsolver_fdm1dimsolver_derivativexx",
-    "methods_finitedifferences_solvers_fdm1dimsolver_fdm1dimsolver_interpolateat",
-    "methods_finitedifferences_solvers_fdm1dimsolver_fdm1dimsolver_performcalculations",
-    "methods_finitedifferences_solvers_fdm1dimsolver_fdm1dimsolver_thetaat",
-    "methods_finitedifferences_solvers_fdm1dimsolver_fdmsnapshotcondition",
-    "methods_finitedifferences_solvers_fdmbackwardsolver_fdmlinearopcomposite",
-    "methods_finitedifferences_solvers_fdmbackwardsolver_fdmstepconditioncomposite"
-   ]
-  },
-  {
-   "label": "Black variance surface",
-   "size": 36,
-   "anchors": [
-    "termstructures_volatility_equityfx_blackvariancesurface_blackvariancesurface",
-    "termstructures_volatility_equityfx_all",
-    "termstructures_volatility_equityfx_blackvariancesurface",
-    "termstructures_volatility_equityfx_blackvariancesurface_blackvariancesurface_blackvariancesurface",
-    "termstructures_volatility_equityfx_blackvariancesurface_blackvariancesurface_blackvarianceimpl",
-    "termstructures_volatility_equityfx_blackvariancesurface_blackvariancesurface_accept",
-    "termstructures_volatility_equityfx_andreasenhugelocalvoladapter_andreasenhugelocalvoladapter_andreasenhugelocalvoladapter",
-    "termstructures_volatility_equityfx_blackvariancesurface_blackvariancesurface_upperextrapolation",
-    "termstructures_volatility_equityfx_blackvariancesurface_hpp_real",
-    "termstructures_volatility_equityfx_blackvariancesurface_blackvariancesurface_daycounter",
-    "termstructures_volatility_equityfx_blackvariancesurface_blackvariancesurface_maxdate",
-    "termstructures_volatility_equityfx_blackvariancesurface_blackvariancesurface_maxstrike",
-    "termstructures_volatility_equityfx_blackvariancesurface_blackvariancesurface_minstrike",
-    "termstructures_volatility_equityfx_blackvariancesurface_blackvariancesurface_variancesurface",
-    "termstructures_volatility_equityfx_blackvariancesurface_cpp_real"
+    "termstructures_volatility_swaption_cmsmarketcalibration_objectivefunction",
+    "termstructures_volatility_swaption_cmsmarketcalibration_cpp_array",
+    "termstructures_volatility_swaption_cmsmarketcalibration_cpp_real",
+    "termstructures_volatility_swaption_cmsmarketcalibration_cmsmarketcalibration_betatransformdirect",
+    "termstructures_volatility_swaption_cmsmarketcalibration_cmsmarketcalibration_reversiontransformdirect",
+    "termstructures_volatility_swaption_cmsmarketcalibration_objectivefunction_value",
+    "termstructures_volatility_swaption_cmsmarketcalibration_objectivefunction6_updatevolatilitycubeandcmsmarket",
+    "termstructures_volatility_swaption_cmsmarketcalibration_cmsmarketcalibration_cmsmarketcalibration",
+    "termstructures_volatility_swaption_cmsmarketcalibration_objectivefunction2",
+    "termstructures_volatility_swaption_cmsmarketcalibration_objectivefunction4",
+    "termstructures_volatility_swaption_cmsmarketcalibration_objectivefunction5",
+    "cmsmarket",
+    "termstructures_volatility_swaption_cmsmarketcalibration_objectivefunction3_updatevolatilitycubeandcmsmarket",
+    "termstructures_volatility_swaption_cmsmarketcalibration_objectivefunction4_updatevolatilitycubeandcmsmarket",
+    "termstructures_volatility_swaption_cmsmarketcalibration_objectivefunction5_updatevolatilitycubeandcmsmarket"
    ]
   },
   {
    "label": "G2 short-rate FD operator",
-   "size": 35,
+   "size": 34,
    "anchors": [
     "methods_finitedifferences_operators_fdmg2op_fdmg2op",
     "methods_finitedifferences_operators_fdmg2op_cpp_array",
@@ -775,12 +670,12 @@
     "methods_finitedifferences_operators_fdmg2op_fdmg2op_size",
     "methods_finitedifferences_operators_fdmg2op_cpp_g2",
     "methods_finitedifferences_operators_fdmg2op_cpp_real",
-    "methods_finitedifferences_operators_fdmg2op_g2"
+    "methods_finitedifferences_operators_fdmg2op_cpp_fdmmesher"
    ]
   },
   {
    "label": "Discrete-date swaption volatility base",
-   "size": 35,
+   "size": 34,
    "anchors": [
     "termstructures_volatility_swaption_swaptionvoldiscrete_swaptionvolatilitydiscrete",
     "methods_finitedifferences_utilities_localvolrndcalculator_interpolation",
@@ -800,29 +695,8 @@
    ]
   },
   {
-   "label": "Piecewise yield curve bootstrap",
-   "size": 36,
-   "anchors": [
-    "termstructures_yield_piecewiseyieldcurve_piecewiseyieldcurve",
-    "termstructures_all",
-    "termstructures_bootstraphelper_relativedatebootstraphelper_updatedates",
-    "termstructures_yield_piecewiseyieldcurve",
-    "termstructures_yield_piecewiseyieldcurve_piecewiseyieldcurve_piecewiseyieldcurve",
-    "termstructures_iterativebootstrap_iterativebootstrap_initialized",
-    "termstructures_yield_piecewiseyieldcurve_piecewiseyieldcurve_c_i_b_nodes",
-    "termstructures_yield_piecewiseyieldcurve_piecewiseyieldcurve_c_i_b_discountimpl",
-    "termstructures_multicurve_multicurve_update",
-    "termstructures_yield_piecewisespreadyieldcurve",
-    "termstructures_yield_piecewiseyieldcurve_piecewiseyieldcurve_c_i_b_maxdate",
-    "termstructures_yield_piecewiseyieldcurve_hpp_vector",
-    "termstructures_localbootstrap_penaltyfunction_curve",
-    "termstructures_yield_piecewiseyieldcurve_hpp_bootstrap_type",
-    "termstructures_yield_piecewiseyieldcurve_hpp_real"
-   ]
-  },
-  {
    "label": "CDS default-probability bootstrap helper",
-   "size": 35,
+   "size": 34,
    "anchors": [
     "termstructures_credit_defaultprobabilityhelpers_cdshelper",
     "termstructures_credit_defaultprobabilityhelpers",
@@ -838,7 +712,127 @@
     "termstructures_credit_defaultprobabilityhelpers_cdshelper_firstaccrualperiodstartdate",
     "termstructures_credit_defaultprobabilityhelpers_cdshelper_frequency",
     "termstructures_credit_defaultprobabilityhelpers_cdshelper_lastperioddc",
-    "termstructures_credit_defaultprobabilityhelpers_cdshelper_model"
+    "termstructures_credit_defaultprobabilityhelpers_cdshelper_paymentconvention"
+   ]
+  },
+  {
+   "label": "Piecewise yield curve bootstrap",
+   "size": 32,
+   "anchors": [
+    "termstructures_yield_piecewiseyieldcurve_piecewiseyieldcurve",
+    "termstructures_yield_piecewiseyieldcurve",
+    "termstructures_yield_piecewiseyieldcurve_piecewiseyieldcurve_piecewiseyieldcurve",
+    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_fittingmethod_calculate",
+    "termstructures_yield_piecewiseyieldcurve_piecewiseyieldcurve_c_i_b_nodes",
+    "termstructures_yield_piecewiseyieldcurve_piecewiseyieldcurve_c_i_b_discountimpl",
+    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_maxdate",
+    "termstructures_yield_piecewiseyieldcurve_piecewiseyieldcurve_c_i_b_maxdate",
+    "termstructures_yield_piecewiseyieldcurve_hpp_vector",
+    "termstructures_yield_piecewiseyieldcurve_hpp_bootstrap_type",
+    "termstructures_yield_piecewiseyieldcurve_hpp_real",
+    "termstructures_yield_piecewiseyieldcurve_hpp_shared_ptr",
+    "termstructures_yield_piecewiseyieldcurve_piecewiseyieldcurve_discountimpl",
+    "termstructures_yield_piecewiseyieldcurve_piecewiseyieldcurve_maxdate",
+    "termstructures_yield_piecewiseyieldcurve_piecewiseyieldcurve_multicurvebootstrapcontributor"
+   ]
+  },
+  {
+   "label": "Cap/floor term volatility curve",
+   "size": 30,
+   "anchors": [
+    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve",
+    "termstructures_volatility_capfloor_capfloortermvolcurve",
+    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve_volatilityimpl",
+    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve_maxdate",
+    "methods_finitedifferences_solvers_fdm1dimsolver_cubicinterpolation",
+    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve_initializeoptiondatesandtimes",
+    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve_interpolate",
+    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve_maxstrike",
+    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve_minstrike",
+    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve_update",
+    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve_checkinputs",
+    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve_interpolation",
+    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve_performcalculations",
+    "termstructures_volatility_capfloor_capfloortermvolcurve_capfloortermvolcurve_registerwithmarketdata",
+    "termstructures_volatility_capfloor_capfloortermvolcurve_hpp_real"
+   ]
+  },
+  {
+   "label": "Fitted bond discount curve",
+   "size": 31,
+   "anchors": [
+    "termstructures_yield_fittedbonddiscountcurve",
+    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_fittingmethod",
+    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_fittingmethod_discount",
+    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_discountimpl",
+    "termstructures_yield_fittedbonddiscountcurve_hpp_array",
+    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_fittingmethod_optimizationmethod",
+    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_fittingmethod_errorcode",
+    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_fittingmethod_l2",
+    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_fittingmethod_minimumcostvalue",
+    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_fittingmethod_numberofiterations",
+    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_fittingmethod_solution",
+    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_fittingmethod_weights",
+    "termstructures_yield_fittedbonddiscountcurve_hpp_real",
+    "termstructures_yield_fittedbonddiscountcurve_hpp_shared_ptr",
+    "termstructures_yield_fittedbonddiscountcurve_fittedbonddiscountcurve_fittingmethod_constrainatzero"
+   ]
+  },
+  {
+   "label": "Local volatility surface",
+   "size": 26,
+   "anchors": [
+    "termstructures_volatility_equityfx_localvolsurface_localvolsurface",
+    "termstructures_volatility_equityfx_localvolsurface",
+    "termstructures_volatility_equityfx_localvolsurface_localvolsurface_localvolimpl",
+    "termstructures_volatility_equityfx_localvolsurface_localvolsurface_localvolsurface",
+    "termstructures_volatility_equityfx_localvolsurface_cpp_real",
+    "termstructures_volatility_equityfx_localvolsurface_localvolsurface_accept",
+    "termstructures_volatility_equityfx_localvolsurface_localvolsurface_daycounter",
+    "termstructures_volatility_equityfx_localvolsurface_localvolsurface_maxdate",
+    "termstructures_volatility_equityfx_localvolsurface_localvolsurface_maxstrike",
+    "termstructures_volatility_equityfx_localvolsurface_localvolsurface_minstrike",
+    "termstructures_volatility_equityfx_localvolsurface_blackvoltermstructure",
+    "termstructures_volatility_equityfx_localvolsurface_quote",
+    "termstructures_volatility_equityfx_localvolsurface_yieldtermstructure",
+    "termstructures_volatility_equityfx_localvolsurface_cpp_acyclicvisitor",
+    "termstructures_volatility_equityfx_localvolsurface_cpp_blackvoltermstructure"
+   ]
+  },
+  {
+   "label": "One-dimensional FD backward solver",
+   "size": 25,
+   "anchors": [
+    "methods_finitedifferences_solvers_fdm1dimsolver_fdm1dimsolver",
+    "methods_finitedifferences_solvers_fdm2dblackscholessolver_hpp_handle",
+    "methods_finitedifferences_solvers_fdm1dimsolver",
+    "methods_finitedifferences_solvers_fdm1dimsolver_fdm1dimsolver_fdm1dimsolver",
+    "methods_finitedifferences_solvers_fdm1dimsolver_cpp_real",
+    "methods_finitedifferences_solvers_fdm1dimsolver_fdm1dimsolver_derivativex",
+    "methods_finitedifferences_solvers_fdm1dimsolver_fdm1dimsolver_derivativexx",
+    "methods_finitedifferences_solvers_fdm1dimsolver_fdm1dimsolver_interpolateat",
+    "methods_finitedifferences_solvers_fdm1dimsolver_fdm1dimsolver_thetaat",
+    "methods_finitedifferences_solvers_fdm1dimsolver_fdmsnapshotcondition",
+    "methods_finitedifferences_solvers_fdm1dimsolver_cpp_fdmlinearopcomposite",
+    "methods_finitedifferences_solvers_fdm1dimsolver_cpp_shared_ptr",
+    "methods_finitedifferences_solvers_fdm1dimsolver_fdm1dimsolver_conditions",
+    "methods_finitedifferences_solvers_fdm1dimsolver_fdm1dimsolver_interpolation",
+    "methods_finitedifferences_solvers_fdm1dimsolver_fdm1dimsolver_op"
+   ]
+  },
+  {
+   "label": "ZABR interpolated smile section",
+   "size": 9,
+   "anchors": [
+    "termstructures_volatility_zabrinterpolatedsmilesection_zabrinterpolatedsmilesection_evaluation_zabrinterpolatedsmilesection",
+    "termstructures_volatility_zabrinterpolatedsmilesection_hpp_rate",
+    "termstructures_volatility_zabrinterpolatedsmilesection_hpp_handle",
+    "termstructures_volatility_zabrinterpolatedsmilesection_hpp_optimizationmethod",
+    "termstructures_volatility_zabrinterpolatedsmilesection_hpp_quote",
+    "termstructures_volatility_zabrinterpolatedsmilesection_hpp_shared_ptr",
+    "termstructures_volatility_zabrinterpolatedsmilesection_hpp_vector",
+    "termstructures_volatility_zabrinterpolatedsmilesection_hpp_volatility",
+    "termstructures_volatility_zabrinterpolatedsmilesection_hpp_daycounter"
    ]
   }
  ]

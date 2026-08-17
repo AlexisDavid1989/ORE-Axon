@@ -3,10 +3,9 @@
  "communities": [
   {
    "label": "Two-asset and partial-time barrier engines",
-   "size": 103,
+   "size": 83,
    "anchors": [
     "pricingengines_barrier_analytictwoassetbarrierengine_analytictwoassetbarrierengine",
-    "pricingengines_barrier_analytictwoassetbarrierengine",
     "pricingengines_barrier_analyticpartialtimebarrieroptionengine_analyticpartialtimebarrieroptionengine",
     "pricingengines_barrier_analyticpartialtimebarrieroptionengine_cpp_real",
     "pricingengines_barrier_analytictwoassetbarrierengine_cpp_real",
@@ -19,28 +18,50 @@
     "pricingengines_barrier_analyticpartialtimebarrieroptionengine_analyticpartialtimebarrieroptionengine_covereventtime",
     "pricingengines_barrier_analytictwoassetbarrierengine_analytictwoassetbarrierengine_a",
     "pricingengines_barrier_analytictwoassetbarrierengine_analytictwoassetbarrierengine_underlying2",
-    "pricingengines_barrier_analytictwoassetbarrierengine_analytictwoassetbarrierengine_volatility2"
+    "pricingengines_barrier_analytictwoassetbarrierengine_analytictwoassetbarrierengine_volatility2",
+    "pricingengines_barrier_analyticpartialtimebarrieroptionengine_analyticpartialtimebarrieroptionengine_f1"
    ]
   },
   {
-   "label": "Fixed-vs-floating swap instrument",
-   "size": 72,
+   "label": "Credit default swap instrument",
+   "size": 67,
    "anchors": [
-    "instruments_fixedvsfloatingswap_fixedvsfloatingswap",
-    "instruments_fixedvsfloatingswap",
-    "instruments_fixedvsfloatingswap_fixedvsfloatingswap_arguments",
-    "instruments_fixedvsfloatingswap_fixedvsfloatingswap_fixedvsfloatingswap",
-    "instruments_fixedvsfloatingswap_fixedvsfloatingswap_results",
-    "instruments_fixedvsfloatingswap_cpp_real",
-    "instruments_fixedvsfloatingswap_fixedvsfloatingswap_fairrate",
-    "instruments_fixedvsfloatingswap_fixedvsfloatingswap_fairspread",
-    "instruments_fixedvsfloatingswap_fixedvsfloatingswap_fixedlegbps",
-    "instruments_fixedvsfloatingswap_fixedvsfloatingswap_fixedlegnpv",
-    "instruments_fixedvsfloatingswap_fixedvsfloatingswap_floatinglegbps",
-    "instruments_fixedvsfloatingswap_fixedvsfloatingswap_floatinglegnpv",
-    "instruments_fixedvsfloatingswap_hpp_spread",
-    "instruments_fixedvsfloatingswap_fixedvsfloatingswap_fetchresults",
-    "instruments_fixedvsfloatingswap_fixedvsfloatingswap_fixedrate"
+    "instruments_creditdefaultswap_creditdefaultswap",
+    "instruments_creditdefaultswap_cpp_real",
+    "instruments_creditdefaultswap_creditdefaultswap_creditdefaultswap",
+    "instruments_creditdefaultswap_creditdefaultswap_buildpricingengine",
+    "instruments_creditdefaultswap_creditdefaultswap_conventionalspread",
+    "instruments_creditdefaultswap_creditdefaultswap_impliedhazardrate",
+    "instruments_creditdefaultswap_cpp_rate",
+    "instruments_creditdefaultswap_creditdefaultswap_accrualrebatenpv",
+    "instruments_creditdefaultswap_creditdefaultswap_couponlegbps",
+    "instruments_creditdefaultswap_creditdefaultswap_couponlegnpv",
+    "instruments_creditdefaultswap_creditdefaultswap_defaultlegnpv",
+    "instruments_creditdefaultswap_creditdefaultswap_fairspread",
+    "instruments_creditdefaultswap_creditdefaultswap_fairspreadclean",
+    "instruments_creditdefaultswap_creditdefaultswap_fairspreaddirty",
+    "instruments_creditdefaultswap_creditdefaultswap_fairupfront"
+   ]
+  },
+  {
+   "label": "Year-on-year inflation swap instrument",
+   "size": 61,
+   "anchors": [
+    "instruments_yearonyearinflationswap_yearonyearinflationswap",
+    "instruments_yearonyearinflationswap",
+    "instruments_yearonyearinflationswap_yearonyearinflationswap_arguments",
+    "instruments_yearonyearinflationswap_yearonyearinflationswap_yearonyearinflationswap",
+    "instruments_yearonyearinflationswap_yearonyearinflationswap_results",
+    "instruments_yearonyearinflationswap_yearonyearinflationswap_nominal",
+    "instruments_yearonyearinflationswap_hpp_spread",
+    "instruments_yearonyearinflationswap_yearonyearinflationswap_fairrate",
+    "instruments_yearonyearinflationswap_yearonyearinflationswap_fairspread",
+    "instruments_yearonyearinflationswap_yearonyearinflationswap_fixedlegnpv",
+    "instruments_yearonyearinflationswap_yearonyearinflationswap_yoylegnpv",
+    "instruments_yearonyearinflationswap_cpp_real",
+    "instruments_yearonyearinflationswap_hpp_rate",
+    "instruments_yearonyearinflationswap_hpp_real",
+    "instruments_yearonyearinflationswap_hpp_type"
    ]
   },
   {
@@ -50,7 +71,6 @@
     "instruments_cpiswap_cpiswap",
     "instruments_cpiswap",
     "instruments_cpiswap_cpiswap_cpiswap",
-    "instruments_cpiswap_zeroinflationindex",
     "instruments_cpiswap_cpiswap_arguments",
     "instruments_cpiswap_cpiswap_results",
     "instruments_cpiswap_cpiswap_type",
@@ -61,91 +81,29 @@
     "instruments_cpiswap_cpiswap_floatlegnpv",
     "instruments_cpiswap_cpiswap_basecpi",
     "instruments_cpiswap_cpiswap_fetchresults",
-    "instruments_cpiswap_cpiswap_fixedrate"
+    "instruments_cpiswap_cpiswap_fixedrate",
+    "instruments_cpiswap_cpiswap_fixingdays"
    ]
   },
   {
-   "label": "Single-asset barrier and basket engines",
-   "size": 59,
+   "label": "Piecewise time-dependent analytic Heston engine",
+   "size": 55,
    "anchors": [
-    "pricingengines_barrier_analyticbarrierengine_analyticbarrierengine",
-    "pricingengines_basket_denglizhoubasketengine_denglizhoubasketengine",
-    "pricingengines_barrier_analyticbarrierengine_cpp_real",
-    "pricingengines_barrier_analyticbarrierengine_analyticbarrierengine_d",
-    "pricingengines_barrier_binomialbarrierengine_binomialbarrierengine",
-    "pricingengines_basket_denglizhoubasketengine_denglizhoubasketengine_calculate_vanilla_call",
-    "pricingengines_barrier_analyticbarrierengine_analyticbarrierengine_musigma",
-    "pricingengines_barrier_analyticbarrierengine_analyticbarrierengine_calculate",
-    "pricingengines_barrier_analyticbarrierengine_analyticbarrierengine_e",
-    "pricingengines_basket_denglizhoubasketengine_denglizhoubasketengine_i",
-    "pricingengines_barrier_analyticbarrierengine_analyticbarrierengine_rebate",
-    "pricingengines_barrier_analyticbarrierengine_analyticbarrierengine_c",
-    "pricingengines_basket_denglizhoubasketengine_denglizhoubasketengine_calculate",
-    "pricingengines_barrier_analyticbarrierengine_analyticbarrierengine_a",
-    "pricingengines_barrier_analyticbarrierengine_analyticbarrierengine_b"
-   ]
-  },
-  {
-   "label": "Year-on-year inflation swap instrument",
-   "size": 59,
-   "anchors": [
-    "instruments_yearonyearinflationswap_yearonyearinflationswap",
-    "instruments_yearonyearinflationswap",
-    "instruments_yearonyearinflationswap_yearonyearinflationswap_arguments",
-    "instruments_yearonyearinflationswap_yearonyearinflationswap_yearonyearinflationswap",
-    "instruments_yearonyearinflationswap_yearonyearinflationswap_results",
-    "instruments_yearonyearinflationswap_hpp_spread",
-    "instruments_yearonyearinflationswap_yearonyearinflationswap_fairrate",
-    "instruments_yearonyearinflationswap_yearonyearinflationswap_fairspread",
-    "instruments_yearonyearinflationswap_yearonyearinflationswap_fixedlegnpv",
-    "instruments_yearonyearinflationswap_yearonyearinflationswap_yoylegnpv",
-    "instruments_yearonyearinflationswap_cpp_real",
-    "instruments_yearonyearinflationswap_hpp_rate",
-    "instruments_yearonyearinflationswap_hpp_real",
-    "instruments_yearonyearinflationswap_hpp_type",
-    "instruments_yearonyearinflationswap_yearonyearinflationswap_fetchresults"
-   ]
-  },
-  {
-   "label": "Non-standard swap instrument",
-   "size": 57,
-   "anchors": [
-    "instruments_nonstandardswap_nonstandardswap",
-    "instruments_nonstandardswap_nonstandardswap_arguments",
-    "instruments_nonstandardswap",
-    "instruments_nonstandardswap_nonstandardswap_setuparguments",
-    "instruments_nonstandardswap_hpp_real",
-    "instruments_nonstandardswap_hpp_spread",
-    "instruments_nonstandardswap_hpp_type",
-    "instruments_nonstandardswap_iborindex",
-    "instruments_nonstandardswap_nonstandardswap_arguments_iborindex",
-    "instruments_nonstandardswap_nonstandardswap_fetchresults",
-    "instruments_nonstandardswap_nonstandardswap_gearing",
-    "instruments_nonstandardswap_nonstandardswap_paymentconvention",
-    "instruments_nonstandardswap_nonstandardswap_results",
-    "instruments_nonstandardswap_nonstandardswap_spread",
-    "instruments_nonstandardswap_nonstandardswap_type"
-   ]
-  },
-  {
-   "label": "Credit default swap instrument",
-   "size": 54,
-   "anchors": [
-    "instruments_creditdefaultswap_creditdefaultswap",
-    "instruments_creditdefaultswap_creditdefaultswap_creditdefaultswap",
-    "instruments_creditdefaultswap_cpp_rate",
-    "instruments_creditdefaultswap_creditdefaultswap_fairspread",
-    "instruments_creditdefaultswap_creditdefaultswap_fairspreadclean",
-    "instruments_creditdefaultswap_creditdefaultswap_fairspreaddirty",
-    "instruments_creditdefaultswap_creditdefaultswap_fairupfront",
-    "instruments_creditdefaultswap_creditdefaultswap_upfront",
-    "instruments_creditdefaultswap_creditdefaultswap_cashsettlementdays",
-    "instruments_creditdefaultswap_creditdefaultswap_init",
-    "instruments_creditdefaultswap_creditdefaultswap_notional",
-    "instruments_creditdefaultswap_creditdefaultswap_protectionpaymenttime",
-    "instruments_creditdefaultswap_creditdefaultswap_runningspread",
-    "instruments_creditdefaultswap_creditdefaultswap_setuparguments",
-    "instruments_creditdefaultswap_creditdefaultswap_side"
+    "pricingengines_vanilla_analyticptdhestonengine_analyticptdhestonengine",
+    "pricingengines_vanilla_analyticptdhestonengine_analyticptdhestonengine_fj_helper",
+    "pricingengines_vanilla_analyticptdhestonengine",
+    "pricingengines_vanilla_analyticptdhestonengine_analyticptdhestonengine_ap_helper",
+    "pricingengines_vanilla_analyticptdhestonengine_cpp_real",
+    "pricingengines_vanilla_analyticptdhestonengine_analyticptdhestonengine_analyticptdhestonengine",
+    "pricingengines_vanilla_analyticptdhestonengine_analyticptdhestonengine_ap_helper_ap_helper",
+    "pricingengines_vanilla_analyticptdhestonengine_analyticptdhestonengine_fj_helper_fj_helper",
+    "pricingengines_vanilla_analyticptdhestonengine_cpp_time",
+    "pricingengines_vanilla_analyticptdhestonengine_analyticptdhestonengine_calculate",
+    "pricingengines_vanilla_analyticptdhestonengine_analyticptdhestonengine_chf",
+    "pricingengines_vanilla_analyticptdhestonengine_analyticptdhestonengine_lnchf",
+    "pricingengines_vanilla_analyticptdhestonengine_cpp_size",
+    "pricingengines_vanilla_analyticptdhestonengine_analyticptdhestonengine_fj_helper_operator",
+    "pricingengines_vanilla_analyticptdhestonengine_analyticptdhestonengine_numberofevaluations"
    ]
   },
   {
@@ -160,13 +118,13 @@
     "pricingengines_exotic_analyticcompoundoptionengine_analyticcompoundoptionengine_dplus",
     "pricingengines_exotic_analyticcompoundoptionengine_analyticcompoundoptionengine_residualtimemother",
     "pricingengines_exotic_analyticcompoundoptionengine_analyticcompoundoptionengine_dplustau12",
-    "pricingengines_exotic_analyticcompoundoptionengine_analyticcompoundoptionengine_dminus",
+    "pricingengines_exotic_analyticcompoundoptionengine_analyticcompoundoptionengine_payoffdaughter",
     "pricingengines_exotic_analyticcompoundoptionengine_analyticcompoundoptionengine_residualtimemotherdaughter",
     "pricingengines_exotic_analyticcompoundoptionengine_analyticcompoundoptionengine_strikedaughter",
     "pricingengines_exotic_analyticcompoundoptionengine_analyticcompoundoptionengine_transformx",
     "pricingengines_exotic_analyticcompoundoptionengine_analyticcompoundoptionengine_volatilitydaughter",
     "pricingengines_exotic_analyticcompoundoptionengine_cpp_discountfactor",
-    "pricingengines_exotic_analyticcompoundoptionengine_analyticcompoundoptionengine_e"
+    "pricingengines_exotic_analyticcompoundoptionengine_analyticcompoundoptionengine_dminus"
    ]
   },
   {
@@ -176,9 +134,9 @@
     "pricingengines_futures_discountingperpetualfuturesengine_discountingperpetualfuturesengine",
     "pricingengines_vanilla_integralengine_integrand",
     "pricingengines_futures_discountingperpetualfuturesengine_discountingperpetualfuturesengine_discountingperpetualfuturesengine",
+    "pricingengines_vanilla_integralengine",
     "pricingengines_futures_discountingperpetualfuturesengine_discountingperpetualfuturesengine_calculate",
     "pricingengines_futures_discountingperpetualfuturesengine_discountingperpetualfuturesengine_selectinterpolation",
-    "pricingengines_vanilla_integralengine",
     "pricingengines_vanilla_integralengine_integralengine",
     "pricingengines_vanilla_integralengine_integrand_integrand",
     "pricingengines_futures_discountingperpetualfuturesengine_hpp_handle",
@@ -186,29 +144,29 @@
     "pricingengines_futures_discountingperpetualfuturesengine_discountingperpetualfuturesengine_assetspot",
     "pricingengines_futures_discountingperpetualfuturesengine_discountingperpetualfuturesengine_domesticdiscountcurve",
     "pricingengines_futures_discountingperpetualfuturesengine_discountingperpetualfuturesengine_foreigndiscountcurve",
-    "pricingengines_futures_discountingperpetualfuturesengine_discountingperpetualfuturesengine_fundingrates",
+    "pricingengines_futures_discountingperpetualfuturesengine_discountingperpetualfuturesengine_maxt",
     "pricingengines_futures_discountingperpetualfuturesengine_hpp_yieldtermstructure"
    ]
   },
   {
-   "label": "MC European basket engine",
+   "label": "Black-76 Greeks calculator",
    "size": 50,
    "anchors": [
-    "pricingengines_basket_mceuropeanbasketengine_mceuropeanbasketengine",
-    "pricingengines_basket_mceuropeanbasketengine",
-    "pricingengines_basket_mceuropeanbasketengine_makemceuropeanbasketengine",
-    "pricingengines_basket_mceuropeanbasketengine_europeanmultipathpricer",
-    "pricingengines_basket_mceuropeanbasketengine_hpp_shared_ptr",
-    "pricingengines_basket_mceuropeanbasketengine_mceuropeanbasketengine_rng_s_mceuropeanbasketengine",
-    "pricingengines_basket_mceuropeanbasketengine_europeanmultipathpricer_operator",
-    "pricingengines_basket_mceuropeanbasketengine_hpp_stochasticprocessarray",
-    "pricingengines_basket_mceuropeanbasketengine_mceuropeanbasketengine_pathgenerator",
-    "pricingengines_basket_mceuropeanbasketengine_europeanmultipathpricer_europeanmultipathpricer",
-    "pricingengines_basket_mceuropeanbasketengine_hpp_bignatural",
-    "pricingengines_basket_mceuropeanbasketengine_hpp_real",
-    "pricingengines_basket_mceuropeanbasketengine_hpp_size",
-    "pricingengines_basket_mceuropeanbasketengine_makemceuropeanbasketengine_process",
-    "pricingengines_basket_mceuropeanbasketengine_makemceuropeanbasketengine_rng_s_makemceuropeanbasketengine"
+    "pricingengines_blackcalculator_blackcalculator",
+    "pricingengines_blackcalculator",
+    "pricingengines_blackcalculator_cpp_real",
+    "pricingengines_asian_analytic_cont_geom_av_price_analyticcontinuousgeometricaveragepriceasianengine_calculate",
+    "pricingengines_blackcalculator_blackcalculator_theta",
+    "pricingengines_blackcalculator_blackcalculator_vega",
+    "pricingengines_blackcalculator_blackcalculator_blackcalculator",
+    "pricingengines_blackcalculator_blackcalculator_delta",
+    "pricingengines_blackcalculator_blackcalculator_gamma",
+    "pricingengines_blackcalculator_blackcalculator_thetaperday",
+    "pricingengines_blackcalculator_blackcalculator_value",
+    "pricingengines_blackcalculator_cpp_time",
+    "pricingengines_blackcalculator_hpp_real",
+    "pricingengines_asian_turnbullwakemanasianengine_turnbullwakemanasianengine_calculate",
+    "pricingengines_blackcalculator_blackcalculator_dividendrho"
    ]
   },
   {
@@ -216,8 +174,8 @@
    "size": 50,
    "anchors": [
     "pricingengines_cliquet_mcperformanceengine_mcperformanceengine",
-    "pricingengines_cliquet_mcperformanceengine_makemcperformanceengine",
     "pricingengines_cliquet_mcperformanceengine",
+    "pricingengines_cliquet_mcperformanceengine_makemcperformanceengine",
     "pricingengines_cliquet_mcperformanceengine_performanceoptionpathpricer",
     "pricingengines_cliquet_mcperformanceengine_hpp_shared_ptr",
     "pricingengines_cliquet_mcperformanceengine_mcperformanceengine_rng_s_mcperformanceengine",
@@ -233,6 +191,27 @@
    ]
   },
   {
+   "label": "MC Heston-Hull-White hybrid engine",
+   "size": 50,
+   "anchors": [
+    "pricingengines_vanilla_mchestonhullwhiteengine",
+    "pricingengines_vanilla_mchestonhullwhiteengine_makemchestonhullwhiteengine",
+    "pricingengines_vanilla_mchestonhullwhiteengine_mchestonhullwhiteengine",
+    "pricingengines_vanilla_mchestonhullwhiteengine_hestonhullwhitepathpricer",
+    "pricingengines_vanilla_mchestonhullwhiteengine_hpp_shared_ptr",
+    "pricingengines_vanilla_mchestonhullwhiteengine_hpp_hybridhestonhullwhiteprocess",
+    "pricingengines_vanilla_mchestonhullwhiteengine_mchestonhullwhiteengine_rng_s_mchestonhullwhiteengine",
+    "pricingengines_vanilla_mchestonhullwhiteengine_hestonhullwhitepathpricer_hestonhullwhitepathpricer",
+    "pricingengines_vanilla_mchestonhullwhiteengine_hestonhullwhitepathpricer_operator",
+    "pricingengines_vanilla_mchestonhullwhiteengine_makemchestonhullwhiteengine_rng_s_makemchestonhullwhiteengine",
+    "pricingengines_vanilla_mchestonhullwhiteengine_mchestonhullwhiteengine_calculate",
+    "pricingengines_vanilla_mchestonhullwhiteengine_mchestonhullwhiteengine_rng_s_controlpricingengine",
+    "pricingengines_vanilla_mchestonhullwhiteengine_ext_shared_ptr_pricingengine",
+    "pricingengines_vanilla_mchestonhullwhiteengine_hpp_bignatural",
+    "pricingengines_vanilla_mchestonhullwhiteengine_hpp_real"
+   ]
+  },
+  {
    "label": "Asset swap instrument",
    "size": 49,
    "anchors": [
@@ -240,64 +219,22 @@
     "instruments_assetswap_assetswap_arguments",
     "instruments_assetswap_assetswap_assetswap",
     "instruments_assetswap_assetswap_results",
-    "instruments_assetswap_assetswap_fairspread",
     "instruments_assetswap_cpp_real",
     "instruments_assetswap_hpp_real",
     "instruments_assetswap_assetswap_faircleanprice",
     "instruments_assetswap_assetswap_fairnonparrepayment",
+    "instruments_assetswap_assetswap_fairspread",
     "instruments_assetswap_assetswap_floatinglegbps",
     "instruments_assetswap_assetswap_floatinglegnpv",
     "instruments_assetswap_hpp_spread",
+    "instruments_assetswap_assetswap_arguments_arguments",
     "instruments_assetswap_assetswap_fetchresults",
-    "instruments_assetswap_assetswap_setuparguments",
-    "instruments_assetswap_assetswap_arguments_validate"
-   ]
-  },
-  {
-   "label": "Overnight index swap builder",
-   "size": 50,
-   "anchors": [
-    "instruments_makeois_makeois",
-    "instruments_makeois_hpp_businessdayconvention",
-    "instruments_makeois_hpp_date",
-    "instruments_makeois_hpp_daycounter",
-    "instruments_makeois_hpp_frequency",
-    "instruments_makeois_hpp_integer",
-    "instruments_makeois_hpp_natural",
-    "instruments_makeois_hpp_optional",
-    "instruments_makeois_hpp_overnightindex",
-    "instruments_makeois_hpp_pricingengine",
-    "instruments_makeois_hpp_rate",
-    "instruments_makeois_hpp_real",
-    "instruments_makeois_hpp_rule",
-    "instruments_makeois_hpp_shared_ptr",
-    "instruments_makeois_hpp_spread"
-   ]
-  },
-  {
-   "label": "MC variance swap engine",
-   "size": 49,
-   "anchors": [
-    "pricingengines_forward_mcvarianceswapengine_mcvarianceswapengine",
-    "pricingengines_forward_mcvarianceswapengine_makemcvarianceswapengine",
-    "pricingengines_forward_mcvarianceswapengine",
-    "pricingengines_forward_mcvarianceswapengine_hpp_shared_ptr",
-    "pricingengines_forward_mcvarianceswapengine_hpp_generalizedblackscholesprocess",
-    "pricingengines_forward_mcvarianceswapengine_integrand",
-    "pricingengines_forward_mcvarianceswapengine_variancepathpricer",
-    "pricingengines_forward_mcvarianceswapengine_mcvarianceswapengine_rng_s_mcvarianceswapengine",
-    "pricingengines_forward_mcvarianceswapengine_variancepathpricer_operator",
-    "pricingengines_forward_mcvarianceswapengine_hpp_real",
-    "pricingengines_forward_mcvarianceswapengine_hpp_path",
-    "pricingengines_forward_mcvarianceswapengine_integrand_integrand",
-    "pricingengines_forward_mcvarianceswapengine_integrand_operator",
-    "pricingengines_forward_mcvarianceswapengine_mcvarianceswapengine_pathgenerator",
-    "pricingengines_forward_mcvarianceswapengine_mcvarianceswapengine_timegrid"
+    "instruments_assetswap_assetswap_setuparguments"
    ]
   },
   {
    "label": "Bond price and yield calculation",
-   "size": 46,
+   "size": 48,
    "anchors": [
     "instruments_bond_bond",
     "instruments_bond_cpp_date",
@@ -317,12 +254,32 @@
    ]
   },
   {
+   "label": "Overnight index swap builder",
+   "size": 49,
+   "anchors": [
+    "instruments_makeois_makeois",
+    "instruments_makeois_hpp_businessdayconvention",
+    "instruments_makeois_hpp_date",
+    "instruments_makeois_hpp_daycounter",
+    "instruments_makeois_hpp_frequency",
+    "instruments_makeois_hpp_integer",
+    "instruments_makeois_hpp_natural",
+    "instruments_makeois_hpp_optional",
+    "instruments_makeois_hpp_overnightindex",
+    "instruments_makeois_hpp_pricingengine",
+    "instruments_makeois_hpp_rate",
+    "instruments_makeois_hpp_real",
+    "instruments_makeois_hpp_rule",
+    "instruments_makeois_hpp_shared_ptr",
+    "instruments_makeois_hpp_spread"
+   ]
+  },
+  {
    "label": "Constant maturity swap builder",
    "size": 47,
    "anchors": [
     "instruments_makecms_makecms",
     "instruments_makecms",
-    "instruments_makecms_swap",
     "instruments_makecms_iborindex",
     "cmscouponpricer",
     "instruments_makecms_hpp_businessdayconvention",
@@ -334,28 +291,8 @@
     "instruments_makecms_hpp_rule",
     "instruments_makecms_hpp_shared_ptr",
     "instruments_makecms_hpp_spread",
-    "instruments_makecms_makecms_cmscalendar"
-   ]
-  },
-  {
-   "label": "Amortizing, CMS and zero-coupon bonds",
-   "size": 38,
-   "anchors": [
-    "instruments_cpiswap_hpp_schedule",
-    "simplecashflow",
-    "instruments_bmaswap_hpp_iborindex",
-    "instruments_bonds_fixedratebond_fixedratebond",
-    "instruments_overnightindexfuture",
-    "instruments_bonds_all",
-    "bond",
-    "instruments_bonds_amortizingcmsratebond",
-    "instruments_bonds_amortizingfloatingratebond",
-    "instruments_bonds_cmsratebond",
-    "instruments_makecms_hpp_swapindex",
-    "instruments_multipleresetsswap",
-    "pricingengines_swaption_basketgeneratingengine",
-    "instruments_bonds_zerocouponbond",
-    "instruments_bonds_zerocouponbond_zerocouponbond_zerocouponbond"
+    "instruments_makecms_makecms_cmscalendar",
+    "instruments_makecms_makecms_cmscap"
    ]
   },
   {
@@ -401,48 +338,6 @@
    ]
   },
   {
-   "label": "Multiple-resets swap builder",
-   "size": 44,
-   "anchors": [
-    "instruments_makemultipleresetsswap_makemultipleresetsswap",
-    "instruments_makemultipleresetsswap",
-    "instruments_multipleresetsswap_multipleresetsswap",
-    "instruments_makemultipleresetsswap_makemultipleresetsswap_makemultipleresetsswap",
-    "instruments_makemultipleresetsswap_makemultipleresetsswap_operator_ext_shared_ptr_multipleresetsswap_const",
-    "instruments_multipleresetsswap_multipleresetsswap_fullresetschedule",
-    "instruments_makemultipleresetsswap_makemultipleresetsswap_effectivedate",
-    "instruments_multipleresetsswap_hpp_size",
-    "instruments_multipleresetsswap_hpp_type",
-    "instruments_multipleresetsswap_multipleresetsswap_averagingmethod",
-    "instruments_multipleresetsswap_multipleresetsswap_resetspercoupon",
-    "instruments_makemultipleresetsswap_cpp_iborindex",
-    "instruments_makemultipleresetsswap_cpp_shared_ptr",
-    "instruments_makemultipleresetsswap_cpp_size",
-    "instruments_makemultipleresetsswap_hpp_businessdayconvention"
-   ]
-  },
-  {
-   "label": "Black-76 Greeks calculator",
-   "size": 43,
-   "anchors": [
-    "pricingengines_blackcalculator_blackcalculator",
-    "pricingengines_blackcalculator_cpp_real",
-    "pricingengines_asian_all",
-    "pricingengines_asian_analytic_cont_geom_av_price_analyticcontinuousgeometricaveragepriceasianengine_calculate",
-    "pricingengines_blackcalculator_blackcalculator_theta",
-    "pricingengines_blackcalculator_blackcalculator_vega",
-    "pricingengines_blackcalculator_blackcalculator_blackcalculator",
-    "pricingengines_blackcalculator_blackcalculator_delta",
-    "pricingengines_blackcalculator_blackcalculator_gamma",
-    "pricingengines_blackcalculator_blackcalculator_value",
-    "pricingengines_blackcalculator_cpp_time",
-    "pricingengines_asian_turnbullwakemanasianengine_turnbullwakemanasianengine_calculate",
-    "pricingengines_blackcalculator_blackcalculator_dividendrho",
-    "pricingengines_blackcalculator_blackcalculator_rho",
-    "pricingengines_blackcalculator_blackcalculator_vanna"
-   ]
-  },
-  {
    "label": "Finite-difference CIR vanilla engine",
    "size": 44,
    "anchors": [
@@ -454,13 +349,13 @@
     "pricingengines_vanilla_fdcirvanillaengine_fdcirvanillaengine_getsolverdesc",
     "pricingengines_vanilla_fdcirvanillaengine_makefdcirvanillaengine_makefdcirvanillaengine",
     "pricingengines_vanilla_fdcirvanillaengine_cpp_real",
+    "pricingengines_vanilla_fdcirvanillaengine_fdcirvanillaengine_schemedesc",
     "pricingengines_vanilla_fdcirvanillaengine_fdmquantohelper",
     "pricingengines_vanilla_fdcirvanillaengine_cpp_generalizedblackscholesprocess",
     "pricingengines_vanilla_fdcirvanillaengine_cpp_shared_ptr",
     "pricingengines_vanilla_fdcirvanillaengine_fdcirvanillaengine_calculate",
     "pricingengines_vanilla_fdcirvanillaengine_hpp_dividendschedule",
-    "pricingengines_vanilla_fdcirvanillaengine_hpp_fdmschemedesc",
-    "pricingengines_vanilla_fdcirvanillaengine_hpp_generalizedblackscholesprocess"
+    "pricingengines_vanilla_fdcirvanillaengine_hpp_fdmschemedesc"
    ]
   },
   {
@@ -485,69 +380,6 @@
    ]
   },
   {
-   "label": "Black and Bachelier formula functions",
-   "size": 40,
-   "anchors": [
-    "instruments_payoffs_plainvanillapayoff",
-    "pricingengines_blackformula_cpp_real",
-    "pricingengines_blackformula_blackformula",
-    "pricingengines_blackformula_np",
-    "pricingengines_blackformula_cpp_shared_ptr",
-    "pricingengines_blackformula_cpp_type",
-    "pricingengines_blackformula_checkparameters",
-    "pricingengines_blackformula_phi",
-    "pricingengines_blackformula_blackformulastddevderivative",
-    "pricingengines_blackformula_bachelierblackformula",
-    "pricingengines_blackformula_blackformulaimpliedstddev",
-    "pricingengines_blackformula_bachelierblackformulastddevderivative",
-    "pricingengines_blackformula_blackformulaimpliedstddevchambers",
-    "pricingengines_blackformula_blackformulaimpliedstddevlirs",
-    "pricingengines_blackformula_blackformulaassetitmprobability"
-   ]
-  },
-  {
-   "label": "Piecewise time-dependent analytic Heston engine",
-   "size": 41,
-   "anchors": [
-    "pricingengines_vanilla_analyticptdhestonengine_analyticptdhestonengine_fj_helper",
-    "pricingengines_vanilla_analyticptdhestonengine_analyticptdhestonengine_ap_helper",
-    "pricingengines_vanilla_analyticptdhestonengine_cpp_real",
-    "pricingengines_vanilla_analyticptdhestonengine_analyticptdhestonengine_analyticptdhestonengine",
-    "pricingengines_vanilla_analyticptdhestonengine_analyticptdhestonengine_ap_helper_ap_helper",
-    "pricingengines_vanilla_analyticptdhestonengine_analyticptdhestonengine_fj_helper_fj_helper",
-    "pricingengines_vanilla_analyticptdhestonengine_cpp_time",
-    "pricingengines_vanilla_analyticptdhestonengine_analyticptdhestonengine_calculate",
-    "pricingengines_vanilla_analyticptdhestonengine_analyticptdhestonengine_chf",
-    "pricingengines_vanilla_analyticptdhestonengine_analyticptdhestonengine_lnchf",
-    "pricingengines_vanilla_analyticptdhestonengine_cpp_size",
-    "pricingengines_vanilla_analyticptdhestonengine_analyticptdhestonengine_fj_helper_operator",
-    "pricingengines_vanilla_analyticptdhestonengine_analyticptdhestonengine_numberofevaluations",
-    "pricingengines_vanilla_analyticptdhestonengine_cpp_piecewisetimedependenthestonmodel",
-    "pricingengines_vanilla_analyticptdhestonengine_analyticptdhestonengine_ap_helper_operator"
-   ]
-  },
-  {
-   "label": "MC Heston-Hull-White hybrid engine",
-   "size": 42,
-   "anchors": [
-    "pricingengines_vanilla_mchestonhullwhiteengine",
-    "pricingengines_vanilla_mchestonhullwhiteengine_makemchestonhullwhiteengine",
-    "pricingengines_vanilla_mchestonhullwhiteengine_mchestonhullwhiteengine",
-    "pricingengines_vanilla_mchestonhullwhiteengine_hestonhullwhitepathpricer",
-    "pricingengines_vanilla_mchestonhullwhiteengine_hpp_shared_ptr",
-    "pricingengines_vanilla_mchestonhullwhiteengine_mchestonhullwhiteengine_rng_s_mchestonhullwhiteengine",
-    "pricingengines_vanilla_mchestonhullwhiteengine_hpp_hybridhestonhullwhiteprocess",
-    "pricingengines_vanilla_mchestonhullwhiteengine_makemchestonhullwhiteengine_rng_s_makemchestonhullwhiteengine",
-    "pricingengines_vanilla_mchestonhullwhiteengine_mchestonhullwhiteengine_rng_s_controlpricingengine",
-    "pricingengines_vanilla_mchestonhullwhiteengine_ext_shared_ptr_pricingengine",
-    "pricingengines_vanilla_mchestonhullwhiteengine_hpp_bignatural",
-    "pricingengines_vanilla_mchestonhullwhiteengine_hpp_real",
-    "pricingengines_vanilla_mchestonhullwhiteengine_hpp_size",
-    "pricingengines_vanilla_mchestonhullwhiteengine_mchestonhullwhiteengine_rng_s_controlpathgenerator",
-    "pricingengines_vanilla_mchestonhullwhiteengine_mchestonhullwhiteengine_rng_s_controlpathpricer"
-   ]
-  },
-  {
    "label": "Ratchet and sticky option payoffs",
    "size": 40,
    "anchors": [
@@ -558,14 +390,35 @@
     "instruments_stickyratchet_ratchetmaxpayoff",
     "instruments_stickyratchet_ratchetminpayoff",
     "instruments_stickyratchet_ratchetpayoff",
+    "instruments_stickyratchet_ratchetpayoff_ratchetpayoff",
     "instruments_stickyratchet_stickymaxpayoff",
-    "instruments_stickyratchet_stickymaxpayoff_stickymaxpayoff",
     "instruments_stickyratchet_stickyminpayoff",
     "instruments_stickyratchet_stickypayoff",
     "instruments_stickyratchet_doublestickyratchetpayoff_accept",
     "instruments_stickyratchet_doublestickyratchetpayoff_description",
     "instruments_stickyratchet_doublestickyratchetpayoff_name",
     "instruments_stickyratchet_doublestickyratchetpayoff_operator"
+   ]
+  },
+  {
+   "label": "Vanilla swing option instrument",
+   "size": 39,
+   "anchors": [
+    "instruments_vanillaswingoption",
+    "instruments_vanillaswingoption_vanillaswingoption_arguments",
+    "instruments_vanillaswingoption_swingexercise",
+    "instruments_vanillaswingoption_vanillaswingoption",
+    "instruments_vanillaswingoption_swingexercise_exercisetimes",
+    "instruments_vanillaswingoption_vanillaforwardpayoff",
+    "instruments_vanillaswingoption_createdatetimes",
+    "instruments_vanillaswingoption_vanillaswingoption_vanillaswingoption",
+    "instruments_vanillaswingoption_hpp_size",
+    "instruments_vanillaswingoption_swingexercise_swingexercise",
+    "instruments_vanillaswingoption_vanillaforwardpayoff_accept",
+    "instruments_vanillaswingoption_cpp_date",
+    "instruments_vanillaswingoption_cpp_vector",
+    "instruments_vanillaswingoption_vanillaforwardpayoff_operator",
+    "instruments_vanillaswingoption_vanillaforwardpayoff_vanillaforwardpayoff"
    ]
   },
   {
@@ -582,11 +435,53 @@
     "instruments_bmaswap_bmaswap_indexlegnpv",
     "instruments_bmaswap_bmaswap_bmalegbps",
     "instruments_bmaswap_bmaswap_fairindexspread",
-    "instruments_bmaswap_bmaswap_type",
     "instruments_bmaswap_bmaswap_indexfraction",
     "instruments_bmaswap_bmaswap_indexspread",
     "instruments_bmaswap_bmaswap_nominal",
+    "instruments_bmaswap_bmaswap_type",
     "instruments_bmaswap_cpp_spread"
+   ]
+  },
+  {
+   "label": "CDS engine arguments and results",
+   "size": 40,
+   "anchors": [
+    "instruments_creditdefaultswap",
+    "instruments_creditdefaultswap_creditdefaultswap_arguments",
+    "instruments_creditdefaultswap_creditdefaultswap_results",
+    "instruments_creditdefaultswap_claim",
+    "instruments_creditdefaultswap_hpp_date",
+    "instruments_creditdefaultswap_hpp_rate",
+    "instruments_creditdefaultswap_hpp_real",
+    "instruments_creditdefaultswap_creditdefaultswap_maturity",
+    "instruments_creditdefaultswap_creditdefaultswap_results_reset",
+    "instruments_creditdefaultswap_hpp_leg",
+    "instruments_creditdefaultswap_hpp_optional",
+    "instruments_creditdefaultswap_hpp_protectionpaymenttime",
+    "instruments_creditdefaultswap_hpp_shared_ptr",
+    "instruments_creditdefaultswap_hpp_side",
+    "instruments_creditdefaultswap_creditdefaultswap_arguments_accrualrebate"
+   ]
+  },
+  {
+   "label": "Black and Bachelier formula functions",
+   "size": 39,
+   "anchors": [
+    "instruments_payoffs_plainvanillapayoff",
+    "pricingengines_blackformula_cpp_real",
+    "pricingengines_blackformula_blackformula",
+    "pricingengines_blackformula_cpp_shared_ptr",
+    "pricingengines_blackformula_cpp_type",
+    "pricingengines_blackformula_checkparameters",
+    "pricingengines_blackformula_phi",
+    "pricingengines_blackformula_blackformulastddevderivative",
+    "pricingengines_blackformula_bachelierblackformula",
+    "pricingengines_blackformula_blackformulaimpliedstddev",
+    "pricingengines_blackformula_bachelierblackformulastddevderivative",
+    "pricingengines_blackformula_blackformulaimpliedstddevchambers",
+    "pricingengines_blackformula_blackformulaimpliedstddevlirs",
+    "pricingengines_blackformula_blackformulaassetitmprobability",
+    "pricingengines_blackformula_blackformulaforwardderivative"
    ]
   },
   {
@@ -611,50 +506,8 @@
    ]
   },
   {
-   "label": "CDS engine arguments and results",
-   "size": 38,
-   "anchors": [
-    "instruments_creditdefaultswap",
-    "instruments_creditdefaultswap_creditdefaultswap_arguments",
-    "instruments_creditdefaultswap_creditdefaultswap_results",
-    "instruments_creditdefaultswap_claim",
-    "instruments_creditdefaultswap_hpp_rate",
-    "instruments_creditdefaultswap_hpp_real",
-    "instruments_creditdefaultswap_creditdefaultswap_results_reset",
-    "instruments_creditdefaultswap_hpp_leg",
-    "instruments_creditdefaultswap_hpp_optional",
-    "instruments_creditdefaultswap_hpp_protectionpaymenttime",
-    "instruments_creditdefaultswap_hpp_shared_ptr",
-    "instruments_creditdefaultswap_hpp_side",
-    "instruments_creditdefaultswap_creditdefaultswap_arguments_accrualrebate",
-    "instruments_creditdefaultswap_creditdefaultswap_arguments_accrualrebatecurrent",
-    "instruments_creditdefaultswap_creditdefaultswap_arguments_claim"
-   ]
-  },
-  {
-   "label": "Risky bond and CDS engines",
-   "size": 35,
-   "anchors": [
-    "instruments_bonds_btp_hpp_yieldtermstructure",
-    "instruments_callabilityschedule_hpp_optional",
-    "instruments_swaption",
-    "pricingengines_swap_discountingswapengine",
-    "instruments_vanillaswap_vanillaswap",
-    "pricingengines_credit_midpointcdsengine",
-    "instruments_bonds_btp_hpp_handle",
-    "pricingengines_credit_isdacdsengine",
-    "instruments_makevanillaswap",
-    "instruments_vanillaswap",
-    "pricingengines_bond_riskybondengine_riskybondengine",
-    "pricingengines_bond_discountingbondengine",
-    "pricingengines_bond_riskybondengine",
-    "pricingengines_credit_integralcdsengine",
-    "pricingengines_futures_discountingperpetualfuturesengine"
-   ]
-  },
-  {
    "label": "Longstaff-Schwartz American MC engine",
-   "size": 37,
+   "size": 38,
    "anchors": [
     "pricingengines_mclongstaffschwartzengine_mclongstaffschwartzengine",
     "pricingengines_mclongstaffschwartzengine",
@@ -663,98 +516,56 @@
     "pricingengines_mclongstaffschwartzengine_mclongstaffschwartzengine_genericengine_mc_rng_s_rng_calibration_calculate",
     "pricingengines_mclongstaffschwartzengine_mclongstaffschwartzengine_genericengine_mc_rng_s_rng_calibration_pathgenerator",
     "pricingengines_mclongstaffschwartzengine_mclongstaffschwartzengine_timegrid",
+    "pricingengines_basket_mcamericanbasketengine_hpp_longstaffschwartzpathpricer",
     "pricingengines_mclongstaffschwartzengine_hpp_bignatural",
     "pricingengines_mclongstaffschwartzengine_hpp_real",
     "pricingengines_mclongstaffschwartzengine_hpp_size",
     "pricingengines_mclongstaffschwartzengine_hpp_stochasticprocess",
     "pricingengines_mclongstaffschwartzengine_mclongstaffschwartzengine_genericengine_mc_rng_s_rng_calibration_pathpricer",
     "pricingengines_mclongstaffschwartzengine_mclongstaffschwartzengine_genericengine_mc_rng_s_rng_calibration_timegrid",
-    "pricingengines_mclongstaffschwartzengine_mclongstaffschwartzengine_lsmpathpricer",
-    "path_type"
+    "pricingengines_mclongstaffschwartzengine_mclongstaffschwartzengine_lsmpathpricer"
    ]
   },
   {
-   "label": "Vanilla swing option instrument",
-   "size": 35,
+   "label": "MC European basket engine",
+   "size": 38,
    "anchors": [
-    "instruments_vanillaswingoption",
-    "instruments_vanillaswingoption_vanillaswingoption_arguments",
-    "instruments_vanillaswingoption_swingexercise",
-    "instruments_vanillaswingoption_vanillaswingoption",
-    "instruments_vanillaswingoption_swingexercise_exercisetimes",
-    "instruments_vanillaswingoption_createdatetimes",
-    "instruments_vanillaswingoption_vanillaforwardpayoff_name",
-    "instruments_vanillaswingoption_vanillaswingoption_vanillaswingoption",
-    "instruments_vanillaswingoption_hpp_size",
-    "instruments_vanillaswingoption_swingexercise_swingexercise",
-    "instruments_vanillaswingoption_cpp_date",
-    "instruments_vanillaswingoption_cpp_vector",
-    "instruments_vanillaswingoption_vanillaforwardpayoff_operator",
-    "instruments_vanillaswingoption_vanillaswingoption_setuparguments",
-    "instruments_vanillaswingoption_cpp_size"
-   ]
-  },
-  {
-   "label": "Callability schedule for callable bonds",
-   "size": 36,
-   "anchors": [
-    "swap",
-    "instruments_assetswap",
-    "instruments_assetswap_hpp_bond",
-    "instruments_bonds_amortizingfixedratebond_hpp_daycounter",
-    "instruments_callabilityschedule_callability",
-    "instruments_bonds_amortizingfixedratebond",
-    "event",
-    "instruments_callabilityschedule",
-    "instruments_bonds_cpibond",
-    "instruments_bonds_fixedratebond",
-    "instruments_callabilityschedule_hpp_interestrate",
-    "instruments_simplifynotificationgraph",
-    "instruments_bonds_amortizingfixedratebond_amortizingfixedratebond",
-    "instruments_callabilityschedule_callability_callability",
-    "instruments_bonds_amortizingfixedratebond_amortizingfixedratebond_frequency"
+    "pricingengines_basket_mceuropeanbasketengine_mceuropeanbasketengine",
+    "pricingengines_basket_mceuropeanbasketengine",
+    "pricingengines_basket_mceuropeanbasketengine_makemceuropeanbasketengine",
+    "pricingengines_basket_mceuropeanbasketengine_hpp_shared_ptr",
+    "pricingengines_basket_mceuropeanbasketengine_mceuropeanbasketengine_rng_s_mceuropeanbasketengine",
+    "pricingengines_basket_mceuropeanbasketengine_hpp_stochasticprocessarray",
+    "pricingengines_basket_mceuropeanbasketengine_mceuropeanbasketengine_pathgenerator",
+    "pricingengines_basket_mceuropeanbasketengine_hpp_bignatural",
+    "pricingengines_basket_mceuropeanbasketengine_hpp_real",
+    "pricingengines_basket_mceuropeanbasketengine_hpp_size",
+    "pricingengines_basket_mceuropeanbasketengine_makemceuropeanbasketengine_rng_s_makemceuropeanbasketengine",
+    "pricingengines_basket_mceuropeanbasketengine_ext_shared_ptr_pricingengine",
+    "pricingengines_basket_mceuropeanbasketengine_mceuropeanbasketengine_rng_s_pathpricer",
+    "pricingengines_basket_mceuropeanbasketengine_mceuropeanbasketengine_rng_s_timegrid",
+    "pricingengines_basket_mceuropeanbasketengine_mceuropeanbasketengine_timegrid"
    ]
   },
   {
    "label": "Finite-difference Heston-Hull-White vanilla engine",
-   "size": 35,
+   "size": 37,
    "anchors": [
     "pricingengines_vanilla_fdhestonhullwhitevanillaengine_fdhestonhullwhitevanillaengine",
+    "pricingengines_vanilla_fdhestonhullwhitevanillaengine",
     "pricingengines_vanilla_fdhestonhullwhitevanillaengine_fdhestonhullwhitevanillaengine_fdhestonhullwhitevanillaengine",
     "pricingengines_vanilla_fdhestonhullwhitevanillaengine_fdhestonhullwhitevanillaengine_enablemultiplestrikescaching",
+    "pricingengines_vanilla_fdhestonhullwhitevanillaengine_hpp_hullwhiteprocess",
     "pricingengines_vanilla_fdhestonhullwhitevanillaengine_fdhestonhullwhitevanillaengine_calculate",
-    "pricingengines_vanilla_fdhestonhullwhitevanillaengine_fdhestonhullwhitevanillaengine_tgrid",
-    "pricingengines_vanilla_fdhestonhullwhitevanillaengine_cpp_real",
     "pricingengines_vanilla_fdhestonhullwhitevanillaengine_fdhestonhullwhitevanillaengine_update",
+    "pricingengines_vanilla_fdhestonhullwhitevanillaengine_cpp_real",
     "pricingengines_vanilla_fdhestonhullwhitevanillaengine_cpp_dividendschedule",
     "pricingengines_vanilla_fdhestonhullwhitevanillaengine_cpp_fdmschemedesc",
     "pricingengines_vanilla_fdhestonhullwhitevanillaengine_cpp_hestonmodel",
     "pricingengines_vanilla_fdhestonhullwhitevanillaengine_cpp_hullwhiteprocess",
     "pricingengines_vanilla_fdhestonhullwhitevanillaengine_cpp_shared_ptr",
     "pricingengines_vanilla_fdhestonhullwhitevanillaengine_cpp_size",
-    "pricingengines_vanilla_fdhestonhullwhitevanillaengine_cpp_vector",
-    "pricingengines_vanilla_fdhestonhullwhitevanillaengine_fdhestonhullwhitevanillaengine_cachedargs2results"
-   ]
-  },
-  {
-   "label": "Black-style swaption pricing engine",
-   "size": 35,
-   "anchors": [
-    "pricingengines_swaption_blackswaptionengine",
-    "pricingengines_diffusioncalculator",
-    "pricingengines_swaption_blackswaptionengine_blackstyleswaptionengine",
-    "pricingengines_swaption_blackswaptionengine_bachelierspec",
-    "pricingengines_swaption_blackswaptionengine_blackstyleswaptionengine_spec_blackstyleswaptionengine",
-    "pricingengines_swaption_blackswaptionengine_hpp_real",
-    "pricingengines_swaption_blackswaptionengine_black76spec",
-    "pricingengines_swaption_blackswaptionengine_bachelierspec_delta",
-    "pricingengines_swaption_blackswaptionengine_bachelierspec_value",
-    "pricingengines_swaption_blackswaptionengine_blackstyleswaptionengine_spec_calculate",
-    "pricingengines_swaption_blackswaptionengine_hpp_volatilitytype",
-    "pricingengines_swaption_blackswaptionengine_bachelierspec_vega",
-    "pricingengines_swaption_blackswaptionengine_black76spec_delta",
-    "pricingengines_swaption_blackswaptionengine_black76spec_value",
-    "pricingengines_swaption_blackswaptionengine_hpp_handle"
+    "pricingengines_vanilla_fdhestonhullwhitevanillaengine_cpp_vector"
    ]
   },
   {
@@ -779,13 +590,32 @@
    ]
   },
   {
+   "label": "Risky bond and CDS engines",
+   "size": 30,
+   "anchors": [
+    "instruments_all",
+    "instruments_vanillaoption_vanillaoption",
+    "instruments_bonds_btp_hpp_yieldtermstructure",
+    "instruments_callabilityschedule_hpp_optional",
+    "instruments_vanillaswap_vanillaswap",
+    "instruments_bonds_btp_hpp_handle",
+    "pricingengines_credit_isdacdsengine",
+    "pricingengines_credit_midpointcdsengine",
+    "instruments_makevanillaswap",
+    "instruments_vanillaswap",
+    "pricingengines_futures_discountingperpetualfuturesengine",
+    "pricingengines_swap_discountingswapengine",
+    "instruments_creditdefaultswap_creditdefaultswap_init",
+    "pricingengines_credit_integralcdsengine",
+    "pricingengines_swaption_basketgeneratingengine"
+   ]
+  },
+  {
    "label": "Finite-difference Heston vanilla engine",
-   "size": 35,
+   "size": 33,
    "anchors": [
     "pricingengines_vanilla_fdhestonvanillaengine_fdhestonvanillaengine",
-    "pricingengines_vanilla_fdhestonvanillaengine",
     "pricingengines_vanilla_fdhestonvanillaengine_makefdhestonvanillaengine",
-    "pricingengines_vanilla_fdhestonvanillaengine_fdmquantohelper",
     "pricingengines_vanilla_fdhestonvanillaengine_hpp_dividendschedule",
     "pricingengines_vanilla_fdhestonvanillaengine_hpp_fdmschemedesc",
     "pricingengines_vanilla_fdhestonvanillaengine_hpp_hestonmodel",
@@ -796,7 +626,151 @@
     "pricingengines_vanilla_fdhestonvanillaengine_fdhestonvanillaengine_dampingsteps",
     "pricingengines_vanilla_fdhestonvanillaengine_fdhestonvanillaengine_dividends",
     "pricingengines_vanilla_fdhestonvanillaengine_fdhestonvanillaengine_leveragefct",
-    "pricingengines_vanilla_fdhestonvanillaengine_fdhestonvanillaengine_mixingfactor"
+    "pricingengines_vanilla_fdhestonvanillaengine_fdhestonvanillaengine_mixingfactor",
+    "pricingengines_vanilla_fdhestonvanillaengine_fdhestonvanillaengine_quantohelper",
+    "pricingengines_vanilla_fdhestonvanillaengine_fdhestonvanillaengine_schemedesc"
+   ]
+  },
+  {
+   "label": "Single-asset barrier and basket engines",
+   "size": 30,
+   "anchors": [
+    "pricingengines_barrier_analyticbarrierengine_analyticbarrierengine",
+    "pricingengines_barrier_analyticbarrierengine_cpp_real",
+    "pricingengines_barrier_analyticbarrierengine_analyticbarrierengine_c",
+    "pricingengines_barrier_analyticbarrierengine_analyticbarrierengine_d",
+    "pricingengines_barrier_analyticbarrierengine_analyticbarrierengine_musigma",
+    "pricingengines_barrier_analyticbarrierengine_analyticbarrierengine_calculate",
+    "pricingengines_barrier_analyticbarrierengine_analyticbarrierengine_e",
+    "pricingengines_barrier_analyticbarrierengine_analyticbarrierengine_rebate",
+    "pricingengines_barrier_analyticbarrierengine_analyticbarrierengine_a",
+    "pricingengines_barrier_analyticbarrierengine_analyticbarrierengine_b",
+    "pricingengines_barrier_analyticbarrierengine_analyticbarrierengine_f",
+    "pricingengines_barrier_analyticbarrierengine_analyticbarrierengine_barrier",
+    "pricingengines_barrier_analyticbarrierengine_analyticbarrierengine_dividenddiscount",
+    "pricingengines_barrier_analyticbarrierengine_analyticbarrierengine_dividendyield",
+    "pricingengines_barrier_analyticbarrierengine_analyticbarrierengine_mu"
+   ]
+  },
+  {
+   "label": "Callability schedule for callable bonds",
+   "size": 27,
+   "anchors": [
+    "instruments_assetswap_hpp_bond",
+    "instruments_bonds_amortizingfixedratebond_hpp_daycounter",
+    "instruments_cpicapfloor",
+    "instruments_bonds_amortizingfixedratebond",
+    "instruments_bonds_amortizingcmsratebond",
+    "instruments_bonds_cpibond",
+    "bond",
+    "instruments_bonds_cmsratebond",
+    "instruments_bonds_fixedratebond",
+    "instruments_bonds_amortizingfloatingratebond",
+    "instruments_bonds_amortizingfixedratebond_amortizingfixedratebond",
+    "instruments_bonds_zerocouponbond",
+    "instruments_bonds_amortizingcmsratebond_amortizingcmsratebond",
+    "instruments_bonds_amortizingfixedratebond_amortizingfixedratebond_frequency",
+    "instruments_bonds_amortizingfixedratebond_hpp_frequency"
+   ]
+  },
+  {
+   "label": "Fixed-vs-floating swap instrument",
+   "size": 25,
+   "anchors": [
+    "instruments_fixedvsfloatingswap_fixedvsfloatingswap_fixedvsfloatingswap",
+    "instruments_fixedvsfloatingswap_cpp_real",
+    "instruments_fixedvsfloatingswap_fixedvsfloatingswap_fairrate",
+    "instruments_fixedvsfloatingswap_fixedvsfloatingswap_fairspread",
+    "instruments_fixedvsfloatingswap_fixedvsfloatingswap_fixedlegbps",
+    "instruments_fixedvsfloatingswap_fixedvsfloatingswap_fixedlegnpv",
+    "instruments_fixedvsfloatingswap_fixedvsfloatingswap_floatinglegbps",
+    "instruments_fixedvsfloatingswap_fixedvsfloatingswap_floatinglegnpv",
+    "instruments_fixedvsfloatingswap_fixedvsfloatingswap_fetchresults",
+    "instruments_fixedvsfloatingswap_fixedvsfloatingswap_setuparguments",
+    "instruments_fixedvsfloatingswap_cpp_rate",
+    "instruments_fixedvsfloatingswap_cpp_spread",
+    "instruments_fixedvsfloatingswap_fixedvsfloatingswap_arguments_validate",
+    "instruments_fixedvsfloatingswap_fixedvsfloatingswap_setupexpired",
+    "instruments_fixedvsfloatingswap_cpp_arguments"
+   ]
+  },
+  {
+   "label": "Non-standard swap instrument",
+   "size": 26,
+   "anchors": [
+    "instruments_nonstandardswap_nonstandardswap",
+    "instruments_nonstandardswap",
+    "instruments_nonstandardswap_hpp_real",
+    "instruments_nonstandardswap_hpp_spread",
+    "instruments_nonstandardswap_hpp_type",
+    "instruments_nonstandardswap_iborindex",
+    "instruments_nonstandardswap_nonstandardswap_gearing",
+    "instruments_nonstandardswap_nonstandardswap_paymentconvention",
+    "instruments_nonstandardswap_nonstandardswap_spread",
+    "instruments_nonstandardswap_nonstandardswap_type",
+    "instruments_nonstandardswap_hpp_businessdayconvention",
+    "instruments_nonstandardswap_hpp_vector",
+    "instruments_nonstandardswap_hpp_daycounter",
+    "instruments_nonstandardswap_hpp_schedule",
+    "instruments_nonstandardswap_nonstandardswap_finalcapitalexchange"
+   ]
+  },
+  {
+   "label": "Black-style swaption pricing engine",
+   "size": 20,
+   "anchors": [
+    "pricingengines_swaption_blackswaptionengine",
+    "pricingengines_diffusioncalculator",
+    "pricingengines_swaption_blackswaptionengine_hpp_real",
+    "pricingengines_swaption_blackswaptionengine_bachelierspec",
+    "pricingengines_swaption_blackswaptionengine_black76spec",
+    "pricingengines_swaption_blackswaptionengine_bachelierspec_delta",
+    "pricingengines_swaption_blackswaptionengine_bachelierspec_value",
+    "pricingengines_swaption_blackswaptionengine_blackstyleswaptionengine_spec_calculate",
+    "pricingengines_swaption_blackswaptionengine_hpp_volatilitytype",
+    "pricingengines_swaption_blackswaptionengine_bachelierspec_vega",
+    "pricingengines_swaption_blackswaptionengine_black76spec_delta",
+    "pricingengines_swaption_blackswaptionengine_black76spec_value",
+    "pricingengines_swaption_blackswaptionengine_hpp_type",
+    "pricingengines_swaption_blackswaptionengine_black76spec_vega",
+    "pricingengines_swaption_blackswaptionengine_bachelierswaptionengine"
+   ]
+  },
+  {
+   "label": "MC variance swap engine",
+   "size": 18,
+   "anchors": [
+    "pricingengines_forward_mcvarianceswapengine",
+    "pricingengines_forward_mcvarianceswapengine_hpp_shared_ptr",
+    "pricingengines_forward_mcvarianceswapengine_hpp_generalizedblackscholesprocess",
+    "pricingengines_forward_mcvarianceswapengine_integrand",
+    "pricingengines_forward_mcvarianceswapengine_variancepathpricer",
+    "pricingengines_forward_mcvarianceswapengine_variancepathpricer_operator",
+    "pricingengines_forward_mcvarianceswapengine_hpp_path",
+    "pricingengines_forward_mcvarianceswapengine_integrand_integrand",
+    "pricingengines_forward_mcvarianceswapengine_makemcvarianceswapengine_rng_s_makemcvarianceswapengine",
+    "pricingengines_forward_mcvarianceswapengine_variancepathpricer_variancepathpricer",
+    "pricingengines_forward_mcvarianceswapengine_ext_shared_ptr_pricingengine",
+    "pricingengines_forward_mcvarianceswapengine_mcvarianceswapengine_rng_s_pathpricer",
+    "pricingengines_forward_mcvarianceswapengine_mcvarianceswapengine_rng_s_timegrid",
+    "pricingengines_forward_mcvarianceswapengine_hpp_operator",
+    "pricingengines_forward_mcvarianceswapengine_hpp_timegrid"
+   ]
+  },
+  {
+   "label": "Multiple-resets swap builder",
+   "size": 10,
+   "anchors": [
+    "instruments_multipleresetsswap_multipleresetsswap",
+    "instruments_multipleresetsswap",
+    "instruments_makemultipleresetsswap_makemultipleresetsswap_operator_ext_shared_ptr_multipleresetsswap_const",
+    "instruments_multipleresetsswap_hpp_size",
+    "instruments_multipleresetsswap_hpp_type",
+    "instruments_multipleresetsswap_multipleresetsswap_averagingmethod",
+    "instruments_multipleresetsswap_multipleresetsswap_resetspercoupon",
+    "instruments_multipleresetsswap_hpp_schedule",
+    "instruments_multipleresetsswap_iborindex",
+    "instruments_multipleresetsswap_multipleresetsswap_fullresetschedule"
    ]
   }
  ]

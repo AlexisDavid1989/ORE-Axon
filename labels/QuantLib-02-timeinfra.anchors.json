@@ -3,13 +3,12 @@
  "communities": [
   {
    "label": "Cash flow and coupon base class",
-   "size": 101,
+   "size": 74,
    "anchors": [
     "cashflows_cashflows_cpp_date",
     "cashflows_cashflows_cpp_leg",
     "cashflows_cashflows_cashflows",
     "cashflows_cashflows_cpp_optional",
-    "cashflows_coupon_coupon",
     "cashflows_cashflows_cpp_real",
     "cashflows_cashflows_cashflows_nextcashflow",
     "cashflows_cashflows_cashflows_npv",
@@ -18,76 +17,77 @@
     "cashflows_cashflows_cpp_rate",
     "cashflows_cashflows_cashflows_bps",
     "cashflows_cashflows_cashflows_convexity",
-    "cashflows_coupon",
-    "cashflows_cashflows_bpscalculator"
+    "cashflows_cashflows_bpscalculator",
+    "cashflows_cashflows_cashflows_basispointvalue",
+    "cashflows_cashflows_cashflows_yield"
    ]
   },
   {
-   "label": "Calendar base class and country calendars (mixed)",
-   "size": 58,
+   "label": "Calendar base class and country calendars (mixed) / Null and weekends-only calendars (mixed)",
+   "size": 64,
    "anchors": [
     "time_calendar_calendar",
     "time_calendars_israel",
-    "time_calendars_target",
     "time_calendars_unitedstates",
     "time_calendars_denmark",
-    "time_calendars_romania",
-    "time_calendars_austria",
+    "time_calendars_sweden",
     "time_calendars_germany",
-    "time_calendars_russia",
-    "time_calendars_taiwan",
-    "time_calendars_hongkong",
+    "time_calendars_saudiarabia",
+    "time_calendars_china",
+    "time_calendars_finland",
+    "time_calendars_hungary",
     "time_calendars_jointcalendar",
-    "time_calendars_mexico",
     "time_calendars_norway",
-    "time_calendars_unitedkingdom"
+    "time_calendars_slovakia",
+    "time_calendars_unitedkingdom",
+    "time_calendars_southkorea"
    ]
   },
   {
    "label": "Floating rate coupon base class",
-   "size": 51,
+   "size": 61,
    "anchors": [
     "cashflows_floatingratecoupon_floatingratecoupon",
     "cashflows_floatingratecoupon",
     "cashflows_floatingratecoupon_floatingratecoupon_floatingratecoupon",
+    "cashflows_timebasket",
     "cashflows_floatingratecoupon_floatingratecoupon_adjustedfixing",
+    "cashflows_timebasket_timebasket",
     "cashflows_floatingratecoupon_floatingratecoupon_convexityadjustmentimpl",
     "cashflows_floatingratecoupon_floatingratecoupon_rate",
     "cashflows_floatingratecoupon_floatingratecoupon_convexityadjustment",
     "cashflows_floatingratecoupon_floatingratecoupon_price",
+    "cashflows_timebasket_timebasket_rebin",
+    "cashflows_timebasket_timebasket_timebasket",
     "cashflows_floatingratecoupon_floatingratecoupon_accept",
     "cashflows_floatingratecoupon_floatingratecoupon_accruedamount",
-    "cashflows_floatingratecoupon_floatingratecoupon_gearing",
-    "cashflows_floatingratecoupon_floatingratecoupon_indexfixing",
-    "cashflows_floatingratecoupon_floatingratecoupon_pricer",
-    "cashflows_floatingratecoupon_floatingratecoupon_setpricer",
-    "cashflows_floatingratecoupon_hpp_map"
+    "cashflows_floatingratecoupon_floatingratecoupon_gearing"
    ]
   },
   {
-   "label": "Digital coupon call/put payoff",
-   "size": 47,
+   "label": "ECB and ASX futures dates / Dividend cash flow and time-basket",
+   "size": 59,
    "anchors": [
-    "cashflows_digitalcoupon_digitalcoupon",
-    "cashflows_digitalcoupon_cpp_rate",
-    "cashflows_digitalcoupon_digitalcoupon_digitalcoupon",
-    "cashflows_digitalcoupon_digitalcoupon_performcalculations",
-    "cashflows_digitalcoupon_digitalcoupon_calloptionrate",
-    "cashflows_digitalcoupon_digitalcoupon_putoptionrate",
-    "cashflows_digitalcoupon_digitalcoupon_callpayoff",
-    "cashflows_digitalcoupon_digitalcoupon_callstrike",
-    "cashflows_digitalcoupon_digitalcoupon_putpayoff",
-    "cashflows_digitalcoupon_digitalcoupon_putstrike",
-    "cashflows_digitalcoupon_digitalcoupon_rate",
-    "cashflows_digitalcoupon_digitalcoupon_accept",
-    "cashflows_digitalcoupon_digitalcoupon_calldigitalpayoff",
-    "cashflows_digitalcoupon_digitalcoupon_convexityadjustment",
-    "cashflows_digitalcoupon_digitalcoupon_putdigitalpayoff"
+    "time_ecb",
+    "cashflows_dividend_dividend",
+    "time_asx",
+    "time_ecb_ecb",
+    "time_ecb_ecb_date",
+    "cashflows_dividend",
+    "time_asx_asx",
+    "cashflows_dividend_hpp_real",
+    "time_ecb_ecb_nextdate",
+    "cashflows_dividend_fractionaldividend",
+    "cashflows_iborcoupon_hpp_settings",
+    "time_ecb_ecb_code",
+    "cashflows_dividend_dividendvector",
+    "time_asx_asx_code",
+    "time_asx_asx_date"
    ]
   },
   {
    "label": "Year-on-year inflation coupon pricer",
-   "size": 45,
+   "size": 46,
    "anchors": [
     "cashflows_inflationcouponpricer_yoyinflationcouponpricer",
     "cashflows_inflationcouponpricer",
@@ -107,66 +107,87 @@
    ]
   },
   {
-   "label": "Libor market model swaption engine",
-   "size": 42,
+   "label": "Digital coupon call/put payoff",
+   "size": 43,
    "anchors": [
-    "legacy_libormarketmodels_liborforwardmodel_liborforwardmodel",
-    "legacy_libormarketmodels_lfmswaptionengine_lfmswaptionengine",
-    "legacy_libormarketmodels_lfmswaptionengine",
-    "legacy_libormarketmodels_liborforwardmodel_liborforwardmodel_discountbond",
-    "legacy_libormarketmodels_liborforwardmodel_liborforwardmodel_getswaptionvolatilitymatrix",
-    "legacy_libormarketmodels_liborforwardmodel_liborforwardmodel_s_0",
-    "legacy_libormarketmodels_liborforwardmodel_liborforwardmodel_w_0",
-    "legacy_libormarketmodels_lfmswaptionengine_lfmswaptionengine_lfmswaptionengine",
-    "legacy_libormarketmodels_liborforwardmodel_liborforwardmodel_discount",
-    "legacy_libormarketmodels_liborforwardmodel_liborforwardmodel_discountbondoption",
-    "legacy_libormarketmodels_liborforwardmodel_liborforwardmodel_liborforwardmodel",
-    "legacy_libormarketmodels_liborforwardmodel_cpp_array",
-    "legacy_libormarketmodels_liborforwardmodel_cpp_time",
-    "legacy_libormarketmodels_liborforwardmodel_liborforwardmodel_setparams",
-    "genericmodelengine"
+    "cashflows_digitalcoupon_digitalcoupon",
+    "cashflows_digitalcoupon_cpp_rate",
+    "cashflows_digitalcoupon_digitalcoupon_performcalculations",
+    "cashflows_digitalcoupon_digitalcoupon_calloptionrate",
+    "cashflows_digitalcoupon_digitalcoupon_putoptionrate",
+    "cashflows_digitalcoupon_digitalcoupon_callpayoff",
+    "cashflows_digitalcoupon_digitalcoupon_callstrike",
+    "cashflows_digitalcoupon_digitalcoupon_putpayoff",
+    "cashflows_digitalcoupon_digitalcoupon_putstrike",
+    "cashflows_digitalcoupon_digitalcoupon_rate",
+    "cashflows_digitalcoupon_digitalcoupon_accept",
+    "cashflows_digitalcoupon_digitalcoupon_calldigitalpayoff",
+    "cashflows_digitalcoupon_digitalcoupon_convexityadjustment",
+    "cashflows_digitalcoupon_digitalcoupon_putdigitalpayoff",
+    "cashflows_digitalcoupon_digitalcoupon_setpricer"
    ]
   },
   {
    "label": "Overnight index definitions",
-   "size": 39,
+   "size": 41,
    "anchors": [
     "cashflows_blackovernightindexedcouponpricer_hpp_iborindex",
-    "indexes_ibor_all",
+    "time_daycounters_actual365fixed",
     "overnightindex",
-    "indexes_ibor_estr",
-    "indexes_ibor_saron",
-    "indexes_ibor_kofr",
     "indexes_ibor_cdi",
+    "indexes_ibor_estr",
+    "indexes_ibor_sofr",
+    "indexes_ibor_corra",
+    "indexes_ibor_kofr",
     "indexes_ibor_eonia",
     "indexes_ibor_fedfunds",
-    "indexes_ibor_sofr",
     "indexes_ibor_sonia",
     "indexes_ibor_destr",
-    "indexes_ibor_swestr",
-    "indexes_ibor_aonia",
-    "indexes_ibor_aonia_aonia"
+    "indexes_ibor_nzocr",
+    "indexes_ibor_saron",
+    "indexes_ibor_aonia"
+   ]
+  },
+  {
+   "label": "Period length and units",
+   "size": 38,
+   "anchors": [
+    "time_period",
+    "time_period_period",
+    "time_period_operator",
+    "time_period_cpp_integer",
+    "cashflows_cashflows_yield",
+    "time_period_cpp_period",
+    "time_period_hpp_timeunit",
+    "time_period_period_period",
+    "time_period_daysminmax",
+    "time_period_long_period_holder",
+    "time_period_short_period_holder",
+    "cashflows_cashflows_hpp_frequency",
+    "time_period_cpp_real",
+    "time_period_days",
+    "time_period_hpp_integer"
    ]
   },
   {
    "label": "BBA Libor index definitions",
-   "size": 37,
+   "size": 38,
    "anchors": [
     "indexes_ibor_libor_libor",
-    "time_daycounters_actual360",
+    "time_daycounters_actual360_actual360",
     "indexes_ibor_jpylibor",
-    "indexes_ibor_nzdlibor",
+    "indexes_ibor_chflibor",
+    "indexes_ibor_chflibor_chflibor",
     "indexes_ibor_audlibor",
-    "indexes_ibor_audlibor_audlibor",
     "indexes_ibor_dkklibor",
     "indexes_ibor_libor_libor_maturitydate",
+    "indexes_ibor_nzdlibor",
     "indexes_ibor_seklibor",
+    "indexes_ibor_audlibor_audlibor",
+    "indexes_ibor_audlibor_audlibor_audlibor",
+    "indexes_ibor_chflibor_dailytenorchflibor",
     "indexes_ibor_dkklibor_dkklibor",
-    "indexes_ibor_dkklibor_dkklibor_dkklibor",
-    "indexes_ibor_fedfunds_fedfunds_fedfunds",
-    "indexes_ibor_jpylibor_jpylibor",
-    "indexes_ibor_libor_cpp_period",
-    "indexes_ibor_libor_libor_jointcalendar"
+    "indexes_ibor_dkklibor_dkklibor_dkklibor"
    ]
   },
   {
@@ -218,9 +239,9 @@
     "cashflows_cmscoupon_cmsleg",
     "floatingratecoupon",
     "cashflows_cmscoupon",
-    "cashflows_cmscoupon_cmscoupon",
-    "cashflows_cmscoupon_cmscoupon_accept",
+    "cashflows_digitalcmscoupon",
     "cashflows_cmscoupon_swapindex",
+    "cashflows_cmscoupon_cmscoupon",
     "cashflows_cmscoupon_hpp_shared_ptr",
     "cashflows_cmscoupon_cmscoupon_swapindex",
     "cashflows_cmscoupon_cmsleg_caps",
@@ -229,28 +250,7 @@
     "cashflows_cmscoupon_cmsleg_excouponendofmonth",
     "cashflows_cmscoupon_cmsleg_excouponperiod",
     "cashflows_cmscoupon_cmsleg_fixingconvention",
-    "cashflows_cmscoupon_cmsleg_floors"
-   ]
-  },
-  {
-   "label": "EUR Libor index and swaps",
-   "size": 36,
-   "anchors": [
-    "indexes_ibor_eurlibor",
-    "indexes_ibor_eurlibor_eurlibor",
-    "indexes_ibor_eurlibor_eurlibor_clone",
-    "indexes_ibor_eurlibor_dailytenoreurlibor_dailytenoreurlibor",
-    "indexes_ibor_eurlibor_eurlibor1y_eurlibor1y",
-    "indexes_ibor_eurlibor_eurlibor_eurlibor",
-    "indexes_ibor_eurlibor_eurlibor_maturitydate",
-    "indexes_swap_eurliborswap_eurliborswapifrfix_eurliborswapifrfix",
-    "indexes_swap_eurliborswap_eurliborswapisdafixa_eurliborswapisdafixa",
-    "indexes_swap_eurliborswap_eurliborswapisdafixb_eurliborswapisdafixb",
-    "indexes_ibor_eurlibor_cpp_date",
-    "indexes_ibor_eurlibor_cpp_handle",
-    "indexes_ibor_eurlibor_cpp_period",
-    "indexes_ibor_eurlibor_cpp_yieldtermstructure",
-    "indexes_ibor_eurlibor_dailytenoreurlibor"
+    "cashflows_cmscoupon_cmsleg_fixingdays"
    ]
   },
   {
@@ -261,80 +261,80 @@
     "cashflows_blackovernightindexedcouponpricer_blackcompoundingovernightindexedcouponpricer",
     "cashflows_blackovernightindexedcouponpricer_cpp_real",
     "cashflows_blackovernightindexedcouponpricer_cpp_rate",
-    "cashflows_blackovernightindexedcouponpricer_blackaveragingovernightindexedcouponpricer_capletprice",
+    "cashflows_blackovernightindexedcouponpricer_cappedflooredrate",
     "cashflows_blackovernightindexedcouponpricer_blackaveragingovernightindexedcouponpricer_optionletratelocal",
     "cashflows_blackovernightindexedcouponpricer_blackcompoundingovernightindexedcouponpricer_optionletratelocal",
     "cashflows_overnightindexedcouponpricer_overnightindexedcouponpricer_effectivevolatilityinput",
     "cashflows_blackovernightindexedcouponpricer_blackaveragingovernightindexedcouponpricer_optionletrateglobal",
     "cashflows_blackovernightindexedcouponpricer_blackcompoundingovernightindexedcouponpricer_optionletrateglobal",
-    "cashflows_blackovernightindexedcouponpricer_cappedflooredrate",
     "cashflows_blackovernightindexedcouponpricer_cpp_type",
+    "cashflows_blackovernightindexedcouponpricer_blackaveragingovernightindexedcouponpricer_capletprice",
     "cashflows_blackovernightindexedcouponpricer_blackaveragingovernightindexedcouponpricer_floorletprice",
     "cashflows_blackovernightindexedcouponpricer_blackcompoundingovernightindexedcouponpricer_capletprice",
     "cashflows_blackovernightindexedcouponpricer_blackcompoundingovernightindexedcouponpricer_floorletprice"
    ]
   },
   {
-   "label": "Dividend cash flow and time-basket",
-   "size": 34,
+   "label": "Schedule and date generation",
+   "size": 35,
    "anchors": [
-    "time_ecb",
-    "cashflows_dividend_dividend",
-    "cashflows_dividend",
-    "cashflows_dividend_hpp_real",
-    "cashflows_timebasket",
-    "cashflows_dividend_fractionaldividend",
-    "cashflows_timebasket_timebasket",
-    "cashflows_dividend_dividendvector",
-    "time_ecb_hpp_vector",
-    "cashflows_dividend_fixeddividend",
-    "cashflows_dividend_hpp_date",
-    "cashflows_timebasket_timebasket_rebin",
-    "cashflows_timebasket_timebasket_timebasket",
-    "cashflows_timebasket_timebasket_hasdate",
-    "cashflows_dividend_dividend_accept"
+    "time_schedule_schedule",
+    "time_schedule",
+    "time_date_hpp_period",
+    "time_schedule_hpp_businessdayconvention",
+    "time_schedule_schedule_endofmonthbusinessdayconvention",
+    "time_schedule_schedule_isregular",
+    "time_schedule_schedule_rule",
+    "time_schedule_schedule_terminationdatebusinessdayconvention",
+    "time_dategenerationrule",
+    "time_schedule_hpp_rule",
+    "time_schedule_schedule_businessdayconvention",
+    "time_schedule_schedule_end",
+    "time_schedule_schedule_endofmonth",
+    "time_schedule_schedule_hasendofmonth",
+    "time_schedule_schedule_hasendofmonthbusinessdayconvention"
    ]
   },
   {
-   "label": "Overnight coupon leg builder",
-   "size": 36,
+   "label": "Day counter conventions",
+   "size": 32,
    "anchors": [
-    "cashflows_overnightindexedcoupon_overnightleg",
-    "cashflows_overnightindexedcoupon",
-    "cashflows_overnightindexedcoupon_overnightindexedcouponpricer",
-    "cashflows_overnightindexedcoupon_compoundingovernightindexedcouponpricer",
-    "cashflows_overnightindexedcoupon_hpp_businessdayconvention",
-    "cashflows_overnightindexedcoupon_hpp_daycounter",
-    "cashflows_overnightindexedcoupon_hpp_integer",
-    "cashflows_overnightindexedcoupon_hpp_optional",
-    "cashflows_overnightindexedcoupon_hpp_overnightindex",
-    "cashflows_overnightindexedcoupon_hpp_period",
-    "cashflows_overnightindexedcoupon_hpp_schedule",
-    "cashflows_overnightindexedcoupon_hpp_spread",
-    "cashflows_overnightindexedcoupon_overnightleg_applyobservationshift",
-    "cashflows_overnightindexedcoupon_overnightleg_averagingmethod",
-    "cashflows_overnightindexedcoupon_overnightleg_caps"
+    "cashflows_averagebmacoupon_hpp_daycounter",
+    "time_daycounters_all",
+    "daycounter",
+    "time_daycounters_thirty360",
+    "time_daycounters_actualactual_actualactual_actualactual",
+    "time_daycounters_simpledaycounter",
+    "time_daycounters_simpledaycounter_simpledaycounter",
+    "time_daycounters_yearfractiontodate_yearfractiontodate",
+    "time_daycounters_actual365fixed_actual365fixed",
+    "time_daycounters_one_onedaycounter",
+    "time_daycounters_thirty360_thirty360",
+    "time_daycounters_actual364_actual364",
+    "time_daycounters_actual36525",
+    "time_daycounters_actual36525_actual36525",
+    "time_daycounters_actual366"
    ]
   },
   {
    "label": "CPI coupon pricer",
-   "size": 33,
+   "size": 32,
    "anchors": [
     "cashflows_cpicouponpricer_cpicouponpricer",
     "cashflows_cpicouponpricer",
     "cashflows_cpicouponpricer_hpp_yieldtermstructure",
-    "cashflows_cpicouponpricer_cpicouponpricer_setcapletvolatility",
     "cashflows_cpicouponpricer_cpp_rate",
     "cashflows_cpicouponpricer_cpp_real",
     "cashflows_cpicouponpricer_cpicouponpricer_accruedrate",
     "cashflows_cpicouponpricer_cpicouponpricer_capletprice",
+    "cashflows_cpicouponpricer_cpicouponpricer_discount",
     "cashflows_cpicouponpricer_cpicouponpricer_floorletprice",
     "cashflows_cpicouponpricer_cpicouponpricer_optionletprice",
     "cashflows_cpicouponpricer_cpicouponpricer_optionletpriceimp",
     "cashflows_cpicouponpricer_cpicouponpricer_optionletrate",
+    "cashflows_cpicouponpricer_cpicouponpricer_setcapletvolatility",
     "cashflows_cpicouponpricer_cpicouponpricer_swapletrate",
-    "inflationcouponpricer",
-    "cashflows_cpicouponpricer_cpicouponpricer_capletrate"
+    "inflationcouponpricer"
    ]
   },
   {
@@ -359,8 +359,29 @@
    ]
   },
   {
-   "label": "Ibor coupon leg builder",
+   "label": "Overnight coupon leg builder",
    "size": 33,
+   "anchors": [
+    "cashflows_overnightindexedcoupon_overnightleg",
+    "cashflows_overnightindexedcoupon_hpp_businessdayconvention",
+    "cashflows_overnightindexedcoupon_hpp_daycounter",
+    "cashflows_overnightindexedcoupon_hpp_integer",
+    "cashflows_overnightindexedcoupon_hpp_optional",
+    "cashflows_overnightindexedcoupon_hpp_overnightindex",
+    "cashflows_overnightindexedcoupon_hpp_period",
+    "cashflows_overnightindexedcoupon_hpp_schedule",
+    "cashflows_overnightindexedcoupon_hpp_spread",
+    "cashflows_overnightindexedcoupon_overnightleg_applyobservationshift",
+    "cashflows_overnightindexedcoupon_overnightleg_averagingmethod",
+    "cashflows_overnightindexedcoupon_overnightleg_caps",
+    "cashflows_overnightindexedcoupon_overnightleg_compoundspreaddaily",
+    "cashflows_overnightindexedcoupon_overnightleg_couponpricer",
+    "cashflows_overnightindexedcoupon_overnightleg_dailycapfloor"
+   ]
+  },
+  {
+   "label": "Ibor coupon leg builder",
+   "size": 32,
    "anchors": [
     "cashflows_iborcoupon_iborleg",
     "cashflows_iborcoupon_hpp_businessdayconvention",
@@ -380,108 +401,24 @@
    ]
   },
   {
-   "label": "GBP, ZAR and PLN indexes",
-   "size": 30,
-   "anchors": [
-    "time_daycounters_actual365fixed_actual365fixed_actual365fixed",
-    "indexes_ibor_gbplibor",
-    "time_calendars_southafrica",
-    "indexes_ibor_gbplibor_gbpliboron",
-    "indexes_ibor_wibor",
-    "indexes_ibor_gbplibor_dailytenorgbplibor",
-    "indexes_ibor_jibar",
-    "indexes_swap_gbpliborswap_gbpliborswapisdafix_gbpliborswapisdafix",
-    "indexes_ibor_gbplibor_gbplibor",
-    "indexes_ibor_jibar_jibar",
-    "indexes_ibor_jibar_jibar_jibar",
-    "indexes_ibor_kofr_kofr_kofr",
-    "indexes_ibor_sonia_sonia_sonia",
-    "indexes_ibor_wibor_wibor",
-    "indexes_ibor_gbplibor_dailytenorgbplibor_dailytenorgbplibor"
-   ]
-  },
-  {
-   "label": "ECB and ASX futures dates",
+   "label": "Equity index fixings",
    "size": 31,
    "anchors": [
-    "time_asx",
-    "time_ecb_ecb",
-    "time_ecb_ecb_date",
-    "time_asx_asx",
-    "time_ecb_ecb_code",
-    "time_ecb_ecb_nextdate",
-    "time_asx_asx_code",
-    "time_asx_asx_date",
-    "time_ecb_cpp_date",
-    "time_ecb_ecb_isecbcode",
-    "time_ecb_ecb_nextcode",
-    "time_ecb_ecb_nextdates",
-    "time_asx_asx_isasxcode",
-    "time_asx_asx_nextdate",
-    "time_asx_cpp_date"
-   ]
-  },
-  {
-   "label": "Day counter conventions",
-   "size": 32,
-   "anchors": [
-    "cashflows_averagebmacoupon_hpp_daycounter",
-    "time_daycounters_all",
-    "daycounter",
-    "time_daycounters_business252",
-    "time_daycounters_thirty360",
-    "time_daycounters_actual365fixed",
-    "time_daycounters_simpledaycounter",
-    "time_daycounters_yearfractiontodate",
-    "time_daycounters_actual364_actual364",
-    "time_daycounters_actual36525_actual36525",
-    "time_daycounters_actual365fixed_actual365fixed",
-    "time_daycounters_actual366_actual366",
-    "time_daycounters_thirty360_thirty360",
-    "time_daycounters_thirty365",
-    "time_daycounters_actual360_actual360"
-   ]
-  },
-  {
-   "label": "Null and weekends-only calendars (mixed)",
-   "size": 32,
-   "anchors": [
-    "time_calendars_all",
-    "time_calendars_australia",
-    "time_calendars_saudiarabia",
-    "time_calendars_brazil",
-    "time_calendars_china",
-    "time_calendars_nullcalendar_nullcalendar_nullcalendar",
-    "time_calendars_sweden",
-    "time_calendars_weekendsonly_weekendsonly",
-    "time_calendars_france",
-    "time_calendars_italy",
-    "time_calendars_poland",
-    "time_calendars_china_china",
-    "time_calendars_iceland",
-    "time_calendars_india",
-    "time_calendars_indonesia"
-   ]
-  },
-  {
-   "label": "Period length and units",
-   "size": 30,
-   "anchors": [
-    "time_period",
-    "time_period_period",
-    "time_period_operator",
-    "time_period_cpp_integer",
-    "time_period_cpp_period",
-    "time_period_hpp_timeunit",
-    "time_period_period_period",
-    "time_period_daysminmax",
-    "time_period_long_period_holder",
-    "time_period_short_period_holder",
-    "time_period_cpp_real",
-    "time_period_days",
-    "time_period_hpp_integer",
-    "time_period_months",
-    "time_period_period_frequency"
+    "indexes_equityindex_equityindex",
+    "indexes_equityindex",
+    "indexes_all",
+    "indexes_equityindex_equityindex_equityindex",
+    "indexes_equityindex_equityindex_clone",
+    "indexes_equityindex_equityindex_forecastfixing",
+    "indexes_equityindex_hpp_currency",
+    "indexes_equityindex_resolvespot",
+    "indexes_equityindex_equityindex_fixing",
+    "indexes_equityindex_equityindex_isvalidfixingdate",
+    "indexes_equityindex_hpp_handle",
+    "index",
+    "indexes_equityindex_cpp_handle",
+    "indexes_equityindex_cpp_real",
+    "indexes_equityindex_equityindex_currency"
    ]
   },
   {
@@ -489,7 +426,6 @@
    "size": 30,
    "anchors": [
     "cashflows_couponpricer_pricersetter",
-    "cashflows_couponpricer_setcouponpricers",
     "cashflows_capflooredcoupon",
     "cashflows_couponpricer_pricersetter_visit",
     "cashflows_digitalcmscoupon_digitalcmscoupon",
@@ -497,12 +433,34 @@
     "cashflows_couponpricer_setcouponpricersfirstmatching",
     "cashflows_capflooredcoupon_cappedflooredcmscoupon",
     "cashflows_capflooredcoupon_cappedfloorediborcoupon",
+    "cashflows_couponpricer_setcouponpricers",
     "cashflows_couponpricer_cpp_floatingratecouponpricer",
     "cashflows_couponpricer_cpp_shared_ptr",
     "cashflows_couponpricer_blackiborcouponpricer_initialize",
     "cashflows_couponpricer_cpp_floatingratecoupon",
     "cashflows_couponpricer_iborcouponpricer_initialize",
     "cashflows_couponpricer_setcouponpricer"
+   ]
+  },
+  {
+   "label": "Libor market model swaption engine",
+   "size": 30,
+   "anchors": [
+    "legacy_libormarketmodels_liborforwardmodel_liborforwardmodel",
+    "legacy_libormarketmodels_liborforwardmodel_liborforwardmodel_discountbond",
+    "legacy_libormarketmodels_liborforwardmodel_liborforwardmodel_getswaptionvolatilitymatrix",
+    "legacy_libormarketmodels_liborforwardmodel_liborforwardmodel_s_0",
+    "legacy_libormarketmodels_liborforwardmodel_liborforwardmodel_w_0",
+    "legacy_libormarketmodels_liborforwardmodel_liborforwardmodel_discount",
+    "legacy_libormarketmodels_liborforwardmodel_liborforwardmodel_discountbondoption",
+    "legacy_libormarketmodels_liborforwardmodel_liborforwardmodel_liborforwardmodel",
+    "legacy_libormarketmodels_liborforwardmodel_cpp_array",
+    "legacy_libormarketmodels_liborforwardmodel_cpp_time",
+    "legacy_libormarketmodels_liborforwardmodel_liborforwardmodel_setparams",
+    "legacy_libormarketmodels_liborforwardmodel_cpp_real",
+    "legacy_libormarketmodels_liborforwardmodel_cpp_shared_ptr",
+    "legacy_libormarketmodels_liborforwardmodel_cpp_size",
+    "affinemodel"
    ]
   },
   {
@@ -527,24 +485,24 @@
    ]
   },
   {
-   "label": "Equity index fixings",
+   "label": "EUR Libor index and swaps",
    "size": 30,
    "anchors": [
-    "indexes_equityindex_equityindex",
-    "indexes_equityindex",
-    "indexes_equityindex_equityindex_equityindex",
-    "indexes_equityindex_equityindex_clone",
-    "indexes_equityindex_equityindex_forecastfixing",
-    "indexes_equityindex_hpp_currency",
-    "indexes_equityindex_resolvespot",
-    "indexes_equityindex_equityindex_fixing",
-    "indexes_equityindex_equityindex_isvalidfixingdate",
-    "indexes_equityindex_hpp_handle",
-    "index",
-    "indexes_equityindex_cpp_handle",
-    "indexes_equityindex_cpp_real",
-    "indexes_equityindex_equityindex_equitydividendcurve",
-    "indexes_equityindex_equityindex_equityinterestratecurve"
+    "indexes_ibor_eurlibor",
+    "indexes_ibor_eurlibor_eurlibor",
+    "indexes_ibor_eurlibor_eurlibor_clone",
+    "indexes_ibor_eurlibor_dailytenoreurlibor_dailytenoreurlibor",
+    "indexes_ibor_eurlibor_eurlibor_eurlibor",
+    "indexes_ibor_eurlibor_eurlibor_maturitydate",
+    "indexes_ibor_eurlibor_eurlibor_target",
+    "indexes_ibor_eurlibor_cpp_date",
+    "indexes_ibor_eurlibor_cpp_handle",
+    "indexes_ibor_eurlibor_cpp_period",
+    "indexes_ibor_eurlibor_cpp_yieldtermstructure",
+    "indexes_ibor_eurlibor_dailytenoreurlibor",
+    "indexes_ibor_eurlibor_eurlibor1m",
+    "indexes_ibor_eurlibor_eurlibor1y",
+    "indexes_ibor_eurlibor_eurlibor3m"
    ]
   },
   {
@@ -569,27 +527,6 @@
    ]
   },
   {
-   "label": "Schedule and date generation",
-   "size": 29,
-   "anchors": [
-    "time_schedule_schedule",
-    "time_schedule",
-    "time_date_hpp_period",
-    "time_schedule_hpp_businessdayconvention",
-    "time_schedule_schedule_endofmonthbusinessdayconvention",
-    "time_schedule_schedule_rule",
-    "time_schedule_schedule_terminationdatebusinessdayconvention",
-    "time_dategenerationrule",
-    "time_schedule_hpp_rule",
-    "time_schedule_schedule_businessdayconvention",
-    "time_schedule_schedule_endofmonth",
-    "time_schedule_schedule_hasendofmonth",
-    "time_schedule_schedule_hasendofmonthbusinessdayconvention",
-    "time_schedule_schedule_hasrule",
-    "time_schedule_schedule_hasterminationdatebusinessdayconvention"
-   ]
-  },
-  {
    "label": "Calendar business-day arithmetic",
    "size": 28,
    "anchors": [
@@ -608,27 +545,6 @@
     "time_calendar_calendar_startofmonth",
     "time_calendar_hpp_businessdayconvention",
     "time_calendar_calendar_isendofmonth"
-   ]
-  },
-  {
-   "label": "Non-accruing indexed cash flow",
-   "size": 27,
-   "anchors": [
-    "cashflows_indexedcashflow_indexedcashflow",
-    "cashflow",
-    "cashflows_indexedcashflow",
-    "cashflows_indexedcashflow_hpp_index",
-    "cashflows_cpicoupon_cpicashflow_performcalculations",
-    "cashflows_equitycashflow_equitycashflow_amount",
-    "cashflows_indexedcashflow_indexedcashflow_accept",
-    "cashflows_indexedcashflow_indexedcashflow_amount",
-    "cashflows_indexedcashflow_indexedcashflow_index",
-    "cashflows_indexedcashflow_indexedcashflow_indexedcashflow",
-    "cashflows_indexedcashflow_indexedcashflow_notional",
-    "cashflows_indexedcashflow_hpp_date",
-    "cashflows_indexedcashflow_hpp_real",
-    "cashflows_indexedcashflow_indexedcashflow_basedate",
-    "cashflows_indexedcashflow_indexedcashflow_basefixing"
    ]
   },
   {
@@ -653,87 +569,45 @@
    ]
   },
   {
-   "label": "Base inflation coupon",
-   "size": 27,
-   "anchors": [
-    "cashflows_inflationcoupon_inflationcoupon",
-    "cashflows_inflationcoupon",
-    "cashflows_inflationcoupon_inflationcoupon_accept",
-    "cashflows_conundrumpricer_hpp_handle",
-    "cashflows_inflationcoupon_inflationcoupon_rate",
-    "cashflows_cpicoupon_cpicoupon_accept",
-    "cashflows_inflationcoupon_inflationcoupon_pricer",
-    "cashflows_conundrumpricer_haganpricer_setmeanreversion",
-    "cashflows_inflationcoupon_inflationcoupon_amount",
-    "cashflows_inflationcoupon_inflationcoupon_indexfixing",
-    "cashflows_inflationcoupon_inflationcouponpricer",
-    "cashflows_inflationcouponpricer_yoyinflationcouponpricer_initialize",
-    "cashflows_inflationcoupon_cpp_rate",
-    "cashflows_inflationcoupon_hpp_daycounter",
-    "cashflows_inflationcoupon_hpp_natural"
-   ]
-  },
-  {
-   "label": "Coupon pricer base and observer",
-   "size": 27,
-   "anchors": [
-    "cashflows_inflationcouponpricer_inflationcouponpricer",
-    "cashflows_couponpricer_floatingratecouponpricer",
-    "cashflows_couponpricer_floatingratecouponpricer_update",
-    "observable",
-    "observer",
-    "cashflows_couponpricer_cmscouponpricer_setswaptionvolatility",
-    "cashflows_couponpricer_iborcouponpricer_setcapletvolatility",
-    "cashflows_inflationcouponpricer_inflationcouponpricer_inflationcouponpricer",
-    "cashflows_couponpricer_floatingratecouponpricer_capletprice",
-    "cashflows_couponpricer_floatingratecouponpricer_capletrate",
-    "cashflows_couponpricer_floatingratecouponpricer_floatingratecouponpricer",
-    "cashflows_couponpricer_floatingratecouponpricer_floorletprice",
-    "cashflows_couponpricer_floatingratecouponpricer_floorletrate",
-    "cashflows_couponpricer_floatingratecouponpricer_initialize",
-    "cashflows_couponpricer_floatingratecouponpricer_swapletprice"
-   ]
-  },
-  {
-   "label": "Equity cash flow pricer",
-   "size": 27,
-   "anchors": [
-    "cashflows_equitycashflow",
-    "cashflows_equitycashflow_equitycashflowpricer",
-    "cashflows_equitycashflow_equityquantocashflowpricer",
-    "cashflows_equitycashflow_equitycashflow",
-    "cashflows_equitycashflow_equitycashflow_accept",
-    "cashflows_equitycashflow_equityquantocashflowpricer_initialize",
-    "cashflows_equitycashflow_equityindex",
-    "cashflows_equitycashflow_hpp_blackvoltermstructure",
-    "cashflows_equitycashflow_hpp_shared_ptr",
-    "cashflows_equitycashflow_equitycashflow_pricer",
-    "cashflows_equitycashflow_equitycashflowpricer_basedate",
-    "cashflows_equitycashflow_equitycashflowpricer_equitycashflowpricer",
-    "cashflows_equitycashflow_equitycashflowpricer_fixingdate",
-    "cashflows_equitycashflow_equitycashflowpricer_growthonlypayoff",
-    "cashflows_equitycashflow_equitycashflowpricer_index"
-   ]
-  },
-  {
-   "label": "Capped and floored overnight coupon",
+   "label": "Non-accruing indexed cash flow",
    "size": 26,
    "anchors": [
-    "cashflows_overnightindexedcoupon_cappedflooredovernightindexedcoupon",
-    "cashflows_overnightindexedcoupon_cpp_rate",
-    "cashflows_overnightindexedcoupon_cappedflooredovernightindexedcoupon_rate",
-    "cashflows_overnightindexedcoupon_cappedflooredovernightindexedcoupon_setpricer",
-    "cashflows_overnightindexedcoupon_overnightindexedcoupon_averagerate",
-    "cashflows_overnightindexedcoupon_cappedflooredovernightindexedcoupon_accept",
-    "cashflows_overnightindexedcoupon_cappedflooredovernightindexedcoupon_cap",
-    "cashflows_overnightindexedcoupon_cappedflooredovernightindexedcoupon_convexityadjustment",
-    "cashflows_overnightindexedcoupon_cappedflooredovernightindexedcoupon_effectivecap",
-    "cashflows_overnightindexedcoupon_cappedflooredovernightindexedcoupon_effectivefloor",
-    "cashflows_overnightindexedcoupon_cappedflooredovernightindexedcoupon_floor",
-    "cashflows_overnightindexedcoupon_cappedflooredovernightindexedcoupon_performcalculations",
-    "cashflows_overnightindexedcoupon_cappedflooredovernightindexedcoupon_underlying",
-    "cashflows_overnightindexedcoupon_hpp_rate",
-    "cashflows_overnightindexedcoupon_hpp_shared_ptr"
+    "cashflows_indexedcashflow_indexedcashflow",
+    "cashflow",
+    "cashflows_indexedcashflow",
+    "cashflows_indexedcashflow_hpp_index",
+    "cashflows_cpicoupon_cpicashflow_performcalculations",
+    "cashflows_indexedcashflow_indexedcashflow_accept",
+    "cashflows_indexedcashflow_indexedcashflow_amount",
+    "cashflows_indexedcashflow_indexedcashflow_index",
+    "cashflows_indexedcashflow_indexedcashflow_indexedcashflow",
+    "cashflows_indexedcashflow_indexedcashflow_notional",
+    "cashflows_indexedcashflow_hpp_date",
+    "cashflows_indexedcashflow_hpp_real",
+    "cashflows_indexedcashflow_indexedcashflow_basedate",
+    "cashflows_indexedcashflow_indexedcashflow_basefixing",
+    "cashflows_indexedcashflow_indexedcashflow_performcalculations"
+   ]
+  },
+  {
+   "label": "BGM range accrual pricer",
+   "size": 26,
+   "anchors": [
+    "cashflows_rangeaccrual_rangeaccrualpricerbybgm",
+    "cashflows_rangeaccrual_cpp_real",
+    "cashflows_rangeaccrual_rangeaccrualpricerbybgm_digitalpricewithsmile",
+    "cashflows_rangeaccrual_rangeaccrualpricerbybgm_driftsoverperiod",
+    "cashflows_rangeaccrual_rangeaccrualpricerbybgm_smilecorrection",
+    "cashflows_rangeaccrual_rangeaccrualpricerbybgm_digitalpricewithoutsmile",
+    "cashflows_rangeaccrual_rangeaccrualpricerbybgm_lambdasoverperiod",
+    "cashflows_rangeaccrual_rangeaccrualpricerbybgm_digitalprice",
+    "cashflows_rangeaccrual_rangeaccrualpricerbybgm_digitalrangeprice",
+    "cashflows_rangeaccrual_rangeaccrualpricerbybgm_callspreadprice",
+    "cashflows_rangeaccrual_rangeaccrualpricerbybgm_derlambdaderlambdas",
+    "cashflows_rangeaccrual_rangeaccrualpricerbybgm_derlambdaderlambdat",
+    "cashflows_rangeaccrual_rangeaccrualpricerbybgm_lambda",
+    "cashflows_rangeaccrual_rangeaccrualpricerbybgm_swapletprice",
+    "cashflows_rangeaccrual_rangeaccrualpricer_swapletrate"
    ]
   },
   {
@@ -742,19 +616,19 @@
    "anchors": [
     "iborindex",
     "indexes_ibor_euribor",
+    "indexes_ibor_shibor",
     "indexes_ibor_euribor_euribor",
-    "indexes_ibor_robor",
     "indexes_ibor_trlibor",
-    "indexes_ibor_mosprime",
-    "indexes_ibor_mosprime_mosprime",
-    "time_calendars_turkey_turkey_impl_isweekend",
+    "indexes_ibor_pribor",
+    "indexes_ibor_zibor",
     "indexes_ibor_euribor_euribor1m",
     "indexes_ibor_euribor_euribor1w",
     "indexes_ibor_euribor_euribor1y",
     "indexes_ibor_euribor_euribor3m",
     "indexes_ibor_euribor_euribor6m",
-    "indexes_ibor_robor_robor",
-    "indexes_ibor_trlibor_trlibor"
+    "indexes_ibor_pribor_pribor",
+    "indexes_ibor_pribor_pribor_pribor",
+    "indexes_ibor_shibor_shibor"
    ]
   },
   {
@@ -779,45 +653,45 @@
    ]
   },
   {
-   "label": "BGM range accrual pricer",
+   "label": "Base inflation coupon",
    "size": 25,
    "anchors": [
-    "cashflows_rangeaccrual_rangeaccrualpricerbybgm",
-    "cashflows_rangeaccrual_cpp_real",
-    "cashflows_rangeaccrual_rangeaccrualpricerbybgm_digitalpricewithsmile",
-    "cashflows_rangeaccrual_rangeaccrualpricerbybgm_driftsoverperiod",
-    "cashflows_rangeaccrual_rangeaccrualpricerbybgm_smilecorrection",
-    "cashflows_rangeaccrual_rangeaccrualpricerbybgm_digitalpricewithoutsmile",
-    "cashflows_rangeaccrual_rangeaccrualpricerbybgm_lambdasoverperiod",
-    "cashflows_rangeaccrual_rangeaccrualpricerbybgm_digitalprice",
-    "cashflows_rangeaccrual_rangeaccrualpricerbybgm_digitalrangeprice",
-    "cashflows_rangeaccrual_rangeaccrualpricerbybgm_callspreadprice",
-    "cashflows_rangeaccrual_rangeaccrualpricerbybgm_derlambdaderlambdas",
-    "cashflows_rangeaccrual_rangeaccrualpricerbybgm_derlambdaderlambdat",
-    "cashflows_rangeaccrual_rangeaccrualpricerbybgm_lambda",
-    "cashflows_rangeaccrual_rangeaccrualpricerbybgm_swapletprice",
-    "cashflows_rangeaccrual_rangeaccrualpricer_swapletrate"
+    "cashflows_inflationcoupon_inflationcoupon",
+    "cashflows_inflationcoupon",
+    "cashflows_inflationcoupon_inflationcoupon_accept",
+    "cashflows_conundrumpricer_hpp_handle",
+    "cashflows_inflationcoupon_inflationcoupon_rate",
+    "cashflows_inflationcoupon_inflationcoupon_pricer",
+    "cashflows_conundrumpricer_haganpricer_setmeanreversion",
+    "cashflows_cpicouponpricer_cpicouponpricer_initialize",
+    "cashflows_inflationcoupon_inflationcoupon_amount",
+    "cashflows_inflationcoupon_inflationcoupon_indexfixing",
+    "cashflows_inflationcoupon_inflationcouponpricer",
+    "cashflows_inflationcoupon_cpp_rate",
+    "cashflows_inflationcoupon_hpp_daycounter",
+    "cashflows_inflationcoupon_hpp_natural",
+    "cashflows_inflationcoupon_hpp_period"
    ]
   },
   {
-   "label": "National inflation index definitions",
-   "size": 25,
+   "label": "Capped and floored overnight coupon",
+   "size": 24,
    "anchors": [
-    "indexes_inflation_all",
-    "indexes_inflation_aucpi_aucpi",
-    "indexes_inflation_frhicp_yyfrhicp",
-    "indexes_inflation_ukrpi_yyukrpi",
-    "indexes_inflation_uscpi_yyuscpi",
-    "indexes_inflation_aucpi",
-    "indexes_inflation_aucpi_yyaucpi",
-    "indexes_inflation_frhicp",
-    "indexes_inflation_frhicp_frhicp",
-    "indexes_inflation_ukhicp_ukhicp",
-    "indexes_inflation_ukrpi",
-    "indexes_inflation_ukrpi_ukrpi",
-    "indexes_inflation_uscpi",
-    "indexes_inflation_uscpi_uscpi",
-    "indexes_inflation_aucpi_aucpi_aucpi"
+    "cashflows_overnightindexedcoupon_cappedflooredovernightindexedcoupon",
+    "cashflows_overnightindexedcoupon_cpp_rate",
+    "cashflows_overnightindexedcoupon_cappedflooredovernightindexedcoupon_rate",
+    "cashflows_overnightindexedcoupon_overnightindexedcoupon_averagerate",
+    "cashflows_overnightindexedcoupon_cappedflooredovernightindexedcoupon_accept",
+    "cashflows_overnightindexedcoupon_cappedflooredovernightindexedcoupon_cap",
+    "cashflows_overnightindexedcoupon_cappedflooredovernightindexedcoupon_convexityadjustment",
+    "cashflows_overnightindexedcoupon_cappedflooredovernightindexedcoupon_effectivecap",
+    "cashflows_overnightindexedcoupon_cappedflooredovernightindexedcoupon_effectivefloor",
+    "cashflows_overnightindexedcoupon_cappedflooredovernightindexedcoupon_floor",
+    "cashflows_overnightindexedcoupon_cappedflooredovernightindexedcoupon_performcalculations",
+    "cashflows_overnightindexedcoupon_cappedflooredovernightindexedcoupon_underlying",
+    "cashflows_overnightindexedcoupon_hpp_rate",
+    "cashflows_overnightindexedcoupon_hpp_shared_ptr",
+    "cashflows_overnightindexedcoupon_overnightindexedcoupon_accept"
    ]
   },
   {
@@ -839,6 +713,86 @@
     "time_date_date_monthoffset",
     "hour",
     "microsecond"
+   ]
+  },
+  {
+   "label": "Equity cash flow pricer",
+   "size": 24,
+   "anchors": [
+    "cashflows_equitycashflow",
+    "cashflows_equitycashflow_equitycashflowpricer",
+    "cashflows_equitycashflow_equityquantocashflowpricer",
+    "cashflows_equitycashflow_equitycashflow_accept",
+    "cashflows_equitycashflow_equityindex",
+    "cashflows_equitycashflow_hpp_blackvoltermstructure",
+    "cashflows_equitycashflow_hpp_shared_ptr",
+    "cashflows_equitycashflow_equitycashflowpricer_basedate",
+    "cashflows_equitycashflow_equitycashflowpricer_equitycashflowpricer",
+    "cashflows_equitycashflow_equitycashflowpricer_fixingdate",
+    "cashflows_equitycashflow_equitycashflowpricer_growthonlypayoff",
+    "cashflows_equitycashflow_equitycashflowpricer_index",
+    "cashflows_equitycashflow_equitycashflowpricer_initialize",
+    "cashflows_equitycashflow_equitycashflowpricer_price",
+    "cashflows_equitycashflow_equitycashflowpricer_update"
+   ]
+  },
+  {
+   "label": "National inflation index definitions",
+   "size": 21,
+   "anchors": [
+    "indexes_inflation_all",
+    "indexes_inflation_aucpi_aucpi",
+    "indexes_inflation_uscpi",
+    "indexes_inflation_aucpi",
+    "indexes_inflation_aucpi_yyaucpi",
+    "indexes_inflation_frhicp",
+    "indexes_inflation_frhicp_frhicp",
+    "indexes_inflation_frhicp_yyfrhicp",
+    "indexes_inflation_ukhicp_ukhicp",
+    "indexes_inflation_uscpi_uscpi",
+    "indexes_inflation_uscpi_yyuscpi",
+    "indexes_inflation_aucpi_aucpi_aucpi",
+    "indexes_inflation_aucpi_hpp_frequency",
+    "indexes_inflation_aucpi_yyaucpi_yyaucpi",
+    "indexes_inflation_frhicp_frhicp_frhicp"
+   ]
+  },
+  {
+   "label": "GBP, ZAR and PLN indexes",
+   "size": 13,
+   "anchors": [
+    "indexes_ibor_gbplibor",
+    "indexes_ibor_gbplibor_dailytenorgbplibor",
+    "indexes_swap_gbpliborswap_gbpliborswapisdafix_gbpliborswapisdafix",
+    "indexes_ibor_gbplibor_gbplibor",
+    "indexes_ibor_gbplibor_gbpliboron",
+    "indexes_ibor_gbplibor_gbpliboron_gbpliboron",
+    "indexes_ibor_gbplibor_dailytenorgbplibor_dailytenorgbplibor",
+    "indexes_ibor_gbplibor_gbplibor_gbplibor",
+    "indexes_ibor_gbplibor_hpp_natural",
+    "indexes_ibor_gbplibor_hpp_period",
+    "indexes_swap_gbpliborswap_cpp_handle",
+    "indexes_swap_gbpliborswap_cpp_period",
+    "indexes_swap_gbpliborswap_cpp_yieldtermstructure"
+   ]
+  },
+  {
+   "label": "Coupon pricer base and observer",
+   "size": 13,
+   "anchors": [
+    "cashflows_couponpricer_floatingratecouponpricer",
+    "cashflows_couponpricer_floatingratecouponpricer_update",
+    "observable",
+    "observer",
+    "cashflows_couponpricer_cmscouponpricer_setswaptionvolatility",
+    "cashflows_couponpricer_iborcouponpricer_setcapletvolatility",
+    "cashflows_couponpricer_floatingratecouponpricer_capletprice",
+    "cashflows_couponpricer_floatingratecouponpricer_capletrate",
+    "cashflows_couponpricer_floatingratecouponpricer_floorletprice",
+    "cashflows_couponpricer_floatingratecouponpricer_floorletrate",
+    "cashflows_couponpricer_floatingratecouponpricer_initialize",
+    "cashflows_couponpricer_floatingratecouponpricer_swapletprice",
+    "cashflows_couponpricer_floatingratecouponpricer_swapletrate"
    ]
   }
  ]

@@ -2,29 +2,29 @@
  "anchor_count": 15,
  "communities": [
   {
-   "label": "Log-linear and log-cubic interpolation",
-   "size": 67,
+   "label": "Incremental statistics and histograms",
+   "size": 73,
    "anchors": [
-    "math_interpolations_loginterpolation",
-    "math_interpolations_loginterpolation_logmixedlinearcubic",
-    "math_interpolations_loginterpolation_logcubic",
-    "math_interpolations_loginterpolation_logcubicinterpolation",
-    "math_interpolations_loginterpolation_loginterpolationimpl",
-    "math_interpolations_loginterpolation_hpp_i1",
-    "math_interpolations_loginterpolation_hpp_i2",
-    "math_interpolations_loginterpolation_logmixedlinearcubicinterpolation",
-    "math_interpolations_loginterpolation_hpp_real",
-    "math_interpolations_loginterpolation_hpp_size",
-    "math_interpolations_loginterpolation_interpolate",
-    "math_interpolations_loginterpolation_loglinearinterpolation",
-    "math_interpolations_loginterpolation_hpp_derivativeapprox",
-    "math_interpolations_loginterpolation_loginterpolationimpl_value",
-    "math_interpolations_loginterpolation_logmixedlinearcubicnaturalspline"
+    "math_statistics_histogram_hpp_algorithm",
+    "math_statistics_incrementalstatistics_incrementalstatistics",
+    "math_statistics_incrementalstatistics",
+    "math_optimization_endcriteria",
+    "math_statistics_histogram_histogram",
+    "math_optimization_endcriteria_endcriteria",
+    "math_statistics_histogram",
+    "math_statistics_incrementalstatistics_cpp_real",
+    "math_optimization_endcriteria_cpp_real",
+    "math_optimization_endcriteria_endcriteria_operator",
+    "math_copulas_maxcopula",
+    "math_optimization_endcriteria_cpp_size",
+    "math_optimization_endcriteria_cpp_type",
+    "math_optimization_endcriteria_endcriteria_checkstationaryfunctionvalue",
+    "math_statistics_incrementalstatistics_incrementalstatistics_add"
    ]
   },
   {
    "label": "ABCD volatility interpolation",
-   "size": 64,
+   "size": 65,
    "anchors": [
     "math_interpolations_abcdinterpolation_abcd",
     "math_interpolations_abcdinterpolation_abcdcoeffholder",
@@ -41,27 +41,6 @@
     "math_interpolations_abcdinterpolation_optimizationmethod",
     "math_interpolations_abcdinterpolation_abcdcoeffholder_abcdcoeffholder",
     "math_interpolations_abcdinterpolation_abcdinterpolation_a"
-   ]
-  },
-  {
-   "label": "ZABR volatility interpolation",
-   "size": 63,
-   "anchors": [
-    "math_interpolations_zabrinterpolation_zabr",
-    "math_interpolations_zabrinterpolation_hpp_real",
-    "math_interpolations_zabrinterpolation_zabrinterpolation",
-    "math_interpolations_zabrinterpolation_zabrspecs",
-    "math_randomnumbers_latticerules_latticerule_getrule",
-    "math_integrals_filonintegral_filonintegral_type",
-    "math_interpolations_zabrinterpolation_hpp_vector",
-    "math_interpolations_zabrinterpolation_zabrspecs_direct",
-    "math_interpolations_zabrinterpolation_zabrspecs_instance",
-    "math_interpolations_zabrinterpolation_zabrspecs_inverse",
-    "math_interpolations_zabrinterpolation",
-    "math_interpolations_zabrinterpolation_interpolate",
-    "math_interpolations_zabrinterpolation_hpp_time",
-    "math_interpolations_zabrinterpolation_zabrspecs_eps1",
-    "math_interpolations_zabrinterpolation_zabrspecs_eps2"
    ]
   },
   {
@@ -86,50 +65,50 @@
    ]
   },
   {
-   "label": "Dense array vector container",
-   "size": 58,
+   "label": "Observer and singleton patterns",
+   "size": 54,
    "anchors": [
-    "math_array_array",
-    "math_array_array_begin",
-    "math_array",
-    "math_array_array_end",
-    "math_array_array_size",
-    "math_array_dotproduct",
-    "math_array_array_array",
-    "math_array_fill_array",
-    "math_array_hpp_real",
-    "math_array_norm2",
-    "math_matrixutilities_householder",
-    "math_array_hpp_iterator",
-    "math_array_abs",
-    "math_array_hpp_size",
-    "math_matrixutilities_bicgstab_bicgstab_solve"
+    "patterns_observable",
+    "patterns_observable_observer",
+    "patterns_observable_observable",
+    "patterns_observable_observablesettings",
+    "patterns_observable_observer_registerwith",
+    "patterns_observable_observable_unregisterobserver",
+    "patterns_observable_observable_registerobserver",
+    "patterns_observable_hpp_shared_ptr",
+    "patterns_observable_observablesettings_unregisterdeferredobserver",
+    "patterns_observable_signal",
+    "patterns_observable_observer_unregisterwith",
+    "patterns_observable_hash_boost_shared_ptr_t_operator",
+    "patterns_observable_observablesettings_enableupdates",
+    "patterns_observable_observablesettings_registerdeferredobservers",
+    "patterns_observable_observablesettings_updatesdeferred"
    ]
   },
   {
-   "label": "XABR calibration with Halton restarts",
-   "size": 58,
+   "label": "Forward starting swap quote",
+   "size": 53,
    "anchors": [
-    "math_interpolations_xabrinterpolation_xabrinterpolationimpl",
-    "math_interpolations_xabrinterpolation_xabrcoeffholder",
-    "math_interpolations_xabrinterpolation",
-    "math_randomnumbers_haltonrsg_haltonrsg",
-    "math_interpolations_xabrinterpolation_hpp_real",
-    "math_interpolations_xabrinterpolation_xabrinterpolationimpl_xabrinterpolationimpl",
-    "math_interpolations_xabrinterpolation_xabrinterpolationimpl_update",
-    "math_interpolations_xabrinterpolation_xabrinterpolationimpl_interpolationsquarederror",
-    "math_randomnumbers_haltonrsg",
-    "math_interpolations_xabrinterpolation_xabrcoeffholder_xabrcoeffholder",
-    "math_interpolations_xabrinterpolation_xabrinterpolationimpl_value",
-    "math_interpolations_xabrinterpolation_xabrcoeffholder_updatemodelinstance",
-    "math_interpolations_xabrinterpolation_xabrinterpolationimpl_interpolationerror",
-    "math_interpolations_xabrinterpolation_xabrinterpolationimpl_interpolationmaxerror",
-    "model"
+    "quotes_forwardswapquote_forwardswapquote",
+    "quotes_forwardswapquote",
+    "utilities_dataparsers",
+    "utilities_steppingiterator_step_iterator",
+    "quotes_forwardswapquote_forwardswapquote_forwardswapquote",
+    "utilities_dataparsers_periodparser_parse",
+    "utilities_steppingiterator",
+    "quotes_forwardswapquote_forwardswapquote_initializedates",
+    "utilities_dataparsers_cpp_string",
+    "utilities_dataparsers_periodparser_parseoneperiod",
+    "utilities_steppingiterator_hpp_size",
+    "utilities_steppingiterator_operator",
+    "quotes_forwardswapquote_forwardswapquote_update",
+    "utilities_dataparsers_dateparser_parseformatted",
+    "utilities_dataparsers_dateparser_parseiso"
    ]
   },
   {
    "label": "SABR volatility interpolation",
-   "size": 54,
+   "size": 55,
    "anchors": [
     "math_interpolations_sabrinterpolation_sabr",
     "math_interpolations_sabrinterpolation_hpp_real",
@@ -158,8 +137,8 @@
     "math_integrals_gausslaguerrecosinepolynomial_hpp_mp_real",
     "math_integrals_gausslaguerrecosinepolynomial_gausslaguerrecosinepolynomial",
     "math_integrals_gausslaguerrecosinepolynomial_gausslaguerresinepolynomial",
-    "math_integrals_gausslaguerrecosinepolynomial_gausslaguerretrigonometricbase_moment",
     "math_integrals_gausslaguerrecosinepolynomial_hpp_real",
+    "math_integrals_gausslaguerrecosinepolynomial_gausslaguerretrigonometricbase_moment",
     "math_integrals_momentbasedgaussianpolynomial_momentbasedgaussianpolynomial_mp_real_alpha",
     "math_integrals_momentbasedgaussianpolynomial_momentbasedgaussianpolynomial_mp_real_z",
     "math_integrals_momentbasedgaussianpolynomial_hpp_real",
@@ -170,45 +149,24 @@
    ]
   },
   {
-   "label": "Incremental statistics and histograms",
-   "size": 48,
-   "anchors": [
-    "math_statistics_incrementalstatistics_incrementalstatistics",
-    "math_statistics_incrementalstatistics",
-    "math_statistics_histogram_histogram",
-    "math_statistics_histogram",
-    "math_statistics_incrementalstatistics_cpp_real",
-    "math_statistics_incrementalstatistics_addsequence",
-    "math_statistics_incrementalstatistics_incrementalstatistics_add",
-    "math_statistics_histogram_histogram_calculate",
-    "math_statistics_incrementalstatistics_incrementalstatistics_downsidevariance",
-    "math_statistics_histogram_histogram_frequency",
-    "math_statistics_histogram_quantile",
-    "math_statistics_incrementalstatistics_incrementalstatistics_downsidesamples",
-    "math_statistics_incrementalstatistics_incrementalstatistics_downsideweightsum",
-    "math_statistics_incrementalstatistics_incrementalstatistics_reset",
-    "math_statistics_incrementalstatistics_incrementalstatistics_variance"
-   ]
-  },
-  {
-   "label": "Observer and singleton patterns",
+   "label": "Simulated annealing optimizer",
    "size": 50,
    "anchors": [
-    "patterns_observable",
-    "patterns_observable_observer",
-    "patterns_observable_observable",
-    "patterns_observable_observablesettings",
-    "patterns_observable_observer_registerwith",
-    "patterns_observable_observable_unregisterobserver",
-    "patterns_singleton_singleton",
-    "patterns_observable_observable_registerobserver",
-    "patterns_observable_hpp_shared_ptr",
-    "patterns_observable_observablesettings_unregisterdeferredobserver",
-    "patterns_observable_observer_unregisterwith",
-    "patterns_observable_hash_boost_shared_ptr_t_operator",
-    "patterns_observable_observablesettings_enableupdates",
-    "patterns_observable_observablesettings_registerdeferredobservers",
-    "patterns_observable_observablesettings_updatesdeferred"
+    "math_optimization_simulatedannealing_simulatedannealing",
+    "math_optimization_simulatedannealing",
+    "math_optimization_simulatedannealing_simulatedannealing_rng_minimize",
+    "math_optimization_simulatedannealing_hpp_real",
+    "math_optimization_simulatedannealing_simulatedannealing_rng_amotsa",
+    "math_optimization_simulatedannealing_simulatedannealing_rng_simplexsize",
+    "math_optimization_simulatedannealing_simulatedannealing_simulatedannealing",
+    "math_optimization_simulatedannealing_hpp_problem",
+    "math_optimization_simulatedannealing_hpp_size",
+    "math_optimization_simulatedannealing_simulatedannealing_amotsa",
+    "math_optimization_simulatedannealing_simulatedannealing_simplexsize",
+    "math_optimization_simulatedannealing_hpp_endcriteria",
+    "math_optimization_simulatedannealing_hpp_integer",
+    "math_optimization_simulatedannealing_hpp_rng",
+    "math_optimization_simulatedannealing_hpp_type"
    ]
   },
   {
@@ -234,21 +192,21 @@
   },
   {
    "label": "Matrix class with QR solver",
-   "size": 48,
+   "size": 46,
    "anchors": [
     "math_matrix",
     "math_matrix_transpose",
+    "math_matrixutilities_qrdecomposition_qrdecomposition",
     "math_matrix_hpp_size",
     "math_matrix_matrix_begin",
     "math_matrix_matrix_row_begin",
-    "math_matrixutilities_qrdecomposition_qrdecomposition",
-    "math_matrixutilities_qrdecomposition_qrsolve",
     "math_matrix_matrix_end",
     "math_matrix_matrix_matrix",
     "math_matrix_matrix_rows",
     "math_matrix_operator",
     "math_matrix_matrix_column_begin",
     "math_matrix_outerproduct",
+    "math_matrixutilities_qrdecomposition_qrsolve",
     "math_matrix_matrix_columns",
     "math_matrix_matrix_operator"
    ]
@@ -260,18 +218,60 @@
     "currency",
     "currencies_asia",
     "currencies_africa",
-    "currencies_asia_lkrcurrency",
-    "currencies_africa_aoacurrency",
     "currencies_africa_bwpcurrency",
     "currencies_africa_egpcurrency",
     "currencies_africa_etbcurrency",
+    "currencies_africa_ghscurrency",
     "currencies_africa_kescurrency",
     "currencies_africa_madcurrency",
     "currencies_africa_murcurrency",
     "currencies_africa_ngncurrency",
     "currencies_africa_tndcurrency",
     "currencies_africa_ugxcurrency",
-    "currencies_africa_xofcurrency"
+    "currencies_africa_xofcurrency",
+    "currencies_africa_zarcurrency"
+   ]
+  },
+  {
+   "label": "Asian currencies (implementations)",
+   "size": 41,
+   "anchors": [
+    "currencies_africa_aoacurrency_aoacurrency",
+    "currencies_africa_bwpcurrency_bwpcurrency",
+    "currencies_africa_egpcurrency_egpcurrency",
+    "currencies_africa_etbcurrency_etbcurrency",
+    "currencies_africa_ghscurrency_ghscurrency",
+    "currencies_africa_kescurrency_kescurrency",
+    "currencies_africa_madcurrency_madcurrency",
+    "currencies_africa_murcurrency_murcurrency",
+    "currencies_africa_ngncurrency_ngncurrency",
+    "currencies_africa_tndcurrency_tndcurrency",
+    "currencies_africa_ugxcurrency_ugxcurrency",
+    "currencies_africa_xofcurrency_xofcurrency",
+    "currencies_africa_zarcurrency_zarcurrency",
+    "currencies_africa_zmwcurrency_zmwcurrency",
+    "currencies_asia_aedcurrency_aedcurrency"
+   ]
+  },
+  {
+   "label": "European currencies, fixed euro rates",
+   "size": 43,
+   "anchors": [
+    "currencies_europe",
+    "currencies_exchangeratemanager_exchangeratemanager_addknownrates",
+    "currencies_europe_atscurrency",
+    "currencies_europe_befcurrency",
+    "currencies_europe_demcurrency",
+    "currencies_europe_espcurrency",
+    "currencies_europe_fimcurrency",
+    "currencies_europe_frfcurrency",
+    "currencies_europe_grdcurrency",
+    "currencies_europe_iepcurrency",
+    "currencies_europe_itlcurrency",
+    "currencies_europe_lufcurrency",
+    "currencies_europe_nlgcurrency",
+    "currencies_europe_ptecurrency",
+    "currencies_europe_rolcurrency"
    ]
   },
   {
@@ -296,27 +296,6 @@
    ]
   },
   {
-   "label": "European currencies, fixed euro rates",
-   "size": 42,
-   "anchors": [
-    "currencies_europe",
-    "currencies_exchangeratemanager_exchangeratemanager_addknownrates",
-    "currencies_europe_atscurrency",
-    "currencies_europe_befcurrency",
-    "currencies_europe_demcurrency",
-    "currencies_europe_espcurrency",
-    "currencies_europe_fimcurrency",
-    "currencies_europe_frfcurrency",
-    "currencies_europe_grdcurrency",
-    "currencies_europe_iepcurrency",
-    "currencies_europe_itlcurrency",
-    "currencies_europe_lufcurrency",
-    "currencies_europe_nlgcurrency",
-    "currencies_europe_ptecurrency",
-    "currencies_europe_rolcurrency"
-   ]
-  },
-  {
    "label": "Adaptive Runge-Kutta ODE solver",
    "size": 41,
    "anchors": [
@@ -338,87 +317,45 @@
    ]
   },
   {
-   "label": "Forward starting swap quote",
-   "size": 39,
-   "anchors": [
-    "quotes_forwardswapquote_forwardswapquote",
-    "quotes_forwardswapquote",
-    "utilities_dataparsers",
-    "quotes_forwardswapquote_forwardswapquote_forwardswapquote",
-    "quotes_forwardswapquote_forwardswapquote_initializedates",
-    "utilities_dataparsers_cpp_string",
-    "utilities_dataparsers_dateparser_parseiso",
-    "utilities_dataparsers_periodparser_parse",
-    "utilities_dataparsers_periodparser_parseoneperiod",
-    "quotes_forwardswapquote_forwardswapquote_update",
-    "utilities_dataparsers_dateparser_parseformatted",
-    "quotes_forwardswapquote_forwardswapquote_value",
-    "quotes_forwardswapquote_hpp_date",
-    "utilities_dataparsers_dateparser",
-    "utilities_dataparsers_periodparser"
-   ]
-  },
-  {
-   "label": "Lagrange interpolation for stochastic collocation",
-   "size": 38,
-   "anchors": [
-    "math_interpolations_lagrangeinterpolation_lagrangeinterpolationimpl",
-    "math_interpolations_lagrangeinterpolation_lagrangeinterpolation",
-    "math_randomnumbers_stochasticcollocationinvcdf",
-    "math_randomnumbers_stochasticcollocationinvcdf_stochasticcollocationinvcdf",
-    "math_interpolations_lagrangeinterpolation_hpp_real",
-    "math_interpolations_lagrangeinterpolation",
-    "math_integrals_gaussianquadratures_tabulatedgausslegendre_w",
-    "math_interpolations_lagrangeinterpolation_lagrangeinterpolationimpl_updatedvalue",
-    "math_interpolations_lagrangeinterpolation_value",
-    "math_randomnumbers_stochasticcollocationinvcdf_stochasticcollocationinvcdf_operator",
-    "math_randomnumbers_stochasticcollocationinvcdf_stochasticcollocationinvcdf_value",
-    "math_interpolations_lagrangeinterpolation_lagrangeinterpolation_value",
-    "math_randomnumbers_stochasticcollocationinvcdf_cpp_real",
-    "math_randomnumbers_stochasticcollocationinvcdf_g",
-    "math_randomnumbers_stochasticcollocationinvcdf_stochasticcollocationinvcdf_stochasticcollocationinvcdf"
-   ]
-  },
-  {
-   "label": "Simulated annealing optimizer",
-   "size": 38,
-   "anchors": [
-    "math_optimization_simulatedannealing_simulatedannealing",
-    "math_optimization_simulatedannealing_hpp_integer",
-    "math_optimization_simulatedannealing_hpp_rng",
-    "math_optimization_simulatedannealing_hpp_vector",
-    "math_optimization_simulatedannealing_simulatedannealing_alpha",
-    "math_optimization_simulatedannealing_simulatedannealing_epsilon",
-    "math_optimization_simulatedannealing_simulatedannealing_fac1",
-    "math_optimization_simulatedannealing_simulatedannealing_i",
-    "math_optimization_simulatedannealing_simulatedannealing_ihi",
-    "math_optimization_simulatedannealing_simulatedannealing_ilo",
-    "math_optimization_simulatedannealing_simulatedannealing_iteration",
-    "math_optimization_simulatedannealing_simulatedannealing_iterationt",
-    "math_optimization_simulatedannealing_simulatedannealing_j",
-    "math_optimization_simulatedannealing_simulatedannealing_k",
-    "math_optimization_simulatedannealing_simulatedannealing_lambda"
-   ]
-  },
-  {
-   "label": "Pseudo-square-root and Cholesky decomposition",
+   "label": "Dense array vector container",
    "size": 34,
+   "anchors": [
+    "math_array_array_begin",
+    "math_array",
+    "math_array_array_end",
+    "math_array_array_size",
+    "math_array_array_array",
+    "math_array_fill_array",
+    "math_array_hpp_real",
+    "math_array_hpp_iterator",
+    "math_array_abs",
+    "math_array_hpp_size",
+    "math_array_array_operator",
+    "math_array_array_resize",
+    "math_array_operator",
+    "math_array_pow",
+    "math_array_sqrt"
+   ]
+  },
+  {
+   "label": "Covariance decomposition and factor reduction",
+   "size": 30,
    "anchors": [
     "math_matrix_matrix",
     "math_matrixutilities_pseudosqrt",
-    "math_matrixutilities_pseudosqrt_hyperspherecostfunction",
-    "math_matrixutilities_pseudosqrt_rankreducedsqrt",
-    "math_matrixutilities_pseudosqrt_pseudosqrt",
-    "math_matrixutilities_pseudosqrt_highamimplementation",
-    "math_matrixutilities_choleskydecomposition",
-    "math_matrixutilities_pseudosqrt_hypersphereoptimize",
-    "math_matrixutilities_choleskydecomposition_choleskydecomposition",
-    "math_matrixutilities_pseudosqrt_checksymmetry",
-    "math_matrix_determinant",
+    "math_matrixutilities_getcovariance",
+    "math_matrixutilities_symmetricschurdecomposition",
+    "math_matrixutilities_factorreduction",
+    "math_matrixutilities_symmetricschurdecomposition_symmetricschurdecomposition",
+    "math_matrixutilities_expm",
+    "math_matrixutilities_getcovariance_covariancedecomposition",
+    "math_matrixutilities_symmetricschurdecomposition_symmetricschurdecomposition_jacobirotate",
     "math_matrix_inverse",
-    "math_matrixutilities_pseudosqrt_cpp_real",
-    "math_matrixutilities_pseudosqrt_hyperspherecostfunction_value",
-    "math_matrixutilities_pseudosqrt_normalizepseudoroot"
+    "math_matrix_swap",
+    "math_matrixutilities_choleskydecomposition",
+    "math_matrixutilities_pseudosqrt_hyperspherecostfunction_targetmatrix",
+    "math_matrixutilities_qrdecomposition",
+    "math_matrix_matrix_swap"
    ]
   },
   {
@@ -443,8 +380,29 @@
    ]
   },
   {
-   "label": "Gaussian orthogonal polynomials",
+   "label": "General sample statistics accumulator",
    "size": 31,
+   "anchors": [
+    "math_statistics_generalstatistics",
+    "math_statistics_generalstatistics_generalstatistics",
+    "math_statistics_generalstatistics_expectationvalue",
+    "math_statistics_generalstatistics_cpp_real",
+    "math_statistics_generalstatistics_hpp_real",
+    "math_statistics_generalstatistics_generalstatistics_samples",
+    "math_statistics_generalstatistics_generalstatistics_skewness",
+    "math_statistics_generalstatistics_generalstatistics_variance",
+    "math_statistics_generalstatistics_generalstatistics_errorestimate",
+    "math_statistics_generalstatistics_addsequence",
+    "math_statistics_generalstatistics_generalstatistics_add",
+    "math_statistics_generalstatistics_generalstatistics_kurtosis",
+    "math_statistics_generalstatistics_generalstatistics_max",
+    "math_statistics_generalstatistics_generalstatistics_mean",
+    "math_statistics_generalstatistics_generalstatistics_min"
+   ]
+  },
+  {
+   "label": "Gaussian orthogonal polynomials",
+   "size": 30,
    "anchors": [
     "math_integrals_gaussianorthogonalpolynomial_cpp_real",
     "math_integrals_gaussianorthogonalpolynomial_cpp_size",
@@ -453,40 +411,40 @@
     "math_integrals_gaussianorthogonalpolynomial_gausshyperbolicpolynomial",
     "math_integrals_gaussianorthogonalpolynomial_gaussianorthogonalpolynomial_value",
     "math_integrals_gaussianorthogonalpolynomial_gaussianorthogonalpolynomial_weightedvalue",
-    "math_integrals_gaussianorthogonalpolynomial_gaussjacobipolynomial_alpha",
-    "math_integrals_gaussianorthogonalpolynomial_gaussjacobipolynomial_beta",
     "math_integrals_gaussianorthogonalpolynomial_gausshermitepolynomial_alpha",
     "math_integrals_gaussianorthogonalpolynomial_gausshermitepolynomial_beta",
     "math_integrals_gaussianorthogonalpolynomial_gausshermitepolynomial_mu_0",
     "math_integrals_gaussianorthogonalpolynomial_gausshyperbolicpolynomial_alpha",
     "math_integrals_gaussianorthogonalpolynomial_gausshyperbolicpolynomial_beta",
-    "math_integrals_gaussianorthogonalpolynomial_gausslaguerrepolynomial_alpha"
+    "math_integrals_gaussianorthogonalpolynomial_gausslaguerrepolynomial_alpha",
+    "math_integrals_gaussianorthogonalpolynomial_gausslaguerrepolynomial_beta",
+    "math_integrals_gaussianorthogonalpolynomial_gausslaguerrepolynomial_mu_0"
    ]
   },
   {
-   "label": "General sample statistics accumulator",
-   "size": 31,
+   "label": "Differential evolution optimizer",
+   "size": 29,
    "anchors": [
-    "math_statistics_generalstatistics",
-    "math_statistics_generalstatistics_generalstatistics",
-    "math_statistics_generalstatistics_expectationvalue",
-    "math_statistics_generalstatistics_cpp_real",
-    "math_statistics_generalstatistics_generalstatistics_min",
-    "math_statistics_generalstatistics_hpp_real",
-    "math_statistics_generalstatistics_generalstatistics_samples",
-    "math_statistics_generalstatistics_generalstatistics_variance",
-    "math_statistics_generalstatistics_generalstatistics_errorestimate",
-    "math_statistics_generalstatistics_addsequence",
-    "math_statistics_generalstatistics_generalstatistics_add",
-    "math_statistics_generalstatistics_generalstatistics_kurtosis",
-    "math_statistics_generalstatistics_generalstatistics_max",
-    "math_statistics_generalstatistics_generalstatistics_mean",
-    "math_statistics_generalstatistics_generalstatistics_percentile"
+    "math_optimization_differentialevolution_differentialevolution",
+    "math_optimization_differentialevolution_differentialevolution_calculatenextgeneration",
+    "math_optimization_differentialevolution_differentialevolution_crossover",
+    "math_optimization_differentialevolution_differentialevolution_minimize",
+    "math_optimization_differentialevolution_cpp_candidate",
+    "math_optimization_differentialevolution_differentialevolution_fillinitialpopulation",
+    "math_optimization_differentialevolution_differentialevolution_getmutationprobabilities",
+    "math_optimization_differentialevolution_cpp_vector",
+    "math_optimization_differentialevolution_differentialevolution_getcrossovermask",
+    "math_optimization_differentialevolution_differentialevolution_rotatearray",
+    "math_optimization_differentialevolution_randomize",
+    "math_optimization_differentialevolution_cpp_problem",
+    "math_modifiedbessel_i",
+    "math_optimization_differentialevolution_differentialevolution_adaptcrossover",
+    "math_optimization_differentialevolution_differentialevolution_adaptsizeweights"
    ]
   },
   {
    "label": "Polynomial function derivatives and integrals",
-   "size": 29,
+   "size": 28,
    "anchors": [
     "math_polynomialmathfunction_polynomialfunction",
     "math_polynomialmathfunction",
@@ -498,32 +456,11 @@
     "math_polynomialmathfunction_polynomialfunction_initializeeqs",
     "math_polynomialmathfunction_polynomialfunction_polynomialfunction",
     "math_pascaltriangle",
-    "math_pascaltriangle_pascaltriangle_coefficients",
+    "math_pascaltriangle_pascaltriangle_pascaltriangle",
     "math_polynomialmathfunction_polynomialfunction_definiteintegral",
     "math_polynomialmathfunction_polynomialfunction_derivative",
     "math_polynomialmathfunction_polynomialfunction_operator",
     "math_polynomialmathfunction_polynomialfunction_primitive"
-   ]
-  },
-  {
-   "label": "Faure low-discrepancy sequences",
-   "size": 29,
-   "anchors": [
-    "math_randomnumbers_faurersg_faurersg",
-    "math_primenumbers_primenumbers",
-    "math_randomnumbers_faurersg",
-    "math_primenumbers",
-    "math_primenumbers_primenumbers_get",
-    "math_primenumbers_primenumbers_nextprimenumber",
-    "math_randomnumbers_faurersg_faurersg_faurersg",
-    "math_randomnumbers_faurersg_faurersg_powbase",
-    "math_primenumbers_cpp_bignatural",
-    "math_randomnumbers_faurersg_faurersg_dimension",
-    "math_randomnumbers_faurersg_faurersg_generatenextintsequence",
-    "math_randomnumbers_faurersg_hpp_size",
-    "math_primenumbers_cpp_size",
-    "math_primenumbers_hpp_bignatural",
-    "math_primenumbers_hpp_vector"
    ]
   },
   {
@@ -538,34 +475,13 @@
     "math_linearleastsquaresregression_linearleastsquaresregression_linearleastsquaresregression",
     "math_linearleastsquaresregression_linearregression_linearregression",
     "math_generallinearleastsquares_generallinearleastsquares_size",
-    "math_linearleastsquaresregression_linearfct_operator",
+    "math_linearleastsquaresregression_linearfcts_linearfcts",
     "math_generallinearleastsquares_generallinearleastsquares_dim",
     "math_generallinearleastsquares_hpp_size",
-    "math_linearleastsquaresregression_linearfcts_linearfcts",
+    "math_linearleastsquaresregression_linearfct_operator",
     "math_linearleastsquaresregression_linearleastsquaresregression",
     "math_linearleastsquaresregression_hpp_function",
     "math_linearleastsquaresregression_hpp_size"
-   ]
-  },
-  {
-   "label": "Asian currencies (implementations)",
-   "size": 28,
-   "anchors": [
-    "currencies_asia_aedcurrency_aedcurrency",
-    "currencies_asia_bdtcurrency_bdtcurrency",
-    "currencies_asia_bhdcurrency_bhdcurrency",
-    "currencies_asia_cnhcurrency_cnhcurrency",
-    "currencies_asia_cnycurrency_cnycurrency",
-    "currencies_asia_hkdcurrency_hkdcurrency",
-    "currencies_asia_idrcurrency_idrcurrency",
-    "currencies_asia_ilscurrency_ilscurrency",
-    "currencies_asia_inrcurrency_inrcurrency",
-    "currencies_asia_iqdcurrency_iqdcurrency",
-    "currencies_asia_irrcurrency_irrcurrency",
-    "currencies_asia_jodcurrency_jodcurrency",
-    "currencies_asia_jpycurrency_jpycurrency",
-    "currencies_asia_krwcurrency_krwcurrency",
-    "currencies_asia_kwdcurrency_kwdcurrency"
    ]
   },
   {
@@ -590,53 +506,12 @@
    ]
   },
   {
-   "label": "Integrator interface and exp-sinh quadrature",
-   "size": 28,
-   "anchors": [
-    "math_integrals_integral_integrator",
-    "math_integrals_integral",
-    "math_integrals_gausslobattointegral",
-    "math_integrals_expsinhintegral_expsinhintegral_integrate",
-    "math_integrals_integral_integrator_absoluteaccuracy",
-    "math_integrals_expsinhintegral_expsinhintegral",
-    "math_integrals_integral_cpp_real",
-    "math_integrals_integral_cpp_size",
-    "math_integrals_integral_integrator_setabsoluteerror",
-    "math_integrals_integral_integrator_setnumberofevaluations",
-    "math_integrals_integral_integrator_numberofevaluations",
-    "math_integrals_expsinhintegral",
-    "math_integrals_integral_integrator_integrator",
-    "math_integrals_integral_integrator_operator",
-    "math_integrals_integral_integrator_absoluteerror"
-   ]
-  },
-  {
-   "label": "Covariance decomposition and factor reduction",
-   "size": 26,
-   "anchors": [
-    "math_matrixutilities_all",
-    "math_matrixutilities_factorreduction_factorreduction",
-    "math_matrixutilities_getcovariance",
-    "math_matrixutilities_symmetricschurdecomposition_symmetricschurdecomposition",
-    "math_matrixutilities_getcovariance_covariancedecomposition",
-    "math_matrixutilities_symmetricschurdecomposition",
-    "math_matrixutilities_symmetricschurdecomposition_symmetricschurdecomposition_diagonal",
-    "math_matrixutilities_symmetricschurdecomposition_symmetricschurdecomposition_jacobirotate",
-    "math_matrixutilities_factorreduction",
-    "math_matrixutilities_pseudosqrt_hyperspherecostfunction_currentmatrix",
-    "math_matrixutilities_svd_svd_n",
-    "math_matrixutilities_getcovariance_covariancedecomposition_covariancedecomposition",
-    "math_matrixutilities_getcovariance_getcovariance",
-    "math_matrixutilities_symmetricschurdecomposition_symmetricschurdecomposition_symmetricschurdecomposition",
-    "math_matrixutilities_tapcorrelations_frobeniuscostfunction_rank"
-   ]
-  },
-  {
    "label": "Burley scrambled Sobol sequences",
    "size": 28,
    "anchors": [
     "math_randomnumbers_burley2020sobolrsg_burley2020sobolrsg",
     "math_randomnumbers_burley2020sobolrsg_burley2020sobolrsg_burley2020sobolrsg",
+    "math_randomnumbers_burley2020sobolrsg_laine_karras_permutation",
     "math_randomnumbers_burley2020sobolrsg_local_hash",
     "math_randomnumbers_burley2020sobolrsg_local_hash_combine",
     "math_randomnumbers_burley2020sobolrsg_local_hash_mix",
@@ -644,7 +519,6 @@
     "math_randomnumbers_burley2020sobolrsg_burley2020sobolrsg_reset",
     "math_randomnumbers_burley2020sobolrsg_cpp_uint32_t",
     "math_randomnumbers_burley2020sobolrsg_cpp_uint64_t",
-    "math_randomnumbers_burley2020sobolrsg_laine_karras_permutation",
     "math_randomnumbers_burley2020sobolrsg_reversebits",
     "math_randomnumbers_burley2020sobolrsg_burley2020sobolrsg_dimension",
     "math_randomnumbers_burley2020sobolrsg_hpp_size",
@@ -665,12 +539,12 @@
     "currencies_exchangeratemanager_exchangeratemanager_directlookup",
     "exchangerate",
     "currencies_exchangeratemanager_cpp_currency",
-    "currencies_exchangeratemanager_exchangeratemanager_add",
     "currencies_exchangeratemanager_exchangeratemanager_hashes",
+    "currencies_exchangeratemanager_exchangeratemanager_add",
     "currencies_exchangeratemanager_valid_at",
     "currencies_exchangeratemanager_exchangeratemanager_hash",
-    "currencies_exchangeratemanager_valid_at_operator",
-    "currencies_exchangeratemanager_exchangeratemanager_clear"
+    "currencies_exchangeratemanager_exchangeratemanager_clear",
+    "currencies_exchangeratemanager_valid_at_valid_at"
    ]
   },
   {
@@ -681,59 +555,17 @@
     "math_matrixutilities_basisincompleteordered_orthogonalprojections",
     "math_matrixutilities_basisincompleteordered_basisincompleteordered",
     "math_matrixutilities_basisincompleteordered_cpp_size",
-    "math_matrixutilities_basisincompleteordered_innerproduct",
     "math_matrixutilities_basisincompleteordered_norm",
     "math_matrixutilities_basisincompleteordered_normsquared",
     "math_matrixutilities_basisincompleteordered_orthogonalprojections_orthogonalprojections",
     "math_matrixutilities_basisincompleteordered_cpp_real",
+    "math_matrixutilities_basisincompleteordered_innerproduct",
     "math_matrixutilities_basisincompleteordered_basisincompleteordered_addvector",
     "math_matrixutilities_basisincompleteordered_basisincompleteordered_basissize",
     "math_matrixutilities_basisincompleteordered_basisincompleteordered_euclideandimension",
+    "math_matrixutilities_basisincompleteordered_basisincompleteordered_newvector",
     "math_matrixutilities_basisincompleteordered_orthogonalprojections_numbervalidvectors",
-    "math_matrixutilities_basisincompleteordered_basisincompleteordered_basisincompleteordered",
-    "math_matrixutilities_basisincompleteordered_hpp_size"
-   ]
-  },
-  {
-   "label": "Differential evolution optimizer",
-   "size": 27,
-   "anchors": [
-    "math_optimization_differentialevolution_differentialevolution",
-    "math_optimization_differentialevolution_differentialevolution_calculatenextgeneration",
-    "math_optimization_differentialevolution_differentialevolution_crossover",
-    "math_optimization_differentialevolution_differentialevolution_minimize",
-    "math_optimization_differentialevolution_cpp_candidate",
-    "math_optimization_differentialevolution_differentialevolution_fillinitialpopulation",
-    "math_optimization_differentialevolution_differentialevolution_getmutationprobabilities",
-    "math_optimization_differentialevolution_cpp_vector",
-    "math_optimization_differentialevolution_differentialevolution_getcrossovermask",
-    "math_optimization_differentialevolution_differentialevolution_rotatearray",
-    "math_optimization_differentialevolution_randomize",
-    "math_optimization_differentialevolution_cpp_problem",
-    "math_optimization_differentialevolution_differentialevolution_adaptcrossover",
-    "math_optimization_differentialevolution_differentialevolution_adaptsizeweights",
-    "math_optimization_differentialevolution_sort_by_cost"
-   ]
-  },
-  {
-   "label": "Lazy object recalculation pattern",
-   "size": 27,
-   "anchors": [
-    "patterns_lazyobject_lazyobject",
-    "patterns_lazyobject",
-    "math_randomnumbers_burley2020sobolrsg",
-    "math_comparison_hpp_shared_ptr",
-    "patterns_lazyobject_lazyobject_defaults",
-    "math_integrals_twodimensionalintegral",
-    "patterns_lazyobject_lazyobject_calculate",
-    "patterns_lazyobject_lazyobject_recalculate",
-    "patterns_lazyobject_lazyobject_update",
-    "patterns_lazyobject_lazyobject_unfreeze",
-    "patterns_lazyobject_lazyobject_alwaysforwardnotifications",
-    "patterns_lazyobject_lazyobject_forwardfirstnotificationonly",
-    "patterns_lazyobject_lazyobject_freeze",
-    "patterns_lazyobject_lazyobject_iscalculated",
-    "patterns_lazyobject_lazyobject_lazyobject"
+    "math_matrixutilities_basisincompleteordered_basisincompleteordered_basisincompleteordered"
    ]
   },
   {
@@ -742,9 +574,9 @@
    "anchors": [
     "math_distributions_chisquaredistribution",
     "math_distributions_chisquaredistribution_inversenoncentralcumulativechisquaredistribution",
+    "math_distributions_chisquaredistribution_noncentralcumulativechisquaresankaranapprox",
     "math_distributions_chisquaredistribution_hpp_real",
     "math_distributions_chisquaredistribution_noncentralcumulativechisquaredistribution",
-    "math_distributions_chisquaredistribution_noncentralcumulativechisquaresankaranapprox",
     "math_distributions_chisquaredistribution_cpp_real",
     "math_distributions_chisquaredistribution_cumulativechisquaredistribution",
     "math_distributions_chisquaredistribution_inversenoncentralcumulativechisquaredistribution_operator",
@@ -758,66 +590,24 @@
    ]
   },
   {
-   "label": "Maddock normal distribution approximations",
-   "size": 27,
-   "anchors": [
-    "math_distributions_normaldistribution",
-    "math_distributions_normaldistribution_normaldistribution",
-    "math_distributions_normaldistribution_hpp_real",
-    "math_distributions_normaldistribution_cumulativenormaldistribution",
-    "math_distributions_normaldistribution_cumulativenormaldistribution_operator",
-    "math_distributions_normaldistribution_maddockcumulativenormal",
-    "math_distributions_normaldistribution_maddockinversecumulativenormal",
-    "math_distributions_normaldistribution_cumulativenormaldistribution_derivative",
-    "math_distributions_normaldistribution_cumulativenormaldistribution_gaussian",
-    "math_distributions_normaldistribution_normaldistribution_derivative",
-    "math_distributions_normaldistribution_normaldistribution_operator",
-    "math_distributions_normaldistribution_cumulativenormaldistribution_cumulativenormaldistribution",
-    "math_distributions_normaldistribution_cumulativenormaldistribution_errorfunction",
-    "math_distributions_normaldistribution_inversecumulativenormal_inversecumulativenormal",
-    "math_distributions_normaldistribution_moroinversecumulativenormal_moroinversecumulativenormal"
-   ]
-  },
-  {
-   "label": "Futures convexity adjustment quote",
+   "label": "Lazy object recalculation pattern",
    "size": 26,
    "anchors": [
-    "quotes_futuresconvadjustmentquote_futuresconvadjustmentquote",
-    "quotes_futuresconvadjustmentquote",
-    "quotes_futuresconvadjustmentquote_futuresconvadjustmentquote_futuresconvadjustmentquote",
-    "quotes_futuresconvadjustmentquote_futuresconvadjustmentquote_value",
-    "quotes_futuresconvadjustmentquote_hpp_real",
-    "quotes_futuresconvadjustmentquote_futuresconvadjustmentquote_futuresvalue",
-    "quotes_futuresconvadjustmentquote_futuresconvadjustmentquote_meanreversion",
-    "quotes_futuresconvadjustmentquote_futuresconvadjustmentquote_update",
-    "quotes_futuresconvadjustmentquote_futuresconvadjustmentquote_volatility",
-    "iborindex",
-    "quotes_futuresconvadjustmentquote_futuresconvadjustmentquote_immdate",
-    "quotes_futuresconvadjustmentquote_futuresconvadjustmentquote_isvalid",
-    "quotes_futuresconvadjustmentquote_hpp_date",
-    "daycounter",
-    "quotes_futuresconvadjustmentquote_cpp_date"
-   ]
-  },
-  {
-   "label": "Modified Bessel function evaluation",
-   "size": 26,
-   "anchors": [
-    "math_optimization_simulatedannealing_simulatedannealing_t",
-    "math_modifiedbessel_modifiedbesselfunction_i_impl",
-    "math_modifiedbessel_exponentiallyweighted",
-    "patterns_observable_proxyupdater",
-    "utilities_dataformatters_null_checker",
-    "utilities_dataformatters_power_of_two_holder",
-    "math_modifiedbessel_unweighted",
+    "patterns_lazyobject_lazyobject",
+    "patterns_observable_observable_notifyobservers",
+    "patterns_lazyobject",
+    "math_randomnumbers_burley2020sobolrsg",
+    "math_comparison_hpp_shared_ptr",
+    "math_integrals_twodimensionalintegral",
+    "patterns_lazyobject_lazyobject_calculate",
+    "patterns_lazyobject_lazyobject_recalculate",
+    "patterns_lazyobject_lazyobject_update",
     "math_comparison_earlier_than_ext_shared_ptr_t_operator",
-    "math_modifiedbessel_exponentiallyweighted_weight1largex",
-    "math_modifiedbessel_exponentiallyweighted_weight2largex",
-    "math_modifiedbessel_exponentiallyweighted_weightsmallx",
-    "patterns_observable_proxyupdater_proxyupdater",
-    "utilities_dataformatters_checknull",
-    "utilities_dataformatters_power_of_two",
-    "utilities_null_null"
+    "patterns_lazyobject_lazyobject_unfreeze",
+    "patterns_lazyobject_lazyobject_alwaysforwardnotifications",
+    "patterns_lazyobject_lazyobject_forwardfirstnotificationonly",
+    "patterns_lazyobject_lazyobject_freeze",
+    "patterns_lazyobject_lazyobject_iscalculated"
    ]
   },
   {
@@ -839,6 +629,213 @@
     "helper_map",
     "math_interpolations_convexmonotoneinterpolation_convexmonotoneimpl_derivative",
     "math_interpolations_convexmonotoneinterpolation_convexmonotoneimpl_secondderivative"
+   ]
+  },
+  {
+   "label": "XABR calibration with Halton restarts",
+   "size": 26,
+   "anchors": [
+    "math_interpolations_xabrinterpolation_xabrinterpolationimpl",
+    "math_interpolations_xabrinterpolation_hpp_real",
+    "math_interpolations_xabrinterpolation_xabrinterpolationimpl_xabrinterpolationimpl",
+    "math_interpolations_xabrinterpolation_xabrinterpolationimpl_interpolationmaxerror",
+    "math_interpolations_xabrinterpolation_xabrinterpolationimpl_value",
+    "math_interpolations_xabrinterpolation_xabrinterpolationimpl_interpolationerror",
+    "math_interpolations_xabrinterpolation_xabrinterpolationimpl_interpolationsquarederror",
+    "math_interpolations_xabrinterpolation_hpp_shared_ptr",
+    "math_interpolations_xabrinterpolation_hpp_endcriteria",
+    "math_interpolations_xabrinterpolation_hpp_optimizationmethod",
+    "math_interpolations_xabrinterpolation_hpp_size",
+    "math_interpolations_xabrinterpolation_hpp_time",
+    "math_interpolations_xabrinterpolation_xabrinterpolationimpl_derivative",
+    "math_interpolations_xabrinterpolation_xabrinterpolationimpl_primitive",
+    "math_interpolations_xabrinterpolation_xabrinterpolationimpl_secondderivative"
+   ]
+  },
+  {
+   "label": "Pseudo-square-root and Cholesky decomposition",
+   "size": 24,
+   "anchors": [
+    "math_matrixutilities_pseudosqrt_hyperspherecostfunction",
+    "math_matrixutilities_pseudosqrt_rankreducedsqrt",
+    "math_matrixutilities_pseudosqrt_pseudosqrt",
+    "math_matrixutilities_pseudosqrt_highamimplementation",
+    "math_matrixutilities_pseudosqrt_hypersphereoptimize",
+    "math_matrixutilities_choleskydecomposition_choleskydecomposition",
+    "math_matrixutilities_choleskydecomposition_choleskysolvefor",
+    "math_matrixutilities_pseudosqrt_checksymmetry",
+    "math_matrixutilities_pseudosqrt_cpp_real",
+    "math_matrixutilities_pseudosqrt_hyperspherecostfunction_value",
+    "math_matrixutilities_pseudosqrt_normalizepseudoroot",
+    "math_matrixutilities_pseudosqrt_norminf",
+    "math_matrixutilities_pseudosqrt_projecttopositivesemidefinitematrix",
+    "math_matrixutilities_pseudosqrt_cpp_size",
+    "math_matrixutilities_pseudosqrt_hyperspherecostfunction_hyperspherecostfunction"
+   ]
+  },
+  {
+   "label": "Futures convexity adjustment quote",
+   "size": 25,
+   "anchors": [
+    "quotes_futuresconvadjustmentquote_futuresconvadjustmentquote",
+    "quotes_futuresconvadjustmentquote_futuresconvadjustmentquote_futuresconvadjustmentquote",
+    "quotes_futuresconvadjustmentquote_futuresconvadjustmentquote_value",
+    "quotes_futuresconvadjustmentquote_futuresconvadjustmentquote_volatility",
+    "quotes_futuresconvadjustmentquote_hpp_real",
+    "quotes_futuresconvadjustmentquote_futuresconvadjustmentquote_futuresvalue",
+    "quotes_futuresconvadjustmentquote_futuresconvadjustmentquote_meanreversion",
+    "quotes_futuresconvadjustmentquote_futuresconvadjustmentquote_update",
+    "iborindex",
+    "quotes_futuresconvadjustmentquote_futuresconvadjustmentquote_immdate",
+    "quotes_futuresconvadjustmentquote_futuresconvadjustmentquote_isvalid",
+    "quotes_futuresconvadjustmentquote_hpp_date",
+    "daycounter",
+    "quotes_futuresconvadjustmentquote_cpp_date",
+    "quotes_futuresconvadjustmentquote_cpp_handle"
+   ]
+  },
+  {
+   "label": "Maddock normal distribution approximations",
+   "size": 24,
+   "anchors": [
+    "math_distributions_normaldistribution",
+    "math_distributions_normaldistribution_normaldistribution",
+    "math_distributions_normaldistribution_hpp_real",
+    "math_distributions_normaldistribution_cumulativenormaldistribution",
+    "math_distributions_normaldistribution_cumulativenormaldistribution_operator",
+    "math_distributions_normaldistribution_maddockinversecumulativenormal",
+    "math_distributions_normaldistribution_cumulativenormaldistribution_derivative",
+    "math_distributions_normaldistribution_cumulativenormaldistribution_gaussian",
+    "math_distributions_normaldistribution_normaldistribution_derivative",
+    "math_distributions_normaldistribution_normaldistribution_operator",
+    "math_distributions_normaldistribution_cumulativenormaldistribution_cumulativenormaldistribution",
+    "math_distributions_normaldistribution_cumulativenormaldistribution_errorfunction",
+    "math_distributions_normaldistribution_inversecumulativenormal_inversecumulativenormal",
+    "math_distributions_normaldistribution_moroinversecumulativenormal_moroinversecumulativenormal",
+    "math_distributions_normaldistribution_normaldistribution_normaldistribution"
+   ]
+  },
+  {
+   "label": "Lagrange interpolation for stochastic collocation",
+   "size": 24,
+   "anchors": [
+    "math_interpolations_lagrangeinterpolation_lagrangeinterpolationimpl",
+    "math_interpolations_lagrangeinterpolation_lagrangeinterpolation",
+    "math_randomnumbers_stochasticcollocationinvcdf",
+    "math_interpolations_lagrangeinterpolation_hpp_real",
+    "math_interpolations_lagrangeinterpolation",
+    "math_interpolations_lagrangeinterpolation_lagrangeinterpolationimpl_updatedvalue",
+    "math_interpolations_lagrangeinterpolation_value",
+    "math_interpolations_lagrangeinterpolation_lagrangeinterpolation_value",
+    "impl",
+    "math_interpolations_lagrangeinterpolation_lagrangeinterpolationimpl_derivative",
+    "math_interpolations_lagrangeinterpolation_lagrangeinterpolationimpl_lagrangeinterpolationimpl",
+    "math_interpolations_lagrangeinterpolation_lagrangeinterpolationimpl_value",
+    "math_interpolations_lagrangeinterpolation_updatedyinterpolation",
+    "math_interpolations_lagrangeinterpolation_hpp_i1",
+    "math_interpolations_lagrangeinterpolation_hpp_i2"
+   ]
+  },
+  {
+   "label": "Modified Bessel function evaluation",
+   "size": 24,
+   "anchors": [
+    "math_optimization_simulatedannealing_simulatedannealing_t",
+    "math_modifiedbessel_modifiedbesselfunction_i_impl",
+    "patterns_observable_proxyupdater",
+    "utilities_dataformatters_null_checker",
+    "utilities_dataformatters_power_of_two_holder",
+    "math_modifiedbessel_exponentiallyweighted",
+    "math_modifiedbessel_unweighted",
+    "math_modifiedbessel_exponentiallyweighted_weight1largex",
+    "math_modifiedbessel_exponentiallyweighted_weight2largex",
+    "math_modifiedbessel_exponentiallyweighted_weightsmallx",
+    "patterns_observable_proxyupdater_proxyupdater",
+    "utilities_dataformatters_checknull",
+    "utilities_dataformatters_power_of_two",
+    "utilities_null_null",
+    "math_modifiedbessel_unweighted_weight1largex"
+   ]
+  },
+  {
+   "label": "Integrator interface and exp-sinh quadrature",
+   "size": 17,
+   "anchors": [
+    "math_integrals_integral_integrator",
+    "math_integrals_integral_integrator_absoluteaccuracy",
+    "math_integrals_integral_cpp_real",
+    "math_integrals_integral_cpp_size",
+    "math_integrals_integral_integrator_setabsoluteerror",
+    "math_integrals_integral_integrator_setnumberofevaluations",
+    "math_integrals_integral_integrator_numberofevaluations",
+    "math_integrals_integral_integrator_integrator",
+    "math_integrals_integral_integrator_operator",
+    "math_integrals_integral_integrator_absoluteerror",
+    "math_integrals_integral_integrator_setabsoluteaccuracy",
+    "math_integrals_integral_integrator_setmaxevaluations",
+    "math_integrals_integral_integrator_integrationsuccess",
+    "math_integrals_integral_cpp_function",
+    "math_integrals_integral_hpp_real"
+   ]
+  },
+  {
+   "label": "Log-linear and log-cubic interpolation",
+   "size": 17,
+   "anchors": [
+    "math_interpolations_loginterpolation",
+    "math_interpolations_loginterpolation_logcubicinterpolation",
+    "math_interpolations_loginterpolation_hpp_i1",
+    "math_interpolations_loginterpolation_hpp_i2",
+    "math_interpolations_loginterpolation_logmixedlinearcubicinterpolation",
+    "math_interpolations_loginterpolation_interpolate",
+    "math_interpolations_loginterpolation_loglinearinterpolation",
+    "math_interpolations_loginterpolation_logmixedlinearcubicnaturalspline",
+    "math_interpolations_loginterpolation_fritschbutlandlogcubic",
+    "math_interpolations_loginterpolation_harmoniclogcubic",
+    "math_interpolations_loginterpolation_hpp_boundarycondition",
+    "math_interpolations_loginterpolation_krugerlogcubic",
+    "math_interpolations_loginterpolation_logcubicnaturalspline",
+    "math_interpolations_loginterpolation_loginterpolationimpl_update",
+    "math_interpolations_loginterpolation_logparabolic"
+   ]
+  },
+  {
+   "label": "Faure low-discrepancy sequences",
+   "size": 13,
+   "anchors": [
+    "math_primenumbers_primenumbers_nextprimenumber",
+    "math_primenumbers_primenumbers",
+    "math_primenumbers_primenumbers_get",
+    "math_primenumbers",
+    "math_randomnumbers_faurersg_faurersg_dimensionality",
+    "math_randomnumbers_faurersg_faurersg_faurersg",
+    "math_primenumbers_cpp_bignatural",
+    "math_randomnumbers_faurersg_faurersg_generatenextintsequence",
+    "math_primenumbers_cpp_size",
+    "math_primenumbers_hpp_bignatural",
+    "math_primenumbers_hpp_vector",
+    "math_primenumbers_primenumbers_primenumbers",
+    "math_randomnumbers_faurersg_cpp_size"
+   ]
+  },
+  {
+   "label": "ZABR volatility interpolation",
+   "size": 14,
+   "anchors": [
+    "math_interpolations_zabrinterpolation_zabrspecs",
+    "math_interpolations_zabrinterpolation_hpp_vector",
+    "math_interpolations_zabrinterpolation_zabrspecs_direct",
+    "math_interpolations_zabrinterpolation_zabrspecs_instance",
+    "math_interpolations_zabrinterpolation_zabrspecs_inverse",
+    "math_interpolations_zabrinterpolation_zabrspecs_eps1",
+    "math_interpolations_zabrinterpolation_zabrspecs_eps2",
+    "math_interpolations_zabrinterpolation_zabrspecs_guess",
+    "math_interpolations_zabrinterpolation_zabrspecs_defaultvalues",
+    "math_interpolations_zabrinterpolation_zabrspecs_weight",
+    "math_interpolations_zabrinterpolation_hpp_size",
+    "math_interpolations_zabrinterpolation_zabrspecs_dilationfactor",
+    "math_interpolations_zabrinterpolation_zabrspecs_dimension",
+    "math_interpolations_zabrinterpolation_zabrspecs_eps"
    ]
   }
  ]

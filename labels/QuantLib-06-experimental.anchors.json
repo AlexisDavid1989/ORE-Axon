@@ -32,15 +32,36 @@
     "experimental_credit_saddlepointlossmodel_hpp_vector",
     "experimental_credit_saddlepointlossmodel_hpp_date",
     "experimental_credit_saddlepointlossmodel_hpp_probability",
+    "experimental_credit_saddlepointlossmodel_saddlepointlossmodel_cp_probdensitycond",
     "experimental_credit_saddlepointlossmodel_saddlepointlossmodel_cp_expectedshortfall",
     "experimental_credit_saddlepointlossmodel_saddlepointlossmodel_cp_expectedshortfallfullportfoliocond",
     "experimental_credit_saddlepointlossmodel_saddlepointlossmodel_cp_expectedshortfalltranchecond",
     "experimental_credit_saddlepointlossmodel_saddlepointlossmodel_cp_lossdistribution",
-    "experimental_credit_saddlepointlossmodel_saddlepointlossmodel_cp_probdensitycond",
     "experimental_credit_saddlepointlossmodel_saddlepointlossmodel_cp_proboverlossportfcond",
     "experimental_credit_saddlepointlossmodel_saddlepointlossmodel_cp_proboverlossportfcond1storder",
     "experimental_credit_saddlepointlossmodel_saddlepointlossmodel_findsaddle",
     "experimental_credit_saddlepointlossmodel_saddlepointlossmodel_cp_findsaddle"
+   ]
+  },
+  {
+   "label": "YoY cap/floor price surface base / Interpolated YoY cap/floor price surface",
+   "size": 82,
+   "anchors": [
+    "experimental_inflation_yoycapfloortermpricesurface_yoycapfloortermpricesurface",
+    "experimental_inflation_yoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface",
+    "experimental_inflation_yoycapfloortermpricesurface",
+    "experimental_inflation_yoycapfloortermpricesurface_hpp_rate",
+    "experimental_inflation_yoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface_i2d_i1d_interpolatedyoycapfloortermpricesurface",
+    "experimental_inflation_yoycapfloortermpricesurface_hpp_date",
+    "experimental_inflation_yoycapfloortermpricesurface_hpp_vector",
+    "experimental_inflation_yoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface_atmyoyswaprate",
+    "experimental_inflation_yoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface_i2d_i1d_price",
+    "experimental_inflation_yoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface_atmyoyswapdaterates",
+    "experimental_inflation_yoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface_atmyoyswaptimerates",
+    "experimental_inflation_yoycapfloortermpricesurface_hpp_natural",
+    "experimental_inflation_yoycapfloortermpricesurface_hpp_shared_ptr",
+    "experimental_inflation_yoycapfloortermpricesurface_yoycapfloortermpricesurface_checkmaturity",
+    "experimental_inflation_yoycapfloortermpricesurface_yoycapfloortermpricesurface_checkstrike"
    ]
   },
   {
@@ -107,24 +128,45 @@
    ]
   },
   {
+   "label": "Interpolated YoY optionlet stripper",
+   "size": 60,
+   "anchors": [
+    "experimental_inflation_yoyoptionletstripper_yoyoptionletstripper",
+    "experimental_inflation_interpolatedyoyoptionletstripper_interpolatedyoyoptionletstripper_interpolator1d_bootstrap_initialize",
+    "experimental_inflation_interpolatedyoyoptionletstripper_interpolatedyoyoptionletstripper",
+    "experimental_inflation_all",
+    "experimental_inflation_interpolatedyoyoptionletstripper_yoyoptionletsolver_solveforimpliedvol",
+    "experimental_inflation_interpolatedyoyoptionletstripper",
+    "experimental_inflation_interpolatedyoyoptionletstripper_interpolatedyoyoptionletstripper_interpolator1d_bootstrap_slice",
+    "experimental_inflation_yoycapfloortermpricesurface_yoycapfloortermpricesurface_strikes",
+    "experimental_inflation_interpolatedyoyoptionletstripper_interpolatedyoyoptionletstripper_strikes",
+    "experimental_inflation_interpolatedyoyoptionletstripper_hpp_rate",
+    "experimental_inflation_interpolatedyoyoptionletstripper_hpp_yoycapfloortermpricesurface",
+    "experimental_inflation_interpolatedyoyoptionletstripper_yoyoptionletbasesolver",
+    "experimental_inflation_yoycapfloortermpricesurface_yoycapfloortermpricesurface_frequency",
+    "experimental_inflation_yoyinflationoptionletvolatilitystructure2_interpolatedyoyoptionletvolatilitycurve_volatilityimpl",
+    "experimental_inflation_cpicapfloorengines_interpolatingcpicapfloorengine_name"
+   ]
+  },
+  {
    "label": "Square-root CLV collocation model",
    "size": 56,
    "anchors": [
     "experimental_models_squarerootclvmodel_squarerootclvmodel",
     "experimental_models_squarerootclvmodel",
     "experimental_math_gaussiannoncentralchisquaredpolynomial_gaussnoncentralchisquaredpolynomial",
+    "experimental_math_gaussiannoncentralchisquaredpolynomial",
     "experimental_models_squarerootclvmodel_squarerootclvmodel_squarerootclvmodel",
     "experimental_models_squarerootclvmodel_squarerootclvmodel_collocationpointsx",
     "experimental_models_squarerootclvmodel_squarerootclvmodel_noncentralchisquaredparams",
-    "experimental_math_gaussiannoncentralchisquaredpolynomial",
     "experimental_models_squarerootclvmodel_cpp_date",
     "experimental_models_squarerootclvmodel_cpp_real",
-    "experimental_math_gaussiannoncentralchisquaredpolynomial_gaussnoncentralchisquaredpolynomial_gaussnoncentralchisquaredpolynomial",
     "experimental_math_gaussiannoncentralchisquaredpolynomial_initmoments",
     "experimental_models_squarerootclvmodel_squarerootclvmodel_collocationpointsy",
     "experimental_math_gaussiannoncentralchisquaredpolynomial_cpp_real",
     "experimental_math_gaussiannoncentralchisquaredpolynomial_gaussnoncentralchisquaredpolynomial_moment",
-    "experimental_models_squarerootclvmodel_squarerootclvmodel_cdf"
+    "experimental_models_squarerootclvmodel_squarerootclvmodel_cdf",
+    "experimental_models_squarerootclvmodel_squarerootclvmodel_g"
    ]
   },
   {
@@ -149,27 +191,6 @@
    ]
   },
   {
-   "label": "Ext-OU jump and Kluge processes",
-   "size": 55,
-   "anchors": [
-    "experimental_processes_extouwithjumpsprocess_extouwithjumpsprocess",
-    "experimental_processes_klugeextouprocess",
-    "experimental_processes_klugeextouprocess_klugeextouprocess",
-    "experimental_processes_extouwithjumpsprocess",
-    "experimental_processes_extouwithjumpsprocess_extouwithjumpsprocess_diffusion",
-    "experimental_processes_extouwithjumpsprocess_extouwithjumpsprocess_evolve",
-    "experimental_processes_klugeextouprocess_klugeextouprocess_diffusion",
-    "experimental_processes_klugeextouprocess_klugeextouprocess_klugeextouprocess",
-    "experimental_processes_extouwithjumpsprocess_cpp_array",
-    "experimental_processes_extouwithjumpsprocess_cpp_real",
-    "experimental_processes_extouwithjumpsprocess_extouwithjumpsprocess_drift",
-    "experimental_processes_extouwithjumpsprocess_extouwithjumpsprocess_getextendedornsteinuhlenbeckprocess",
-    "experimental_processes_klugeextouprocess_cpp_array",
-    "experimental_processes_klugeextouprocess_klugeextouprocess_drift",
-    "experimental_processes_klugeextouprocess_klugeextouprocess_evolve"
-   ]
-  },
-  {
    "label": "Perturbative barrier option engine",
    "size": 55,
    "anchors": [
@@ -185,126 +206,20 @@
     "experimental_barrieroption_perturbativebarrieroptionengine_alpha_adapter",
     "experimental_barrieroption_perturbativebarrieroptionengine_integalpha_adapter",
     "experimental_barrieroption_perturbativebarrieroptionengine_bvtl",
+    "experimental_barrieroption_perturbativebarrieroptionengine_ddvv",
     "experimental_barrieroption_perturbativebarrieroptionengine_integr_adapter",
-    "experimental_barrieroption_perturbativebarrieroptionengine_cpp_generalizedblackscholesprocess",
-    "experimental_barrieroption_perturbativebarrieroptionengine_ddff"
-   ]
-  },
-  {
-   "label": "ABCD parametric ATM vol curve",
-   "size": 54,
-   "anchors": [
-    "experimental_volatility_abcdatmvolcurve_abcdatmvolcurve",
-    "experimental_volatility_abcdatmvolcurve",
-    "experimental_volatility_abcdatmvolcurve_abcdatmvolcurve_abcdatmvolcurve",
-    "experimental_volatility_abcdatmvolcurve_hpp_real",
-    "experimental_volatility_abcdatmvolcurve_abcdatmvolcurve_atmvolimpl",
-    "experimental_volatility_abcdatmvolcurve_abcdatmvolcurve_k",
-    "experimental_volatility_abcdatmvolcurve_abcdatmvolcurve_atmvarianceimpl",
-    "experimental_volatility_abcdatmvolcurve_abcdatmvolcurve_initializeoptiondatesandtimes",
-    "experimental_volatility_abcdatmvolcurve_abcdatmvolcurve_maxdate",
-    "experimental_volatility_abcdatmvolcurve_abcdatmvolcurve_update",
-    "experimental_volatility_abcdatmvolcurve_hpp_time",
-    "experimental_volatility_abcdatmvolcurve_abcdatmvolcurve_a",
-    "experimental_volatility_abcdatmvolcurve_abcdatmvolcurve_accept",
-    "experimental_volatility_abcdatmvolcurve_abcdatmvolcurve_b",
-    "experimental_volatility_abcdatmvolcurve_abcdatmvolcurve_c"
-   ]
-  },
-  {
-   "label": "Bachelier FX delta calculator",
-   "size": 54,
-   "anchors": [
-    "experimental_fx_bachelierdeltacalculator_bachelierdeltacalculator",
-    "experimental_barrieroption_vannavolgabarrierengine_vannavolgabarrierengine",
-    "experimental_fx_bachelierdeltacalculator",
-    "experimental_barrieroption_vannavolgabarrierengine",
-    "experimental_fx_bachelierdeltacalculator_cpp_real",
-    "experimental_fx_bachelierdeltacalculator_bachelierdeltapremiumadjustedsolverclass",
-    "experimental_barrieroption_vannavolgabarrierengine_hpp_deltavolquote",
-    "experimental_fx_bachelierdeltacalculator_bachelierdeltacalculator_bachelierdeltacalculator",
-    "experimental_fx_bachelierdeltacalculator_bachelierdeltacalculator_cumd",
-    "experimental_fx_bachelierdeltacalculator_bachelierdeltacalculator_strikefromdelta",
-    "experimental_fx_bachelierdeltacalculator_bachelierdeltapremiumadjustedsolverclass_bachelierdeltapremiumadjustedsolverclass",
-    "experimental_fx_bachelierdeltacalculator_bachelierdeltacalculator_atmstrike",
-    "experimental_fx_bachelierdeltacalculator_bachelierdeltacalculator_deltafromstrike",
-    "experimental_fx_bachelierdeltacalculator_cpp_deltatype",
-    "experimental_fx_bachelierdeltacalculator_bachelierdeltacalculator_nd"
-   ]
-  },
-  {
-   "label": "No-arbitrage SABR smile section",
-   "size": 54,
-   "anchors": [
-    "experimental_volatility_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection",
-    "experimental_volatility_noarbsabrinterpolatedsmilesection",
-    "experimental_credit_basecorrelationlossmodel_hpp_simplequote",
-    "experimental_volatility_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection",
-    "experimental_volatility_noarbsabrinterpolatedsmilesection_hpp_real",
-    "experimental_volatility_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection_maxstrike",
-    "experimental_volatility_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection_volatilityimpl",
-    "experimental_volatility_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection_alpha",
-    "experimental_volatility_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection_atmlevel",
-    "experimental_volatility_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection_beta",
-    "experimental_volatility_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection_endcriteria",
-    "experimental_volatility_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection_maxerror",
-    "experimental_volatility_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection_minstrike",
-    "experimental_volatility_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection_nu",
-    "experimental_volatility_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection_rho"
-   ]
-  },
-  {
-   "label": "Nth-to-default instrument",
-   "size": 54,
-   "anchors": [
-    "experimental_credit_nthtodefault_nthtodefault",
-    "experimental_credit_nthtodefault",
-    "experimental_credit_nthtodefault_nthtodefault_arguments",
-    "experimental_credit_nthtodefault_nthtodefault_nthtodefault",
-    "experimental_credit_nthtodefault_cpp_real",
-    "experimental_credit_nthtodefault_hpp_real",
-    "experimental_credit_nthtodefault_nthtodefault_engine",
-    "experimental_credit_nthtodefault_basket",
-    "experimental_credit_nthtodefault_hpp_rate",
-    "experimental_credit_nthtodefault_hpp_side",
-    "experimental_credit_nthtodefault_hpp_size",
-    "experimental_credit_nthtodefault_nthtodefault_basketsize",
-    "experimental_credit_nthtodefault_nthtodefault_errorestimate",
-    "experimental_credit_nthtodefault_nthtodefault_fairpremium",
-    "experimental_credit_nthtodefault_nthtodefault_fetchresults"
-   ]
-  },
-  {
-   "label": "Student-t copula and Behrens-Fisher convolution",
-   "size": 52,
-   "anchors": [
-    "experimental_math_tcopulapolicy_tcopulapolicy",
-    "experimental_math_convolvedstudentt_cumulativebehrensfisher",
-    "experimental_math_convolvedstudentt",
-    "experimental_math_convolvedstudentt_cumulativebehrensfisher_polyncharactt",
-    "experimental_math_convolvedstudentt_inversecumulativebehrensfisher",
-    "experimental_math_convolvedstudentt_cpp_real",
-    "experimental_math_tcopulapolicy_hpp_real",
-    "experimental_math_convolvedstudentt_cumulativebehrensfisher_convolvevectorpolynomials",
-    "experimental_math_convolvedstudentt_cumulativebehrensfisher_cumulativebehrensfisher",
-    "experimental_math_tcopulapolicy",
-    "experimental_math_tcopulapolicy_hpp_probability",
-    "experimental_math_convolvedstudentt_inversecumulativebehrensfisher_operator",
-    "experimental_math_convolvedstudentt_cpp_vector",
-    "experimental_math_convolvedstudentt_cumulativebehrensfisher_density",
-    "experimental_math_convolvedstudentt_cumulativebehrensfisher_operator"
+    "experimental_barrieroption_perturbativebarrieroptionengine_cpp_generalizedblackscholesprocess"
    ]
   },
   {
    "label": "Virtual power plant step condition",
-   "size": 50,
+   "size": 49,
    "anchors": [
     "experimental_finitedifferences_fdmvppstepcondition_fdmvppstepcondition",
     "experimental_finitedifferences_fdmvppstepcondition",
     "experimental_finitedifferences_fdmvppstepcondition_fdmvppstepconditionparams",
     "experimental_finitedifferences_fdmvppstepconditionfactory",
     "experimental_finitedifferences_fdmvppstepcondition_fdmvppstepconditionmesher",
-    "experimental_finitedifferences_fdmdupire1dop_hpp_array",
     "experimental_finitedifferences_fdmvppstepcondition_fdmvppstepcondition_fdmvppstepcondition",
     "experimental_finitedifferences_fdmvppstepcondition_fdmvppstepcondition_evolve",
     "experimental_finitedifferences_fdmvppstepcondition_fdmvppstepcondition_applyto",
@@ -313,7 +228,8 @@
     "experimental_finitedifferences_fdmvppstepcondition_cpp_real",
     "experimental_finitedifferences_fdmvppstepcondition_fdmmesher",
     "experimental_finitedifferences_fdmvppstepcondition_fdmvppstepcondition_nstates",
-    "experimental_finitedifferences_fdmvppstepcondition_hpp_size"
+    "experimental_finitedifferences_fdmvppstepcondition_hpp_size",
+    "stepcondition"
    ]
   },
   {
@@ -325,9 +241,9 @@
     "experimental_credit_cdo_hpp_real",
     "experimental_credit_cdo_cdo_expectedtrancheloss",
     "experimental_credit_cdo_cpp_rate",
-    "experimental_credit_cdo_cdo_copula",
     "experimental_credit_cdo_cdo_error",
     "experimental_credit_cdo_cdo_fairpremium",
+    "experimental_credit_cdo_cdo_nbuckets",
     "experimental_credit_cdo_cdo_nominals",
     "experimental_credit_cdo_cdo_premiumvalue",
     "experimental_credit_cdo_cdo_protectionvalue",
@@ -338,59 +254,17 @@
    ]
   },
   {
-   "label": "YoY cap/floor price surface base",
-   "size": 47,
-   "anchors": [
-    "experimental_inflation_yoycapfloortermpricesurface_yoycapfloortermpricesurface",
-    "experimental_inflation_yoycapfloortermpricesurface_hpp_rate",
-    "experimental_inflation_yoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface_i2d_i1d_interpolatedyoycapfloortermpricesurface",
-    "experimental_inflation_yoycapfloortermpricesurface_hpp_vector",
-    "experimental_inflation_yoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface_atmyoyswapdaterates",
-    "experimental_inflation_yoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface_atmyoyswaptimerates",
-    "experimental_inflation_yoycapfloortermpricesurface_hpp_natural",
-    "experimental_inflation_yoycapfloortermpricesurface_hpp_shared_ptr",
-    "experimental_inflation_yoycapfloortermpricesurface_yoycapfloortermpricesurface_checkstrike",
-    "experimental_inflation_yoycapfloortermpricesurface_yoycapfloortermpricesurface_floorstrikes",
-    "experimental_inflation_yoycapfloortermpricesurface_yoycapfloortermpricesurface_maturities",
-    "experimental_inflation_yoycapfloortermpricesurface_yoycapfloortermpricesurface_yoyindex",
-    "experimental_inflation_yoycapfloortermpricesurface_hpp_businessdayconvention",
-    "experimental_inflation_yoycapfloortermpricesurface_hpp_matrix",
-    "experimental_inflation_yoycapfloortermpricesurface_hpp_pair"
-   ]
-  },
-  {
-   "label": "Base correlation term structure",
-   "size": 44,
-   "anchors": [
-    "experimental_credit_basecorrelationstructure_basecorrelationtermstructure",
-    "experimental_credit_basecorrelationstructure_basecorrelationtermstructure_basecorrelationtermstructure",
-    "experimental_credit_basecorrelationstructure",
-    "experimental_credit_basecorrelationstructure_basecorrelationtermstructure_correlation",
-    "experimental_credit_correlationstructure_correlationtermstructure_correlationtermstructure",
-    "experimental_basismodels_tenoroptionletvts_hpp_correlationstructure",
-    "experimental_credit_basecorrelationstructure_basecorrelationtermstructure_updatematrix",
-    "experimental_credit_basecorrelationstructure_hpp_date",
-    "experimental_credit_basecorrelationstructure_hpp_real",
-    "experimental_credit_basecorrelationstructure_hpp_size",
-    "experimental_credit_basecorrelationstructure_basecorrelationtermstructure_checkinputs",
-    "experimental_credit_basecorrelationstructure_basecorrelationtermstructure_checktranchetenors",
-    "experimental_credit_basecorrelationstructure_basecorrelationtermstructure_correlationsize",
-    "experimental_credit_basecorrelationstructure_basecorrelationtermstructure_i2d_t_checkinputs",
-    "experimental_credit_basecorrelationstructure_basecorrelationtermstructure_i2d_t_update"
-   ]
-  },
-  {
    "label": "Ext-OU jump FD operator",
    "size": 42,
    "anchors": [
     "experimental_finitedifferences_fdmextoujumpop_fdmextoujumpop",
     "experimental_finitedifferences_fdmextoujumpop",
     "experimental_finitedifferences_fdmextoujumpop_fdmextoujumpop_fdmextoujumpop",
-    "experimental_finitedifferences_fdmextoujumpop_fdmextoujumpop_solve_splitting",
+    "experimental_finitedifferences_fdmextoujumpop_fdmextoujumpop_apply",
     "experimental_finitedifferences_fdmextoujumpop_cpp_array",
     "experimental_finitedifferences_fdmextoujumpop_fdmextoujumpop_integro",
+    "experimental_finitedifferences_fdmextoujumpop_fdmextoujumpop_solve_splitting",
     "experimental_finitedifferences_fdmextoujumpop_cpp_size",
-    "experimental_finitedifferences_fdmextoujumpop_fdmextoujumpop_apply",
     "experimental_finitedifferences_fdmextoujumpop_fdmextoujumpop_apply_direction",
     "experimental_finitedifferences_fdmextoujumpop_fdmextoujumpop_apply_mixed",
     "experimental_finitedifferences_fdmextoujumpop_fdmextoujumpop_preconditioner",
@@ -401,92 +275,8 @@
    ]
   },
   {
-   "label": "ZABR FD operator",
-   "size": 42,
-   "anchors": [
-    "experimental_finitedifferences_fdmzabrop_fdmzabrop",
-    "experimental_finitedifferences_fdmzabrop_fdmzabrunderlyingpart",
-    "experimental_finitedifferences_fdmzabrop_fdmzabrvolatilitypart",
-    "experimental_finitedifferences_fdmzabrop_cpp_array",
-    "experimental_finitedifferences_fdmzabrop_cpp_real",
-    "experimental_finitedifferences_fdmzabrop_fdmzabrop_solve_splitting",
-    "experimental_finitedifferences_fdmzabrop_fdmzabrop_apply_direction",
-    "experimental_finitedifferences_fdmzabrop_fdmzabrop_fdmzabrop",
-    "experimental_finitedifferences_fdmzabrop_fdmzabrop_preconditioner",
-    "experimental_finitedifferences_fdmzabrop_fdmzabrop_tomatrixdecomp",
-    "experimental_finitedifferences_fdmzabrop_fdmzabrunderlyingpart_fdmzabrunderlyingpart",
-    "experimental_finitedifferences_fdmzabrop_fdmzabrvolatilitypart_fdmzabrvolatilitypart",
-    "experimental_finitedifferences_fdmzabrop_cpp_fdmmesher",
-    "experimental_finitedifferences_fdmzabrop_cpp_shared_ptr",
-    "experimental_finitedifferences_fdmzabrop_cpp_size"
-   ]
-  },
-  {
-   "label": "Generic latent model base",
-   "size": 43,
-   "anchors": [
-    "experimental_math_latentmodel_latentmodel",
-    "experimental_math_latentmodel_hpp_real",
-    "experimental_math_latentmodel_hpp_vector",
-    "experimental_math_latentmodel_hpp_size",
-    "experimental_math_latentmodel_latentmodel_integratedexpectedvalue",
-    "experimental_math_latentmodel_integrationbase_multidimintegral",
-    "experimental_math_latentmodel_latentmodel_impl_latentmodel",
-    "experimental_math_latentmodel_latentmodel_integratedexpectedvaluev",
-    "experimental_math_latentmodel_latentmodel_density",
-    "experimental_math_latentmodel_hpp_function",
-    "experimental_math_latentmodel_hpp_probability",
-    "experimental_math_latentmodel_integrationbase_gaussianquadmultidimintegrator",
-    "experimental_math_latentmodel_integrationbase_gaussianquadmultidimintegrator_integratev",
-    "experimental_math_latentmodel_integrationbase_multidimintegral_integrate",
-    "experimental_math_latentmodel_integrationbase_multidimintegral_integrationbase"
-   ]
-  },
-  {
-   "label": "Kluge Ext-OU FD operator",
-   "size": 41,
-   "anchors": [
-    "experimental_finitedifferences_fdmklugeextouop",
-    "experimental_finitedifferences_fdmklugeextouop_fdmklugeextouop",
-    "fdmlinearopcomposite",
-    "experimental_finitedifferences_fdmklugeextouop_fdmklugeextouop_fdmklugeextouop",
-    "experimental_finitedifferences_fdmklugeextouop_cpp_array",
-    "experimental_finitedifferences_fdmklugeextouop_fdmklugeextouop_apply",
-    "experimental_finitedifferences_fdmklugeextouop_fdmklugeextouop_solve_splitting",
-    "experimental_finitedifferences_fdmklugeextouop_cpp_size",
-    "experimental_finitedifferences_fdmklugeextouop_fdmklugeextouop_apply_direction",
-    "experimental_finitedifferences_fdmklugeextouop_fdmklugeextouop_preconditioner",
-    "experimental_finitedifferences_fdmklugeextouop_fdmklugeextouop_tomatrixdecomp",
-    "experimental_finitedifferences_fdmklugeextouop_fdmklugeextouop_apply_mixed",
-    "experimental_finitedifferences_fdmklugeextouop_fdmklugeextouop_settime",
-    "experimental_finitedifferences_fdmklugeextouop_fdmklugeextouop_size",
-    "experimental_finitedifferences_fdmklugeextouop_hpp_ninepointlinearop"
-   ]
-  },
-  {
-   "label": "Recursive convolution loss model",
-   "size": 41,
-   "anchors": [
-    "experimental_credit_recursivelossmodel_recursivelossmodel",
-    "experimental_credit_recursivelossmodel",
-    "experimental_credit_recursivelossmodel_hpp_real",
-    "experimental_credit_recursivelossmodel_hpp_vector",
-    "experimental_credit_recursivelossmodel_recursivelossmodel_cp_lossdistribution",
-    "experimental_credit_recursivelossmodel_hpp_date",
-    "experimental_credit_recursivelossmodel_hpp_probability",
-    "experimental_credit_recursivelossmodel_recursivelossmodel_cp_conditionallossdistrib",
-    "experimental_credit_recursivelossmodel_recursivelossmodel_cp_conditionallossdistribinvp",
-    "experimental_credit_recursivelossmodel_recursivelossmodel_cp_conditionallossprob",
-    "experimental_credit_recursivelossmodel_recursivelossmodel_cp_expectedconditionalloss",
-    "experimental_credit_recursivelossmodel_recursivelossmodel_cp_lossprobability",
-    "experimental_credit_recursivelossmodel_recursivelossmodel_cp_expectedconditionallossinvp",
-    "experimental_credit_recursivelossmodel_recursivelossmodel_cp_expectedshortfall",
-    "experimental_credit_recursivelossmodel_recursivelossmodel_cp_expectedtrancheloss"
-   ]
-  },
-  {
    "label": "K-interpolated YoY optionlet volatility surface",
-   "size": 41,
+   "size": 42,
    "anchors": [
     "experimental_inflation_kinterpolatedyoyoptionletvolatilitysurface_kinterpolatedyoyoptionletvolatilitysurface",
     "experimental_inflation_kinterpolatedyoyoptionletvolatilitysurface_kinterpolatedyoyoptionletvolatilitysurface_interpolator1d_kinterpolatedyoyoptionletvolatilitysurface",
@@ -503,6 +293,27 @@
     "experimental_inflation_kinterpolatedyoyoptionletvolatilitysurface_hpp_shared_ptr",
     "experimental_inflation_kinterpolatedyoyoptionletvolatilitysurface_hpp_vector",
     "experimental_inflation_kinterpolatedyoyoptionletvolatilitysurface_hpp_yoycapfloortermpricesurface"
+   ]
+  },
+  {
+   "label": "SVI interpolated smile section",
+   "size": 41,
+   "anchors": [
+    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection",
+    "experimental_volatility_sviinterpolatedsmilesection",
+    "experimental_volatility_sviinterpolatedsmilesection_hpp_real",
+    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection_volatilityimpl",
+    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection_a",
+    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection_atmlevel",
+    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection_b",
+    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection_endcriteria",
+    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection_m",
+    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection_maxerror",
+    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection_maxstrike",
+    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection_minstrike",
+    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection_rho",
+    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection_rmserror",
+    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection_sigma"
    ]
   },
   {
@@ -527,87 +338,45 @@
    ]
   },
   {
-   "label": "Extended Ornstein-Uhlenbeck FD operator",
+   "label": "Nth-to-default instrument",
    "size": 39,
    "anchors": [
-    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_fdmextendedornsteinuhlenbeckop",
-    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop",
-    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_fdmextendedornsteinuhlenbeckop_solve_splitting",
-    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_fdmextendedornsteinuhlenbeckop_fdmextendedornsteinuhlenbeckop",
-    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_cpp_array",
-    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_fdmextendedornsteinuhlenbeckop_apply_direction",
-    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_cpp_size",
-    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_fdmextendedornsteinuhlenbeckop_apply_mixed",
-    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_fdmextendedornsteinuhlenbeckop_preconditioner",
-    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_fdmextendedornsteinuhlenbeckop_tomatrixdecomp",
-    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_hpp_fdmboundaryconditionset",
-    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_fdmextendedornsteinuhlenbeckop_apply",
-    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_fdmextendedornsteinuhlenbeckop_settime",
-    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_fdmextendedornsteinuhlenbeckop_size",
-    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_cpp_real"
+    "experimental_credit_nthtodefault_nthtodefault",
+    "experimental_credit_nthtodefault_nthtodefault_nthtodefault",
+    "experimental_credit_nthtodefault_cpp_real",
+    "experimental_credit_nthtodefault_hpp_real",
+    "experimental_credit_nthtodefault_hpp_rate",
+    "experimental_credit_nthtodefault_hpp_side",
+    "experimental_credit_nthtodefault_hpp_size",
+    "experimental_credit_nthtodefault_nthtodefault_basketsize",
+    "experimental_credit_nthtodefault_nthtodefault_errorestimate",
+    "experimental_credit_nthtodefault_nthtodefault_fairpremium",
+    "experimental_credit_nthtodefault_nthtodefault_fetchresults",
+    "experimental_credit_nthtodefault_nthtodefault_premiumlegnpv",
+    "experimental_credit_nthtodefault_nthtodefault_protectionlegnpv",
+    "experimental_credit_nthtodefault_nthtodefault_setuparguments",
+    "experimental_credit_nthtodefault_cpp_rate"
    ]
   },
   {
-   "label": "Virtual power plant option instrument",
+   "label": "Recursive convolution loss model",
    "size": 39,
    "anchors": [
-    "experimental_finitedifferences_vanillavppoption_vanillavppoption",
-    "experimental_finitedifferences_vanillavppoption_vanillavppoption_arguments",
-    "experimental_finitedifferences_vanillavppoption",
-    "event",
-    "experimental_finitedifferences_vanillavppoption_identicalpayoff",
-    "experimental_finitedifferences_vanillavppoption_vanillavppoption_vanillavppoption",
-    "experimental_finitedifferences_vanillavppoption_identicalpayoff_description",
-    "experimental_finitedifferences_vanillavppoption_identicalpayoff_name",
-    "experimental_finitedifferences_vanillavppoption_vanillavppoption_setuparguments",
-    "experimental_finitedifferences_vanillavppoption_cpp_real",
-    "experimental_finitedifferences_vanillavppoption_cpp_string",
-    "experimental_finitedifferences_vanillavppoption_hpp_real",
-    "experimental_finitedifferences_vanillavppoption_hpp_size",
-    "experimental_finitedifferences_vanillavppoption_identicalpayoff_operator",
-    "experimental_finitedifferences_vanillavppoption_swingexercise"
-   ]
-  },
-  {
-   "label": "Interpolated YoY cap/floor price surface",
-   "size": 40,
-   "anchors": [
-    "experimental_inflation_yoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface",
-    "experimental_inflation_yoycapfloortermpricesurface",
-    "experimental_inflation_yoycapfloortermpricesurface_hpp_date",
-    "experimental_inflation_yoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface_i2d_i1d_calculateyoytermstructure",
-    "experimental_inflation_yoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface_atmyoyswaprate",
-    "experimental_inflation_yoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface_i2d_i1d_price",
-    "experimental_inflation_yoycapfloortermpricesurface_yoycapfloortermpricesurface_observationlag",
-    "experimental_inflation_yoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface_atmyoyrate",
-    "experimental_inflation_yoycapfloortermpricesurface_yoycapfloortermpricesurface_frequency",
-    "experimental_inflation_yoycapfloortermpricesurface_yoycapfloortermpricesurface_checkmaturity",
-    "experimental_inflation_yoycapfloortermpricesurface_yoycapfloortermpricesurface_indexisinterpolated",
-    "experimental_inflation_yoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface_i2d_i1d_capprice",
-    "experimental_inflation_yoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface_i2d_i1d_floorprice",
-    "experimental_inflation_yoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface_i2d_i1d_objectivefunction_objectivefunction",
-    "experimental_inflation_yoycapfloortermpricesurface_interpolatedyoycapfloortermpricesurface_i2d_i1d_performcalculations"
-   ]
-  },
-  {
-   "label": "SVI interpolated smile section",
-   "size": 40,
-   "anchors": [
-    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection",
-    "experimental_volatility_sviinterpolatedsmilesection",
-    "experimental_volatility_sviinterpolatedsmilesection_hpp_real",
-    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection_volatilityimpl",
-    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection_a",
-    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection_atmlevel",
-    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection_b",
-    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection_endcriteria",
-    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection_m",
-    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection_maxerror",
-    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection_maxstrike",
-    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection_minstrike",
-    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection_rho",
-    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection_rmserror",
-    "experimental_volatility_sviinterpolatedsmilesection_sviinterpolatedsmilesection_sigma"
+    "experimental_credit_recursivelossmodel_recursivelossmodel",
+    "experimental_credit_recursivelossmodel_hpp_real",
+    "experimental_credit_recursivelossmodel_hpp_vector",
+    "experimental_credit_recursivelossmodel_recursivelossmodel_cp_lossdistribution",
+    "experimental_credit_recursivelossmodel_hpp_date",
+    "experimental_credit_recursivelossmodel_hpp_probability",
+    "experimental_credit_recursivelossmodel_recursivelossmodel_cp_conditionallossdistrib",
+    "experimental_credit_recursivelossmodel_recursivelossmodel_cp_conditionallossdistribinvp",
+    "experimental_credit_recursivelossmodel_recursivelossmodel_cp_conditionallossprob",
+    "experimental_credit_recursivelossmodel_recursivelossmodel_cp_expectedconditionalloss",
+    "experimental_credit_recursivelossmodel_recursivelossmodel_cp_lossprobability",
+    "experimental_credit_recursivelossmodel_recursivelossmodel_cp_expectedconditionallossinvp",
+    "experimental_credit_recursivelossmodel_recursivelossmodel_cp_expectedshortfall",
+    "experimental_credit_recursivelossmodel_recursivelossmodel_cp_expectedtrancheloss",
+    "experimental_credit_recursivelossmodel_recursivelossmodel_cp_percentile"
    ]
   },
   {
@@ -632,24 +401,87 @@
    ]
   },
   {
-   "label": "Interpolated YoY optionlet stripper",
+   "label": "No-arbitrage SABR smile section",
+   "size": 39,
+   "anchors": [
+    "experimental_volatility_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection",
+    "experimental_volatility_noarbsabrinterpolatedsmilesection",
+    "experimental_volatility_noarbsabrinterpolatedsmilesection_hpp_real",
+    "experimental_volatility_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection_atmlevel",
+    "experimental_volatility_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection_volatilityimpl",
+    "experimental_volatility_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection_alpha",
+    "experimental_volatility_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection_beta",
+    "experimental_volatility_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection_endcriteria",
+    "experimental_volatility_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection_maxerror",
+    "experimental_volatility_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection_maxstrike",
+    "experimental_volatility_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection_minstrike",
+    "experimental_volatility_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection_nu",
+    "experimental_volatility_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection_rho",
+    "experimental_volatility_noarbsabrinterpolatedsmilesection_noarbsabrinterpolatedsmilesection_rmserror",
+    "experimental_volatility_noarbsabrinterpolatedsmilesection_hpp_rate"
+   ]
+  },
+  {
+   "label": "ABCD parametric ATM vol curve",
+   "size": 38,
+   "anchors": [
+    "experimental_volatility_abcdatmvolcurve_abcdatmvolcurve",
+    "experimental_volatility_abcdatmvolcurve",
+    "experimental_volatility_abcdatmvolcurve_hpp_real",
+    "experimental_volatility_abcdatmvolcurve_abcdatmvolcurve_atmvolimpl",
+    "experimental_volatility_abcdatmvolcurve_abcdatmvolcurve_k",
+    "experimental_volatility_abcdatmvolcurve_abcdatmvolcurve_atmvarianceimpl",
+    "experimental_volatility_abcdatmvolcurve_abcdatmvolcurve_maxdate",
+    "experimental_volatility_abcdatmvolcurve_hpp_time",
+    "experimental_volatility_abcdatmvolcurve_abcdatmvolcurve_a",
+    "experimental_volatility_abcdatmvolcurve_abcdatmvolcurve_b",
+    "experimental_volatility_abcdatmvolcurve_abcdatmvolcurve_c",
+    "experimental_volatility_abcdatmvolcurve_abcdatmvolcurve_d",
+    "experimental_volatility_abcdatmvolcurve_abcdatmvolcurve_endcriteria",
+    "experimental_volatility_abcdatmvolcurve_abcdatmvolcurve_maxerror",
+    "experimental_volatility_abcdatmvolcurve_abcdatmvolcurve_maxstrike"
+   ]
+  },
+  {
+   "label": "Generic latent model base",
    "size": 37,
    "anchors": [
-    "experimental_inflation_interpolatedyoyoptionletstripper_interpolatedyoyoptionletstripper",
-    "experimental_inflation_interpolatedyoyoptionletstripper_interpolatedyoyoptionletstripper_interpolator1d_bootstrap_initialize",
-    "experimental_inflation_interpolatedyoyoptionletstripper_yoyoptionletsolver_solveforimpliedvol",
-    "experimental_inflation_interpolatedyoyoptionletstripper",
-    "experimental_inflation_interpolatedyoyoptionletstripper_interpolatedyoyoptionletstripper_interpolator1d_bootstrap_slice",
-    "experimental_inflation_yoycapfloortermpricesurface_yoycapfloortermpricesurface_strikes",
-    "experimental_inflation_interpolatedyoyoptionletstripper_hpp_rate",
-    "experimental_inflation_interpolatedyoyoptionletstripper_hpp_yoycapfloortermpricesurface",
-    "experimental_inflation_interpolatedyoyoptionletstripper_interpolatedyoyoptionletstripper_strikes",
-    "experimental_inflation_interpolatedyoyoptionletstripper_yoyoptionletbasesolver",
-    "experimental_inflation_interpolatedyoyoptionletstripper_yoyoptionletsolver",
-    "experimental_inflation_interpolatedyoyoptionletstripper_hpp_shared_ptr",
-    "experimental_inflation_interpolatedyoyoptionletstripper_hpp_vector",
-    "experimental_inflation_interpolatedyoyoptionletstripper_interpolatedyoyoptionletstripper_maxstrike",
-    "experimental_inflation_interpolatedyoyoptionletstripper_interpolatedyoyoptionletstripper_minstrike"
+    "experimental_math_latentmodel_latentmodel",
+    "experimental_math_latentmodel_hpp_real",
+    "experimental_math_latentmodel_hpp_vector",
+    "experimental_math_latentmodel_hpp_size",
+    "experimental_math_latentmodel_latentmodel_integratedexpectedvalue",
+    "experimental_math_latentmodel_latentmodel_impl_latentmodel",
+    "experimental_math_latentmodel_latentmodel_integratedexpectedvaluev",
+    "experimental_math_latentmodel_latentmodel_density",
+    "experimental_math_latentmodel_hpp_function",
+    "experimental_math_latentmodel_hpp_probability",
+    "experimental_math_latentmodel_integrationbase_gaussianquadmultidimintegrator",
+    "experimental_math_latentmodel_integrationbase_gaussianquadmultidimintegrator_integratev",
+    "experimental_math_latentmodel_integrationbase_multidimintegral_integrate",
+    "experimental_math_latentmodel_latentmodel_latentvarvalue",
+    "experimental_math_latentmodel_integrationbase_gaussianquadmultidimintegrator_integrate"
+   ]
+  },
+  {
+   "label": "Bachelier FX delta calculator",
+   "size": 35,
+   "anchors": [
+    "experimental_fx_bachelierdeltacalculator_bachelierdeltacalculator",
+    "experimental_fx_bachelierdeltacalculator_cpp_real",
+    "experimental_fx_bachelierdeltacalculator_bachelierdeltapremiumadjustedsolverclass",
+    "experimental_fx_bachelierdeltacalculator_bachelierdeltacalculator_bachelierdeltacalculator",
+    "experimental_fx_bachelierdeltacalculator_bachelierdeltacalculator_cumd",
+    "experimental_fx_bachelierdeltacalculator_bachelierdeltacalculator_strikefromdelta",
+    "experimental_fx_bachelierdeltacalculator_bachelierdeltapremiumadjustedsolverclass_bachelierdeltapremiumadjustedsolverclass",
+    "experimental_fx_bachelierdeltacalculator_bachelierdeltacalculator_atmstrike",
+    "experimental_fx_bachelierdeltacalculator_bachelierdeltacalculator_deltafromstrike",
+    "experimental_fx_bachelierdeltacalculator_cpp_deltatype",
+    "experimental_fx_bachelierdeltacalculator_bachelierdeltacalculator_nd",
+    "experimental_fx_bachelierdeltacalculator_bachelierdeltacalculator_setdeltatype",
+    "experimental_fx_bachelierdeltacalculator_bachelierdeltacalculator_setoptiontype",
+    "experimental_fx_bachelierdeltacalculator_bachelierdeltapremiumadjustedsolverclass_operator",
+    "experimental_fx_bachelierdeltacalculator_cpp_type"
    ]
   },
   {
@@ -666,86 +498,23 @@
     "experimental_credit_lossdistribution_lossdistbinomial_excessprobability",
     "experimental_credit_lossdistribution_lossdistbinomial_lossdistbinomial",
     "experimental_credit_lossdistribution_lossdistbinomial_probability",
+    "experimental_credit_lossdistribution_lossdistbucketing_lossdistbucketing",
     "experimental_credit_lossdistribution_lossdisthomogeneous_excessprobability",
     "experimental_credit_lossdistribution_lossdisthomogeneous_lossdisthomogeneous",
     "experimental_credit_lossdistribution_lossdisthomogeneous_probability",
-    "experimental_credit_lossdistribution_lossdistmontecarlo_lossdistmontecarlo",
-    "experimental_credit_lossdistribution_lossdistbinomial_buckets"
-   ]
-  },
-  {
-   "label": "Gaussian large-homogeneous-pool loss model",
-   "size": 34,
-   "anchors": [
-    "experimental_credit_gaussianlhplossmodel_gaussianlhplossmodel",
-    "experimental_credit_gaussianlhplossmodel_gaussianlhplossmodel_expectedshortfall",
-    "experimental_credit_gaussianlhplossmodel_gaussianlhplossmodel_percentileportfoliolossfraction",
-    "experimental_credit_gaussianlhplossmodel_gaussianlhplossmodel_averageprob",
-    "experimental_credit_gaussianlhplossmodel_gaussianlhplossmodel_averagerecovery",
-    "experimental_credit_gaussianlhplossmodel_gaussianlhplossmodel_expectedtranchelossimpl",
-    "experimental_credit_gaussianlhplossmodel_gaussianlhplossmodel_proboverloss",
-    "experimental_credit_gaussianlhplossmodel_gaussianlhplossmodel_expectedtrancheloss",
-    "experimental_credit_gaussianlhplossmodel_gaussianlhplossmodel_gaussianlhplossmodel",
-    "experimental_credit_gaussianlhplossmodel_hpp_real",
-    "experimental_credit_gaussianlhplossmodel_cpp_real",
-    "experimental_credit_gaussianlhplossmodel_gaussianlhplossmodel_expectedrecovery",
-    "experimental_credit_gaussianlhplossmodel_gaussianlhplossmodel_resetmodel",
-    "experimental_credit_gaussianlhplossmodel_hpp_date",
-    "experimental_credit_gaussianlhplossmodel_gaussianlhplossmodel_percentile"
-   ]
-  },
-  {
-   "label": "CMS spread coupon and leg",
-   "size": 35,
-   "anchors": [
-    "experimental_coupons_cmsspreadcoupon_cmsspreadleg",
-    "experimental_coupons_cmsspreadcoupon",
-    "experimental_coupons_cmsspreadcoupon_cappedflooredcmsspreadcoupon_cappedflooredcmsspreadcoupon",
-    "experimental_coupons_cmsspreadcoupon_cmsspreadcoupon",
-    "experimental_coupons_cmsspreadcoupon_cappedflooredcmsspreadcoupon",
-    "experimental_coupons_cmsspreadcoupon_cmsspreadcoupon_accept",
-    "experimental_coupons_cmsspreadcoupon_hpp_shared_ptr",
-    "floatingratecoupon",
-    "experimental_coupons_cmsspreadcoupon_cappedflooredcmsspreadcoupon_accept",
-    "experimental_coupons_cmsspreadcoupon_hpp_natural",
-    "experimental_coupons_cmsspreadcoupon_hpp_real",
-    "cappedflooredcoupon",
-    "experimental_coupons_cmsspreadcoupon_cmsspreadcoupon_index",
-    "experimental_coupons_cmsspreadcoupon_cmsspreadleg_caps",
-    "experimental_coupons_cmsspreadcoupon_cmsspreadleg_fixingdays"
-   ]
-  },
-  {
-   "label": "One-factor affine hazard rate curve",
-   "size": 35,
-   "anchors": [
-    "experimental_credit_interpolatedaffinehazardratecurve",
-    "experimental_credit_interpolatedaffinehazardratecurve_interpolatedaffinehazardratecurve",
-    "experimental_credit_interpolatedaffinehazardratecurve_hpp_real",
-    "experimental_credit_interpolatedaffinehazardratecurve_affinehazardrate",
-    "experimental_credit_interpolatedaffinehazardratecurve_affinehazardrate_updateguess",
-    "experimental_credit_interpolatedaffinehazardratecurve_hpp_date",
-    "experimental_credit_interpolatedaffinehazardratecurve_hpp_size",
-    "experimental_credit_interpolatedaffinehazardratecurve_interpolatedaffinehazardratecurve_t_conditionalsurvivalprobabilityimpl",
-    "experimental_credit_interpolatedaffinehazardratecurve_interpolatedaffinehazardratecurve_t_nodes",
-    "experimental_credit_interpolatedaffinehazardratecurve_guess",
-    "experimental_credit_interpolatedaffinehazardratecurve_hpp_vector",
-    "experimental_credit_interpolatedaffinehazardratecurve_maxvalueafter",
-    "experimental_credit_interpolatedaffinehazardratecurve_minvalueafter",
-    "interpolatedcurve",
-    "experimental_credit_interpolatedaffinehazardratecurve_affinehazardrate_initialdate"
+    "experimental_credit_lossdistribution_lossdistmontecarlo_lossdistmontecarlo"
    ]
   },
   {
    "label": "MC Himalaya option engine",
-   "size": 35,
+   "size": 36,
    "anchors": [
     "experimental_exoticoptions_mchimalayaengine_mchimalayaengine",
     "experimental_exoticoptions_mchimalayaengine",
     "experimental_exoticoptions_mchimalayaengine_makemchimalayaengine",
     "mcsimulation",
-    "experimental_exoticoptions_mchimalayaengine_hpp_shared_ptr",
     "experimental_exoticoptions_mchimalayaengine_mchimalayaengine_rng_s_mchimalayaengine",
+    "experimental_exoticoptions_mchimalayaengine_hpp_shared_ptr",
     "experimental_exoticoptions_mchimalayaengine_hpp_stochasticprocessarray",
     "experimental_exoticoptions_mchimalayaengine_mchimalayaengine_pathgenerator",
     "experimental_exoticoptions_mchimalayaengine_hpp_bignatural",
@@ -758,58 +527,37 @@
    ]
   },
   {
-   "label": "FFT pricing engines (+ analytic Heston)",
-   "size": 33,
-   "anchors": [
-    "experimental_variancegamma_fftengine_fftengine",
-    "experimental_asian_analytic_cont_geom_av_price_heston",
-    "experimental_asian_analytic_discr_geom_av_price_heston",
-    "experimental_forward_analytichestonforwardeuropeanengine",
-    "experimental_variancegamma_fftengine",
-    "experimental_variancegamma_fftvanillaengine",
-    "experimental_variancegamma_fftvariancegammaengine",
-    "experimental_asian_analytic_cont_geom_av_price_heston_hpp_complex",
-    "experimental_variancegamma_fftengine_fftengine_calculateuncached",
-    "experimental_variancegamma_fftengine_fftengine_precalculate",
-    "experimental_asian_analytic_cont_geom_av_price_heston_hpp_hestonprocess",
-    "experimental_variancegamma_fftengine_cpp_shared_ptr",
-    "experimental_variancegamma_fftengine_fftengine_calculate",
-    "experimental_variancegamma_fftengine_fftengine_fftengine",
-    "experimental_finitedifferences_fdmextoujumpop_linearinterpolation"
-   ]
-  },
-  {
-   "label": "Vanna-Volga interpolation",
+   "label": "Gaussian large-homogeneous-pool loss model",
    "size": 34,
    "anchors": [
-    "experimental_barrieroption_vannavolgainterpolation_vannavolgainterpolationimpl",
-    "experimental_barrieroption_vannavolgainterpolation_vannavolga",
-    "experimental_barrieroption_vannavolgainterpolation_hpp_real",
-    "experimental_barrieroption_vannavolgainterpolation_vannavolgainterpolation",
-    "experimental_barrieroption_vannavolgainterpolation",
-    "experimental_barrieroption_vannavolgainterpolation_vannavolgainterpolationimpl_vannavolgainterpolationimpl",
-    "interpolation",
-    "experimental_barrieroption_vannavolgainterpolation_hpp_discountfactor",
-    "experimental_barrieroption_vannavolgainterpolation_hpp_time",
-    "experimental_barrieroption_vannavolgainterpolation_interpolate",
-    "experimental_barrieroption_vannavolgainterpolation_vannavolga_vannavolga",
-    "experimental_barrieroption_vannavolgainterpolation_vannavolgainterpolationimpl_vega",
-    "experimental_barrieroption_vannavolgainterpolation_hpp_i1",
-    "experimental_barrieroption_vannavolgainterpolation_hpp_i2",
-    "experimental_barrieroption_vannavolgainterpolation_vannavolgainterpolationimpl_update"
+    "experimental_credit_gaussianlhplossmodel_gaussianlhplossmodel",
+    "experimental_credit_gaussianlhplossmodel_gaussianlhplossmodel_expectedshortfall",
+    "experimental_credit_gaussianlhplossmodel_gaussianlhplossmodel_percentileportfoliolossfraction",
+    "experimental_credit_gaussianlhplossmodel_gaussianlhplossmodel_averageprob",
+    "experimental_credit_gaussianlhplossmodel_gaussianlhplossmodel_phi",
+    "experimental_credit_gaussianlhplossmodel_gaussianlhplossmodel_averagerecovery",
+    "experimental_credit_gaussianlhplossmodel_gaussianlhplossmodel_expectedtranchelossimpl",
+    "experimental_credit_gaussianlhplossmodel_gaussianlhplossmodel_proboverloss",
+    "experimental_credit_gaussianlhplossmodel_gaussianlhplossmodel_expectedtrancheloss",
+    "experimental_credit_gaussianlhplossmodel_gaussianlhplossmodel_gaussianlhplossmodel",
+    "experimental_credit_gaussianlhplossmodel_hpp_real",
+    "experimental_credit_gaussianlhplossmodel_cpp_real",
+    "experimental_credit_gaussianlhplossmodel_gaussianlhplossmodel_expectedrecovery",
+    "experimental_credit_gaussianlhplossmodel_hpp_date",
+    "experimental_credit_gaussianlhplossmodel_gaussianlhplossmodel_percentile"
    ]
   },
   {
    "label": "Commodity price curve",
-   "size": 34,
+   "size": 35,
    "anchors": [
     "experimental_commodities_commoditycurve_commoditycurve",
     "experimental_commodities_commoditycurve",
+    "experimental_commodities_commoditysettings",
     "experimental_commodities_commoditycurve_commoditycurve_price",
     "experimental_commodities_commoditycurve_commoditycurve_basisofpriceimpl",
     "experimental_commodities_commoditycurve_commoditycurve_priceimpl",
     "experimental_commodities_commoditycurve_commoditycurve_underlyingpricedate",
-    "experimental_commodities_commoditysettings",
     "experimental_commodities_commoditycurve_commoditycurve_nodes",
     "experimental_commodities_commoditycurve_hpp_date",
     "experimental_commodities_commoditycurve_hpp_real",
@@ -821,11 +569,178 @@
    ]
   },
   {
-   "label": "Particle swarm optimization",
+   "label": "Extended Ornstein-Uhlenbeck FD operator",
    "size": 34,
    "anchors": [
+    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_fdmextendedornsteinuhlenbeckop",
+    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop",
+    "experimental_coupons_strippedcapflooredcoupon_strippedcappedflooredcoupon_rate",
+    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_cpp_array",
+    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_fdmextendedornsteinuhlenbeckop_apply_direction",
+    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_fdmextendedornsteinuhlenbeckop_solve_splitting",
+    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_cpp_size",
+    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_fdmextendedornsteinuhlenbeckop_apply_mixed",
+    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_fdmextendedornsteinuhlenbeckop_preconditioner",
+    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_fdmextendedornsteinuhlenbeckop_tomatrixdecomp",
+    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_hpp_fdmboundaryconditionset",
+    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_fdmextendedornsteinuhlenbeckop_apply",
+    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_fdmextendedornsteinuhlenbeckop_settime",
+    "experimental_finitedifferences_fdmextendedornsteinuhlenbeckop_fdmextendedornsteinuhlenbeckop_size",
+    "firstderivativeop"
+   ]
+  },
+  {
+   "label": "Kluge Ext-OU FD operator",
+   "size": 33,
+   "anchors": [
+    "experimental_finitedifferences_fdmklugeextouop",
+    "experimental_finitedifferences_fdmklugeextouop_fdmklugeextouop",
+    "experimental_finitedifferences_fdmklugeextouop_cpp_array",
+    "experimental_finitedifferences_fdmklugeextouop_fdmklugeextouop_solve_splitting",
+    "experimental_finitedifferences_fdmklugeextouop_cpp_size",
+    "experimental_finitedifferences_fdmklugeextouop_fdmklugeextouop_apply_direction",
+    "experimental_finitedifferences_fdmklugeextouop_fdmklugeextouop_preconditioner",
+    "experimental_finitedifferences_fdmklugeextouop_fdmklugeextouop_tomatrixdecomp",
+    "experimental_finitedifferences_fdmklugeextouop_fdmklugeextouop_apply",
+    "experimental_finitedifferences_fdmklugeextouop_fdmklugeextouop_apply_mixed",
+    "experimental_finitedifferences_fdmklugeextouop_fdmklugeextouop_settime",
+    "experimental_finitedifferences_fdmklugeextouop_fdmklugeextouop_size",
+    "experimental_finitedifferences_fdmklugeextouop_hpp_ninepointlinearop",
+    "experimental_finitedifferences_fdmklugeextouop_cpp_real",
+    "experimental_finitedifferences_fdmklugeextouop_extendedornsteinuhlenbeckprocess"
+   ]
+  },
+  {
+   "label": "Virtual power plant option instrument",
+   "size": 32,
+   "anchors": [
+    "experimental_finitedifferences_vanillavppoption_vanillavppoption",
+    "experimental_finitedifferences_vanillavppoption_vanillavppoption_arguments",
+    "experimental_finitedifferences_vanillavppoption",
+    "experimental_finitedifferences_vanillavppoption_vanillavppoption_vanillavppoption",
+    "experimental_finitedifferences_vanillavppoption_vanillavppoption_setuparguments",
+    "experimental_finitedifferences_vanillavppoption_hpp_real",
+    "experimental_finitedifferences_vanillavppoption_hpp_size",
+    "experimental_finitedifferences_vanillavppoption_swingexercise",
+    "experimental_finitedifferences_vanillavppoption_vanillavppoption_arguments_validate",
+    "experimental_finitedifferences_vanillavppoption_vanillavppoption_isexpired",
+    "experimental_finitedifferences_vanillavppoption_cpp_arguments",
+    "experimental_finitedifferences_vanillavppoption_cpp_shared_ptr",
+    "experimental_finitedifferences_vanillavppoption_cpp_size",
+    "experimental_finitedifferences_vanillavppoption_vanillavppoption_arguments_arguments",
+    "experimental_finitedifferences_vanillavppoption_vanillavppoption_arguments_heatrate"
+   ]
+  },
+  {
+   "label": "Base correlation term structure",
+   "size": 30,
+   "anchors": [
+    "experimental_credit_basecorrelationstructure_basecorrelationtermstructure",
+    "experimental_credit_basecorrelationstructure_basecorrelationtermstructure_basecorrelationtermstructure",
+    "experimental_credit_basecorrelationstructure_basecorrelationtermstructure_correlation",
+    "experimental_credit_basecorrelationstructure_basecorrelationtermstructure_updatematrix",
+    "experimental_credit_basecorrelationstructure_hpp_date",
+    "experimental_credit_basecorrelationstructure_hpp_real",
+    "experimental_credit_basecorrelationstructure_basecorrelationtermstructure_checkinputs",
+    "experimental_credit_basecorrelationstructure_basecorrelationtermstructure_checktranchetenors",
+    "experimental_credit_basecorrelationstructure_basecorrelationtermstructure_i2d_t_update",
+    "experimental_credit_basecorrelationstructure_basecorrelationtermstructure_initializetranchetimes",
+    "experimental_credit_basecorrelationstructure_basecorrelationtermstructure_interpolation",
+    "experimental_credit_basecorrelationstructure_basecorrelationtermstructure_maxdate",
+    "experimental_credit_basecorrelationstructure_basecorrelationtermstructure_registerwithmarketdata",
+    "experimental_credit_basecorrelationstructure_basecorrelationtermstructure_setupinterpolation",
+    "experimental_credit_basecorrelationstructure_hpp_handle"
+   ]
+  },
+  {
+   "label": "CMS spread coupon and leg",
+   "size": 29,
+   "anchors": [
+    "experimental_coupons_cmsspreadcoupon_cmsspreadleg",
+    "experimental_coupons_cmsspreadcoupon_cappedflooredcmsspreadcoupon_cappedflooredcmsspreadcoupon",
+    "experimental_coupons_cmsspreadcoupon_cappedflooredcmsspreadcoupon",
+    "experimental_coupons_cmsspreadcoupon_hpp_shared_ptr",
+    "experimental_coupons_cmsspreadcoupon_cappedflooredcmsspreadcoupon_accept",
+    "experimental_coupons_cmsspreadcoupon_hpp_natural",
+    "experimental_coupons_cmsspreadcoupon_hpp_real",
+    "cappedflooredcoupon",
+    "experimental_coupons_cmsspreadcoupon_cmsspreadleg_caps",
+    "experimental_coupons_cmsspreadcoupon_cmsspreadleg_fixingdays",
+    "experimental_coupons_cmsspreadcoupon_cmsspreadleg_floors",
+    "experimental_coupons_cmsspreadcoupon_cmsspreadleg_gearings",
+    "experimental_coupons_cmsspreadcoupon_cmsspreadleg_inarrears",
+    "experimental_coupons_cmsspreadcoupon_cmsspreadleg_notionals",
+    "experimental_coupons_cmsspreadcoupon_cmsspreadleg_paymentadjustment"
+   ]
+  },
+  {
+   "label": "ZABR FD operator",
+   "size": 28,
+   "anchors": [
+    "experimental_finitedifferences_fdmzabrop_fdmzabrop",
+    "experimental_finitedifferences_fdmzabrop_cpp_array",
+    "experimental_finitedifferences_fdmzabrop_cpp_real",
+    "experimental_finitedifferences_fdmzabrop_fdmzabrop_solve_splitting",
+    "experimental_finitedifferences_fdmzabrop_fdmzabrop_apply_direction",
+    "experimental_finitedifferences_fdmzabrop_fdmzabrop_fdmzabrop",
+    "experimental_finitedifferences_fdmzabrop_fdmzabrop_preconditioner",
+    "experimental_finitedifferences_fdmzabrop_fdmzabrop_tomatrixdecomp",
+    "experimental_finitedifferences_fdmzabrop_fdmzabrunderlyingpart_fdmzabrunderlyingpart",
+    "experimental_finitedifferences_fdmzabrop_fdmzabrvolatilitypart_fdmzabrvolatilitypart",
+    "experimental_finitedifferences_fdmzabrop_cpp_fdmmesher",
+    "experimental_finitedifferences_fdmzabrop_cpp_shared_ptr",
+    "experimental_finitedifferences_fdmzabrop_cpp_size",
+    "experimental_finitedifferences_fdmzabrop_cpp_time",
+    "experimental_finitedifferences_fdmzabrop_fdmzabrop_apply"
+   ]
+  },
+  {
+   "label": "Student-t copula and Behrens-Fisher convolution",
+   "size": 27,
+   "anchors": [
+    "experimental_math_convolvedstudentt_cumulativebehrensfisher",
+    "experimental_math_convolvedstudentt",
+    "experimental_math_convolvedstudentt_cumulativebehrensfisher_cumulativebehrensfisher",
+    "experimental_math_convolvedstudentt_inversecumulativebehrensfisher",
+    "experimental_math_convolvedstudentt_cpp_real",
+    "experimental_math_convolvedstudentt_cumulativebehrensfisher_polyncharactt",
+    "experimental_math_convolvedstudentt_cumulativebehrensfisher_convolvevectorpolynomials",
+    "experimental_math_convolvedstudentt_inversecumulativebehrensfisher_operator",
+    "experimental_math_convolvedstudentt_cpp_vector",
+    "experimental_math_convolvedstudentt_cumulativebehrensfisher_density",
+    "experimental_math_convolvedstudentt_cumulativebehrensfisher_operator",
+    "experimental_math_convolvedstudentt_inversecumulativebehrensfisher_inversecumulativebehrensfisher",
+    "experimental_math_convolvedstudentt_cpp_probability",
+    "experimental_math_convolvedstudentt_cpp_integer",
+    "experimental_math_convolvedstudentt_hpp_real"
+   ]
+  },
+  {
+   "label": "Ext-OU jump and Kluge processes",
+   "size": 27,
+   "anchors": [
+    "experimental_processes_extouwithjumpsprocess_extouwithjumpsprocess",
+    "experimental_processes_extouwithjumpsprocess",
+    "experimental_processes_extouwithjumpsprocess_extouwithjumpsprocess_diffusion",
+    "experimental_processes_extouwithjumpsprocess_extouwithjumpsprocess_evolve",
+    "experimental_processes_extouwithjumpsprocess_cpp_array",
+    "experimental_processes_extouwithjumpsprocess_cpp_real",
+    "experimental_processes_extouwithjumpsprocess_extouwithjumpsprocess_drift",
+    "experimental_processes_extouwithjumpsprocess_extouwithjumpsprocess_getextendedornsteinuhlenbeckprocess",
+    "experimental_processes_extouwithjumpsprocess_cpp_time",
+    "experimental_processes_extouwithjumpsprocess_extouwithjumpsprocess_beta",
+    "experimental_processes_extouwithjumpsprocess_extouwithjumpsprocess_eta",
+    "experimental_processes_extouwithjumpsprocess_extouwithjumpsprocess_extouwithjumpsprocess",
+    "experimental_processes_extouwithjumpsprocess_extouwithjumpsprocess_factors",
+    "experimental_processes_extouwithjumpsprocess_extouwithjumpsprocess_initialvalues",
+    "experimental_processes_extouwithjumpsprocess_extouwithjumpsprocess_jumpintensity"
+   ]
+  },
+  {
+   "label": "Particle swarm optimization",
+   "size": 23,
+   "anchors": [
     "experimental_math_particleswarmoptimization_hpp_size",
-    "experimental_math_particleswarmoptimization_adaptiveinertia",
     "experimental_math_particleswarmoptimization_decreasinginertia",
     "experimental_math_particleswarmoptimization_hpp_real",
     "experimental_math_particleswarmoptimization_trivialinertia",
@@ -837,8 +752,65 @@
     "experimental_math_particleswarmoptimization_simplerandominertia_setsize",
     "experimental_math_particleswarmoptimization_trivialinertia_setsize",
     "experimental_math_particleswarmoptimization_levyflightinertia_levyflightinertia",
-    "experimental_math_particleswarmoptimization_adaptiveinertia_adaptiveinertia",
-    "experimental_math_particleswarmoptimization_adaptiveinertia_adaptivecounter"
+    "experimental_math_particleswarmoptimization_decreasinginertia_c0",
+    "experimental_math_particleswarmoptimization_decreasinginertia_decreasinginertia",
+    "experimental_math_particleswarmoptimization_decreasinginertia_iteration"
+   ]
+  },
+  {
+   "label": "One-factor affine hazard rate curve",
+   "size": 22,
+   "anchors": [
+    "experimental_credit_interpolatedaffinehazardratecurve",
+    "experimental_credit_interpolatedaffinehazardratecurve_hpp_real",
+    "experimental_credit_interpolatedaffinehazardratecurve_affinehazardrate",
+    "experimental_credit_interpolatedaffinehazardratecurve_hpp_size",
+    "experimental_credit_interpolatedaffinehazardratecurve_interpolatedaffinehazardratecurve_t_conditionalsurvivalprobabilityimpl",
+    "experimental_credit_interpolatedaffinehazardratecurve_minvalueafter",
+    "experimental_credit_interpolatedaffinehazardratecurve_affinehazardrate_updateguess",
+    "experimental_credit_interpolatedaffinehazardratecurve_guess",
+    "experimental_credit_interpolatedaffinehazardratecurve_maxvalueafter",
+    "experimental_credit_interpolatedaffinehazardratecurve_affinehazardrate_initialdate",
+    "experimental_credit_interpolatedaffinehazardratecurve_affinehazardrate_initialvalue",
+    "experimental_credit_interpolatedaffinehazardratecurve_hpp_c",
+    "experimental_credit_interpolatedaffinehazardratecurve_hpp_time",
+    "experimental_credit_interpolatedaffinehazardratecurve_interpolatedaffinehazardratecurve_t_hazardrateimpl",
+    "experimental_credit_interpolatedaffinehazardratecurve_interpolatedaffinehazardratecurve_t_survivalprobabilityimpl"
+   ]
+  },
+  {
+   "label": "Vanna-Volga interpolation",
+   "size": 17,
+   "anchors": [
+    "experimental_barrieroption_vannavolgainterpolation_vannavolga",
+    "experimental_barrieroption_vannavolgainterpolation_vannavolgainterpolation",
+    "experimental_barrieroption_vannavolgainterpolation_vannavolgainterpolationimpl_vannavolgainterpolationimpl",
+    "experimental_barrieroption_vannavolgainterpolation",
+    "interpolation",
+    "experimental_barrieroption_vannavolgainterpolation_hpp_discountfactor",
+    "experimental_barrieroption_vannavolgainterpolation_hpp_time",
+    "experimental_barrieroption_vannavolgainterpolation_interpolate",
+    "experimental_barrieroption_vannavolgainterpolation_vannavolga_vannavolga",
+    "experimental_barrieroption_vannavolgainterpolation_hpp_i1",
+    "experimental_barrieroption_vannavolgainterpolation_hpp_i2",
+    "experimental_barrieroption_vannavolgainterpolation_hpp_size",
+    "experimental_barrieroption_vannavolgainterpolation_vannavolga_ddiscount",
+    "experimental_barrieroption_vannavolgainterpolation_vannavolga_fdiscount",
+    "experimental_barrieroption_vannavolgainterpolation_vannavolga_requiredpoints"
+   ]
+  },
+  {
+   "label": "FFT pricing engines (+ analytic Heston)",
+   "size": 8,
+   "anchors": [
+    "experimental_asian_analytic_cont_geom_av_price_heston",
+    "experimental_asian_analytic_discr_geom_av_price_heston",
+    "experimental_forward_analytichestonforwardeuropeanengine",
+    "experimental_variancegamma_fftengine",
+    "experimental_variancegamma_fftvanillaengine",
+    "experimental_variancegamma_fftvariancegammaengine",
+    "experimental_asian_analytic_cont_geom_av_price_heston_hpp_complex",
+    "experimental_asian_analytic_cont_geom_av_price_heston_hpp_hestonprocess"
    ]
   }
  ]

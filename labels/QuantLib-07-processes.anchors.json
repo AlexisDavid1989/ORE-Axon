@@ -3,7 +3,7 @@
  "communities": [
   {
    "label": "Black-Scholes process family",
-   "size": 52,
+   "size": 53,
    "anchors": [
     "processes_blackscholesprocess_generalizedblackscholesprocess",
     "processes_blackscholesprocess",
@@ -17,9 +17,9 @@
     "processes_blackscholesprocess_cpp_time",
     "processes_blackscholesprocess_garmankohlagenprocess_garmankohlagenprocess",
     "processes_blackscholesprocess_generalizedblackscholesprocess_generalizedblackscholesprocess",
+    "processes_blackscholesprocess_generalizedblackscholesprocess_diffusion",
     "processes_endeulerdiscretization",
-    "processes_eulerdiscretization",
-    "processes_blackscholesprocess_cpp_blackvoltermstructure"
+    "processes_eulerdiscretization"
    ]
   },
   {
@@ -32,15 +32,15 @@
     "processes_g2process_cpp_array",
     "processes_g2process_cpp_time",
     "processes_g2process_cpp_matrix",
+    "processes_g2process_g2forwardprocess_diffusion",
     "processes_g2process_g2forwardprocess_drift",
     "processes_g2process_g2forwardprocess_expectation",
-    "processes_g2process_g2process_diffusion",
     "processes_g2process_g2forwardprocess_covariance",
-    "processes_g2process_g2forwardprocess_diffusion",
     "processes_g2process_g2forwardprocess_stddeviation",
     "processes_g2process_g2forwardprocess_xforwarddrift",
     "processes_g2process_g2forwardprocess_yforwarddrift",
-    "processes_g2process_g2process_covariance"
+    "processes_g2process_g2process_covariance",
+    "processes_g2process_g2process_diffusion"
    ]
   },
   {
@@ -94,16 +94,58 @@
     "processes_hullwhiteprocess_hullwhiteforwardprocess",
     "processes_hullwhiteprocess_hullwhiteprocess",
     "processes_hullwhiteprocess_cpp_time",
-    "processes_hullwhiteprocess_hullwhiteforwardprocess_drift",
+    "processes_hullwhiteprocess_hullwhiteprocess_hullwhiteprocess",
     "processes_hullwhiteprocess_hullwhiteforwardprocess_b",
+    "processes_hullwhiteprocess_hullwhiteforwardprocess_drift",
     "processes_hullwhiteprocess_hullwhiteforwardprocess_expectation",
     "processes_hullwhiteprocess_hullwhiteforwardprocess_alpha",
     "processes_hullwhiteprocess_hullwhiteforwardprocess_diffusion",
     "processes_hullwhiteprocess_hullwhiteforwardprocess_hullwhiteforwardprocess",
     "processes_hullwhiteprocess_hullwhiteforwardprocess_m_t",
     "processes_hullwhiteprocess_hullwhiteforwardprocess_stddeviation",
-    "processes_hullwhiteprocess_hullwhiteforwardprocess_variance",
-    "processes_hullwhiteprocess_hullwhiteprocess_alpha"
+    "processes_hullwhiteprocess_hullwhiteforwardprocess_variance"
+   ]
+  },
+  {
+   "label": "Joint stochastic process composition",
+   "size": 37,
+   "anchors": [
+    "processes_jointstochasticprocess_jointstochasticprocess",
+    "processes_jointstochasticprocess_jointstochasticprocess_evolve",
+    "processes_jointstochasticprocess_cpp_array",
+    "processes_jointstochasticprocess_jointstochasticprocess_slice",
+    "processes_jointstochasticprocess_cpp_time",
+    "processes_jointstochasticprocess_jointstochasticprocess_covariance",
+    "processes_jointstochasticprocess_jointstochasticprocess_crossmodelcorrelation",
+    "processes_jointstochasticprocess_jointstochasticprocess_diffusion",
+    "processes_jointstochasticprocess_jointstochasticprocess_drift",
+    "processes_jointstochasticprocess_jointstochasticprocess_expectation",
+    "processes_jointstochasticprocess_jointstochasticprocess_stddeviation",
+    "processes_jointstochasticprocess_cpp_matrix",
+    "processes_jointstochasticprocess_cpp_size",
+    "processes_jointstochasticprocess_jointstochasticprocess_apply",
+    "processes_jointstochasticprocess_jointstochasticprocess_time"
+   ]
+  },
+  {
+   "label": "Heston SLV leverage process",
+   "size": 36,
+   "anchors": [
+    "processes_hestonslvprocess_hestonslvprocess",
+    "processes_all",
+    "processes_hestonslvprocess",
+    "processes_hestonslvprocess_hpp_real",
+    "processes_hestonslvprocess_hestonslvprocess_evolve",
+    "processes_hestonslvprocess_hestonslvprocess_hestonslvprocess",
+    "processes_hestonslvprocess_hestonslvprocess_diffusion",
+    "processes_hestonslvprocess_hestonslvprocess_leveragefct",
+    "processes_hestonslvprocess_hestonslvprocess_drift",
+    "processes_hestonslvprocess_hestonslvprocess_setparameters",
+    "processes_hestonslvprocess_cpp_array",
+    "processes_hestonslvprocess_cpp_time",
+    "processes_hestonslvprocess_hestonslvprocess_time",
+    "processes_hestonslvprocess_hestonslvprocess_update",
+    "processes_hestonslvprocess_cpp_real"
    ]
   },
   {
@@ -120,11 +162,11 @@
     "processes_gjrgarchprocess_cpp_array",
     "processes_gjrgarchprocess_cpp_real",
     "processes_gjrgarchprocess_cpp_time",
+    "processes_gjrgarchprocess_gjrgarchprocess_beta",
     "processes_gjrgarchprocess_gjrgarchprocess_time",
     "processes_gjrgarchprocess_gjrgarchprocess_apply",
     "processes_gjrgarchprocess_gjrgarchprocess_initialvalues",
-    "processes_gjrgarchprocess_gjrgarchprocess_size",
-    "processes_gjrgarchprocess_gjrgarchprocess_alpha"
+    "processes_gjrgarchprocess_gjrgarchprocess_size"
    ]
   },
   {
@@ -145,49 +187,7 @@
     "processes_hybridhestonhullwhiteprocess_hybridhestonhullwhiteprocess_apply",
     "processes_hybridhestonhullwhiteprocess_hybridhestonhullwhiteprocess_discretization",
     "processes_hybridhestonhullwhiteprocess_hybridhestonhullwhiteprocess_eta",
-    "processes_hybridhestonhullwhiteprocess_hybridhestonhullwhiteprocess_initialvalues"
-   ]
-  },
-  {
-   "label": "Joint stochastic process composition",
-   "size": 36,
-   "anchors": [
-    "processes_jointstochasticprocess_jointstochasticprocess",
-    "processes_jointstochasticprocess_jointstochasticprocess_evolve",
-    "processes_jointstochasticprocess_cpp_array",
-    "processes_jointstochasticprocess_jointstochasticprocess_slice",
-    "processes_jointstochasticprocess_cpp_time",
-    "processes_jointstochasticprocess_jointstochasticprocess_covariance",
-    "processes_jointstochasticprocess_jointstochasticprocess_diffusion",
-    "processes_jointstochasticprocess_jointstochasticprocess_drift",
-    "processes_jointstochasticprocess_jointstochasticprocess_expectation",
-    "processes_jointstochasticprocess_jointstochasticprocess_stddeviation",
-    "processes_jointstochasticprocess_cpp_matrix",
-    "processes_jointstochasticprocess_cpp_size",
-    "processes_jointstochasticprocess_jointstochasticprocess_apply",
-    "processes_jointstochasticprocess_jointstochasticprocess_time",
-    "processes_jointstochasticprocess_jointstochasticprocess_factors"
-   ]
-  },
-  {
-   "label": "Heston SLV leverage process",
-   "size": 35,
-   "anchors": [
-    "processes_hestonslvprocess_hestonslvprocess",
-    "processes_hestonslvprocess",
-    "processes_hestonslvprocess_hpp_real",
-    "processes_hestonslvprocess_hestonslvprocess_diffusion",
-    "processes_hestonslvprocess_hestonslvprocess_evolve",
-    "processes_hestonslvprocess_hestonslvprocess_hestonslvprocess",
-    "processes_hestonslvprocess_hestonslvprocess_drift",
-    "processes_hestonslvprocess_hestonslvprocess_setparameters",
-    "processes_hestonslvprocess_cpp_array",
-    "processes_hestonslvprocess_cpp_time",
-    "processes_hestonslvprocess_hestonslvprocess_leveragefct",
-    "processes_hestonslvprocess_hestonslvprocess_time",
-    "processes_hestonslvprocess_hestonslvprocess_update",
-    "processes_hestonslvprocess_cpp_real",
-    "processes_hestonslvprocess_hestonslvprocess_apply"
+    "processes_hybridhestonhullwhiteprocess_hybridhestonhullwhiteprocess_hullwhitemodel"
    ]
   },
   {
@@ -203,54 +203,33 @@
     "processes_gsrprocess_gsrprocess_expectation",
     "processes_gsrprocess_gsrprocess_gsrprocess",
     "processes_gsrprocess_gsrprocess_setforwardmeasuretime",
-    "processes_gsrprocess_gsrprocess_stddeviation",
     "processes_gsrprocess_gsrprocess_time",
     "processes_gsrprocess_gsrprocess_variance",
     "processes_gsrprocess_gsrprocess_y",
     "processes_gsrprocess_gsrprocess_drift",
-    "processes_gsrprocess_gsrprocess_g"
+    "processes_gsrprocess_gsrprocess_g",
+    "processes_gsrprocess_gsrprocess_reversion"
    ]
   },
   {
-   "label": "Forward measure and GBM processes",
-   "size": 29,
+   "label": "Square-root diffusion process",
+   "size": 30,
    "anchors": [
-    "processes_g2process",
-    "processes_forwardmeasureprocess_forwardmeasureprocess",
-    "processes_forwardmeasureprocess",
-    "processes_forwardmeasureprocess_forwardmeasureprocess1d",
-    "processes_geometricbrownianprocess_geometricbrownianmotionprocess",
-    "stochasticprocess1d",
-    "processes_geometricbrownianprocess",
-    "processes_forwardmeasureprocess_forwardmeasureprocess1d_forwardmeasureprocess1d",
-    "processes_forwardmeasureprocess_forwardmeasureprocess_forwardmeasureprocess",
-    "processes_forwardmeasureprocess_cpp_time",
-    "processes_forwardmeasureprocess_forwardmeasureprocess1d_setforwardmeasuretime",
-    "processes_forwardmeasureprocess_hpp_time",
-    "processes_geometricbrownianprocess_cpp_real",
-    "processes_geometricbrownianprocess_geometricbrownianmotionprocess_diffusion",
-    "processes_geometricbrownianprocess_geometricbrownianmotionprocess_drift"
-   ]
-  },
-  {
-   "label": "Euler discretization schemes",
-   "size": 27,
-   "anchors": [
-    "processes_all",
-    "processes_eulerdiscretization_eulerdiscretization_covariance",
-    "processes_endeulerdiscretization_endeulerdiscretization_diffusion",
-    "processes_endeulerdiscretization_endeulerdiscretization_drift",
-    "processes_eulerdiscretization_eulerdiscretization_diffusion",
     "processes_eulerdiscretization_eulerdiscretization_drift",
-    "processes_merton76process",
-    "processes_endeulerdiscretization_endeulerdiscretization",
-    "processes_endeulerdiscretization_endeulerdiscretization_covariance",
+    "processes_squarerootprocess_squarerootprocess",
+    "processes_squarerootprocess",
+    "processes_eulerdiscretization_eulerdiscretization_diffusion",
     "processes_eulerdiscretization_eulerdiscretization",
-    "processes_endeulerdiscretization_endeulerdiscretization_variance",
+    "processes_eulerdiscretization_eulerdiscretization_covariance",
     "processes_eulerdiscretization_eulerdiscretization_variance",
-    "processes_blackscholesprocess_generalizedblackscholesprocess_dividendyield",
-    "processes_endeulerdiscretization_cpp_time",
-    "processes_eulerdiscretization_cpp_time"
+    "processes_squarerootprocess_squarerootprocess_squarerootprocess",
+    "processes_eulerdiscretization_cpp_time",
+    "processes_squarerootprocess_cpp_real",
+    "processes_squarerootprocess_hpp_real",
+    "processes_squarerootprocess_squarerootprocess_diffusion",
+    "processes_squarerootprocess_squarerootprocess_drift",
+    "processes_eulerdiscretization_cpp_array",
+    "processes_eulerdiscretization_cpp_real"
    ]
   },
   {
@@ -263,31 +242,31 @@
     "processes_stochasticprocessarray_cpp_matrix",
     "processes_stochasticprocessarray_stochasticprocessarray_covariance",
     "processes_stochasticprocessarray_stochasticprocessarray_diffusion",
-    "processes_stochasticprocessarray_stochasticprocessarray_evolve",
     "processes_stochasticprocessarray_stochasticprocessarray_stddeviation",
     "processes_stochasticprocessarray_stochasticprocessarray_stochasticprocessarray",
+    "processes_stochasticprocessarray_stochasticprocessarray_correlation",
     "processes_stochasticprocessarray_stochasticprocessarray_drift",
+    "processes_stochasticprocessarray_stochasticprocessarray_evolve",
     "processes_stochasticprocessarray_stochasticprocessarray_expectation",
     "processes_stochasticprocessarray_stochasticprocessarray_time",
     "processes_stochasticprocessarray_stochasticprocessarray_apply",
-    "processes_stochasticprocessarray_stochasticprocessarray_correlation",
     "processes_stochasticprocessarray_stochasticprocessarray_initialvalues"
    ]
   },
   {
    "label": "Merton jump-diffusion process",
-   "size": 25,
+   "size": 26,
    "anchors": [
     "processes_merton76process_merton76process",
+    "processes_merton76process",
     "processes_merton76process_merton76process_merton76process",
+    "processes_merton76process_merton76process_apply",
     "processes_merton76process_merton76process_time",
     "processes_merton76process_hpp_real",
     "processes_merton76process_merton76process_diffusion",
     "processes_merton76process_merton76process_drift",
-    "processes_merton76process_merton76process_logmeanjump",
     "processes_merton76process_merton76process_x0",
     "processes_merton76process_hpp_time",
-    "processes_merton76process_merton76process_apply",
     "processes_merton76process_cpp_blackvoltermstructure",
     "processes_merton76process_cpp_date",
     "processes_merton76process_cpp_discretization",
@@ -304,13 +283,13 @@
     "processes_mfstateprocess_cpp_real",
     "processes_mfstateprocess_cpp_time",
     "processes_mfstateprocess_mfstateprocess_checktimesvols",
-    "processes_mfstateprocess_mfstateprocess_settimes",
+    "processes_mfstateprocess_mfstateprocess_stddeviation",
     "processes_mfstateprocess_mfstateprocess_diffusion",
     "processes_mfstateprocess_mfstateprocess_drift",
     "processes_mfstateprocess_mfstateprocess_expectation",
     "processes_mfstateprocess_mfstateprocess_mfstateprocess",
+    "processes_mfstateprocess_mfstateprocess_settimes",
     "processes_mfstateprocess_mfstateprocess_setvols",
-    "processes_mfstateprocess_mfstateprocess_stddeviation",
     "processes_mfstateprocess_mfstateprocess_variance",
     "processes_mfstateprocess_cpp_array",
     "processes_mfstateprocess_mfstateprocess_x0"
@@ -322,8 +301,8 @@
    "anchors": [
     "processes_batesprocess_batesprocess",
     "processes_batesprocess",
-    "processes_batesprocess_batesprocess_evolve",
     "processes_batesprocess_batesprocess_batesprocess",
+    "processes_batesprocess_batesprocess_evolve",
     "processes_batesprocess_batesprocess_drift",
     "processes_batesprocess_batesprocess_factors",
     "processes_batesprocess_cpp_real",
@@ -341,42 +320,21 @@
    "label": "Cox-Ingersoll-Ross short-rate process",
    "size": 19,
    "anchors": [
-    "processes_coxingersollrossprocess_coxingersollrossprocess",
     "processes_coxingersollrossprocess",
+    "processes_coxingersollrossprocess_coxingersollrossprocess",
     "processes_coxingersollrossprocess_hpp_real",
     "processes_coxingersollrossprocess_coxingersollrossprocess_evolve",
+    "processes_coxingersollrossprocess_coxingersollrossprocess_speed",
     "processes_coxingersollrossprocess_coxingersollrossprocess_stddeviation",
     "processes_coxingersollrossprocess_coxingersollrossprocess_variance",
     "processes_coxingersollrossprocess_hpp_time",
-    "processes_coxingersollrossprocess_coxingersollrossprocess_coxingersollrossprocess",
     "processes_coxingersollrossprocess_coxingersollrossprocess_diffusion",
     "processes_coxingersollrossprocess_coxingersollrossprocess_drift",
     "processes_coxingersollrossprocess_coxingersollrossprocess_expectation",
+    "processes_coxingersollrossprocess_coxingersollrossprocess_coxingersollrossprocess",
     "processes_coxingersollrossprocess_coxingersollrossprocess_level",
-    "processes_coxingersollrossprocess_coxingersollrossprocess_speed",
     "processes_coxingersollrossprocess_coxingersollrossprocess_volatility",
     "processes_coxingersollrossprocess_coxingersollrossprocess_x0"
-   ]
-  },
-  {
-   "label": "Square-root diffusion process",
-   "size": 19,
-   "anchors": [
-    "processes_squarerootprocess_squarerootprocess",
-    "processes_squarerootprocess",
-    "processes_squarerootprocess_squarerootprocess_drift",
-    "processes_squarerootprocess_squarerootprocess_squarerootprocess",
-    "processes_squarerootprocess_cpp_real",
-    "processes_squarerootprocess_hpp_real",
-    "processes_squarerootprocess_squarerootprocess_diffusion",
-    "processes_squarerootprocess_squarerootprocess_x0",
-    "processes_squarerootprocess_cpp_time",
-    "processes_squarerootprocess_squarerootprocess_a",
-    "processes_squarerootprocess_squarerootprocess_b",
-    "processes_squarerootprocess_squarerootprocess_sigma",
-    "processes_squarerootprocess_cpp_discretization",
-    "processes_squarerootprocess_cpp_shared_ptr",
-    "processes_squarerootprocess_cpp_volatility"
    ]
   },
   {
@@ -398,6 +356,45 @@
     "processes_ornsteinuhlenbeckprocess_ornsteinuhlenbeckprocess_volatility",
     "processes_ornsteinuhlenbeckprocess_ornsteinuhlenbeckprocess_x0",
     "processes_ornsteinuhlenbeckprocess_cpp_real"
+   ]
+  },
+  {
+   "label": "Forward measure and GBM processes",
+   "size": 17,
+   "anchors": [
+    "processes_g2process",
+    "processes_forwardmeasureprocess_forwardmeasureprocess",
+    "processes_forwardmeasureprocess",
+    "processes_forwardmeasureprocess_forwardmeasureprocess1d",
+    "stochasticprocess1d",
+    "processes_forwardmeasureprocess_forwardmeasureprocess1d_forwardmeasureprocess1d",
+    "processes_forwardmeasureprocess_forwardmeasureprocess_forwardmeasureprocess",
+    "processes_forwardmeasureprocess_cpp_time",
+    "processes_forwardmeasureprocess_forwardmeasureprocess1d_setforwardmeasuretime",
+    "processes_forwardmeasureprocess_hpp_time",
+    "processes_forwardmeasureprocess_forwardmeasureprocess1d_getforwardmeasuretime",
+    "processes_forwardmeasureprocess_forwardmeasureprocess_getforwardmeasuretime",
+    "processes_forwardmeasureprocess_forwardmeasureprocess_setforwardmeasuretime",
+    "processes_forwardmeasureprocess_cpp_discretization",
+    "processes_forwardmeasureprocess_cpp_shared_ptr"
+   ]
+  },
+  {
+   "label": "Euler discretization schemes",
+   "size": 12,
+   "anchors": [
+    "processes_endeulerdiscretization_endeulerdiscretization_diffusion",
+    "processes_endeulerdiscretization_endeulerdiscretization_drift",
+    "processes_endeulerdiscretization_endeulerdiscretization",
+    "processes_endeulerdiscretization_endeulerdiscretization_covariance",
+    "processes_endeulerdiscretization_endeulerdiscretization_variance",
+    "processes_endeulerdiscretization_cpp_time",
+    "processes_endeulerdiscretization_cpp_array",
+    "processes_endeulerdiscretization_cpp_real",
+    "processes_endeulerdiscretization_cpp_stochasticprocess",
+    "processes_endeulerdiscretization_cpp_stochasticprocess1d",
+    "discretization",
+    "processes_endeulerdiscretization_cpp_matrix"
    ]
   }
  ]
