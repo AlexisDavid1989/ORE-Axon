@@ -29,7 +29,7 @@ sign-off (see docs/RELABELLING.md, "the one exception").
   `flexiswap.hpp`, `genericswaption.hpp/.cpp`). The "annuity mapping" part of
   the name likely described content that has since moved elsewhere.
 
-## graphify: `build_from_json` output depends on `PYTHONHASHSEED`
+## graphify: clustering output depends on `PYTHONHASHSEED`
 
 Given byte-identical extraction input, `graphify.build.build_from_json()` +
 `graphify.cluster.cluster()` returns a different edge count and Louvain
@@ -38,9 +38,42 @@ with a minimal repro calling only stock graphify functions, no code from this
 project. See the comment above the `PYTHONHASHSEED` relaunch in
 `oregraph/cli.py` for the exact numbers.
 
+Re-ran the same repro against 0.9.42 (the pin here is still 0.9.6, see
+"Upgrading graphifyy" below): edge count came back **stable** across
+unpinned runs, only the Louvain partition still varied, by a narrower margin
+than on 0.9.6. Reads as: the edge-loss half of this bug is fixed since 0.9.6,
+the clustering half is not. `PYTHONHASHSEED=0` still fully fixes it on
+0.9.42 - the relaunch is still required, not optional, on either version.
+
 Worked around here by relaunching every `build`/`merge` under
-`PYTHONHASHSEED=0`. Upstream issue:
+`PYTHONHASHSEED=0`. Upstream issue (title and body updated with the 0.9.42
+numbers above):
 https://github.com/Graphify-Labs/graphify/issues/2817
+
+## Upgrading graphifyy
+
+Pinned to 0.9.6 in `requirements.txt` because the committed anchors in
+`labels/` were generated against that version's clustering - a different
+version partitions the corpus differently (confirmed: 0.9.42 gives a
+different edge count and community structure on the same input, see above),
+so bumping the pin silently detaches every curated name from its community
+exactly the way an ORE upgrade does.
+
+Treat a graphifyy version bump as the same deliberate operation as an ORE
+upgrade, in this order:
+
+1. Bump the pin in `requirements.txt`, reinstall.
+2. Full rebuild: `python -m oregraph build`.
+3. `python -m oregraph relabel --sync` - the id files are about to be
+   meaningless against the new clustering otherwise.
+4. `python -m oregraph relabel --audit` - must come back clean (or only the
+   two pre-existing flags above) before pinning anything.
+5. `python -m oregraph relabel --write-anchors` (all chunks).
+6. `python -m oregraph verify` - target 530 attached, all checks green.
+
+Do not remove the `PYTHONHASHSEED=0` relaunch in `oregraph/cli.py` as part of
+an upgrade - it is still required on 0.9.42 (see above), and there is no
+evidence yet that a later version won't need it either.
 
 ## Docs and XSD have zero edges to code (v1.1)
 
