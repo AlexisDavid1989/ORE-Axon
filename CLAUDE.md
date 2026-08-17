@@ -29,9 +29,12 @@ made the previous version unusable by anyone but its author.
 
 ## Current state
 
-- Community names are done: 530 curated names in `labels/`, audited and pinned to
-  content anchors, covering 92% of communities of 50+ nodes. They re-attach
-  themselves on rebuild. To add or fix one, follow `docs/RELABELLING.md`.
+- Community names: 530 curated names in `labels/`, audited and pinned to content
+  anchors, covering 82% of communities of 50+ nodes. They re-attach themselves
+  on rebuild, but the id file (`labels/<chunk>.json`) is a *derived* view once a
+  chunk is anchored — run `oregraph relabel --sync` before `--audit` or hand-editing
+  it after a rebuild, never trust its ids directly. To add or fix a name, follow
+  `docs/RELABELLING.md`.
 - `semantic-chunks/examples/` is not populated yet; everything else is.
 - Run `oregraph verify` after any change to the build or merge path. Two of its
   checks are about names: `curated labels attached` and `all curated names

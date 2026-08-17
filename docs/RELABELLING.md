@@ -1,8 +1,10 @@
 # Community names
 
-**Status: complete and pinned.** 530 curated names cover 92% of communities of
+**Status: complete and pinned.** 530 curated names cover 82% of communities of
 50 nodes or more. `oregraph verify` checks on every build that each of them
-still reaches the merged graph.
+still reaches the merged graph. That 82% figure moves with the clustering —
+it dropped from an earlier 92% purely because a reproducibility fix (pinning
+`PYTHONHASHSEED`) changed which communities exist, not because names were lost.
 
 This document is for maintaining them — adding a name, correcting one, or
 recovering after an ORE upgrade re-clusters the corpus.
@@ -45,6 +47,35 @@ corpus, 15/15 with 10% of files removed, 14/15 with 25% removed.
 A name that cannot win its own best-match community is **dropped, not
 relocated**. An earlier version reassigned it to its second choice, which put
 names on groups they did not describe.
+
+## The id file becomes derived once a chunk is anchored
+
+Before a chunk has ever been pinned, `labels/<chunk>.json` (id → name) *is*
+the mapping — there is nothing else to attach from. Once `labels/<chunk>.anchors.json`
+exists, that stops being true: attachment happens by anchor overlap, and the
+id file is only kept around because `relabel --audit` and a future
+`--write-anchors` both read it. Nothing re-derives it automatically, so after
+a rebuild reclusters the corpus, its ids silently point at the wrong
+communities — the same failure this whole document exists to fix, just
+one level up: the *name* is still attached to the right code, but the id file
+that maps community-id → name is stale, and running `--audit` against it
+reports names as misfiled that are not. Run this first, every time, before
+`--audit` on an already-anchored chunk:
+
+```bash
+python -m oregraph relabel --sync
+```
+
+This overwrites `labels/<chunk>.json` from whatever the merged graph's
+anchors currently attach — names are copied verbatim, never reworded, only
+the id each one sits under changes. `--audit` also runs this check itself:
+if more than a quarter of a chunk's names come back mismatched, it assumes
+the id file is stale rather than reporting a quarter of your curated names as
+suddenly wrong, and tells you to sync first.
+
+Never hand-edit an anchored chunk's id file directly — `--sync` overwrites it
+from the anchors on the next run, so an edit that isn't also reflected in the
+anchors (via `--write-anchors`) simply disappears.
 
 ## Adding or fixing a name
 
@@ -134,6 +165,23 @@ name for a previously unnamed community is always allowed.**
 Anchors are permanent — pinning a wrong mapping bakes the bug in. `relabel`
 without `--write-anchors` only proposes.
 
+The one exception is a community that has genuinely dissolved: re-clustering
+fragmented it across several unrelated successors so thoroughly that no
+single one of them is what the old name described anymore, and the old name
+no longer attaches at all (`verify`'s "all curated names attached" check is
+what surfaces this). That is a rename, not an addition, and it needs the same
+explicit sign-off every time — never take it on your own initiative because a
+name failed to attach. When it happens: run `--digest` on the affected
+chunk(s), trace the old name's anchors to find where their nodes now live
+(they still resolve — node ids survive re-clustering even when community ids
+don't), and check whether any current name already occupies the successor
+community before writing a new one there. It might: two names can each
+legitimately best-match one community, and `labels.py` handles that by
+combining them (`"A / B"`) rather than by letting one displace the other.
+Same acceptance gate as any other name — audit CLEAN before pinning — and if
+the natural successor is already occupied by an unrelated name, leave it
+unnamed and flag the conflict rather than guessing which one is wrong.
+
 When adding names to a chunk that already has some, the change should be purely
 additive. Check it before committing:
 
@@ -156,7 +204,7 @@ python -m oregraph verify
 ```
 
 ```
-[PASS] curated labels attached            530 named communities covering 25,746 nodes
+[PASS] curated labels attached            524 named communities covering 23,844 nodes
 [PASS] all curated names attached         every curated name reached the merged graph
 ```
 
@@ -165,7 +213,11 @@ the per-chunk graph, but attachment happens later, through anchor overlap at
 merge. Nothing spanned the two until this check existed, which is how four
 OREDocs names once passed every gate and still vanished from the merged graph.
 If it reports a shortfall it names the missing labels: their anchors no longer
-win any community, so re-run the digest → name → audit → pin loop for that chunk.
+win any community. Before doing anything else, run `relabel --sync` (see
+above) so `labels/<chunk>.json` reflects this build's actual ids, then
+`--audit` that chunk — in most cases the name still attaches fine and the
+sync alone was the fix. Only if a name is genuinely gone (see "the one
+exception" above) does it need the digest → name → audit → pin loop.
 
 Also run `python -m oregraph coverage` after an upgrade — if ORE's layout has
 shifted, new paths may belong to no chunk at all.

@@ -178,7 +178,7 @@ The current build:
 | | |
 |---|---|
 | Nodes | 90,374 |
-| Edges | 190,503 |
+| Edges | 190,550 |
 | Cross-module edges | 14,168 |
 | Curated community names | 530 |
 
@@ -191,7 +191,7 @@ The current build:
 | Community names | Complete — 530 names, curated, audited and pinned |
 | `Examples/` XML & CSV | Not yet extracted — see below |
 
-Community names cover 92% of communities of 50 nodes or more. They are pinned to
+Community names cover 82% of communities of 50 nodes or more. They are pinned to
 content anchors, so they survive re-clustering when you rebuild against a newer
 ORE; `verify` checks on every build that each one still reaches the merged graph.
 To add or correct a name, see [docs/RELABELLING.md](docs/RELABELLING.md).
