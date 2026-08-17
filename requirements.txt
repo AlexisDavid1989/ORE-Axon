@@ -1,4 +1,6 @@
-# Pinned exactly: the committed anchors in labels/ were generated against this
-# build of graphify. A release that clusters differently would silently detach
-# curated names from their communities.
-graphifyy==0.9.6
+# Pinned exactly so the whole team shares one clustering: the committed
+# anchors in labels/ were generated against this build of graphify, and a
+# release that clusters differently would silently detach curated names from
+# their communities. 0.9.44 is API-compatible and available on our internal
+# mirror; 0.9.6 was not.
+graphifyy==0.9.44

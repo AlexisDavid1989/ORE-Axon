@@ -23,18 +23,18 @@ from graphify.diagnostics import diagnose_extraction, format_diagnostic_report
 from .fix_ids import fix_graph_json
 
 
-def add_repo_paths(graph_path: Path, cache_root: Path, engine: Path) -> dict:
+def add_repo_paths(graph_path: Path, root: Path, engine: Path) -> dict:
     """Stamp every node with `repo_path`: its path relative to the Engine root.
 
-    graphify records `source_file` relative to the extraction cache root, so as
-    soon as the output directory lives outside the source tree - the recommended
-    setup, since builds write hundreds of MB - paths come out as
-    `../../Engine/QuantLib/ql/instruments/swap.hpp`. That form differs per
-    machine and cannot be compared against an `#include` target, which is what
-    the cross-module linker needs.
+    graphify records `source_file` relative to the scan root passed to
+    `extract()` (the chunk root, since graphify #1941 - see the `root=` comment
+    in `build()` below), so it comes out as e.g. `inputparameters.hpp`. That
+    form is chunk-relative and cannot be compared against an `#include` target,
+    which is what the cross-module linker needs.
 
     `repo_path` is that comparison key: one stable, machine-independent path per
-    node, resolved once here rather than re-derived by every consumer.
+    node relative to the Engine root, resolved once here rather than re-derived
+    by every consumer.
     """
     g = json.loads(graph_path.read_text(encoding="utf-8"))
     engine = engine.resolve()
@@ -45,7 +45,7 @@ def add_repo_paths(graph_path: Path, cache_root: Path, engine: Path) -> dict:
             missing += 1
             continue
         try:
-            abs_path = (cache_root / sf).resolve()
+            abs_path = (root / sf).resolve()
             n["repo_path"] = abs_path.relative_to(engine).as_posix()
             stamped += 1
         except ValueError:      # resolved outside the Engine tree
@@ -111,13 +111,15 @@ def build(root: Path, out_dir: Path, targets: list[Path], engine: Path,
         p = Path(f)
         code_files.extend(collect_files(p) if p.is_dir() else [p])
 
-    # graphify reuses cache_root as its id-relativization root. Pointing it
-    # outside the source tree keeps the cache out of the repo but makes every
-    # AST node id fall back to an absolute-path form - repaired by fix_graph_json
-    # below, which uses source_file (relativized correctly) as ground truth.
+    # cache_root points outside the source tree to keep the cache out of the
+    # repo. graphify >=0.9.x anchors ids/source_file to cache_root only as a
+    # fallback when `root` is unset (graphify #1941) - pass the real scan root
+    # explicitly so ids relativize correctly instead of falling back to an
+    # absolute-path form. fix_graph_json below is kept as a defensive repair
+    # for anything that still slips through, not the primary fix.
     cache_root = out_dir.parent
     if code_files:
-        ast_result = extract(code_files, cache_root=cache_root)
+        ast_result = extract(code_files, cache_root=cache_root, root=root)
     else:
         ast_result = {"nodes": [], "edges": [], "input_tokens": 0, "output_tokens": 0}
     log(f"  AST: {len(ast_result['nodes'])} nodes, {len(ast_result['edges'])} edges")
@@ -157,7 +159,7 @@ def build(root: Path, out_dir: Path, targets: list[Path], engine: Path,
     fix_stats = fix_graph_json(str(graph_path))
     log(f"  id repair: {fix_stats}")
 
-    path_stats = add_repo_paths(graph_path, cache_root, engine)
+    path_stats = add_repo_paths(graph_path, root, engine)
     log(f"  repo paths: {path_stats}")
 
     report = generate(G, communities, cohesion, labels, gods, surprises, det,
