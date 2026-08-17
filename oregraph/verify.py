@@ -84,7 +84,13 @@ def verify(cfg) -> dict:
         chunk = lf.stem
         if chunk not in built:
             continue
-        want = set(json.loads(lf.read_text(encoding="utf-8")).values())
+        # `relabel --sync` writes the id file straight from `community_name`,
+        # so a combined "A / B" entry can now appear on this side too, not
+        # just in the merged graph - split both the same way or a synced,
+        # merged community fails this check on its own attached name.
+        want: set[str] = set()
+        for v in json.loads(lf.read_text(encoding="utf-8")).values():
+            want.update(str(v).split(" / "))
         gap = sorted(want - attached.get(chunk, set()))
         if gap:
             missing[chunk] = gap

@@ -47,6 +47,10 @@ STOPWORDS = {
 #: a clear majority, small enough to stay legible in a diff.
 ANCHOR_COUNT = 15
 
+#: Above this share of mismatched names, `audit()` stops trusting its own
+#: per-name verdicts. See `audit()` for why.
+STALE_THRESHOLD = 0.25
+
 
 def _tokens(text: str) -> list[str]:
     # Length >= 3, not > 3: the domain is full of three-letter terms that carry
@@ -114,6 +118,15 @@ def audit(graph_path: Path, labels_path: Path) -> dict:
     Matching is deliberately generous: one shared token is enough. It is a trap
     detector, not a quality score, and a clean audit means "nothing is obviously
     misfiled", not "these are good names".
+
+    This only works while `labels_path`'s ids match the clustering in
+    `graph_path`. Once a chunk is anchored, the id file is a derived view (see
+    `labels.py`) that goes stale the moment the corpus reclusters, and a stale
+    id file makes *every* name look misfiled at once - not because the names
+    are wrong, but because id 7 just isn't the same community it was. A check
+    that cannot tell "these names are wrong" from "these ids are wrong" is
+    worse than no check, so above STALE_THRESHOLD mismatched this is reported
+    as staleness, not as misfiling - see the `stale` field.
     """
     g = json.loads(graph_path.read_text(encoding="utf-8"))
     labels = json.loads(labels_path.read_text(encoding="utf-8"))
@@ -147,12 +160,19 @@ def audit(graph_path: Path, labels_path: Path) -> dict:
         else:
             mismatched.append(entry)
 
-    return {"chunk": labels_path.stem, "total": len(labels),
+    total = len(labels)
+    stale = total > 0 and (len(mismatched) / total) > STALE_THRESHOLD
+
+    return {"chunk": labels_path.stem, "total": total,
             "matched": len(matched), "mismatched": len(mismatched),
-            "detail": mismatched, "clean": not mismatched}
+            "detail": mismatched, "clean": not mismatched, "stale": stale}
 
 
 def format_audit(result: dict) -> str:
+    if result["stale"]:
+        return (f"{result['chunk']:36s} STALE  {result['mismatched']}/{result['total']} "
+                f"ids don't match their community's content - this looks like the id "
+                f"mapping, not the names. Run `oregraph relabel --sync` first.")
     lines = [f"{result['chunk']:36s} match={result['matched']:3d}  "
              f"MISMATCH={result['mismatched']:3d}  (of {result['total']})"]
     for e in result["detail"]:
@@ -216,6 +236,49 @@ def digest(graph_path: Path, out_path: Path, top: int = 40,
     out_path.write_text("\n".join(lines), encoding="utf-8")
     return {"communities_total": len(members), "communities_briefed": len(ranked),
             "path": str(out_path), "bytes": out_path.stat().st_size}
+
+
+def sync(merged_graph_path: Path, labels_dir: Path, chunks: list[str]) -> dict[str, int | None]:
+    """Regenerate labels/<chunk>.json from what the merged graph actually attached.
+
+    Once a chunk is anchored, attachment happens by anchor overlap in
+    labels.py, not by the id file - so the id file drifts out of date every
+    time Louvain renumbers, and nothing notices. This makes it a derived
+    artifact again: read the current `community_name`/`community_key` off
+    each node in the already-merged graph, group back to per-chunk ids, and
+    overwrite the id file with that. Name strings are copied verbatim, never
+    reworded - this fixes *which id* a name sits under, not the name itself.
+
+    A name that failed to attach this build (below MATCH_THRESHOLD, or its
+    community merged away) simply does not appear in the result - `--sync`
+    cannot rescue a name that lost its community, only stop misreporting the
+    ones that kept theirs. See relabel --digest to find where lost names went.
+
+    Returns {chunk: names_written}; a chunk is None if the merged graph has no
+    attached names for it at all, in which case its id file is left untouched
+    rather than overwritten with an empty mapping.
+    """
+    g = json.loads(merged_graph_path.read_text(encoding="utf-8"))
+
+    by_chunk: dict[str, dict[str, str]] = collections.defaultdict(dict)
+    for n in g["nodes"]:
+        name, key = n.get("community_name"), n.get("community_key")
+        if not name or not key or "Community " in str(name):
+            continue
+        chunk, local_cid = key.split(":", 1)
+        by_chunk[chunk][local_cid] = name
+
+    result: dict[str, int | None] = {}
+    for chunk in chunks:
+        mapping = by_chunk.get(chunk)
+        if not mapping:
+            result[chunk] = None
+            continue
+        ordered = {cid: mapping[cid] for cid in sorted(mapping, key=int)}
+        (labels_dir / f"{chunk}.json").write_text(
+            json.dumps(ordered, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        result[chunk] = len(ordered)
+    return result
 
 
 def write_anchors(graph_path: Path, mapping: dict[str, str], out_path: Path,

@@ -17,6 +17,23 @@ name. Node ids derive from source paths, so they survive ordinary code drift far
 better than community numbering does.
 
 Falls back to direct id lookup when no anchor file exists.
+
+The authority model
+--------------------
+`labels/<chunk>.json` and `labels/<chunk>.anchors.json` are never both a
+source of truth at once - whichever exists decides which one is:
+
+* No anchor file yet: the id file IS the mapping. Community ids are read
+  straight off the current build, so they are correct only until the next
+  reclustering.
+* An anchor file exists: anchors ARE the mapping (via overlap, above) and the
+  id file becomes a DERIVED view of them - regenerated from whatever the
+  anchors currently attach, by `oregraph relabel --sync`. It is kept around
+  because `relabel --audit` and a future `--write-anchors` both read it, not
+  because anything here still trusts it. Never hand-edit the id file for an
+  anchored chunk; the anchors are what actually decides attachment, and an
+  edit to the id file alone changes nothing until the next `--sync` overwrites
+  it anyway.
 """
 from __future__ import annotations
 
