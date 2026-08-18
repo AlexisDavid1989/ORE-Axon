@@ -20,7 +20,7 @@ from graphify.diagnostics import diagnose_extraction, format_diagnostic_report
 
 
 def build(chunk_dir: Path, out_dir: Path, label_root: str,
-          quiet: bool = False) -> dict:
+          quiet: bool = False, built_at_commit: str | None = None) -> dict:
     log = (lambda *a: None) if quiet else print
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -70,12 +70,13 @@ def build(chunk_dir: Path, out_dir: Path, label_root: str,
     labels = {cid: f"Community {cid}" for cid in communities}
     questions = suggest_questions(G, communities, labels)
 
-    if not to_json(G, communities, str(out_dir / "graph.json"), force=True):
+    if not to_json(G, communities, str(out_dir / "graph.json"), force=True,
+                   built_at_commit=built_at_commit):
         raise RuntimeError("refused to write graph.json")
 
     report = generate(G, communities, cohesion, labels, gods, surprises, det,
                       {"input": 0, "output": 0}, label_root,
-                      suggested_questions=questions)
+                      suggested_questions=questions, built_at_commit=built_at_commit)
     (out_dir / "GRAPH_REPORT.md").write_text(report, encoding="utf-8")
     (out_dir / ".graphify_analysis.json").write_text(json.dumps({
         "communities": {str(k): v for k, v in communities.items()},

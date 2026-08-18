@@ -19,8 +19,10 @@ through, and cross-chunk include edges are added.
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 
+from . import config as configmod
 from .chunks import Chunk
 from .labels import attach_labels
 from .link import link
@@ -130,13 +132,18 @@ def merge(engine: Path, chunks: list[Chunk], graph_paths: dict[str, Path],
         log(f"    ignored (no INCLUDE_ROOTS prefix matched): "
             f"{link_stats['ignored_non_ore_prefix']} - top prefixes: {link_stats['ignored_by_prefix']}")
 
+    ore = configmod.ore_version(engine)
+    ore["graphify_version"] = configmod.graphify_version()
+    ore["built_at"] = datetime.now(timezone.utc).isoformat()
+
     out = {
         "directed": False,
         "multigraph": False,
         "graph": {"hyperedges": hyperedges,
                   "chunks": sorted(graphs),
                   "cross_module_edges": len(fixed_cross),
-                  "link_stats": link_stats},
+                  "link_stats": link_stats,
+                  "ore": ore},
         "nodes": merged_nodes,
         "links": merged_links,
     }

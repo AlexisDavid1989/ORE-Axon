@@ -18,6 +18,23 @@ Graph this was measured against:
 Reproduce with `python -m oregraph verify` (recall) and the benchmark script
 described below (latency).
 
+**Built against:**
+
+| | |
+|---|---|
+| ORE release | v16 (16th release, Jan 2025 – Apr 2026) |
+| Commit | `3b62ba248e36ea92f408f0d863ede09639074836` on `master`, untagged |
+| Nearest tag | `v1.8.16.0` |
+| QuantLib | 1.42.1 |
+| graphifyy | 0.9.44 |
+
+A teammate building against a different ORE commit will get a different
+graph, and may see a handful of curated names fail to attach — that is
+expected, not a bug, and now diagnosable by comparing this block against
+their own build's version: `oregraph info` prints the checkout you are
+pointed at, `oregraph verify` prints what the merged graph was actually
+built from.
+
 ---
 
 ## 1. Cross-module include recall

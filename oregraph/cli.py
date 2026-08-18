@@ -57,6 +57,14 @@ def cmd_info(args):
     if cfg.graphify_cli:
         print(f"graphify CLI: {cfg.graphify_cli}")
     print(f"graphify lib: {'importable' if configmod.check_graphify_importable(cfg.python) else 'NOT INSTALLED - pip install graphifyy'}")
+
+    ore = configmod.ore_version(cfg.engine)
+    print(f"\nORE release : {ore['release'] or 'unknown'}")
+    print(f"ORE commit  : {ore['commit'] or 'unknown'}"
+          + (f" ({ore['describe']})" if ore['describe'] and ore['describe'] != ore['commit'] else ""))
+    print(f"QuantLib    : {ore['quantlib'] or 'unknown'}")
+    print(f"graphifyy   : {configmod.graphify_version() or 'NOT INSTALLED'}")
+
     print(f"\nChunks: {len(CODE_CHUNKS)} code, {len(SEMANTIC)} semantic")
     for c in ALL_CHUNKS:
         built = "built" if cfg.module_graph(c.name).exists() else "-"
@@ -80,6 +88,8 @@ def cmd_build(args):
     if args.skip_added:
         selected = [c for c in selected if c.labelled or c.kind == "semantic"]
 
+    commit = configmod.ore_version(cfg.engine).get("commit")
+
     results = {}
     for c in selected:
         t0 = time.time()
@@ -92,7 +102,7 @@ def cmd_build(args):
                     continue
                 results[c.name] = build_code(
                     cfg.engine / c.root, cfg.module_out(c.name), targets,
-                    engine=cfg.engine)
+                    engine=cfg.engine, built_at_commit=commit)
             else:
                 chunk_dir = cfg.semantic_chunks / _semantic_dir(c.name)
                 if not chunk_dir.exists():
@@ -100,7 +110,7 @@ def cmd_build(args):
                           "(run `oregraph semantic` to create it)")
                     continue
                 results[c.name] = build_sem(
-                    chunk_dir, cfg.module_out(c.name), c.root)
+                    chunk_dir, cfg.module_out(c.name), c.root, built_at_commit=commit)
         except Exception as exc:  # keep going; one bad chunk shouldn't stop a build
             print(f"  FAILED: {exc}", file=sys.stderr)
             results[c.name] = {"error": str(exc)}

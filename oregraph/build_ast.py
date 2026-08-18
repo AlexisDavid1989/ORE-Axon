@@ -89,7 +89,7 @@ def _detect_files(files: list[Path]) -> dict:
 
 
 def build(root: Path, out_dir: Path, targets: list[Path], engine: Path,
-          quiet: bool = False) -> dict:
+          quiet: bool = False, built_at_commit: str | None = None) -> dict:
     """Extract, build, cluster and export one chunk. Returns a summary dict."""
     out_dir.mkdir(parents=True, exist_ok=True)
     log = (lambda *a: None) if quiet else print
@@ -153,7 +153,8 @@ def build(root: Path, out_dir: Path, targets: list[Path], engine: Path,
     questions = suggest_questions(G, communities, labels)
 
     graph_path = out_dir / "graph.json"
-    if not to_json(G, communities, str(graph_path), force=True):
+    if not to_json(G, communities, str(graph_path), force=True,
+                   built_at_commit=built_at_commit):
         raise RuntimeError(f"refused to write {graph_path}")
 
     fix_stats = fix_graph_json(str(graph_path))
@@ -164,7 +165,7 @@ def build(root: Path, out_dir: Path, targets: list[Path], engine: Path,
 
     report = generate(G, communities, cohesion, labels, gods, surprises, det,
                       {"input": 0, "output": 0}, str(root),
-                      suggested_questions=questions)
+                      suggested_questions=questions, built_at_commit=built_at_commit)
     (out_dir / "GRAPH_REPORT.md").write_text(report, encoding="utf-8")
     (out_dir / ".graphify_analysis.json").write_text(json.dumps({
         "communities": {str(k): v for k, v in communities.items()},

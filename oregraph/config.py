@@ -11,6 +11,7 @@ import shutil
 import subprocess
 import sys
 from dataclasses import dataclass
+from importlib import metadata
 from pathlib import Path
 
 try:  # py311+
@@ -38,6 +39,84 @@ def _read_toml() -> dict:
 
 def _looks_like_engine(path: Path) -> bool:
     return path.is_dir() and all((path / m).is_dir() for m in ENGINE_MARKERS)
+
+
+def _git(args: list[str], cwd: Path) -> str | None:
+    try:
+        r = subprocess.run(["git", *args], cwd=str(cwd),
+                           capture_output=True, text=True, timeout=10)
+    except Exception:
+        return None
+    if r.returncode != 0:
+        return None
+    return r.stdout.strip() or None
+
+
+def _read_git_head(engine: Path) -> str | None:
+    """HEAD commit read straight from .git, for a machine with no git on PATH."""
+    try:
+        head = (engine / ".git" / "HEAD").read_text(encoding="utf-8").strip()
+    except OSError:
+        return None
+    if not head.startswith("ref:"):
+        return head or None
+    ref = head.split(" ", 1)[1].strip()
+    try:
+        return (engine / ".git" / ref).read_text(encoding="utf-8").strip() or None
+    except OSError:
+        pass
+    try:
+        for line in (engine / ".git" / "packed-refs").read_text(encoding="utf-8").splitlines():
+            if line.endswith(f" {ref}"):
+                return line.split(" ", 1)[0]
+    except OSError:
+        pass
+    return None
+
+
+def ore_version(engine: Path) -> dict:
+    """Identify the ORE Engine checkout a build ran against.
+
+    Every field degrades independently - a missing git binary, an untagged
+    checkout, or one without News.txt/version.hpp should still yield whatever
+    is available, since a graph with partial provenance is more diagnosable
+    than one silently missing it.
+    """
+    commit = _git(["rev-parse", "HEAD"], engine) or _read_git_head(engine)
+    describe = _git(["describe", "--tags", "--always"], engine)
+
+    release = None
+    news = engine / "News.txt"
+    if news.exists():
+        try:
+            lines = news.read_text(encoding="utf-8", errors="ignore").splitlines()
+        except OSError:
+            lines = []
+        if lines:
+            release = lines[0].rstrip(":").strip() or None
+
+    quantlib = None
+    version_hpp = engine / "QuantLib" / "ql" / "version.hpp"
+    if version_hpp.exists():
+        try:
+            text = version_hpp.read_text(encoding="utf-8", errors="ignore")
+        except OSError:
+            text = ""
+        for line in text.splitlines():
+            if line.strip().startswith("#define QL_VERSION "):
+                parts = line.split('"')
+                if len(parts) >= 2:
+                    quantlib = parts[1]
+                break
+
+    return {"commit": commit, "describe": describe, "release": release, "quantlib": quantlib}
+
+
+def graphify_version() -> str | None:
+    try:
+        return metadata.version("graphifyy")
+    except metadata.PackageNotFoundError:
+        return None
 
 
 def _autodetect_engine() -> Path | None:
