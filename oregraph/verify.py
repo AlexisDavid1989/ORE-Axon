@@ -26,6 +26,7 @@ def verify(cfg) -> dict:
     nodes, links = g["nodes"], g["links"]
     ids = {n["id"] for n in nodes}
     check("merged graph exists", True, str(path))
+    ore = (g.get("graph") or {}).get("ore")
 
     # 1. every edge endpoint resolves
     dangling = sum(1 for l in links if l["source"] not in ids or l["target"] not in ids)
@@ -147,13 +148,32 @@ def verify(cfg) -> dict:
         detail = "no link_stats in merged graph - re-run `merge` to populate"
     check("include recall computed", bool(total_inc), detail)
 
-    return {"checks": checks,
+    return {"checks": checks, "ore": ore,
             "nodes": len(nodes), "edges": len(links),
             "cross_module_edges": cross}
 
 
+def _format_ore(ore: dict) -> str:
+    bits = [ore["release"]] if ore.get("release") else []
+    ref = ore.get("describe") or ore.get("commit")
+    if ref:
+        bits.append(ref)
+    if ore.get("quantlib"):
+        bits.append(f"QuantLib {ore['quantlib']}")
+    if ore.get("graphify_version"):
+        bits.append(f"graphifyy {ore['graphify_version']}")
+    line = "ORE: " + (" | ".join(bits) if bits else "unknown")
+    if ore.get("built_at"):
+        line += f"  (built {ore['built_at']})"
+    return line
+
+
 def format_report(result: dict) -> str:
     lines = []
+    ore = result.get("ore")
+    lines.append(_format_ore(ore) if ore else
+                 "ORE: not recorded in this graph - rebuild to capture it")
+    lines.append("")
     for c in result["checks"]:
         lines.append(f"[{'PASS' if c['ok'] else 'FAIL'}] {c['check']:34s} {c['detail']}")
     if "nodes" in result:

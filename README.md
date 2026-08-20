@@ -169,6 +169,22 @@ The current build:
 | Cross-module edges | 14,168 |
 | Curated community names | 530 |
 
+Built against:
+
+| | |
+|---|---|
+| ORE release | v16 (16th release, Jan 2025 – Apr 2026) |
+| Commit | `3b62ba248e36ea92f408f0d863ede09639074836` on `master`, untagged |
+| Nearest tag | `v1.8.16.0` |
+| QuantLib | 1.42.1 |
+| graphifyy | 0.9.44 |
+
+Building against a different ORE commit produces a different graph — a
+handful of curated names may not attach, which is expected. `oregraph info`
+prints the version of your current checkout; `oregraph verify` prints the
+version the merged graph was actually built from, so the two are always
+comparable instead of guessed at.
+
 | Area | State |
 |---|---|
 | Code chunks (AST) | Complete, including the previously missing paths |
