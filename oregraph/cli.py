@@ -57,14 +57,6 @@ def cmd_info(args):
     if cfg.graphify_cli:
         print(f"graphify CLI: {cfg.graphify_cli}")
     print(f"graphify lib: {'importable' if configmod.check_graphify_importable(cfg.python) else 'NOT INSTALLED - pip install graphifyy'}")
-
-    ore = configmod.ore_version(cfg.engine)
-    print(f"\nORE release : {ore['release'] or 'unknown'}")
-    print(f"ORE commit  : {ore['commit'] or 'unknown'}"
-          + (f" ({ore['describe']})" if ore['describe'] and ore['describe'] != ore['commit'] else ""))
-    print(f"QuantLib    : {ore['quantlib'] or 'unknown'}")
-    print(f"graphifyy   : {configmod.graphify_version() or 'NOT INSTALLED'}")
-
     print(f"\nChunks: {len(CODE_CHUNKS)} code, {len(SEMANTIC)} semantic")
     for c in ALL_CHUNKS:
         built = "built" if cfg.module_graph(c.name).exists() else "-"
@@ -88,8 +80,6 @@ def cmd_build(args):
     if args.skip_added:
         selected = [c for c in selected if c.labelled or c.kind == "semantic"]
 
-    commit = configmod.ore_version(cfg.engine).get("commit")
-
     results = {}
     for c in selected:
         t0 = time.time()
@@ -102,7 +92,7 @@ def cmd_build(args):
                     continue
                 results[c.name] = build_code(
                     cfg.engine / c.root, cfg.module_out(c.name), targets,
-                    engine=cfg.engine, built_at_commit=commit)
+                    engine=cfg.engine)
             else:
                 chunk_dir = cfg.semantic_chunks / _semantic_dir(c.name)
                 if not chunk_dir.exists():
@@ -110,7 +100,7 @@ def cmd_build(args):
                           "(run `oregraph semantic` to create it)")
                     continue
                 results[c.name] = build_sem(
-                    chunk_dir, cfg.module_out(c.name), c.root, built_at_commit=commit)
+                    chunk_dir, cfg.module_out(c.name), c.root)
         except Exception as exc:  # keep going; one bad chunk shouldn't stop a build
             print(f"  FAILED: {exc}", file=sys.stderr)
             results[c.name] = {"error": str(exc)}
@@ -348,24 +338,14 @@ def cmd_relabel(args):
 
 
 def cmd_bench(args):
-    """Measure what the curated-name mapping is worth: mapped vs a name-stripped
-    control graph, on latency, response tokens, name recognition and (optionally)
-    LLM answer accuracy."""
+    """Graphify vs no-Graphify: graph-query tokens vs the source files each
+    answer draws from, across a fixed question set."""
     from . import bench
     cfg = _cfg(args)
     _require_graphify(cfg)
 
-    if args.generate:
-        out = cfg.bench_dir / "questions.json"
-        suite = bench.generate_questions(cfg, out, per_repo=args.per_repo)
-        print(f"wrote {out}: {len(suite['questions'])} questions grounded on "
-              f"{suite['meta']['generated_from']['nodes']:,} nodes")
-        return 0
-
-    qpath = Path(args.questions) if args.questions else None
-    result = bench.run(cfg, questions_path=qpath, repeats=args.repeats,
-                       with_llm=args.llm, llm_trials=args.trials,
-                       with_build=args.build, with_vs_source=args.vs_source)
+    spath = Path(args.questions) if args.questions else None
+    result = bench.run(cfg, source_path=spath)
     print("\n" + result["_report"])
     print(f"\nwrote {result['_paths']['report']}\n      {result['_paths']['results']}")
     return 0
@@ -445,29 +425,10 @@ def main(argv=None):
     p.set_defaults(func=cmd_verify)
 
     p = sub.add_parser("bench",
-                       help="measure what the curated-name mapping is worth")
-    p.add_argument("--generate", action="store_true",
-                   help="regenerate bench/questions.json from the current graph "
-                        "and exit")
-    p.add_argument("--per-repo", type=int, default=4,
-                   help="node questions per repo when --generate (default 4)")
+                       help="Graphify vs no-Graphify: graph-query tokens vs "
+                            "reading the source each answer draws from")
     p.add_argument("--questions", metavar="PATH",
-                   help="question suite to run (default bench/questions.json)")
-    p.add_argument("--repeats", type=int, default=3,
-                   help="timing repeats per query; median reported (default 3)")
-    p.add_argument("--llm", action="store_true",
-                   help="also run the optional LLM answer-accuracy layer "
-                        "(needs OPENAI_API_KEY)")
-    p.add_argument("--build", action="store_true",
-                   help="also run the 'implement a missing instrument' build "
-                        "task: deterministic touchpoint discovery always, plus "
-                        "LLM plan grading when OPENAI_API_KEY is set")
-    p.add_argument("--vs-source", action="store_true",
-                   help="also measure Graphify vs no-Graphify: graph-query "
-                        "tokens vs the source files each answer draws from "
-                        "(needs the ORE checkout)")
-    p.add_argument("--trials", type=int, default=1,
-                   help="LLM trials per question/task, averaged (default 1)")
+                   help="question suite to run (default bench/source_questions.json)")
     p.set_defaults(func=cmd_bench)
 
     args = ap.parse_args(argv)

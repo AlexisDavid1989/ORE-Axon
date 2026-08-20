@@ -18,23 +18,6 @@ Graph this was measured against:
 Reproduce with `python -m oregraph verify` (recall) and the benchmark script
 described below (latency).
 
-**Built against:**
-
-| | |
-|---|---|
-| ORE release | v16 (16th release, Jan 2025 – Apr 2026) |
-| Commit | `3b62ba248e36ea92f408f0d863ede09639074836` on `master`, untagged |
-| Nearest tag | `v1.8.16.0` |
-| QuantLib | 1.42.1 |
-| graphifyy | 0.9.44 |
-
-A teammate building against a different ORE commit will get a different
-graph, and may see a handful of curated names fail to attach — that is
-expected, not a bug, and now diagnosable by comparing this block against
-their own build's version: `oregraph info` prints the checkout you are
-pointed at, `oregraph verify` prints what the merged graph was actually
-built from.
-
 ---
 
 ## 1. Cross-module include recall
@@ -139,119 +122,31 @@ pipeline code.
 
 ---
 
-## 3. What the curated-name mapping is worth — `oregraph bench`
+## 3. Graphify vs no-Graphify — token cost of answering (`oregraph bench`)
 
-The names in `labels/` are *presentation* metadata: `merge.py` writes a
-`community_name` onto every node and the MCP server surfaces it, but they never
-change topology, so every structural query returns the same nodes and edges with
-or without them. `oregraph bench` isolates the difference the names alone make.
+This measures the value of Graphify at all, on the axis it is marketed on
+(token reduction). For each question the graph answers in one compact
+`query_graph` call; the no-graph baseline is the token size of the source files
+that answer draws from - the code an agent would otherwise read to answer the
+same thing. That baseline is **generous to the no-graph side**: it assumes the
+agent already knows exactly which files to open, which is itself what the graph
+provides. Needs the ORE checkout (`ORE_ENGINE`) to size files.
 
-It builds a **control graph** from the real merged graph by overwriting every
-`community_name` with the pipeline's own unlabelled fallback (`<repo> / Community
-<n>`, exactly what `merge.py` writes for an unlabelled community), so mapped and
-control are byte-identical apart from the names. It then runs one question set
-against both, reproducing each MCP tool's text output by calling
-`graphify.serve`'s module-level render helpers directly — no `mcp` package, no
-stdio handshake, no process-launch jitter — so every metric except wall-clock
-latency is identical on any machine.
+`query_graph`'s output is reproduced by calling `graphify.serve`'s module-level
+render helper directly - no `mcp` package, no stdio handshake, no process-launch
+jitter - so the token numbers are identical on any machine given the same build.
 
 ```
-python -m oregraph bench --generate     # ground a suite on your build (once)
-python -m oregraph bench                 # deterministic layer
-python -m oregraph bench --llm           # + LLM answer accuracy (needs OPENAI_API_KEY)
+python -m oregraph bench                          # default question set
+python -m oregraph bench --questions my.json      # your own questions
 ```
 
-`--generate` writes `bench/questions.json` from the current graph: one question
-per curated community (a high-degree member whose `get_node` resolves back to
-that community), plus `get_community` and `query_graph` questions. Regenerate on
-another checkout to ground the suite against that build; the committed suite
-records its own graph node/edge counts and every run prints the suite's sha256.
+The question set lives in `bench/source_questions.json`; every run prints its
+sha256 and the graph node/edge counts so results are comparable across time.
 
-**Deterministic layer** (identical to the digit across machines and time, given
-the same build; only latency is machine-dependent):
+### Baseline — graphify 0.9.44, 8-question suite
 
-- **name-recognition rate** — does the answer surface a meaningful subsystem name?
-- **answer-in-output rate** — does the tool output already contain the answer key?
-- **total response tokens** — a fixed regex token estimate (no tokenizer dep).
-- **median query latency** — median of `--repeats` runs (default 3).
-
-**LLM layer** (opt-in): feeds each variant's tool output to an OpenAI-compatible
-model (`OPENAI_API_KEY`, `OPENAI_BASE_URL`, `OREBENCH_MODEL`) at temperature 0,
-grading the answer and reporting accuracy, token usage and latency over
-`--trials`. Skipped cleanly when no key is set.
-
-### Baseline — 2026-08-18 (graphify 0.9.44, PYTHONHASHSEED=0, 56-question suite)
-
-Graph: 93,872 nodes / 185,993 edges. Control: all 93,872 names stripped.
-
-| metric | mapped | control |
-|---|---|---|
-| graph load (s) | ~1.5 | ~1.6 |
-| median query latency (ms) | ~17 | ~18 |
-| total response tokens | 11,105 | 11,176 |
-| name-recognition rate | 100% | 0% |
-| answer-in-output rate | 100% | 24% |
-
-**Headline: with identical topology, the mapping lifts the share of questions
-answerable straight from tool output from 24% to 100%, for a 0.6% token cost and
-no latency change.** The 24% control floor is where a node label happens to
-contain the answer words on its own; the other 76% are only answerable because a
-curated name is attached. Latency and token counts confirm the names are free at
-query time — their entire value is interpretability.
-
-Reproduce: `python -m oregraph bench`. Results land in
-`<ORE_GRAPH_OUT>/bench/report.md` and `results.json`.
-
-### Build-task track — implement an instrument ORE does not have
-
-`--build` runs a realistic engineering task instead of a lookup: **add a
-`CompoundOption` trade to ORE**. CompoundOption (an option on an option) is
-genuinely absent from ORE's trade types (confirmed: 0 `CompoundOption`
-registrations in `OREData/ored/utilities/databuilders.cpp`, none in the
-portfolio), while QuantLib already ships the underlying
-(`ql/instruments/compoundoption.hpp` +
-`ql/pricingengines/exotic/analyticcompoundoptionengine.hpp`) - so it is a real
-"wire existing pricing into a new ORE trade" job. The task and its touchpoint
-rubric live in `bench/build_tasks.json`, grounded against the vanilla-option
-pattern in the checkout.
-
-Each task carries a **rubric** of the ORE subsystems a correct implementation
-must touch (new `Trade` subclass, XML serialization, `TradeFactory`
-registration, `EngineBuilder`, `EngineFactory` registration, the QuantLib
-instrument, its engine, the trade XSD). Two measurements:
-
-- **Deterministic** — the share of those touchpoints the graph already *names*
-  in the retrieved context (mapped vs control). Reproducible, no LLM.
-- **LLM** (with `--llm`) — the model writes an implementation plan from the
-  context and is graded against the same rubric; reports plan coverage, tokens
-  and latency per variant.
-
-Baseline (same graph, deterministic layer):
-
-| metric | mapped | control |
-|---|---|---|
-| touchpoints surfaced in graph context | 75% (6/8) | 62% (5/8) |
-| context tokens | 2,973 | 3,103 |
-
-Mapped surfaces one extra touchpoint (`xsd_schema`, via the curated name
-"Config/trade XML serialization") that the control graph loses when its names
-are stripped. Both graphs correctly *fail* to surface `ql_instrument` and
-`ql_engine`: those do not exist in ORE yet and must come from QuantLib
-knowledge - which is the point of choosing a genuinely missing instrument. Run
-`python -m oregraph bench --build --llm` to grade a model's actual plan.
-
-### Graphify vs no-Graphify track (`--vs-source`)
-
-The tracks above compare *mapped vs control* - the value of the names. This one
-compares *graph vs no graph* - the value of Graphify at all, on the axis it is
-marketed on (token reduction). For each question the graph answers in one
-compact `query_graph` call; the no-graph baseline is the token size of the
-source files that answer draws from - the code an agent would otherwise read to
-answer the same thing. That baseline is **generous to the no-graph side**: it
-assumes the agent already knows exactly which files to open, which is itself
-what the graph provides. Needs the ORE checkout (`ORE_ENGINE`) to size files.
-
-Baseline (8 questions, same graph):
+Graph: 93,872 nodes / 185,993 edges.
 
 | question | graph tok | source tok | ratio |
 |---|--:|--:|--:|
@@ -267,9 +162,13 @@ Baseline (8 questions, same graph):
 
 **Headline: ~28x fewer tokens overall (median ~14x per question, up to ~84x) to
 reach the same answer through the graph than by reading the source it points
-to.** This is the graph's value and is independent of the curated names; it sits
-in the same order of magnitude as graphify's marketed figure, and the true
-saving is larger still, since the baseline assumes perfect file selection - the
-real no-graph alternative is grepping and reading whole modules. Reproduce:
-`python -m oregraph bench --vs-source`.
+to.** It sits in the same order of magnitude as graphify's marketed figure, and
+the true saving is larger still, since the baseline assumes perfect file
+selection - the real no-graph alternative is grepping and reading whole modules.
+
+Reproduce: `python -m oregraph bench`. Results land in
+`<ORE_GRAPH_OUT>/bench/report.md` and `results.json`.
+
+
+
 

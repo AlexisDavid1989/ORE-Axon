@@ -5,3 +5,4 @@ graphify-out/
 .graphify_*
 *.egg-info/
 .venv/
+*.log

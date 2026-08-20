@@ -11,6 +11,27 @@ checkout in minutes, and a prebuilt copy would describe someone else's commit.
 
 ---
 
+## Why use it — ~28× fewer tokens per answer
+
+Answering a question from the graph costs a fraction of the tokens of reading the
+ORE source it points to. Measured across 8 questions (`oregraph bench`, graphify
+0.9.44), the graph reaches the same answer for **~28× fewer tokens overall
+(median ~14×, up to ~84×)** — and that baseline is *generous* to the no-graph
+side, since it assumes you already know exactly which files to open.
+
+| question | graph tokens | reading the source | ratio |
+|---|--:|--:|--:|
+| how is a swap priced | 1,499 | 125,287 | **83.6×** |
+| how is sensitivity risk computed | 1,392 | 109,366 | **78.6×** |
+| how is a yield curve constructed | 1,479 | 23,965 | 16.2× |
+| how is an equity option built & priced | 2,578 | 32,828 | 12.7× |
+| **total (8 questions)** | **13,021** | **369,392** | **28.4×** |
+
+Reproduce it yourself: `python -m oregraph bench`. Full table and method in
+[docs/METRICS.md](docs/METRICS.md).
+
+---
+
 **Implementing the outstanding work?** Start at
 **[docs/CLAUDE-CODE.md](docs/CLAUDE-CODE.md)** (recommended — and the only
 option on Copilot's free plan, which has no agent mode) or
@@ -89,6 +110,7 @@ of megabytes of intermediates. `oregraph info` warns if it detects a synced path
 | `relabel` | Check curated names against the current clustering |
 | `verify` | Post-build integrity checks |
 | `mcp` | Write MCP config for Claude Code and/or VS Code |
+| `bench` | Graph vs no-graph token cost (the numbers above) |
 
 ---
 
