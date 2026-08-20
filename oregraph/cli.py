@@ -337,6 +337,30 @@ def cmd_relabel(args):
               "to pin the names so they survive future re-clustering.")
 
 
+def cmd_bench(args):
+    """Measure what the curated-name mapping is worth: mapped vs a name-stripped
+    control graph, on latency, response tokens, name recognition and (optionally)
+    LLM answer accuracy."""
+    from . import bench
+    cfg = _cfg(args)
+    _require_graphify(cfg)
+
+    if args.generate:
+        out = cfg.bench_dir / "questions.json"
+        suite = bench.generate_questions(cfg, out, per_repo=args.per_repo)
+        print(f"wrote {out}: {len(suite['questions'])} questions grounded on "
+              f"{suite['meta']['generated_from']['nodes']:,} nodes")
+        return 0
+
+    qpath = Path(args.questions) if args.questions else None
+    result = bench.run(cfg, questions_path=qpath, repeats=args.repeats,
+                       with_llm=args.llm, llm_trials=args.trials,
+                       with_build=args.build, with_vs_source=args.vs_source)
+    print("\n" + result["_report"])
+    print(f"\nwrote {result['_paths']['report']}\n      {result['_paths']['results']}")
+    return 0
+
+
 def cmd_verify(args):
     from .verify import verify, format_report
     cfg = _cfg(args)
@@ -409,6 +433,32 @@ def main(argv=None):
 
     p = sub.add_parser("verify", help="sanity-check the built graph")
     p.set_defaults(func=cmd_verify)
+
+    p = sub.add_parser("bench",
+                       help="measure what the curated-name mapping is worth")
+    p.add_argument("--generate", action="store_true",
+                   help="regenerate bench/questions.json from the current graph "
+                        "and exit")
+    p.add_argument("--per-repo", type=int, default=4,
+                   help="node questions per repo when --generate (default 4)")
+    p.add_argument("--questions", metavar="PATH",
+                   help="question suite to run (default bench/questions.json)")
+    p.add_argument("--repeats", type=int, default=3,
+                   help="timing repeats per query; median reported (default 3)")
+    p.add_argument("--llm", action="store_true",
+                   help="also run the optional LLM answer-accuracy layer "
+                        "(needs OPENAI_API_KEY)")
+    p.add_argument("--build", action="store_true",
+                   help="also run the 'implement a missing instrument' build "
+                        "task: deterministic touchpoint discovery always, plus "
+                        "LLM plan grading when OPENAI_API_KEY is set")
+    p.add_argument("--vs-source", action="store_true",
+                   help="also measure Graphify vs no-Graphify: graph-query "
+                        "tokens vs the source files each answer draws from "
+                        "(needs the ORE checkout)")
+    p.add_argument("--trials", type=int, default=1,
+                   help="LLM trials per question/task, averaged (default 1)")
+    p.set_defaults(func=cmd_bench)
 
     args = ap.parse_args(argv)
 

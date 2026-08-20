@@ -119,13 +119,24 @@ def merge(engine: Path, chunks: list[Chunk], graph_paths: dict[str, Path],
     merged_links.extend(fixed_cross)
     link_stats["cross_module_edges"] = len(fixed_cross)
     log(f"  cross-module links: {link_stats}")
+    total_inc = link_stats["total_includes"]
+    resolved = link_stats["resolved_includes"]
+    log(f"  include recall: {resolved:,}/{total_inc:,} directives resolved to a "
+        f"node ({resolved / total_inc:.0%})" if total_inc else "  include recall: no includes scanned")
+    if link_stats["unresolved_includes"]:
+        log(f"    unresolved (ORE prefix matched, no indexed node): "
+            f"{link_stats['unresolved_includes']} - by root: {link_stats['unresolved_by_root']}")
+    if link_stats["ignored_non_ore_prefix"]:
+        log(f"    ignored (no INCLUDE_ROOTS prefix matched): "
+            f"{link_stats['ignored_non_ore_prefix']} - top prefixes: {link_stats['ignored_by_prefix']}")
 
     out = {
         "directed": False,
         "multigraph": False,
         "graph": {"hyperedges": hyperedges,
                   "chunks": sorted(graphs),
-                  "cross_module_edges": len(fixed_cross)},
+                  "cross_module_edges": len(fixed_cross),
+                  "link_stats": link_stats},
         "nodes": merged_nodes,
         "links": merged_links,
     }

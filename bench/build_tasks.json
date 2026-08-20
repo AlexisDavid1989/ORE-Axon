@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "description": "Real 'add a missing instrument to ORE' engineering tasks. Graded on whether the graph context leads to the correct ORE subsystems/touchpoints, mapped vs name-stripped control. Deterministic proxy (context-coverage) always runs; --llm adds model answer grading. Retrieval seeds and rubric were grounded against the ORE checkout on 2026-08-18.",
+    "version": 1
+  },
+  "tasks": [
+    {
+      "id": "compound_option",
+      "instrument": "CompoundOption",
+      "summary": "An option on an option (e.g. a call on a call). ORE has no CompoundOption trade type (confirmed absent from OREData portfolio and databuilders.cpp), while QuantLib provides QuantLib::CompoundOption (ql/instruments/compoundoption.hpp) and QuantLib::AnalyticCompoundOptionEngine (ql/pricingengines/exotic/analyticcompoundoptionengine.hpp). The task is to wire that existing pricing into a new ORE trade, following the existing vanilla-option pattern.",
+      "prompt": "ORE (the Open Source Risk Engine) does not currently support a CompoundOption trade type. A CompoundOption is an option on an option. QuantLib already provides the underlying pricing: the class QuantLib::CompoundOption and the engine QuantLib::AnalyticCompoundOptionEngine.\n\nUsing ONLY the ORE knowledge-graph context provided below (describing the existing ORE codebase and its subsystems), write a concrete implementation plan to add CompoundOption as a new ORE trade, mirroring how existing vanilla options are implemented. For every step, name the ORE subsystem it belongs to and the file(s)/class(es) involved. Cover: the new Trade subclass and its build(); XML serialization (fromXML/toXML); registration in the trade factory; the EngineBuilder subclass and its registration in the engine factory; construction of the QuantLib instrument and pricing engine; and the trade XML schema. Be concrete and do not invent subsystems that are not implied by the context or standard ORE/QuantLib layout.",
+      "retrieval": [
+        {"tool": "query_graph", "args": {"question": "how is an equity vanilla option trade built and priced", "mode": "bfs", "depth": 3}},
+        {"tool": "query_graph", "args": {"question": "how is a new trade type registered in the trade factory and engine builder factory", "mode": "bfs", "depth": 3}},
+        {"tool": "get_node", "args": {"label": "VanillaOptionTrade"}},
+        {"tool": "get_node", "args": {"label": "XMLDocument"}}
+      ],
+      "rubric": [
+        {"id": "trade_class", "desc": "New Trade subclass with build()",
+         "any": ["public trade", "trade subclass", "vanillaoptiontrade", "new trade class", "ored/portfolio", "trade strike", "basket and bond"]},
+        {"id": "xml_serialization", "desc": "fromXML/toXML serialization",
+         "any": ["fromxml", "toxml", "xmlutils", "serialization", "xml parsing", "xmldocument"]},
+        {"id": "trade_registration", "desc": "Register the trade in TradeFactory",
+         "any": ["tradefactory", "ore_register_trade_builder", "databuilders", "register trade", "trade factory", "trade type implementation"]},
+        {"id": "engine_builder", "desc": "EngineBuilder subclass + engineImpl()",
+         "any": ["enginebuilder", "engineimpl", "engine builder", "builders/", "trade engine builder"]},
+        {"id": "engine_registration", "desc": "Register the builder in EngineFactory",
+         "any": ["enginefactory", "ore_register_engine_builder", "engine factory", "engine builder factory"]},
+        {"id": "ql_instrument", "desc": "Construct QuantLib::CompoundOption",
+         "any": ["compoundoption", "quantlib::compoundoption", "ql/instruments/compoundoption"]},
+        {"id": "ql_engine", "desc": "Use AnalyticCompoundOptionEngine",
+         "any": ["analyticcompoundoptionengine", "compound option engine", "setpricingengine", "pricing engine"]},
+        {"id": "xsd_schema", "desc": "Add trade XML schema entry",
+         "any": ["xsd", "schema", "compoundoptiondata", "portfolio.xsd", "trade xml"]}
+      ]
+    }
+  ]
+}

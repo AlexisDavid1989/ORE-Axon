@@ -61,6 +61,23 @@ def verify(cfg) -> dict:
     check("curated labels attached", distinct > 0,
           f"{distinct} named communities covering {named:,} nodes")
 
+    # 4b. retention against every name ever anchored, not just this chunk's
+    #     already-synced id file - check 5 below can't see a chunk-wide
+    #     collapse, because `--sync` silently drops whatever failed to
+    #     attach before this check ever reads the id file, so it only tests
+    #     self-consistency, not coverage. This is what would have caught the
+    #     graphify 0.9.44 upgrade silently dropping 88% of names (530 -> 63)
+    #     to a build_ast.py id-relativization bug, not ordinary re-clustering
+    #     drift - RELABELLING.md measures >90% survival even at 25% source
+    #     churn, so anything under half is a broken pipeline, not drift.
+    total_curated = 0
+    for af in cfg.labels_dir.glob("*.anchors.json"):
+        entries = json.loads(af.read_text(encoding="utf-8")).get("communities", [])
+        total_curated += len({e["label"] for e in entries})
+    retention = (distinct / total_curated) if total_curated else 1.0
+    check("curated-name retention rate", retention >= 0.5,
+          f"{distinct}/{total_curated} ever-anchored names attached ({retention:.0%})")
+
     # 5. every curated name in a label file actually reached the merged graph.
     #    `relabel --audit` tests name-against-content on the *per-chunk* graph;
     #    attachment happens later, through anchor overlap in labels.py at merge
@@ -112,6 +129,23 @@ def verify(cfg) -> dict:
           f"{present.get('OREDocs', 0)} doc nodes")
     check("xsd present", present.get("OREXsd", 0) > 0,
           f"{present.get('OREXsd', 0)} xsd nodes")
+
+    # 8. include recall - informational, not a pass/fail gate (no baseline to
+    #    gate against yet, see docs/METRICS.md). Surfaces the number so a
+    #    regression is visible instead of silent, the same failure mode that
+    #    motivated link.py in the first place.
+    link_stats = g.get("graph", {}).get("link_stats") or {}
+    total_inc = link_stats.get("total_includes", 0)
+    resolved = link_stats.get("resolved_includes", 0)
+    if total_inc:
+        detail = (f"{resolved:,}/{total_inc:,} #include directives resolved "
+                  f"({resolved / total_inc:.0%}); "
+                  f"{link_stats.get('unresolved_includes', 0)} unresolved, "
+                  f"{link_stats.get('ignored_non_ore_prefix', 0)} outside "
+                  "INCLUDE_ROOTS")
+    else:
+        detail = "no link_stats in merged graph - re-run `merge` to populate"
+    check("include recall computed", bool(total_inc), detail)
 
     return {"checks": checks,
             "nodes": len(nodes), "edges": len(links),

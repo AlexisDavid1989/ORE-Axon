@@ -2,195 +2,6 @@
  "anchor_count": 15,
  "communities": [
   {
-   "label": "Cox-Ingersoll-Ross short-rate model",
-   "size": 76,
-   "anchors": [
-    "models_shortrate_onefactormodels_coxingersollross_coxingersollross",
-    "models_shortrate_onefactormodels_coxingersollross_coxingersollross_b",
-    "models_shortrate_onefactormodels_extendedcoxingersollross_extendedcoxingersollross_dynamics",
-    "models_shortrate_onefactormodels_coxingersollross",
-    "models_shortrate_onefactormodels_coxingersollross_coxingersollross_dynamics",
-    "models_shortrate_onefactormodels_hullwhite_hullwhite",
-    "models_shortrate_onefactormodels_coxingersollross_coxingersollross_k",
-    "models_shortrate_onefactormodels_extendedcoxingersollross",
-    "models_shortrate_onefactormodels_coxingersollross_coxingersollross_theta",
-    "models_shortrate_onefactormodels_extendedcoxingersollross_extendedcoxingersollross",
-    "models_shortrate_onefactormodels_extendedcoxingersollross_extendedcoxingersollross_discountbondoption",
-    "models_shortrate_onefactormodels_coxingersollross_coxingersollross_discountbondoption",
-    "models_shortrate_onefactormodels_coxingersollross_coxingersollross_x0",
-    "models_shortrate_onefactormodels_coxingersollross_coxingersollross_a",
-    "models_shortrate_onefactormodels_extendedcoxingersollross_extendedcoxingersollross_tree"
-   ]
-  },
-  {
-   "label": "GARCH(1,1) volatility estimator",
-   "size": 74,
-   "anchors": [
-    "models_volatility_garch",
-    "models_volatility_garch_garch11_calibrate_r2",
-    "models_volatility_garch_garch11",
-    "models_volatility_garch_fitacfproblem",
-    "models_volatility_garch_fitacfproblem_size",
-    "models_volatility_garch_cpp_array",
-    "models_volatility_garch_calibrate",
-    "models_volatility_garch_cpp_real",
-    "models_volatility_garch_hpp_real",
-    "models_model_optimizationmethod",
-    "models_volatility_garch_garch11costfunction",
-    "models_volatility_constantestimator_constantestimator",
-    "models_volatility_garch_costfunction",
-    "models_volatility_garch_garch11_calculate",
-    "constraint"
-   ]
-  },
-  {
-   "label": "Composite market model products",
-   "size": 56,
-   "anchors": [
-    "models_marketmodels_products_compositeproduct_marketmodelcomposite",
-    "models_marketmodels_products_multiproductcomposite_multiproductcomposite",
-    "models_marketmodels_products_singleproductcomposite",
-    "models_marketmodels_products_multiproductcomposite",
-    "models_marketmodels_products_all",
-    "models_marketmodels_products_compositeproduct_marketmodelcomposite_add",
-    "models_marketmodels_products_compositeproduct_marketmodelcomposite_subtract",
-    "models_marketmodels_products_multiproductcomposite_multiproductcomposite_nexttimestep",
-    "models_marketmodels_products_singleproductcomposite_singleproductcomposite",
-    "models_marketmodels_products_singleproductcomposite_singleproductcomposite_nexttimestep",
-    "models_marketmodels_products_compositeproduct_marketmodelcomposite_components",
-    "models_marketmodels_products_compositeproduct_marketmodelcomposite_suggestednumeraires",
-    "models_marketmodels_products_compositeproduct_marketmodelcomposite_multiplier",
-    "models_marketmodels_products_compositeproduct_marketmodelcomposite_possiblecashflowtimes",
-    "models_marketmodels_products_multiproductcomposite_multiproductcomposite_clone"
-   ]
-  },
-  {
-   "label": "Swap-rate exercise adapter and trigger",
-   "size": 54,
-   "anchors": [
-    "models_marketmodels_callability_parametricexerciseadapter_parametricexerciseadapter",
-    "models_marketmodels_callability_swapratetrigger_swapratetrigger",
-    "models_marketmodels_callability_parametricexerciseadapter",
-    "models_marketmodels_callability_parametricexerciseadapter_parametricexerciseadapter_clone",
-    "models_marketmodels_callability_parametricexerciseadapter_parametricexerciseadapter_relevanttimes",
-    "models_marketmodels_callability_swapratetrigger_swapratetrigger_clone",
-    "models_marketmodels_callability_swapratetrigger_swapratetrigger_exercisetimes",
-    "models_marketmodels_callability_swapratetrigger_swapratetrigger_swapratetrigger",
-    "models_marketmodels_callability_parametricexerciseadapter_parametricexerciseadapter_exercisetimes",
-    "models_marketmodels_callability_parametricexerciseadapter_parametricexerciseadapter_parametricexerciseadapter",
-    "models_marketmodels_callability_swapratetrigger_swapratetrigger_relevanttimes",
-    "exercisestrategy",
-    "models_marketmodels_callability_parametricexerciseadapter_cpp_curvestate",
-    "models_marketmodels_callability_parametricexerciseadapter_cpp_vector",
-    "models_marketmodels_callability_parametricexerciseadapter_parametricexerciseadapter_exercise"
-   ]
-  },
-  {
-   "label": "Flat volatility market model",
-   "size": 48,
-   "anchors": [
-    "models_shortrate_onefactormodels_markovfunctional",
-    "models_marketmodels_models_flatvol",
-    "models_marketmodels_models_flatvol_flatvolfactory",
-    "models_marketmodels_models_flatvol_flatvol",
-    "models_marketmodels_models_flatvol_flatvol_flatvol",
-    "models_marketmodels_models_flatvol_flatvolfactory_create",
-    "models_marketmodels_models_flatvol_flatvolfactory_flatvolfactory",
-    "models_marketmodels_models_flatvol_flatvolcovariance",
-    "models_marketmodels_models_flatvol_hpp_size",
-    "models_marketmodels_models_flatvol_cpp_volatility",
-    "models_marketmodels_models_flatvol_flatvol_numberoffactors",
-    "models_marketmodels_models_flatvol_flatvol_numberofrates",
-    "models_marketmodels_models_flatvol_flatvol_numberofsteps",
-    "models_marketmodels_models_flatvol_hpp_interpolation",
-    "models_marketmodels_models_flatvol_piecewiseconstantcorrelation"
-   ]
-  },
-  {
-   "label": "Piecewise-constant ABCD volatility specification",
-   "size": 47,
-   "anchors": [
-    "models_marketmodels_models_volatilityinterpolationspecifierabcd_volatilityinterpolationspecifierabcd",
-    "models_marketmodels_models_piecewiseconstantabcdvariance_piecewiseconstantabcdvariance",
-    "models_marketmodels_models_volatilityinterpolationspecifierabcd_volatilityinterpolationspecifierabcd_volatilityinterpolationspecifierabcd",
-    "models_marketmodels_models_piecewiseconstantabcdvariance_piecewiseconstantabcdvariance_piecewiseconstantabcdvariance",
-    "models_marketmodels_models_volatilityinterpolationspecifierabcd_volatilityinterpolationspecifierabcd_recompute",
-    "models_marketmodels_models_volatilityinterpolationspecifierabcd_cpp_size",
-    "models_marketmodels_models_volatilityinterpolationspecifierabcd_volatilityinterpolationspecifierabcd_setscalingfactors",
-    "models_marketmodels_models_volatilityinterpolationspecifierabcd_volatilityinterpolationspecifierabcd_setlastcapletvol",
-    "models_marketmodels_models_piecewiseconstantabcdvariance_piecewiseconstantabcdvariance_getabcd",
-    "models_marketmodels_models_volatilityinterpolationspecifierabcd_cpp_real",
-    "models_marketmodels_models_volatilityinterpolationspecifierabcd_volatilityinterpolationspecifierabcd_getnobigrates",
-    "models_marketmodels_models_volatilityinterpolationspecifierabcd_volatilityinterpolationspecifierabcd_getnosmallrates",
-    "models_marketmodels_models_volatilityinterpolationspecifierabcd_volatilityinterpolationspecifierabcd_getoffset",
-    "models_marketmodels_models_volatilityinterpolationspecifierabcd_volatilityinterpolationspecifierabcd_getperiod",
-    "models_marketmodels_models_piecewiseconstantabcdvariance_cpp_real"
-   ]
-  },
-  {
-   "label": "Pathwise coterminal swaption products",
-   "size": 48,
-   "anchors": [
-    "models_marketmodels_products_pathwise_pathwiseproductswaption_marketmodelpathwisecoterminalswaptionsnumericaldeflated",
-    "models_marketmodels_products_pathwise_pathwiseproductswaption_marketmodelpathwisecoterminalswaptionsdeflated",
-    "models_marketmodels_products_pathwise_pathwiseproductswaption_cpp_size",
-    "models_marketmodels_products_pathwise_pathwiseproductswaption_cpp_vector",
-    "models_marketmodels_products_pathwise_pathwiseproductswaption_marketmodelpathwisecoterminalswaptionsnumericaldeflated_marketmodelpathwisecoterminalswaptionsnumericaldeflated",
-    "models_marketmodels_products_pathwise_pathwiseproductswaption_marketmodelpathwisecoterminalswaptionsdeflated_marketmodelpathwisecoterminalswaptionsdeflated",
-    "models_marketmodels_products_pathwise_pathwiseproductswaption_marketmodelpathwisecoterminalswaptionsdeflated_nexttimestep",
-    "models_marketmodels_products_pathwise_pathwiseproductswaption_marketmodelpathwisecoterminalswaptionsnumericaldeflated_nexttimestep",
-    "models_marketmodels_products_pathwise_pathwiseproductswaption_marketmodelpathwisecoterminalswaptionsnumericaldeflated_suggestednumeraires",
-    "models_marketmodels_products_pathwise_pathwiseproductswaption_cpp_time",
-    "models_marketmodels_products_pathwise_pathwiseproductswaption_marketmodelpathwisecoterminalswaptionsdeflated_clone",
-    "models_marketmodels_products_pathwise_pathwiseproductswaption_marketmodelpathwisecoterminalswaptionsdeflated_possiblecashflowtimes",
-    "models_marketmodels_products_pathwise_pathwiseproductswaption_marketmodelpathwisecoterminalswaptionsdeflated_suggestednumeraires",
-    "models_marketmodels_products_pathwise_pathwiseproductswaption_marketmodelpathwisecoterminalswaptionsnumericaldeflated_clone",
-    "models_marketmodels_products_pathwise_pathwiseproductswaption_marketmodelpathwisecoterminalswaptionsnumericaldeflated_possiblecashflowtimes"
-   ]
-  },
-  {
-   "label": "Markov-functional short-rate model",
-   "size": 48,
-   "anchors": [
-    "models_shortrate_onefactormodels_markovfunctional_markovfunctional",
-    "models_shortrate_onefactormodels_markovfunctional_markovfunctional_calibrate",
-    "models_shortrate_onefactormodels_markovfunctional_hpp_vector",
-    "models_shortrate_onefactormodels_markovfunctional_markovfunctional_forcearbitrageindices",
-    "models_shortrate_onefactormodels_markovfunctional_markovfunctional_arbitrageindices",
-    "models_shortrate_onefactormodels_markovfunctional_hpp_pair",
-    "models_shortrate_onefactormodels_markovfunctional_hpp_size",
-    "models_shortrate_onefactormodels_markovfunctional_markovfunctional_fixedfirstvolatility",
-    "models_shortrate_onefactormodels_markovfunctional_hpp_shared_ptr",
-    "models_shortrate_onefactormodels_markovfunctional_markovfunctional_update",
-    "modeloutputs",
-    "models_shortrate_onefactormodels_markovfunctional_hpp_array",
-    "models_shortrate_onefactormodels_markovfunctional_hpp_calibrationpoint",
-    "models_shortrate_onefactormodels_markovfunctional_hpp_date",
-    "models_shortrate_onefactormodels_markovfunctional_hpp_endcriteria"
-   ]
-  },
-  {
-   "label": "Iterative predictor-corrector LMM evolver",
-   "size": 46,
-   "anchors": [
-    "models_marketmodels_evolvers_lognormalfwdrateipc_lognormalfwdrateipc",
-    "models_marketmodels_evolvers_lognormalfwdrateipc",
-    "models_marketmodels_evolvers_lognormalfwdrateipc_lognormalfwdrateipc_lognormalfwdrateipc",
-    "models_marketmodels_evolvers_lognormalfwdrateipc_lognormalfwdrateipc_setforwards",
-    "models_marketmodels_evolvers_lognormalfwdrateipc_cpp_real",
-    "models_marketmodels_evolvers_lognormalfwdrateipc_lognormalfwdrateipc_advancestep",
-    "models_marketmodels_evolvers_lognormalfwdrateipc_lognormalfwdrateipc_currentstep",
-    "models_marketmodels_evolvers_lognormalfwdrateipc_lognormalfwdrateipc_drifts1",
-    "models_marketmodels_evolvers_lognormalfwdrateipc_lognormalfwdrateipc_setinitialstate",
-    "models_marketmodels_evolvers_lognormalfwdrateipc_lognormalfwdrateipc_startnewpath",
-    "models_marketmodels_evolvers_lognormalfwdrateipc_browniangenerator",
-    "models_marketmodels_evolvers_lognormalfwdrateipc_cpp_size",
-    "models_marketmodels_evolvers_lognormalfwdrateipc_cpp_vector",
-    "models_marketmodels_evolvers_lognormalfwdrateipc_lmmdriftcalculator",
-    "models_marketmodels_evolvers_lognormalfwdrateipc_marketmodel"
-   ]
-  },
-  {
    "label": "Correlation and drift-calculator interfaces",
    "size": 44,
    "anchors": [
@@ -212,73 +23,242 @@
    ]
   },
   {
+   "label": "GARCH(1,1) volatility estimator",
+   "size": 65,
+   "anchors": [
+    "models_volatility_garch_garch11_calibrate_r2",
+    "models_volatility_garch_cpp_models_volatility_garch",
+    "models_volatility_garch_garch11",
+    "models_volatility_garch_fitacfproblem",
+    "models_volatility_garch_fitacfproblem_size",
+    "models_volatility_garch_cpp_array",
+    "models_volatility_garch_calibrate",
+    "models_volatility_garch_cpp_real",
+    "models_volatility_garch_hpp_real",
+    "models_model_optimizationmethod",
+    "models_volatility_garch_garch11costfunction",
+    "models_volatility_garch_costfunction",
+    "models_volatility_garch_garch11_calculate",
+    "models_volatility_garch_hpp_models_volatility_garch",
+    "models_volatility_garch_garch11_calibrate"
+   ]
+  },
+  {
+   "label": "Markov-functional short-rate model",
+   "size": 56,
+   "anchors": [
+    "models_shortrate_onefactormodels_markovfunctional_markovfunctional",
+    "models_shortrate_onefactormodels_markovfunctional_markovfunctional_calibrate",
+    "models_shortrate_onefactormodels_markovfunctional_markovfunctional_initialize",
+    "models_shortrate_onefactormodels_markovfunctional_hpp_vector",
+    "models_shortrate_onefactormodels_markovfunctional_markovfunctional_forcearbitrageindices",
+    "models_shortrate_onefactormodels_markovfunctional_markovfunctional_performcalculations",
+    "models_shortrate_onefactormodels_markovfunctional_markovfunctional_updatetimes",
+    "models_shortrate_onefactormodels_markovfunctional_markovfunctional_arbitrageindices",
+    "models_shortrate_onefactormodels_markovfunctional_markovfunctional_updatetimes1",
+    "models_shortrate_onefactormodels_markovfunctional_markovfunctional_updatetimes2",
+    "models_shortrate_onefactormodels_markovfunctional_hpp_pair",
+    "models_shortrate_onefactormodels_markovfunctional_hpp_size",
+    "models_shortrate_onefactormodels_markovfunctional_markovfunctional_fixedfirstvolatility",
+    "models_shortrate_onefactormodels_markovfunctional_markovfunctional_updatesmiles",
+    "models_shortrate_onefactormodels_markovfunctional_hpp_shared_ptr"
+   ]
+  },
+  {
+   "label": "Flat volatility market model",
+   "size": 51,
+   "anchors": [
+    "models_marketmodels_models_flatvol_flatvolfactory",
+    "models_marketmodels_models_flatvol_flatvol",
+    "models_marketmodels_models_flatvol_hpp_models_marketmodels_models_flatvol",
+    "models_marketmodels_models_flatvol_flatvol_flatvol",
+    "models_marketmodels_models_flatvol_flatvolfactory_create",
+    "models_marketmodels_models_flatvol_flatvolfactory_flatvolfactory",
+    "models_marketmodels_models_flatvol_cpp_models_marketmodels_models_flatvol",
+    "models_marketmodels_models_flatvol_flatvolcovariance",
+    "models_marketmodels_models_flatvol_hpp_size",
+    "models_shortrate_onefactormodels_markovfunctional_hpp_models_shortrate_onefactormodels_markovfunctional",
+    "models_marketmodels_models_flatvol_cpp_volatility",
+    "models_marketmodels_models_flatvol_flatvol_numberoffactors",
+    "models_marketmodels_models_flatvol_flatvol_numberofrates",
+    "models_marketmodels_models_flatvol_flatvol_numberofsteps",
+    "models_marketmodels_models_flatvol_hpp_interpolation"
+   ]
+  },
+  {
+   "label": "Piecewise-constant ABCD volatility specification",
+   "size": 49,
+   "anchors": [
+    "models_marketmodels_models_volatilityinterpolationspecifierabcd_volatilityinterpolationspecifierabcd",
+    "models_marketmodels_models_piecewiseconstantabcdvariance_piecewiseconstantabcdvariance",
+    "models_marketmodels_models_volatilityinterpolationspecifierabcd_cpp_models_marketmodels_models_volatilityinterpolationspecifierabcd",
+    "models_marketmodels_models_volatilityinterpolationspecifierabcd_volatilityinterpolationspecifierabcd_volatilityinterpolationspecifierabcd",
+    "models_marketmodels_models_piecewiseconstantabcdvariance_piecewiseconstantabcdvariance_piecewiseconstantabcdvariance",
+    "models_marketmodels_models_volatilityinterpolationspecifierabcd_volatilityinterpolationspecifierabcd_recompute",
+    "models_marketmodels_models_volatilityinterpolationspecifierabcd_cpp_size",
+    "models_marketmodels_models_volatilityinterpolationspecifierabcd_volatilityinterpolationspecifierabcd_setscalingfactors",
+    "models_marketmodels_models_volatilityinterpolationspecifierabcd_volatilityinterpolationspecifierabcd_setlastcapletvol",
+    "models_marketmodels_models_piecewiseconstantabcdvariance_cpp_models_marketmodels_models_piecewiseconstantabcdvariance",
+    "models_marketmodels_models_piecewiseconstantabcdvariance_piecewiseconstantabcdvariance_getabcd",
+    "models_marketmodels_models_volatilityinterpolationspecifierabcd_cpp_real",
+    "models_marketmodels_models_volatilityinterpolationspecifierabcd_volatilityinterpolationspecifierabcd_getnobigrates",
+    "models_marketmodels_models_volatilityinterpolationspecifierabcd_volatilityinterpolationspecifierabcd_getnosmallrates",
+    "models_marketmodels_models_volatilityinterpolationspecifierabcd_volatilityinterpolationspecifierabcd_getoffset"
+   ]
+  },
+  {
+   "label": "Iterative predictor-corrector LMM evolver",
+   "size": 48,
+   "anchors": [
+    "models_marketmodels_evolvers_lognormalfwdrateipc_lognormalfwdrateipc",
+    "models_marketmodels_evolvers_lognormalfwdrateipc_cpp_models_marketmodels_evolvers_lognormalfwdrateipc",
+    "models_marketmodels_evolvers_lognormalfwdrateipc_lognormalfwdrateipc_lognormalfwdrateipc",
+    "models_marketmodels_evolvers_lognormalfwdrateipc_hpp_models_marketmodels_evolvers_lognormalfwdrateipc",
+    "models_marketmodels_evolvers_lognormalfwdrateipc_lognormalfwdrateipc_setforwards",
+    "models_marketmodels_evolvers_lognormalfwdrateipc_cpp_real",
+    "models_marketmodels_evolvers_lognormalfwdrateipc_lognormalfwdrateipc_advancestep",
+    "models_marketmodels_evolvers_lognormalfwdrateipc_lognormalfwdrateipc_currentstep",
+    "models_marketmodels_evolvers_lognormalfwdrateipc_lognormalfwdrateipc_setinitialstate",
+    "models_marketmodels_evolvers_lognormalfwdrateipc_lognormalfwdrateipc_startnewpath",
+    "models_marketmodels_evolvers_lognormalfwdrateipc_browniangenerator",
+    "models_marketmodels_evolvers_lognormalfwdrateipc_cpp_size",
+    "models_marketmodels_evolvers_lognormalfwdrateipc_cpp_vector",
+    "models_marketmodels_evolvers_lognormalfwdrateipc_lmmdriftcalculator",
+    "models_marketmodels_evolvers_lognormalfwdrateipc_marketmodel"
+   ]
+  },
+  {
+   "label": "Balland-scheme LMM evolver",
+   "size": 47,
+   "anchors": [
+    "models_marketmodels_evolvers_lognormalfwdrateballand_lognormalfwdrateballand",
+    "models_marketmodels_evolvers_lognormalfwdrateballand_cpp_models_marketmodels_evolvers_lognormalfwdrateballand",
+    "models_marketmodels_evolvers_lognormalfwdrateballand_hpp_models_marketmodels_evolvers_lognormalfwdrateballand",
+    "models_marketmodels_evolvers_lognormalfwdrateballand_lognormalfwdrateballand_lognormalfwdrateballand",
+    "models_marketmodels_evolvers_lognormalfwdrateballand_lognormalfwdrateballand_setforwards",
+    "models_marketmodels_evolvers_lognormalfwdrateballand_cpp_real",
+    "models_marketmodels_evolvers_lognormalfwdrateballand_lognormalfwdrateballand_advancestep",
+    "models_marketmodels_evolvers_lognormalfwdrateballand_lognormalfwdrateballand_currentstep",
+    "models_marketmodels_evolvers_lognormalfwdrateballand_lognormalfwdrateballand_setinitialstate",
+    "models_marketmodels_evolvers_lognormalfwdrateballand_lognormalfwdrateballand_startnewpath",
+    "models_marketmodels_evolvers_lognormalfwdrateballand_browniangenerator",
+    "models_marketmodels_evolvers_lognormalfwdrateballand_cpp_size",
+    "models_marketmodels_evolvers_lognormalfwdrateballand_cpp_vector",
+    "models_marketmodels_evolvers_lognormalfwdrateballand_lmmdriftcalculator",
+    "models_marketmodels_evolvers_lognormalfwdrateballand_marketmodel"
+   ]
+  },
+  {
+   "label": "Composite market model products",
+   "size": 46,
+   "anchors": [
+    "models_marketmodels_products_compositeproduct_marketmodelcomposite",
+    "models_marketmodels_products_compositeproduct_cpp_models_marketmodels_products_compositeproduct",
+    "models_marketmodels_products_compositeproduct_marketmodelcomposite_add",
+    "models_marketmodels_products_compositeproduct_marketmodelcomposite_subtract",
+    "models_marketmodels_products_singleproductcomposite_singleproductcomposite",
+    "models_marketmodels_products_singleproductcomposite_singleproductcomposite_nexttimestep",
+    "models_marketmodels_products_compositeproduct_marketmodelcomposite_suggestednumeraires",
+    "models_marketmodels_products_compositeproduct_marketmodelcomposite_multiplier",
+    "models_marketmodels_products_compositeproduct_marketmodelcomposite_possiblecashflowtimes",
+    "models_marketmodels_products_singleproductcomposite_cpp_models_marketmodels_products_singleproductcomposite",
+    "models_marketmodels_products_singleproductcomposite_singleproductcomposite_clone",
+    "models_marketmodels_products_compositeproduct_cpp_real",
+    "models_marketmodels_products_compositeproduct_cpp_size",
+    "models_marketmodels_products_compositeproduct_marketmodelcomposite_finalize",
+    "models_marketmodels_products_compositeproduct_marketmodelcomposite_size"
+   ]
+  },
+  {
    "label": "Garman-Klass and Parkinson volatility estimators",
-   "size": 44,
+   "size": 45,
    "anchors": [
     "models_volatility_garmanklass_hpp_real",
     "models_volatility_garmanklass_garmanklassabstract",
-    "models_volatility_garmanklass_garmanklassopenclose",
     "models_volatility_garmanklass",
+    "models_volatility_garmanklass_garmanklassopenclose",
     "intervalprice",
     "models_volatility_simplelocalestimator_simplelocalestimator",
     "models_volatility_garmanklass_garmanklassabstract_calculate",
     "models_volatility_garmanklass_garmanklasssigma4",
     "models_volatility_garmanklass_garmanklasssimplesigma",
     "models_volatility_garmanklass_parkinsonsigma",
-    "models_volatility_all",
     "models_volatility_garmanklass_garmanklassopenclose_calculate",
     "models_volatility_garmanklass_garmanklasssigma1",
     "models_volatility_garmanklass_garmanklasssigma3",
-    "models_volatility_garmanklass_garmanklasssigma5"
+    "models_volatility_garmanklass_garmanklasssigma5",
+    "models_volatility_garmanklass_garmanklasssigma5_calculatepoint"
    ]
   },
   {
    "label": "Longstaff-Schwartz exercise strategy",
-   "size": 42,
+   "size": 41,
    "anchors": [
     "models_marketmodels_callability_lsstrategy_longstaffschwartzexercisestrategy",
-    "models_marketmodels_callability_all",
+    "models_marketmodels_callability_lsstrategy_cpp_models_marketmodels_callability_lsstrategy",
     "models_marketmodels_callability_lsstrategy_longstaffschwartzexercisestrategy_longstaffschwartzexercisestrategy",
     "models_marketmodels_callability_lsstrategy_longstaffschwartzexercisestrategy_clone",
     "models_marketmodels_callability_lsstrategy_longstaffschwartzexercisestrategy_exercisetimes",
     "models_marketmodels_callability_lsstrategy_longstaffschwartzexercisestrategy_relevanttimes",
-    "models_marketmodels_callability_upperboundengine_decoratedhedge_startrecording",
     "models_marketmodels_callability_lsstrategy_cpp_curvestate",
     "models_marketmodels_callability_lsstrategy_cpp_vector",
     "models_marketmodels_callability_lsstrategy_longstaffschwartzexercisestrategy_exercise",
     "models_marketmodels_callability_lsstrategy_longstaffschwartzexercisestrategy_nextstep",
-    "models_marketmodels_callability_lsstrategy_longstaffschwartzexercisestrategy_principalinnumeraireportfolio",
     "models_marketmodels_callability_lsstrategy_cpp_time",
     "models_marketmodels_callability_lsstrategy_longstaffschwartzexercisestrategy_reset",
-    "models_marketmodels_callability_lsstrategy_marketmodeldiscounter"
+    "models_marketmodels_callability_lsstrategy_marketmodeldiscounter",
+    "models_marketmodels_callability_lsstrategy_cpp_clone",
+    "models_marketmodels_callability_lsstrategy_cpp_evolutiondescription"
    ]
   },
   {
-   "label": "Historical forward rates analysis",
+   "label": "Triggered swap exercise strategy",
    "size": 41,
    "anchors": [
-    "models_shortrate_onefactormodels_gaussian1dmodel",
-    "models_marketmodels_historicalratesanalysis_historicalratesanalysis",
-    "models_marketmodels_historicalforwardratesanalysis_historicalforwardratesanalysisimpl",
-    "models_marketmodels_historicalforwardratesanalysis_historicalforwardratesanalysis",
-    "models_marketmodels_historicalforwardratesanalysis_historicalforwardratesanalysisimpl_traits_interpolator_historicalforwardratesanalysisimpl",
-    "models_marketmodels_historicalforwardratesanalysis",
-    "models_marketmodels_historicalforwardratesanalysis_hpp_sequencestatistics",
-    "models_marketmodels_historicalratesanalysis",
-    "models_marketmodels_historicalratesanalysis_historicalratesanalysis_historicalratesanalysis",
-    "models_marketmodels_historicalratesanalysis_interestrateindex",
-    "models_marketmodels_historicalforwardratesanalysis_hpp_iborindex",
-    "models_equity_hestonmodelhelper_hpp_date",
-    "models_marketmodels_historicalforwardratesanalysis_hpp_swapindex",
-    "models_equity_hestonmodelhelper_hpp_calendar",
-    "models_marketmodels_historicalforwardratesanalysis_hpp_date"
+    "models_marketmodels_callability_triggeredswapexercise_triggeredswapexercise",
+    "models_marketmodels_callability_triggeredswapexercise_cpp_models_marketmodels_callability_triggeredswapexercise",
+    "models_marketmodels_callability_triggeredswapexercise_cpp_vector",
+    "models_marketmodels_callability_marketmodelparametricexercise_marketmodelparametricexercise",
+    "models_marketmodels_callability_triggeredswapexercise_cpp_size",
+    "models_marketmodels_callability_triggeredswapexercise_triggeredswapexercise_exercise",
+    "models_marketmodels_callability_triggeredswapexercise_triggeredswapexercise_guess",
+    "models_marketmodels_callability_triggeredswapexercise_triggeredswapexercise_numberofvariables",
+    "models_marketmodels_callability_triggeredswapexercise_triggeredswapexercise_values",
+    "models_marketmodels_callability_marketmodelparametricexercise_marketmodelparametricexercise_numberofdata",
+    "models_marketmodels_callability_triggeredswapexercise_triggeredswapexercise_clone",
+    "models_marketmodels_callability_triggeredswapexercise_triggeredswapexercise_numberofparameters",
+    "models_marketmodels_callability_triggeredswapexercise_triggeredswapexercise_triggeredswapexercise",
+    "models_marketmodels_callability_marketmodelparametricexercise",
+    "models_marketmodels_callability_triggeredswapexercise_cpp_real"
+   ]
+  },
+  {
+   "label": "SVD predictor-corrector LMM evolver",
+   "size": 40,
+   "anchors": [
+    "models_marketmodels_evolvers_svddfwdratepc_svddfwdratepc",
+    "models_marketmodels_evolvers_svddfwdratepc_hpp_models_marketmodels_evolvers_svddfwdratepc",
+    "models_marketmodels_evolvers_svddfwdratepc_browniangenerator",
+    "models_marketmodels_evolvers_svddfwdratepc_marketmodel",
+    "models_marketmodels_evolvers_svddfwdratepc_marketmodelvolprocess",
+    "models_marketmodels_evolvers_svddfwdratepc_browniangeneratorfactory",
+    "models_marketmodels_evolvers_svddfwdratepc_hpp_lmmcurvestate",
+    "models_marketmodels_evolvers_svddfwdratepc_hpp_lmmdriftcalculator",
+    "models_marketmodels_evolvers_svddfwdratepc_hpp_marketmodelevolver",
+    "models_marketmodels_evolvers_svddfwdratepc_hpp_rate",
+    "models_marketmodels_evolvers_svddfwdratepc_hpp_real",
+    "models_marketmodels_evolvers_svddfwdratepc_hpp_shared_ptr",
+    "models_marketmodels_evolvers_svddfwdratepc_hpp_size",
+    "models_marketmodels_evolvers_svddfwdratepc_hpp_valarray",
+    "models_marketmodels_evolvers_svddfwdratepc_hpp_vector"
    ]
   },
   {
    "label": "Alpha solver for volatility interpolation",
-   "size": 39,
+   "size": 40,
    "anchors": [
     "models_marketmodels_models_alphafinder_alphafinder",
+    "models_marketmodels_models_alphafinder_cpp_models_marketmodels_models_alphafinder",
     "models_marketmodels_models_alphafinder_cpp_real",
     "models_marketmodels_models_alphafinder_alphafinder_finalpart",
     "models_marketmodels_models_alphafinder_alphafinder_solvewithmaxhomogeneity",
@@ -291,50 +271,28 @@
     "models_marketmodels_models_alphafinder_alphafinder_homogeneityfailure",
     "models_marketmodels_models_alphafinder_alphafinder_minusvalueatturningpoint",
     "models_marketmodels_models_alphafinder_bisection",
-    "models_marketmodels_models_alphafinder_cpp_integer",
-    "models_marketmodels_models_alphafinder_cpp_vector"
+    "models_marketmodels_models_alphafinder_cpp_integer"
    ]
   },
   {
-   "label": "Call-specified pathwise product wrapper",
+   "label": "Call-specified multi-product wrapper",
    "size": 38,
    "anchors": [
-    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_callspecifiedpathwisemultiproduct",
-    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_callspecifiedpathwisemultiproduct_nexttimestep",
-    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_callspecifiedpathwisemultiproduct_clone",
-    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_callspecifiedpathwisemultiproduct_possiblecashflowtimes",
-    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_callspecifiedpathwisemultiproduct_suggestednumeraires",
-    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_cpp_size",
-    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_callspecifiedpathwisemultiproduct_maxnumberofcashflowsperproductperstep",
-    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_callspecifiedpathwisemultiproduct_numberofproducts",
-    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_cpp_vector",
-    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_callspecifiedpathwisemultiproduct_alreadydeflated",
-    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_callspecifiedpathwisemultiproduct_disablecallability",
-    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_callspecifiedpathwisemultiproduct_enablecallability",
-    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_callspecifiedpathwisemultiproduct_reset",
-    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_cpp_curvestate",
-    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_curvestate"
-   ]
-  },
-  {
-   "label": "Triggered swap exercise strategy",
-   "size": 37,
-   "anchors": [
-    "models_marketmodels_callability_triggeredswapexercise_triggeredswapexercise",
-    "models_marketmodels_callability_triggeredswapexercise",
-    "models_marketmodels_callability_triggeredswapexercise_cpp_vector",
-    "models_marketmodels_callability_triggeredswapexercise_triggeredswapexercise_numberofvariables",
-    "models_marketmodels_callability_triggeredswapexercise_cpp_size",
-    "models_marketmodels_callability_triggeredswapexercise_triggeredswapexercise_exercise",
-    "models_marketmodels_callability_triggeredswapexercise_triggeredswapexercise_guess",
-    "models_marketmodels_callability_triggeredswapexercise_triggeredswapexercise_values",
-    "models_marketmodels_callability_marketmodelparametricexercise_marketmodelparametricexercise_numberofdata",
-    "models_marketmodels_callability_triggeredswapexercise_triggeredswapexercise_clone",
-    "models_marketmodels_callability_triggeredswapexercise_triggeredswapexercise_numberofparameters",
-    "models_marketmodels_callability_triggeredswapexercise_triggeredswapexercise_triggeredswapexercise",
-    "marketmodelparametricexercise",
-    "models_marketmodels_callability_triggeredswapexercise_cpp_real",
-    "models_marketmodels_callability_triggeredswapexercise_triggeredswapexercise_isexercisetime"
+    "models_marketmodels_products_multistep_callspecifiedmultiproduct_callspecifiedmultiproduct",
+    "models_marketmodels_products_multistep_callspecifiedmultiproduct_cpp_models_marketmodels_products_multistep_callspecifiedmultiproduct",
+    "models_marketmodels_products_multistep_callspecifiedmultiproduct_callspecifiedmultiproduct_nexttimestep",
+    "models_marketmodels_callability_upperboundengine_decoratedhedge_reset",
+    "models_marketmodels_products_multistep_callspecifiedmultiproduct_callspecifiedmultiproduct_possiblecashflowtimes",
+    "models_marketmodels_products_multistep_callspecifiedmultiproduct_callspecifiedmultiproduct_suggestednumeraires",
+    "models_marketmodels_products_multistep_callspecifiedmultiproduct_cpp_size",
+    "models_marketmodels_products_multistep_callspecifiedmultiproduct_callspecifiedmultiproduct_maxnumberofcashflowsperproductperstep",
+    "models_marketmodels_products_multistep_callspecifiedmultiproduct_callspecifiedmultiproduct_numberofproducts",
+    "models_marketmodels_products_multistep_callspecifiedmultiproduct_callspecifiedmultiproduct_reset",
+    "models_marketmodels_products_multistep_callspecifiedmultiproduct_cpp_vector",
+    "models_marketmodels_products_multistep_callspecifiedmultiproduct_callspecifiedmultiproduct_disablecallability",
+    "models_marketmodels_products_multistep_callspecifiedmultiproduct_callspecifiedmultiproduct_enablecallability",
+    "models_marketmodels_products_multistep_all",
+    "models_marketmodels_products_multistep_callspecifiedmultiproduct_callspecifiedmultiproduct_callable"
    ]
   },
   {
@@ -359,45 +317,24 @@
    ]
   },
   {
-   "label": "GSR Gaussian short-rate model",
+   "label": "Swaption calibration helper",
    "size": 37,
    "anchors": [
-    "models_shortrate_onefactormodels_gsr_gsr",
-    "models_shortrate_onefactormodels_gsr",
-    "models_shortrate_onefactormodels_all",
-    "models_shortrate_onefactormodels_gsr_gsr_calibratereversionsiterative",
-    "models_shortrate_onefactormodels_gsr_gsr_calibratevolatilitiesiterative",
-    "models_shortrate_onefactormodels_gsr_hpp_vector",
-    "models_shortrate_onefactormodels_gsr_gsr_movereversion",
-    "models_shortrate_onefactormodels_gsr_gsr_movevolatility",
-    "models_shortrate_onefactormodels_gsr_gsr_numerairetime",
-    "models_shortrate_onefactormodels_gaussian1dmodel_gaussian1dmodel_performcalculations",
-    "models_shortrate_onefactormodels_gsr_gsr_performcalculations",
-    "models_shortrate_onefactormodels_gsr_gsr_reversions",
-    "models_shortrate_onefactormodels_gsr_gsr_updatetimes",
-    "models_shortrate_onefactormodels_gsr_hpp_endcriteria",
-    "models_shortrate_onefactormodels_gsr_hpp_shared_ptr"
-   ]
-  },
-  {
-   "label": "Pathwise caplet and cap products",
-   "size": 37,
-   "anchors": [
-    "models_marketmodels_products_pathwise_pathwiseproductcaplet_marketmodelpathwisemulticaplet",
-    "models_marketmodels_products_pathwise_pathwiseproductcaplet_marketmodelpathwisemultideflatedcaplet",
-    "models_marketmodels_products_pathwise_pathwiseproductcaplet_marketmodelpathwisemultideflatedcap",
-    "models_marketmodels_products_pathwise_pathwiseproductcaplet_evolutiondescription",
-    "models_marketmodels_products_pathwise_pathwiseproductcaplet_hpp_size",
-    "models_marketmodels_products_pathwise_pathwiseproductcaplet_hpp_vector",
-    "models_marketmodels_products_pathwise_pathwiseproductcaplet_hpp_rate",
-    "models_marketmodels_products_pathwise_pathwiseproductcaplet_hpp_real",
-    "models_marketmodels_products_pathwise_pathwiseproductcaplet_hpp_time",
-    "models_marketmodels_products_pathwise_pathwiseproductcaplet_marketmodelpathwisemulticaplet_alreadydeflated",
-    "models_marketmodels_products_pathwise_pathwiseproductcaplet_marketmodelpathwisemulticaplet_reset",
-    "models_marketmodels_products_pathwise_pathwiseproductcaplet_marketmodelpathwisemultideflatedcap_alreadydeflated",
-    "models_marketmodels_products_pathwise_pathwiseproductcaplet_marketmodelpathwisemultideflatedcap_reset",
-    "models_marketmodels_products_pathwise_pathwiseproductcaplet_marketmodelpathwisemultideflatedcaplet_alreadydeflated",
-    "models_marketmodels_products_pathwise_pathwiseproductcaplet_marketmodelpathwisemultideflatedcaplet_reset"
+    "models_shortrate_calibrationhelpers_swaptionhelper_swaptionhelper",
+    "models_shortrate_calibrationhelpers_swaptionhelper_hpp_real",
+    "models_shortrate_calibrationhelpers_swaptionhelper_hpp_models_shortrate_calibrationhelpers_swaptionhelper",
+    "models_marketmodels_pathwisegreeks_bumpinstrumentjacobian_hpp_swaption",
+    "models_shortrate_calibrationhelpers_swaptionhelper_swaptionhelper_swaption",
+    "models_shortrate_calibrationhelpers_swaptionhelper_hpp_shared_ptr",
+    "models_shortrate_calibrationhelpers_swaptionhelper_hpp_swaption",
+    "models_shortrate_calibrationhelpers_swaptionhelper_swaptionhelper_annuity",
+    "models_shortrate_calibrationhelpers_swaptionhelper_swaptionhelper_atmforward",
+    "models_shortrate_calibrationhelpers_swaptionhelper_swaptionhelper_stddev",
+    "models_shortrate_calibrationhelpers_swaptionhelper_swaptionhelper_strike",
+    "models_shortrate_calibrationhelpers_swaptionhelper_swaptionhelper_swaplength",
+    "models_shortrate_calibrationhelpers_swaptionhelper_swaptionhelper_timetoexpiry",
+    "models_shortrate_calibrationhelpers_swaptionhelper_swaptionhelper_vega",
+    "models_shortrate_calibrationhelpers_swaptionhelper_hpp_date"
    ]
   },
   {
@@ -405,8 +342,7 @@
    "size": 36,
    "anchors": [
     "models_marketmodels_evolvers_lognormalfwdrateeulerconstrained_lognormalfwdrateeulerconstrained",
-    "models_marketmodels_evolvers_lognormalfwdrateeulerconstrained",
-    "constrainedevolver",
+    "models_marketmodels_evolvers_lognormalfwdrateeulerconstrained_hpp_models_marketmodels_evolvers_lognormalfwdrateeulerconstrained",
     "models_marketmodels_evolvers_lognormalfwdrateeulerconstrained_browniangenerator",
     "models_marketmodels_evolvers_lognormalfwdrateeulerconstrained_marketmodel",
     "models_marketmodels_evolvers_lognormalfwdrateeulerconstrained_browniangeneratorfactory",
@@ -418,57 +354,16 @@
     "models_marketmodels_evolvers_lognormalfwdrateeulerconstrained_hpp_valarray",
     "models_marketmodels_evolvers_lognormalfwdrateeulerconstrained_hpp_vector",
     "models_marketmodels_evolvers_lognormalfwdrateeulerconstrained_lognormalfwdrateeulerconstrained_alive",
-    "models_marketmodels_evolvers_lognormalfwdrateeulerconstrained_lognormalfwdrateeulerconstrained_brownians"
-   ]
-  },
-  {
-   "label": "Periodic caplet-swaption market-model product",
-   "size": 35,
-   "anchors": [
-    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_multistepperiodcapletswaptions",
-    "models_marketmodels_products_multistep_multistepperiodcapletswaptions",
-    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_multistepperiodcapletswaptions_multistepperiodcapletswaptions",
-    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_multistepperiodcapletswaptions_nexttimestep",
-    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_multistepperiodcapletswaptions_clone",
-    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_multistepperiodcapletswaptions_possiblecashflowtimes",
-    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_strikedtypepayoff",
-    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_hpp_size",
-    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_multistepperiodcapletswaptions_maxnumberofcashflowsperproductperstep",
-    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_multistepperiodcapletswaptions_numberofproducts",
-    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_cpp_size",
-    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_cpp_vector",
-    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_hpp_time",
-    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_hpp_vector",
-    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_multistepperiodcapletswaptions_reset"
-   ]
-  },
-  {
-   "label": "Call-specified multi-product wrapper",
-   "size": 34,
-   "anchors": [
-    "models_marketmodels_products_multistep_callspecifiedmultiproduct_callspecifiedmultiproduct",
-    "models_marketmodels_products_multistep_callspecifiedmultiproduct_callspecifiedmultiproduct_nexttimestep",
-    "models_marketmodels_callability_upperboundengine_decoratedhedge_reset",
-    "models_marketmodels_products_multistep_callspecifiedmultiproduct_callspecifiedmultiproduct_possiblecashflowtimes",
-    "models_marketmodels_products_multistep_callspecifiedmultiproduct_callspecifiedmultiproduct_suggestednumeraires",
-    "models_marketmodels_products_multistep_callspecifiedmultiproduct_cpp_size",
-    "models_marketmodels_products_multistep_callspecifiedmultiproduct_callspecifiedmultiproduct_maxnumberofcashflowsperproductperstep",
-    "models_marketmodels_products_multistep_callspecifiedmultiproduct_callspecifiedmultiproduct_numberofproducts",
-    "models_marketmodels_products_multistep_callspecifiedmultiproduct_callspecifiedmultiproduct_reset",
-    "models_marketmodels_products_multistep_callspecifiedmultiproduct_cpp_vector",
-    "models_marketmodels_products_multistep_callspecifiedmultiproduct_callspecifiedmultiproduct_disablecallability",
-    "models_marketmodels_products_multistep_callspecifiedmultiproduct_callspecifiedmultiproduct_enablecallability",
-    "models_marketmodels_products_multistep_callspecifiedmultiproduct_callspecifiedmultiproduct_callable",
-    "models_marketmodels_products_multistep_callspecifiedmultiproduct_callspecifiedmultiproduct_cashflowtimes",
-    "models_marketmodels_products_multistep_callspecifiedmultiproduct_callspecifiedmultiproduct_currentindex"
+    "models_marketmodels_evolvers_lognormalfwdrateeulerconstrained_lognormalfwdrateeulerconstrained_brownians",
+    "models_marketmodels_evolvers_lognormalfwdrateeulerconstrained_lognormalfwdrateeulerconstrained_calculators"
    ]
   },
   {
    "label": "CTSMM caplet and swaption calibration",
-   "size": 35,
+   "size": 36,
    "anchors": [
     "models_marketmodels_models_ctsmmcapletcalibration_ctsmmcapletcalibration",
-    "models_marketmodels_models_ctsmmcapletcalibration",
+    "models_marketmodels_models_ctsmmcapletcalibration_hpp_models_marketmodels_models_ctsmmcapletcalibration",
     "models_marketmodels_models_ctsmmcapletcalibration_hpp_real",
     "models_marketmodels_models_ctsmmcapletcalibration_ctsmmcapletcalibration_displacements",
     "models_marketmodels_models_ctsmmcapletcalibration_ctsmmcapletcalibration_capletmaxerror",
@@ -485,29 +380,8 @@
    ]
   },
   {
-   "label": "Pathwise vega accounting engine",
-   "size": 35,
-   "anchors": [
-    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine",
-    "models_marketmodels_pathwiseaccountingengine_hpp_real",
-    "models_marketmodels_pathwiseaccountingengine_hpp_shared_ptr",
-    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine_cashflowindicesthisstep",
-    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine_cashflowsgenerated",
-    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine_currentforwards",
-    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine_deflatorandderivatives",
-    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine_discounters",
-    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine_discounts",
-    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine_dodeflation",
-    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine_evolver",
-    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine_fullderivatives",
-    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine_initialnumerairevalue",
-    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine_jacobiancomputers",
-    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine_jacobiansthispaths"
-   ]
-  },
-  {
    "label": "Pathwise outer vega accounting engine",
-   "size": 35,
+   "size": 36,
    "anchors": [
     "models_marketmodels_pathwiseaccountingengine_pathwisevegasouteraccountingengine",
     "models_marketmodels_pathwiseaccountingengine_pathwisevegasouteraccountingengine_cashflowindicesthisstep",
@@ -527,74 +401,32 @@
    ]
   },
   {
-   "label": "Ratchet floater market-model product",
-   "size": 34,
+   "label": "Periodic caplet-swaption market-model product",
+   "size": 36,
    "anchors": [
-    "models_marketmodels_products_multistep_multistepratchet_multistepratchet",
-    "models_marketmodels_products_multistep_multistepratchet",
-    "models_marketmodels_products_multistep_multistepratchet_multistepratchet_multistepratchet",
-    "models_marketmodels_products_multistep_multistepratchet_multistepratchet_nexttimestep",
-    "models_marketmodels_products_multistep_multistepratchet_multistepratchet_clone",
-    "models_marketmodels_products_multistep_multistepratchet_multistepratchet_possiblecashflowtimes",
-    "models_marketmodels_products_multistep_multistepratchet_hpp_size",
-    "models_marketmodels_products_multistep_multistepratchet_multistepratchet_maxnumberofcashflowsperproductperstep",
-    "models_marketmodels_products_multistep_multistepratchet_multistepratchet_numberofproducts",
-    "models_marketmodels_products_multistep_multistepratchet_cpp_vector",
-    "models_marketmodels_products_multistep_multistepratchet_hpp_time",
-    "models_marketmodels_products_multistep_multistepratchet_hpp_vector",
-    "models_marketmodels_products_multistep_multistepratchet_multistepratchet_reset",
-    "models_marketmodels_products_multistep_multistepratchet_cpp_cashflow",
-    "models_marketmodels_products_multistep_multistepratchet_cpp_curvestate"
-   ]
-  },
-  {
-   "label": "Heston model calibration helper",
-   "size": 33,
-   "anchors": [
-    "models_equity_hestonmodelhelper_hestonmodelhelper",
-    "models_equity_hestonmodelhelper",
-    "models_equity_hestonmodelhelper_hestonmodelhelper_hestonmodelhelper",
-    "models_calibrationhelper_blackcalibrationhelper_performcalculations",
-    "models_equity_hestonmodelhelper_hestonmodelhelper_blackprice",
-    "models_shortrate_calibrationhelpers_swaptionhelper_swaptionhelper_performcalculations",
-    "models_equity_hestonmodelhelper_cpp_real",
-    "models_equity_hestonmodelhelper_hestonmodelhelper_addtimesto",
-    "models_equity_hestonmodelhelper_hestonmodelhelper_maturity",
-    "models_equity_hestonmodelhelper_hestonmodelhelper_modelvalue",
-    "models_equity_hestonmodelhelper_hestonmodelhelper_performcalculations",
-    "models_equity_hestonmodelhelper_hpp_time",
-    "models_equity_hestonmodelhelper_hpp_period",
-    "vanillaoption",
-    "models_equity_hestonmodelhelper_cpp_calendar"
-   ]
-  },
-  {
-   "label": "Constant-maturity swap curve state",
-   "size": 33,
-   "anchors": [
-    "models_marketmodels_curvestates_cmswapcurvestate_cmswapcurvestate",
-    "models_marketmodels_curvestates_cmswapcurvestate",
-    "models_marketmodels_curvestates_cmswapcurvestate_cpp_size",
-    "models_marketmodels_curvestates_cmswapcurvestate_cpp_rate",
-    "models_marketmodels_curvestates_cmswapcurvestate_cmswapcurvestate_cmswapannuity",
-    "models_marketmodels_curvestates_cmswapcurvestate_cmswapcurvestate_cmswaprate",
-    "models_marketmodels_curvestates_cmswapcurvestate_cmswapcurvestate_coterminalswapannuity",
-    "models_marketmodels_curvestates_cmswapcurvestate_cmswapcurvestate_coterminalswaprate",
-    "models_marketmodels_curvestates_cmswapcurvestate_cmswapcurvestate_forwardrate",
-    "models_marketmodels_curvestates_cmswapcurvestate_cmswapcurvestate_setoncmswaprates",
-    "models_marketmodels_curvestates_cmswapcurvestate_cmswapcurvestate_clone",
-    "models_marketmodels_curvestates_cmswapcurvestate_cmswapcurvestate_cmswapcurvestate",
-    "models_marketmodels_curvestates_cmswapcurvestate_cmswapcurvestate_discountratio",
-    "models_marketmodels_curvestates_cmswapcurvestate_cpp_vector",
-    "models_marketmodels_curvestates_cmswapcurvestate_cmswapcurvestate_cmswapannuities"
+    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_multistepperiodcapletswaptions",
+    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_hpp_models_marketmodels_products_multistep_multistepperiodcapletswaptions",
+    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_multistepperiodcapletswaptions_multistepperiodcapletswaptions",
+    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_multistepperiodcapletswaptions_nexttimestep",
+    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_cpp_models_marketmodels_products_multistep_multistepperiodcapletswaptions",
+    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_multistepperiodcapletswaptions_clone",
+    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_multistepperiodcapletswaptions_possiblecashflowtimes",
+    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_hpp_size",
+    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_multistepperiodcapletswaptions_maxnumberofcashflowsperproductperstep",
+    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_multistepperiodcapletswaptions_numberofproducts",
+    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_cpp_size",
+    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_cpp_vector",
+    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_hpp_time",
+    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_hpp_vector",
+    "models_marketmodels_products_multistep_multistepperiodcapletswaptions_multistepperiodcapletswaptions_reset"
    ]
   },
   {
    "label": "LIBOR forward-rate curve state",
-   "size": 33,
+   "size": 35,
    "anchors": [
     "models_marketmodels_curvestates_lmmcurvestate_lmmcurvestate",
-    "models_marketmodels_curvestates_lmmcurvestate",
+    "models_marketmodels_curvestates_lmmcurvestate_cpp_models_marketmodels_curvestates_lmmcurvestate",
     "models_marketmodels_curvestates_lmmcurvestate_cpp_size",
     "models_marketmodels_curvestates_lmmcurvestate_cpp_rate",
     "models_marketmodels_curvestates_lmmcurvestate_lmmcurvestate_cmswapannuity",
@@ -611,87 +443,66 @@
    ]
   },
   {
-   "label": "SVD predictor-corrector LMM evolver",
+   "label": "Pathwise vega accounting engine",
+   "size": 35,
+   "anchors": [
+    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine",
+    "models_marketmodels_pathwiseaccountingengine_marketmodel",
+    "models_marketmodels_pathwiseaccountingengine_hpp_matrix",
+    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine_cashflowindicesthisstep",
+    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine_cashflowsgenerated",
+    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine_currentforwards",
+    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine_deflatorandderivatives",
+    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine_discounters",
+    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine_discounts",
+    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine_dodeflation",
+    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine_evolver",
+    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine_fullderivatives",
+    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine_initialnumerairevalue",
+    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine_jacobiancomputers",
+    "models_marketmodels_pathwiseaccountingengine_pathwisevegasaccountingengine_jacobiansthispaths"
+   ]
+  },
+  {
+   "label": "Ratchet floater market-model product",
+   "size": 35,
+   "anchors": [
+    "models_marketmodels_products_multistep_multistepratchet_multistepratchet",
+    "models_marketmodels_products_multistep_multistepratchet_hpp_models_marketmodels_products_multistep_multistepratchet",
+    "models_marketmodels_products_multistep_multistepratchet_multistepratchet_multistepratchet",
+    "models_marketmodels_products_multistep_multistepratchet_multistepratchet_nexttimestep",
+    "models_marketmodels_products_multistep_multistepratchet_cpp_models_marketmodels_products_multistep_multistepratchet",
+    "models_marketmodels_products_multistep_multistepratchet_multistepratchet_clone",
+    "models_marketmodels_products_multistep_multistepratchet_multistepratchet_possiblecashflowtimes",
+    "models_marketmodels_products_multistep_multistepratchet_hpp_size",
+    "models_marketmodels_products_multistep_multistepratchet_multistepratchet_maxnumberofcashflowsperproductperstep",
+    "models_marketmodels_products_multistep_multistepratchet_multistepratchet_numberofproducts",
+    "models_marketmodels_products_multistep_multistepratchet_cpp_vector",
+    "models_marketmodels_products_multistep_multistepratchet_hpp_time",
+    "models_marketmodels_products_multistep_multistepratchet_hpp_vector",
+    "models_marketmodels_products_multistep_multistepratchet_multistepratchet_reset",
+    "models_marketmodels_products_multistep_multistepratchet_cpp_cashflow"
+   ]
+  },
+  {
+   "label": "Pathwise inverse-floater product",
    "size": 34,
    "anchors": [
-    "models_marketmodels_evolvers_svddfwdratepc_svddfwdratepc",
-    "models_marketmodels_evolvers_svddfwdratepc_hpp_lmmcurvestate",
-    "models_marketmodels_evolvers_svddfwdratepc_hpp_lmmdriftcalculator",
-    "models_marketmodels_evolvers_svddfwdratepc_hpp_rate",
-    "models_marketmodels_evolvers_svddfwdratepc_hpp_real",
-    "models_marketmodels_evolvers_svddfwdratepc_hpp_shared_ptr",
-    "models_marketmodels_evolvers_svddfwdratepc_hpp_size",
-    "models_marketmodels_evolvers_svddfwdratepc_hpp_valarray",
-    "models_marketmodels_evolvers_svddfwdratepc_hpp_vector",
-    "models_marketmodels_evolvers_svddfwdratepc_svddfwdratepc_alive",
-    "models_marketmodels_evolvers_svddfwdratepc_svddfwdratepc_allbrownians",
-    "models_marketmodels_evolvers_svddfwdratepc_svddfwdratepc_brownians",
-    "models_marketmodels_evolvers_svddfwdratepc_svddfwdratepc_calculators",
-    "models_marketmodels_evolvers_svddfwdratepc_svddfwdratepc_correlatedbrownians",
-    "models_marketmodels_evolvers_svddfwdratepc_svddfwdratepc_curvestate"
-   ]
-  },
-  {
-   "label": "Square-root Andersen volatility process",
-   "size": 33,
-   "anchors": [
-    "models_marketmodels_evolvers_volprocesses_squarerootandersen_squarerootandersen",
-    "models_marketmodels_evolvers_volprocesses_squarerootandersen",
-    "models_marketmodels_evolvers_volprocesses_squarerootandersen_cpp_size",
-    "models_marketmodels_evolvers_volprocesses_squarerootandersen_squarerootandersen_doonesubstep",
-    "models_marketmodels_evolvers_volprocesses_squarerootandersen_squarerootandersen_nextstep",
-    "models_marketmodels_evolvers_volprocesses_squarerootandersen_cpp_real",
-    "models_marketmodels_evolvers_volprocesses_squarerootandersen_squarerootandersen_numbersteps",
-    "models_marketmodels_evolvers_volprocesses_squarerootandersen_squarerootandersen_squarerootandersen",
-    "marketmodelvolprocess",
-    "models_marketmodels_evolvers_volprocesses_squarerootandersen_squarerootandersen_numberstatevariables",
-    "models_marketmodels_evolvers_volprocesses_squarerootandersen_squarerootandersen_stepsd",
-    "models_marketmodels_evolvers_volprocesses_squarerootandersen_squarerootandersen_variatesperstep",
-    "models_marketmodels_evolvers_volprocesses_squarerootandersen_cpp_vector",
-    "models_marketmodels_evolvers_volprocesses_squarerootandersen_squarerootandersen_k",
-    "models_marketmodels_evolvers_volprocesses_squarerootandersen_squarerootandersen_nextpath"
-   ]
-  },
-  {
-   "label": "Interest-rate cap calibration helper",
-   "size": 33,
-   "anchors": [
-    "models_shortrate_calibrationhelpers_caphelper_caphelper",
-    "models_shortrate_calibrationhelpers_caphelper_caphelper_caphelper",
-    "models_shortrate_calibrationhelpers_caphelper_caphelper_addtimesto",
-    "models_shortrate_calibrationhelpers_caphelper_caphelper_blackprice",
-    "models_shortrate_calibrationhelpers_caphelper_caphelper_performcalculations",
-    "models_shortrate_calibrationhelpers_caphelper_caphelper_modelvalue",
-    "models_shortrate_calibrationhelpers_caphelper_cpp_real",
-    "schedule",
-    "models_shortrate_calibrationhelpers_caphelper_cpp_period",
-    "models_shortrate_calibrationhelpers_caphelper_caphelper_cap",
-    "models_shortrate_calibrationhelpers_caphelper_caphelper_fixedlegdaycounter",
-    "models_shortrate_calibrationhelpers_caphelper_caphelper_includefirstswaplet",
-    "models_shortrate_calibrationhelpers_caphelper_caphelper_index",
-    "models_shortrate_calibrationhelpers_caphelper_caphelper_length",
-    "models_shortrate_calibrationhelpers_caphelper_caphelper_termstructure"
-   ]
-  },
-  {
-   "label": "Swaption calibration helper",
-   "size": 34,
-   "anchors": [
-    "models_shortrate_calibrationhelpers_swaptionhelper_swaptionhelper",
-    "models_shortrate_calibrationhelpers_swaptionhelper_hpp_real",
-    "models_shortrate_calibrationhelpers_swaptionhelper_swaptionhelper_swaption",
-    "models_shortrate_calibrationhelpers_swaptionhelper_hpp_shared_ptr",
-    "models_shortrate_calibrationhelpers_swaptionhelper_hpp_swaption",
-    "models_shortrate_calibrationhelpers_swaptionhelper_swaptionhelper_annuity",
-    "models_shortrate_calibrationhelpers_swaptionhelper_swaptionhelper_atmforward",
-    "models_shortrate_calibrationhelpers_swaptionhelper_swaptionhelper_stddev",
-    "models_shortrate_calibrationhelpers_swaptionhelper_swaptionhelper_strike",
-    "models_shortrate_calibrationhelpers_swaptionhelper_swaptionhelper_swaplength",
-    "models_shortrate_calibrationhelpers_swaptionhelper_swaptionhelper_timetoexpiry",
-    "models_shortrate_calibrationhelpers_swaptionhelper_swaptionhelper_vega",
-    "models_shortrate_calibrationhelpers_swaptionhelper_hpp_date",
-    "models_shortrate_calibrationhelpers_swaptionhelper_hpp_daycounter",
-    "models_shortrate_calibrationhelpers_swaptionhelper_hpp_fixedvsfloatingswap"
+    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_marketmodelpathwiseinversefloater",
+    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_cpp_models_marketmodels_products_pathwise_pathwiseproductinversefloater",
+    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_marketmodelpathwiseinversefloater_marketmodelpathwiseinversefloater",
+    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_marketmodelpathwiseinversefloater_nexttimestep",
+    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_cpp_size",
+    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_cpp_vector",
+    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_marketmodelpathwiseinversefloater_clone",
+    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_marketmodelpathwiseinversefloater_possiblecashflowtimes",
+    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_marketmodelpathwiseinversefloater_suggestednumeraires",
+    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_marketmodelpathwiseinversefloater_maxnumberofcashflowsperproductperstep",
+    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_marketmodelpathwiseinversefloater_numberofproducts",
+    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_cpp_time",
+    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_evolutiondescription",
+    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_marketmodelpathwiseinversefloater_alreadydeflated",
+    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_marketmodelpathwiseinversefloater_reset"
    ]
   },
   {
@@ -700,10 +511,10 @@
    "anchors": [
     "models_marketmodels_pathwiseaccountingengine_pathwiseaccountingengine",
     "models_marketmodels_pathwiseaccountingengine_lognormalfwdrateeuler",
-    "models_marketmodels_pathwiseaccountingengine_marketmodel",
     "models_marketmodels_pathwiseaccountingengine_hpp_cashflow",
     "models_marketmodels_pathwiseaccountingengine_hpp_clone",
-    "models_marketmodels_pathwiseaccountingengine_hpp_matrix",
+    "models_marketmodels_pathwiseaccountingengine_hpp_real",
+    "models_marketmodels_pathwiseaccountingengine_hpp_shared_ptr",
     "models_marketmodels_pathwiseaccountingengine_hpp_size",
     "models_marketmodels_pathwiseaccountingengine_hpp_vector",
     "models_marketmodels_pathwiseaccountingengine_pathwiseaccountingengine_cashflowindicesthisstep",
@@ -716,50 +527,50 @@
    ]
   },
   {
-   "label": "Pathwise inverse-floater product",
-   "size": 32,
+   "label": "Cox-Ingersoll-Ross short-rate model",
+   "size": 33,
    "anchors": [
-    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_marketmodelpathwiseinversefloater",
-    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_marketmodelpathwiseinversefloater_marketmodelpathwiseinversefloater",
-    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_marketmodelpathwiseinversefloater_nexttimestep",
-    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_cpp_size",
-    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_cpp_vector",
-    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_marketmodelpathwiseinversefloater_clone",
-    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_marketmodelpathwiseinversefloater_possiblecashflowtimes",
-    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_marketmodelpathwiseinversefloater_suggestednumeraires",
-    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_marketmodelpathwiseinversefloater_maxnumberofcashflowsperproductperstep",
-    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_marketmodelpathwiseinversefloater_numberofproducts",
-    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_cpp_time",
-    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_marketmodelpathwiseinversefloater_alreadydeflated",
-    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_marketmodelpathwiseinversefloater_reset",
-    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_cpp_cashflow",
-    "models_marketmodels_products_pathwise_pathwiseproductinversefloater_cpp_curvestate"
+    "models_shortrate_onefactormodels_coxingersollross_coxingersollross",
+    "models_shortrate_onefactormodels_coxingersollross_coxingersollross_b",
+    "models_shortrate_onefactormodels_coxingersollross_coxingersollross_dynamics",
+    "models_shortrate_onefactormodels_coxingersollross_coxingersollross_k",
+    "models_shortrate_onefactormodels_coxingersollross_coxingersollross_theta",
+    "models_shortrate_onefactormodels_extendedcoxingersollross_extendedcoxingersollross_discountbondoption",
+    "models_shortrate_onefactormodels_coxingersollross_coxingersollross_discountbondoption",
+    "models_shortrate_onefactormodels_coxingersollross_coxingersollross_x0",
+    "models_shortrate_onefactormodels_coxingersollross_cpp_models_shortrate_onefactormodels_coxingersollross",
+    "models_shortrate_onefactormodels_coxingersollross_coxingersollross_a",
+    "models_shortrate_onefactormodels_coxingersollross_hpp_real",
+    "models_shortrate_onefactormodels_coxingersollross_coxingersollross_tree",
+    "models_shortrate_onefactormodels_coxingersollross_cpp_real",
+    "models_shortrate_onefactormodels_coxingersollross_coxingersollross_coxingersollross",
+    "models_shortrate_onefactormodels_coxingersollross_coxingersollross_dynamics_variable"
    ]
   },
   {
-   "label": "Balland-scheme LMM evolver",
+   "label": "Swap-rate exercise adapter and trigger",
    "size": 32,
    "anchors": [
-    "models_marketmodels_evolvers_lognormalfwdrateballand_lognormalfwdrateballand",
-    "models_marketmodels_evolvers_lognormalfwdrateballand",
-    "models_marketmodels_evolvers_lognormalfwdrateballand_browniangenerator",
-    "models_marketmodels_evolvers_lognormalfwdrateballand_lmmdriftcalculator",
-    "models_marketmodels_evolvers_lognormalfwdrateballand_marketmodel",
-    "models_marketmodels_evolvers_lognormalfwdrateballand_browniangeneratorfactory",
-    "models_marketmodels_evolvers_lognormalfwdrateballand_hpp_rate",
-    "models_marketmodels_evolvers_lognormalfwdrateballand_hpp_real",
-    "models_marketmodels_evolvers_lognormalfwdrateballand_hpp_shared_ptr",
-    "models_marketmodels_evolvers_lognormalfwdrateballand_hpp_size",
-    "models_marketmodels_evolvers_lognormalfwdrateballand_hpp_time",
-    "models_marketmodels_evolvers_lognormalfwdrateballand_hpp_vector",
-    "models_marketmodels_evolvers_lognormalfwdrateballand_lognormalfwdrateballand_alive",
-    "models_marketmodels_evolvers_lognormalfwdrateballand_lognormalfwdrateballand_brownians",
-    "models_marketmodels_evolvers_lognormalfwdrateballand_lognormalfwdrateballand_calculators"
+    "models_marketmodels_callability_parametricexerciseadapter_parametricexerciseadapter",
+    "models_marketmodels_callability_parametricexerciseadapter_cpp_models_marketmodels_callability_parametricexerciseadapter",
+    "models_marketmodels_callability_parametricexerciseadapter_hpp_models_marketmodels_callability_parametricexerciseadapter",
+    "models_marketmodels_callability_parametricexerciseadapter_parametricexerciseadapter_clone",
+    "models_marketmodels_callability_parametricexerciseadapter_parametricexerciseadapter_exercisetimes",
+    "models_marketmodels_callability_parametricexerciseadapter_parametricexerciseadapter_parametricexerciseadapter",
+    "models_marketmodels_callability_parametricexerciseadapter_parametricexerciseadapter_relevanttimes",
+    "models_marketmodels_callability_parametricexerciseadapter_cpp_curvestate",
+    "models_marketmodels_callability_parametricexerciseadapter_cpp_vector",
+    "models_marketmodels_callability_parametricexerciseadapter_parametricexerciseadapter_exercise",
+    "models_marketmodels_callability_parametricexerciseadapter_parametricexerciseadapter_nextstep",
+    "models_marketmodels_callability_parametricexerciseadapter_cpp_time",
+    "models_marketmodels_callability_parametricexerciseadapter_curvestate",
+    "models_marketmodels_callability_parametricexerciseadapter_marketmodelparametricexercise",
+    "models_marketmodels_callability_parametricexerciseadapter_parametricexerciseadapter_reset"
    ]
   },
   {
    "label": "Market-model upper-bound pricing engine",
-   "size": 30,
+   "size": 31,
    "anchors": [
     "models_marketmodels_callability_upperboundengine_decoratedhedge",
     "models_marketmodels_callability_upperboundengine_upperboundengine_singlepathvalue",
@@ -779,24 +590,171 @@
    ]
   },
   {
+   "label": "GSR Gaussian short-rate model",
+   "size": 29,
+   "anchors": [
+    "models_shortrate_onefactormodels_gsr_gsr",
+    "models_shortrate_onefactormodels_gsr_gsr_calibratereversionsiterative",
+    "models_shortrate_onefactormodels_gsr_gsr_calibratevolatilitiesiterative",
+    "models_shortrate_onefactormodels_gsr_hpp_vector",
+    "models_shortrate_onefactormodels_gsr_gsr_movereversion",
+    "models_shortrate_onefactormodels_gsr_gsr_movevolatility",
+    "models_shortrate_onefactormodels_gaussian1dmodel_gaussian1dmodel_performcalculations",
+    "models_shortrate_onefactormodels_gsr_gsr_performcalculations",
+    "models_shortrate_onefactormodels_gsr_gsr_updatetimes",
+    "models_shortrate_onefactormodels_gsr_hpp_endcriteria",
+    "models_shortrate_onefactormodels_gsr_hpp_shared_ptr",
+    "models_shortrate_onefactormodels_gsr_gsr_fixedreversions",
+    "models_shortrate_onefactormodels_gsr_gsr_fixedvolatilities",
+    "models_shortrate_onefactormodels_gsr_hpp_size",
+    "models_shortrate_onefactormodels_gsr_gsr_generatearguments"
+   ]
+  },
+  {
+   "label": "Market-model evolver interface",
+   "size": 27,
+   "anchors": [
+    "models_marketmodels_callability_lsstrategy_hpp_curvestate",
+    "models_marketmodels_evolver",
+    "models_marketmodels_callability_upperboundengine_cpp_models_marketmodels_callability_upperboundengine",
+    "algorithm",
+    "models_marketmodels_callability_collectnodedata_cpp_models_marketmodels_callability_collectnodedata",
+    "models_marketmodels_accountingengine_cpp_models_marketmodels_accountingengine",
+    "models_marketmodels_evolver_marketmodelevolver",
+    "models_marketmodels_accountingengine_accountingengine_accountingengine",
+    "models_marketmodels_constrainedevolver_constrainedevolver",
+    "models_marketmodels_accountingengine_accountingengine_singlepathvalues",
+    "models_marketmodels_discounter_cpp_models_marketmodels_discounter",
+    "models_marketmodels_constrainedevolver",
+    "models_marketmodels_accountingengine_cpp_real",
+    "models_marketmodels_accountingengine_cpp_clone",
+    "models_marketmodels_accountingengine_cpp_marketmodelmultiproduct"
+   ]
+  },
+  {
+   "label": "Heston model calibration helper",
+   "size": 27,
+   "anchors": [
+    "models_equity_hestonmodelhelper_hestonmodelhelper",
+    "models_equity_hestonmodelhelper_cpp_models_equity_hestonmodelhelper",
+    "models_equity_hestonmodelhelper_hestonmodelhelper_blackprice",
+    "models_equity_hestonmodelhelper_cpp_real",
+    "models_equity_hestonmodelhelper_hestonmodelhelper_addtimesto",
+    "models_equity_hestonmodelhelper_hestonmodelhelper_maturity",
+    "models_equity_hestonmodelhelper_hestonmodelhelper_modelvalue",
+    "models_equity_hestonmodelhelper_hestonmodelhelper_performcalculations",
+    "models_equity_hestonmodelhelper_hpp_list",
+    "models_equity_hestonmodelhelper_hpp_models_equity_hestonmodelhelper",
+    "models_equity_hestonmodelhelper_hpp_time",
+    "models_equity_hestonmodelhelper_hpp_period",
+    "vanillaoption",
+    "models_equity_hestonmodelhelper_hestonmodelhelper_calendar",
+    "models_equity_hestonmodelhelper_hestonmodelhelper_dividendyield"
+   ]
+  },
+  {
+   "label": "Pathwise caplet and cap products",
+   "size": 24,
+   "anchors": [
+    "models_marketmodels_products_pathwise_pathwiseproductcaplet_marketmodelpathwisemultideflatedcaplet",
+    "models_marketmodels_products_pathwise_pathwiseproductcaplet_marketmodelpathwisemulticaplet",
+    "models_marketmodels_products_pathwise_pathwiseproductcaplet_evolutiondescription",
+    "models_marketmodels_products_pathwise_pathwiseproductcaplet_hpp_rate",
+    "models_marketmodels_products_pathwise_pathwiseproductcaplet_hpp_real",
+    "models_marketmodels_products_pathwise_pathwiseproductcaplet_hpp_time",
+    "models_marketmodels_products_pathwise_pathwiseproductcaplet_marketmodelpathwisemulticaplet_alreadydeflated",
+    "models_marketmodels_products_pathwise_pathwiseproductcaplet_marketmodelpathwisemulticaplet_reset",
+    "models_marketmodels_products_pathwise_pathwiseproductcaplet_marketmodelpathwisemultideflatedcaplet_alreadydeflated",
+    "models_marketmodels_products_pathwise_pathwiseproductcaplet_marketmodelpathwisemultideflatedcaplet_reset",
+    "models_marketmodels_products_pathwise_pathwiseproductcaplet_marketmodelpathwisemulticaplet_accruals",
+    "models_marketmodels_products_pathwise_pathwiseproductcaplet_marketmodelpathwisemulticaplet_currentindex",
+    "models_marketmodels_products_pathwise_pathwiseproductcaplet_marketmodelpathwisemulticaplet_evolution",
+    "models_marketmodels_products_pathwise_pathwiseproductcaplet_marketmodelpathwisemulticaplet_numberrates",
+    "models_marketmodels_products_pathwise_pathwiseproductcaplet_marketmodelpathwisemulticaplet_paymenttimes"
+   ]
+  },
+  {
+   "label": "Interest-rate cap calibration helper",
+   "size": 24,
+   "anchors": [
+    "models_shortrate_calibrationhelpers_caphelper_caphelper",
+    "models_shortrate_calibrationhelpers_caphelper_cpp_models_shortrate_calibrationhelpers_caphelper",
+    "models_shortrate_calibrationhelpers_caphelper_caphelper_addtimesto",
+    "models_shortrate_calibrationhelpers_caphelper_caphelper_blackprice",
+    "models_shortrate_calibrationhelpers_caphelper_caphelper_modelvalue",
+    "models_shortrate_calibrationhelpers_caphelper_cpp_real",
+    "schedule",
+    "models_shortrate_calibrationhelpers_caphelper_caphelper_cap",
+    "models_shortrate_calibrationhelpers_caphelper_caphelper_fixedlegdaycounter",
+    "models_shortrate_calibrationhelpers_caphelper_caphelper_fixedlegfrequency",
+    "models_shortrate_calibrationhelpers_caphelper_caphelper_includefirstswaplet",
+    "models_shortrate_calibrationhelpers_caphelper_caphelper_index",
+    "models_shortrate_calibrationhelpers_caphelper_caphelper_length",
+    "models_shortrate_calibrationhelpers_caphelper_caphelper_termstructure",
+    "models_shortrate_calibrationhelpers_caphelper_cpp_list"
+   ]
+  },
+  {
+   "label": "Historical forward rates analysis",
+   "size": 21,
+   "anchors": [
+    "models_marketmodels_historicalforwardratesanalysis_historicalforwardratesanalysisimpl",
+    "models_marketmodels_historicalforwardratesanalysis_historicalforwardratesanalysis",
+    "models_marketmodels_historicalforwardratesanalysis_historicalforwardratesanalysisimpl_traits_interpolator_historicalforwardratesanalysisimpl",
+    "models_marketmodels_historicalforwardratesanalysis",
+    "models_marketmodels_historicalforwardratesanalysis_hpp_iborindex",
+    "models_marketmodels_historicalforwardratesanalysis_hpp_swapindex",
+    "models_marketmodels_historicalforwardratesanalysis_hpp_date",
+    "models_marketmodels_historicalforwardratesanalysis_hpp_period",
+    "models_marketmodels_historicalforwardratesanalysis_hpp_shared_ptr",
+    "models_marketmodels_historicalforwardratesanalysis_hpp_vector",
+    "models_marketmodels_historicalforwardratesanalysis_hpp_daycounter",
+    "models_marketmodels_historicalforwardratesanalysis_hpp_string",
+    "models_marketmodels_historicalforwardratesanalysis_historicalforwardratesanalysis_historicalforwardratesanalysis",
+    "models_marketmodels_historicalforwardratesanalysis_historicalforwardratesanalysisimpl_faileddates",
+    "models_marketmodels_historicalforwardratesanalysis_historicalforwardratesanalysisimpl_faileddateserrormessage"
+   ]
+  },
+  {
    "label": "Heston and Bates jump-diffusion models",
    "size": 20,
    "anchors": [
-    "models_equity_batesmodel",
     "models_equity_batesmodel_hpp_real",
     "models_equity_batesmodel_batesdoubleexpmodel",
     "models_equity_batesmodel_batesmodel",
-    "models_equity_batesmodel_batesdoubleexpdetjumpmodel",
-    "models_equity_hestonslvmcmodel_hpp_hestonmodel",
+    "models_equity_batesmodel_hpp_hestonmodel",
+    "models_equity_batesmodel_hpp_models_equity_batesmodel",
     "models_equity_batesmodel_batesmodel_generatearguments",
     "models_equity_batesmodel_batesdetjumpmodel",
+    "models_equity_batesmodel_batesdoubleexpdetjumpmodel",
     "models_equity_batesmodel_batesdoubleexpmodel_p",
     "models_equity_batesmodel_batesmodel_delta",
     "models_equity_batesmodel_batesmodel_nu",
-    "hestonmodel",
     "models_equity_batesmodel_batesdetjumpmodel_kappalambda",
     "models_equity_batesmodel_batesdetjumpmodel_thetalambda",
-    "models_equity_batesmodel_batesdoubleexpdetjumpmodel_kappalambda"
+    "models_equity_batesmodel_batesdoubleexpdetjumpmodel_kappalambda",
+    "models_equity_batesmodel_batesdoubleexpdetjumpmodel_thetalambda"
+   ]
+  },
+  {
+   "label": "Pathwise coterminal swaption products",
+   "size": 20,
+   "anchors": [
+    "models_marketmodels_products_pathwise_pathwiseproductswaption_cpp_models_marketmodels_products_pathwise_pathwiseproductswaption",
+    "models_marketmodels_products_pathwise_pathwiseproductswaption_cpp_size",
+    "models_marketmodels_products_pathwise_pathwiseproductswaption_cpp_vector",
+    "models_marketmodels_products_pathwise_pathwiseproductswaption_marketmodelpathwisecoterminalswaptionsnumericaldeflated_marketmodelpathwisecoterminalswaptionsnumericaldeflated",
+    "models_marketmodels_products_pathwise_pathwiseproductswaption_marketmodelpathwisecoterminalswaptionsdeflated_marketmodelpathwisecoterminalswaptionsdeflated",
+    "models_marketmodels_products_pathwise_pathwiseproductswaption_marketmodelpathwisecoterminalswaptionsdeflated_nexttimestep",
+    "models_marketmodels_products_pathwise_pathwiseproductswaption_marketmodelpathwisecoterminalswaptionsnumericaldeflated_nexttimestep",
+    "models_marketmodels_products_pathwise_pathwiseproductswaption_cpp_time",
+    "models_marketmodels_products_pathwise_pathwiseproductswaption_marketmodelpathwisecoterminalswaptionsdeflated_possiblecashflowtimes",
+    "models_marketmodels_products_pathwise_pathwiseproductswaption_marketmodelpathwisecoterminalswaptionsdeflated_suggestednumeraires",
+    "models_marketmodels_products_pathwise_pathwiseproductswaption_marketmodelpathwisecoterminalswaptionsnumericaldeflated_possiblecashflowtimes",
+    "models_marketmodels_products_pathwise_pathwiseproductswaption_marketmodelpathwisecoterminalswaptionsnumericaldeflated_suggestednumeraires",
+    "models_marketmodels_products_pathwise_pathwiseproductswaption_marketmodelpathwisecoterminalswaptionsdeflated_maxnumberofcashflowsperproductperstep",
+    "models_marketmodels_products_pathwise_pathwiseproductswaption_marketmodelpathwisecoterminalswaptionsdeflated_numberofproducts",
+    "models_marketmodels_products_pathwise_pathwiseproductswaption_marketmodelpathwisecoterminalswaptionsnumericaldeflated_maxnumberofcashflowsperproductperstep"
    ]
   },
   {
@@ -821,32 +779,77 @@
    ]
   },
   {
+   "label": "Call-specified pathwise product wrapper",
+   "size": 16,
+   "anchors": [
+    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_cpp_models_marketmodels_products_pathwise_pathwiseproductcallspecified",
+    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_callspecifiedpathwisemultiproduct_nexttimestep",
+    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_callspecifiedpathwisemultiproduct_clone",
+    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_callspecifiedpathwisemultiproduct_possiblecashflowtimes",
+    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_callspecifiedpathwisemultiproduct_suggestednumeraires",
+    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_cpp_size",
+    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_callspecifiedpathwisemultiproduct_maxnumberofcashflowsperproductperstep",
+    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_callspecifiedpathwisemultiproduct_numberofproducts",
+    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_cpp_vector",
+    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_callspecifiedpathwisemultiproduct_alreadydeflated",
+    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_callspecifiedpathwisemultiproduct_disablecallability",
+    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_callspecifiedpathwisemultiproduct_enablecallability",
+    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_callspecifiedpathwisemultiproduct_reset",
+    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_cpp_cashflow",
+    "models_marketmodels_products_pathwise_pathwiseproductcallspecified_cpp_time"
+   ]
+  },
+  {
+   "label": "Constant-maturity swap curve state",
+   "size": 14,
+   "anchors": [
+    "models_marketmodels_curvestates_cmswapcurvestate_cpp_models_marketmodels_curvestates_cmswapcurvestate",
+    "models_marketmodels_curvestates_cmswapcurvestate_cpp_size",
+    "models_marketmodels_curvestates_cmswapcurvestate_cpp_rate",
+    "models_marketmodels_curvestates_cmswapcurvestate_cmswapcurvestate_cmswapannuity",
+    "models_marketmodels_curvestates_cmswapcurvestate_cmswapcurvestate_cmswaprate",
+    "models_marketmodels_curvestates_cmswapcurvestate_cmswapcurvestate_coterminalswapannuity",
+    "models_marketmodels_curvestates_cmswapcurvestate_cmswapcurvestate_coterminalswaprate",
+    "models_marketmodels_curvestates_cmswapcurvestate_cmswapcurvestate_forwardrate",
+    "models_marketmodels_curvestates_cmswapcurvestate_cmswapcurvestate_setoncmswaprates",
+    "models_marketmodels_curvestates_cmswapcurvestate_cmswapcurvestate_cmswapcurvestate",
+    "models_marketmodels_curvestates_cmswapcurvestate_cmswapcurvestate_discountratio",
+    "models_marketmodels_curvestates_cmswapcurvestate_cpp_vector",
+    "models_marketmodels_curvestates_cmswapcurvestate_cpp_real",
+    "models_marketmodels_curvestates_cmswapcurvestate_cpp_time"
+   ]
+  },
+  {
+   "label": "Square-root Andersen volatility process",
+   "size": 12,
+   "anchors": [
+    "models_marketmodels_evolvers_volprocesses_squarerootandersen_cpp_models_marketmodels_evolvers_volprocesses_squarerootandersen",
+    "models_marketmodels_evolvers_volprocesses_squarerootandersen_cpp_size",
+    "models_marketmodels_evolvers_volprocesses_squarerootandersen_squarerootandersen_doonesubstep",
+    "models_marketmodels_evolvers_volprocesses_squarerootandersen_squarerootandersen_nextstep",
+    "models_marketmodels_evolvers_volprocesses_squarerootandersen_cpp_real",
+    "models_marketmodels_evolvers_volprocesses_squarerootandersen_squarerootandersen_squarerootandersen",
+    "models_marketmodels_evolvers_volprocesses_squarerootandersen_squarerootandersen_numberstatevariables",
+    "models_marketmodels_evolvers_volprocesses_squarerootandersen_squarerootandersen_numbersteps",
+    "models_marketmodels_evolvers_volprocesses_squarerootandersen_squarerootandersen_stepsd",
+    "models_marketmodels_evolvers_volprocesses_squarerootandersen_squarerootandersen_variatesperstep",
+    "models_marketmodels_evolvers_volprocesses_squarerootandersen_cpp_vector",
+    "models_marketmodels_evolvers_volprocesses_squarerootandersen_squarerootandersen_nextpath"
+   ]
+  },
+  {
    "label": "Market-model exercise-value interface",
-   "size": 11,
+   "size": 9,
    "anchors": [
     "models_marketmodels_callability_exercisevalue_marketmodelexercisevalue",
-    "models_marketmodels_callability_exercisevalue",
-    "models_marketmodels_callability_exercisevalue_curvestate",
-    "models_marketmodels_callability_exercisevalue_evolutiondescription",
     "models_marketmodels_callability_exercisevalue_marketmodelexercisevalue_clone",
+    "models_marketmodels_callability_exercisevalue_marketmodelexercisevalue_isexercisetime",
     "models_marketmodels_callability_exercisevalue_marketmodelexercisevalue_marketmodelexercisevalue",
     "models_marketmodels_callability_exercisevalue_marketmodelexercisevalue_nextstep",
     "models_marketmodels_callability_exercisevalue_marketmodelexercisevalue_numberofexercises",
     "models_marketmodels_callability_exercisevalue_marketmodelexercisevalue_possiblecashflowtimes",
     "models_marketmodels_callability_exercisevalue_marketmodelexercisevalue_reset",
     "models_marketmodels_callability_exercisevalue_marketmodelexercisevalue_value"
-   ]
-  },
-  {
-   "label": "Market-model evolver interface",
-   "size": 6,
-   "anchors": [
-    "models_marketmodels_evolver_marketmodelevolver",
-    "models_marketmodels_evolver_marketmodelevolver_advancestep",
-    "models_marketmodels_evolver_marketmodelevolver_currentstep",
-    "models_marketmodels_evolver_marketmodelevolver_marketmodelevolver",
-    "models_marketmodels_evolver_marketmodelevolver_setinitialstate",
-    "models_marketmodels_evolver_marketmodelevolver_startnewpath"
    ]
   }
  ]

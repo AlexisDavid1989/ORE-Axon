@@ -104,6 +104,14 @@ class Config:
     def semantic_chunks(self) -> Path:
         return self.package_root / "semantic-chunks"
 
+    @property
+    def bench_dir(self) -> Path:
+        return self.package_root / "bench"
+
+    @property
+    def bench_out(self) -> Path:
+        return self.out / "bench"
+
     def module_out(self, name: str) -> Path:
         return self.out / name / "graphify-out"
 

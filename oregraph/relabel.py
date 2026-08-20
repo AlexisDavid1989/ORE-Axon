@@ -283,7 +283,16 @@ def sync(merged_graph_path: Path, labels_dir: Path, chunks: list[str]) -> dict[s
 
 def write_anchors(graph_path: Path, mapping: dict[str, str], out_path: Path,
                   anchor_count: int = ANCHOR_COUNT) -> dict:
-    """Record anchor node ids for a *confirmed* {community id: name} mapping."""
+    """Record anchor node ids for a *confirmed* {community id: name} mapping.
+
+    Merges rather than overwrites: any name already anchored in `out_path` but
+    absent from `mapping` (dropped this build - see relabel --sync, whose
+    result *is* `mapping` here) keeps its existing anchor entry untouched.
+    Silently dropping it here would be exactly the harm "never modify or
+    remove an existing curated name or its anchor list" (docs/RELABELLING.md)
+    exists to prevent - a name that failed to win a community this round is
+    still recoverable *only* as long as its old anchors survive to trace.
+    """
     g = json.loads(graph_path.read_text(encoding="utf-8"))
     degree: collections.Counter = collections.Counter()
     for link in g.get("links", g.get("edges", [])):
@@ -296,19 +305,41 @@ def write_anchors(graph_path: Path, mapping: dict[str, str], out_path: Path,
         if cid is not None:
             members[int(cid)].append(n)
 
-    entries = []
+    new_names: set[str] = set()
+    for name in mapping.values():
+        new_names.update(str(name).split(" / "))
+
+    preserved = []
+    if out_path.exists():
+        old = json.loads(out_path.read_text(encoding="utf-8"))
+        preserved = [e for e in old.get("communities", [])
+                    if e.get("label") not in new_names]
+
+    entries = list(preserved)
+    combined = 0
     for cid_str, name in mapping.items():
         cid = int(cid_str)
         group = members.get(cid, [])
         if not group:
             continue
         top = sorted(group, key=lambda n: (-degree[n["id"]], n["id"]))[:anchor_count]
-        entries.append({"label": name, "size": len(group),
-                        "anchors": [n["id"] for n in top]})
+        anchors = [n["id"] for n in top]
+        # A "/"-joined name means two labels currently best-match this one
+        # community (labels.py's MAX_NAMES_PER_COMMUNITY). Write one entry per
+        # sub-label rather than the joined string, or a future build where
+        # they separate again has no way to recover either name's own anchors
+        # - the same loss `preserved` above guards against, just shaped as a
+        # merge instead of a drop.
+        sub_names = str(name).split(" / ")
+        if len(sub_names) > 1:
+            combined += 1
+        for sub_name in sub_names:
+            entries.append({"label": sub_name, "size": len(group), "anchors": anchors})
 
     payload = {"anchor_count": anchor_count, "communities": entries}
     out_path.write_text(json.dumps(payload, indent=1), encoding="utf-8")
-    return {"communities_anchored": len(entries), "path": str(out_path)}
+    return {"communities_anchored": len(entries), "preserved_unattached": len(preserved),
+            "combined_communities": combined, "path": str(out_path)}
 
 
 def format_proposal(name: str, proposal: dict) -> str:

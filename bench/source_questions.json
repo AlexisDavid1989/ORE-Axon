@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "description": "Graphify vs no-Graphify token cost. For each question the graph answers in one compact query_graph call; the 'no graph' baseline is the source files that query's answer nodes come from - i.e. the code an agent would have to read to answer the same question. That baseline is generous to the no-graph side: it assumes the agent already knows exactly which files to open, which is itself what the graph provides. Regenerate query set as needed; ratios depend on the ORE checkout (ORE_ENGINE).",
+    "version": 1
+  },
+  "questions": [
+    {"id": "s01", "question": "how is a swap priced", "mode": "bfs", "depth": 3},
+    {"id": "s02", "question": "how is a yield curve constructed", "mode": "bfs", "depth": 3},
+    {"id": "s03", "question": "how is an equity option trade built and priced", "mode": "bfs", "depth": 3},
+    {"id": "s04", "question": "how is sensitivity risk computed", "mode": "bfs", "depth": 3},
+    {"id": "s05", "question": "how are scenarios generated for simulation", "mode": "bfs", "depth": 3},
+    {"id": "s06", "question": "how is a bond priced", "mode": "bfs", "depth": 3},
+    {"id": "s07", "question": "how does the SABR volatility model work", "mode": "bfs", "depth": 3},
+    {"id": "s08", "question": "how is a portfolio loaded from XML", "mode": "bfs", "depth": 3}
+  ]
+}
