@@ -57,7 +57,10 @@ No API key is required. Everything else has a sensible default.
    python -m oregraph verify
    ```
 
-   `verify` must end with "All checks passed".
+   `verify` must end with "All checks passed". A trailing "(N warning(s))" is
+   fine — the most common is a few curated names not re-attaching when your
+   checkout is on a different commit than the labels were built against (see
+   Caveats). Only a `FAIL` line means the build is wrong.
 
 6. Wire it into your editor:
 

@@ -357,8 +357,11 @@ def cmd_verify(args):
     result = verify(cfg)
     print(format_report(result))
     # Exit non-zero on failure so CI and the post-merge hook can gate on it.
-    # Printing "FAILED" while exiting 0 made every check advisory.
-    return 1 if any(not c["ok"] for c in result["checks"]) else 0
+    # Printing "FAILED" while exiting 0 made every check advisory. Warnings
+    # (severity="warn", e.g. a few curated names not re-attaching off-baseline)
+    # are non-fatal by design and must not gate - only hard failures do.
+    return 1 if any(not c["ok"] and c.get("severity", "error") != "warn"
+                    for c in result["checks"]) else 0
 
 
 def main(argv=None):

@@ -14,8 +14,9 @@ from pathlib import Path
 def verify(cfg) -> dict:
     checks: list[dict] = []
 
-    def check(name, ok, detail):
-        checks.append({"check": name, "ok": bool(ok), "detail": detail})
+    def check(name, ok, detail, severity="error"):
+        checks.append({"check": name, "ok": bool(ok), "detail": detail,
+                       "severity": severity})
 
     path = cfg.merged_graph
     if not path.exists():
@@ -113,11 +114,21 @@ def verify(cfg) -> dict:
         if gap:
             missing[chunk] = gap
 
+    # A warning, not a failure: a handful of names failing to attach is the
+    # expected result of building against a different ORE commit than the
+    # anchors were pinned on - the corpus re-clusters and some anchors no
+    # longer win a community. That is harmless and must not fail the build
+    # (INSTALL.md's Caveats say as much). A wholesale collapse from a pipeline
+    # bug is the hard gate above - "curated-name retention rate" - which still
+    # fails. This check stays to name *which* names dropped, not to block.
     n_missing = sum(len(v) for v in missing.values())
     check("all curated names attached", not missing,
           "every curated name reached the merged graph" if not missing
-          else f"{n_missing} name(s) did not attach: " + "; ".join(
-              f"{c}: {', '.join(repr(x) for x in v)}" for c, v in missing.items()))
+          else f"{n_missing} name(s) did not attach (expected off-baseline; a "
+               "mass drop is caught by curated-name retention above): "
+               + "; ".join(f"{c}: {', '.join(repr(x) for x in v)}"
+                           for c, v in missing.items()),
+          severity="warn")
 
     # 6. every expected chunk contributed
     present = Counter(n.get("repo") for n in nodes)
@@ -175,11 +186,24 @@ def format_report(result: dict) -> str:
                  "ORE: not recorded in this graph - rebuild to capture it")
     lines.append("")
     for c in result["checks"]:
-        lines.append(f"[{'PASS' if c['ok'] else 'FAIL'}] {c['check']:34s} {c['detail']}")
+        if c["ok"]:
+            tag = "PASS"
+        elif c.get("severity") == "warn":
+            tag = "WARN"
+        else:
+            tag = "FAIL"
+        lines.append(f"[{tag}] {c['check']:34s} {c['detail']}")
     if "nodes" in result:
         lines.append(f"\n{result['nodes']:,} nodes  {result['edges']:,} edges  "
                      f"{result['cross_module_edges']:,} cross-module")
-    failed = [c for c in result["checks"] if not c["ok"]]
-    lines.append("\nAll checks passed." if not failed
-                 else f"\n{len(failed)} check(s) FAILED.")
+    failed = [c for c in result["checks"]
+              if not c["ok"] and c.get("severity", "error") != "warn"]
+    warned = [c for c in result["checks"]
+              if not c["ok"] and c.get("severity", "error") == "warn"]
+    if failed:
+        lines.append(f"\n{len(failed)} check(s) FAILED.")
+    elif warned:
+        lines.append(f"\nAll checks passed ({len(warned)} warning(s)).")
+    else:
+        lines.append("\nAll checks passed.")
     return "\n".join(lines)

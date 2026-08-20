@@ -66,9 +66,14 @@ Specifically compare the cross_module_edges count against the old build, which
 had 0, and the node count against the old build's 78,619.
 ```
 
-`verify` must end with **All checks passed**, including both label lines —
-`curated labels attached` and `all curated names attached`. The names come from
-`labels/` in this repo and re-attach themselves; there is no manual step.
+`verify` must end with **All checks passed** (a trailing `(N warning(s))` is
+fine). The line `curated labels attached` must PASS. `all curated names
+attached` is a **warning, not a failure**: when you build against a different
+ORE commit than the anchors were pinned on, a few names legitimately don't
+re-attach and it reports `WARN` with their names — harmless, and it no longer
+fails the build. A wholesale collapse is still a hard failure, caught by
+`curated-name retention rate`. The names come from `labels/` in this repo and
+re-attach themselves; there is no manual step.
 
 `ORESwig` may extract thin; graphify has no SWIG `.i` extractor, so you mostly
 get its Python tests. Not a problem.
