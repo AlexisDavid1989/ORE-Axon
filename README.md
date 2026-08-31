@@ -1,8 +1,9 @@
 # ORE Axon
 
 A queryable knowledge graph of the [ORE](https://github.com/OpenSourceRisk/Engine)
-codebase, wired into Claude Code and VS Code / Copilot over MCP so an agent can
-ask the architecture questions instead of grepping 5,000 files.
+codebase. VS Code / Copilot uses an opt-in workspace agent that queries the
+graph through the CLI, avoiding MCP policy restrictions and unnecessary source
+searches.
 
 Built on [graphify](https://pypi.org/project/graphifyy/). This repo is the ORE
 corpus map, the build pipeline, and the curated community names — roughly 1 MB.
@@ -41,6 +42,11 @@ phase with the exact prompts to paste.
 ## Quick start
 
 See [docs/INSTALL.md](docs/INSTALL.md) for setup.
+
+For Copilot, copy [agents/ore-axon.agent.md](agents/ore-axon.agent.md) into the
+Engine checkout's `.github/agents/` directory. Select **ore-axon** only for
+graph-backed questions; leave the default agent unchanged for no-graph control
+runs. No MCP server is required.
 
 **No API key is required.** Code is extracted structurally (AST); the documents
 and schemas were extracted once by an LLM and the results are committed under

@@ -351,6 +351,23 @@ def cmd_bench(args):
     return 0
 
 
+def cmd_query(args):
+    """Answer a question from the merged graph directly, without an MCP
+    client - the same render path `oregraph mcp` exposes, callable by anyone
+    whose org policy blocks workspace-defined MCP servers."""
+    from graphify import serve
+    cfg = _cfg(args)
+    _require_graphify(cfg)
+    if not cfg.merged_graph.exists():
+        print(f"error: {cfg.merged_graph} not found - run `build` first",
+              file=sys.stderr)
+        return 1
+    G = serve._load_graph(str(cfg.merged_graph))
+    print(serve._query_graph_text(
+        G, args.question, mode=args.mode, depth=min(args.depth, 6),
+        token_budget=args.budget))
+
+
 def cmd_verify(args):
     from .verify import verify, format_report
     cfg = _cfg(args)
@@ -426,6 +443,17 @@ def main(argv=None):
 
     p = sub.add_parser("verify", help="sanity-check the built graph")
     p.set_defaults(func=cmd_verify)
+
+    p = sub.add_parser("query",
+                       help="ask the merged graph a question directly, no MCP "
+                            "client required")
+    p.add_argument("question")
+    p.add_argument("--mode", choices=["bfs", "dfs"], default="bfs",
+                   help="bfs for broad context, dfs to trace a specific path")
+    p.add_argument("--depth", type=int, default=3)
+    p.add_argument("--budget", type=int, default=2000, metavar="TOKENS",
+                   help="raise this if the answer is truncated")
+    p.set_defaults(func=cmd_query)
 
     p = sub.add_parser("bench",
                        help="Graphify vs no-Graphify: graph-query tokens vs "

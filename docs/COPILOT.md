@@ -161,15 +161,25 @@ That commit is what means no teammate ever pays this cost again.
 
 ---
 
-## Phase 4 — Wire it up (2 min)
+## Phase 4 — Install the opt-in agent (2 min)
 
-```bash
-python -m oregraph mcp --host both
+From the ORE-Axon checkout in PowerShell:
+
+```powershell
+setx ORE_AXON "$PWD"
+New-Item -ItemType Directory -Force "$env:ORE_ENGINE\.github\agents" | Out-Null
+Copy-Item ".\agents\ore-axon.agent.md" "$env:ORE_ENGINE\.github\agents\ore-axon.agent.md"
 ```
 
-Writes `.mcp.json` (Claude Code) and `.vscode/mcp.json` (Copilot) into your
-Engine repo. Restart VS Code, then confirm the `graphify-ore` server is listed
-under MCP servers in the Copilot Chat tool picker.
+Close and reopen VS Code so it inherits `ORE_AXON`, then open the Engine repo.
+Select **ore-axon** from the agent picker when you want a graph-backed answer.
+The agent runs `python -m oregraph query` directly, so no MCP server or
+organization MCP permission is needed.
+
+Do not put graph-routing guidance in the Engine repo's
+`.github/copilot-instructions.md`: that file is loaded by the default agent and
+invalidates a graph-versus-no-graph control. Keep ORE Axon opt-in through the
+custom agent. For a control run, use the default agent without `/oreaxon`.
 
 Install the auto-rebuild hook so the graph tracks your checkout:
 
@@ -178,12 +188,56 @@ cp hooks/post-merge <Engine>/.git/hooks/post-merge
 chmod +x <Engine>/.git/hooks/post-merge
 ```
 
-Then try it, from inside the Engine repo:
+Then try it with **ore-axon** selected, from inside the Engine repo:
 
-> How does OREData's swap trade builder reach QuantExt's pricing engines?
+> Look up exactly this symbol at depth 1 and summarize its direct graph
+> neighbors: `FdDefaultableEquityJumpDiffusionConvertibleBondEngine`.
 
-That question could not be answered at all before phase 1 — there was no path
-between the two modules.
+The agent should pass only the identifier to `oregraph query`. This avoids the
+broad, noisy traversal produced by conceptual questions or by passing the full
+sentence to the retriever.
+
+The agent uses the same CLI command you can run manually from `ORE-Axon`:
+
+```bash
+python -m oregraph query "FdDefaultableEquityJumpDiffusionConvertibleBondEngine" --depth 1 --budget 2000
+```
+
+Add `--mode dfs` to trace one specific path instead of broad context, and
+`--budget N` if the output says `TRUNCATED`.
+
+### Why this setup is opt-in
+
+VS Code treats these as separate integration mechanisms:
+
+- An MCP server exposes tools, but organization policy can block it.
+- A workspace custom agent is defined by `.github/agents/<name>.agent.md`; the
+  filename supplies the name shown in the agent picker.
+- A skill or slash command is separate again and can be installed at user
+  level.
+- `.github/copilot-instructions.md` is always loaded by the default agent.
+
+Use the custom agent for ORE Axon and keep graph-routing text out of the
+always-on instructions. This makes selection explicit, works without MCP, and
+preserves the default agent as a genuine no-graph control.
+
+### Comparing graph and no-graph answers
+
+For a controlled comparison, open two new chats with the same selected model
+and ask exactly the same question:
+
+1. Select **ore-axon** for the graph-backed run.
+2. Select the default agent for the control; do not invoke `/oreaxon` or ask it
+   to use the knowledge graph.
+3. Save both chat-session logs and compare wall time, Copilot credits, factual
+   coverage, and source accuracy.
+
+Do not treat the final `promptTokens + completionTokens` snapshot as total
+session usage: an agent can make several model calls. Sum the distinct call
+snapshots for visible host usage. Even then, VS Code's parent session log does
+not expose delegated subagent token counts, and Copilot credits have no fixed
+token conversion. Report visible tokens and credits separately, and state that
+all-in token usage is unavailable when a subagent was used.
 
 ---
 

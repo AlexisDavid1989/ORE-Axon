@@ -3,7 +3,7 @@
 ## Prerequisites
 
 - **Python 3.12** and `pip`.
-- **git** on your PATH — the build, merge and `mcp` steps shell out to it.
+- **git** on your PATH — the build and merge steps shell out to it.
 - **~1 GB of free disk** for the graph and its intermediates.
 - **Access to the package index that serves `graphifyy==0.9.44`.** The pinned
   version lives on the internal mirror, not public PyPI (see step 1).
@@ -57,20 +57,55 @@ No API key is required. Everything else has a sensible default.
    python -m oregraph verify
    ```
 
-   `verify` must end with "All checks passed". A trailing "(N warning(s))" is
-   fine — the most common is a few curated names not re-attaching when your
-   checkout is on a different commit than the labels were built against (see
-   Caveats). Only a `FAIL` line means the build is wrong.
+   `verify` must end with "All checks passed".
 
-6. Wire it into your editor:
+6. Make the ORE-Axon checkout discoverable by the custom agent:
 
-   ```bash
-   python -m oregraph mcp --host both
+   ```powershell
+   setx ORE_AXON "C:\path\to\ORE-Axon"
    ```
 
-7. Restart VS Code, open your Engine repo (not ORE-Axon), and ask:
+   Close VS Code after running `setx`; newly opened windows will inherit it.
+   In the new terminal, verify that the configured checkout provides the query
+   command:
 
-   > How does OREData's swap trade builder reach QuantExt's pricing engines?
+   ```powershell
+   Set-Location $env:ORE_AXON
+   python -c "import oregraph.cli; print(oregraph.cli.__file__)"
+   python -m oregraph query --help
+   ```
+
+   The printed module path must be inside your ORE-Axon checkout. If the help
+   command says `query` is invalid, update the checkout or correct `ORE_AXON`;
+   do not continue with the agent installation.
+
+7. Install the repository's Copilot agent in your Engine checkout:
+
+   ```powershell
+   New-Item -ItemType Directory -Force "$env:ORE_ENGINE\.github\agents" | Out-Null
+   Copy-Item ".\agents\ore-axon.agent.md" "$env:ORE_ENGINE\.github\agents\ore-axon.agent.md"
+   ```
+
+   Do not add Graphify or ORE-Axon guidance to the Engine repository's
+   `.github/copilot-instructions.md`. Those instructions are always loaded and
+   can make ordinary control questions use the graph. The custom agent is
+   intentionally opt-in.
+
+8. Restart VS Code, open your Engine repo (not ORE-Axon), select **ore-axon**
+   from the agent picker, and ask:
+
+   > Look up exactly this symbol at depth 1 and summarize its direct graph
+   > neighbors: `FdDefaultableEquityJumpDiffusionConvertibleBondEngine`.
+
+   The agent should pass only the identifier, not the full sentence, to
+   `oregraph query`. It should produce 30 nodes without truncation, including
+   `DefaultableEquityJumpDiffusionModel`, the discounting and credit inputs,
+   `FxIndex`, `calculate`, `softCallBarrier`, and the conversion-ratio grid.
+   It is a better installation check than a broad question about how swaps
+   reach pricing engines, which can match hundreds of loosely related nodes.
+
+   Ask the same question with the default agent when you need a no-graph
+   control. Do not select **ore-axon** and do not invoke `/oreaxon` for that run.
 
 ## Caveats
 
@@ -78,7 +113,7 @@ No API key is required. Everything else has a sensible default.
   commit than the one the curated labels in `labels/` were built against, a
   few community names may not re-attach — harmless, those communities just
   show up unnamed instead of missing.
-- MCP configs (`.mcp.json`, `.vscode/mcp.json`) are written into your Engine
-  repo and are **per-machine** — never commit them.
+- MCP is not required. The recommended Copilot integration calls
+   `python -m oregraph query` through the workspace custom agent.
 - Queries need a concrete symbol name as the entry point. `"portfolio/swap.hpp"`
   finds nothing; `"TradeFactory"` works.
