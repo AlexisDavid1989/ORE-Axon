@@ -218,6 +218,13 @@ def verify(cfg) -> dict:
                     "ConvertibleBond::build reaches its FD engine within 4 hops through a "
                     "uses and constructs edge")
 
+    from .query import load_path_graph, query_flow
+    flow_output = query_flow(load_path_graph(path), "ConvertibleBond")
+    discovered_engine = (
+        "FdDefaultableEquityJumpDiffusionConvertibleBondEngine" in flow_output)
+    check("convertible pricing endpoint discovered", discovered_engine,
+          "query-flow discovers the FD engine from ConvertibleBond alone")
+
     return {"checks": checks, "ore": ore,
             "nodes": len(nodes), "edges": len(links),
             "cross_module_edges": cross}

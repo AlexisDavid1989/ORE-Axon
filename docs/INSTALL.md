@@ -72,6 +72,7 @@ No API key is required. Everything else has a sensible default.
    ```powershell
    Set-Location $env:ORE_AXON
    python -c "import oregraph.cli; print(oregraph.cli.__file__)"
+   python -m oregraph query-flow --help
    python -m oregraph query-path --help
    python -m oregraph query-symbol --help
    python -m oregraph query-batch --help
@@ -121,7 +122,8 @@ No API key is required. Everything else has a sensible default.
    `python -m oregraph query` through the workspace custom agent.
 - Queries need a concrete symbol name as the entry point. `"portfolio/swap.hpp"`
   finds nothing; `"TradeFactory"` works.
-- Use `query-symbol` for ranked exact neighborhoods, `query-path` for
+- Use `query-symbol` for ranked exact neighborhoods, `query-flow` to discover
+   pricing/build endpoints without guessing names, `query-path` for
    implementation flow between known symbols, and `query-batch` for several
    exact neighborhoods. Use `query-impact` for direct
    incoming and outgoing semantic dependencies, and `query-example` for a

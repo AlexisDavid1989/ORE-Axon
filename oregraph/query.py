@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import heapq
 from itertools import product
 from pathlib import PurePosixPath
 from pathlib import Path
@@ -24,6 +25,8 @@ CONFIDENCE_COST = {"RESOLVED": 0.0, "EXTRACTED": 0.2, "INFERRED": 2.5}
 IMPACT_RELATIONS = {"calls", "constructs", "registers", "returns", "uses",
                     "inherits", "references"}
 BUNDLE_RELATIONS = IMPACT_RELATIONS | {"defines", "imports"}
+FLOW_RELATIONS = {"calls", "constructs", "registers", "uses", "inherits",
+                  "references"}
 
 
 def load_path_graph(path: Path):
@@ -329,4 +332,91 @@ def query_symbol(graph, symbol: str, limit: int = 40) -> str:
                      f"[src={_source(other_data)}]")
     if len(records) > limit:
         lines.append(f"TRUNCATED: {len(records) - limit} more links")
+    return "\n".join(lines)
+
+
+def _flow_category(label: str, source: str) -> str | None:
+    lowered_label = label.casefold()
+    lowered_source = source.casefold()
+    if lowered_label.endswith("engine"):
+        return "pricing engines"
+    if lowered_label.endswith(("builder", "model")):
+        return "builders/models"
+    if ("/instruments/" in lowered_source and label[:1].isupper()
+            and "::" not in label):
+        return "instruments"
+    return None
+
+
+def query_flow(graph, symbol: str, max_hops: int = 4,
+               per_category: int = 3) -> str:
+    """Discover implementation endpoints and paths without guessing labels."""
+    qualified = f"{symbol}::build" if "::" not in symbol else symbol
+    starts = resolve_exact(graph, qualified)
+    start_name = qualified
+    if not starts:
+        starts = resolve_exact(graph, symbol)
+        start_name = symbol
+    if not starts:
+        return f"NO EXACT MATCH: {symbol}"
+
+    search_graph = graph.to_undirected(as_view=True)
+    frontier = [(0.0, 0, str(node_id), node_id, [node_id], False)
+                for node_id in starts]
+    heapq.heapify(frontier)
+    best = {node_id: (0.0, 0) for node_id in starts}
+    candidates: dict[str, list[tuple[float, int, str, list]]] = {
+        "instruments": [], "builders/models": [], "pricing engines": []}
+    while frontier:
+        cost, hops, _order, node_id, path, meaningful = heapq.heappop(frontier)
+        if (cost, hops) > best.get(node_id, (float("inf"), max_hops + 1)):
+            continue
+        if hops and meaningful:
+            data = graph.nodes[node_id]
+            label = _label(node_id, data)
+            category = _flow_category(label, _source(data))
+            if category:
+                candidates[category].append(
+                    (cost, len(path), str(node_id), path))
+        if hops >= max_hops:
+            continue
+        for neighbor in search_graph.neighbors(node_id):
+            edge, _reversed = _edge_data(graph, node_id, neighbor)
+            relation = str(edge.get("relation", "")).lower()
+            if relation not in FLOW_RELATIONS:
+                continue
+            next_cost = cost + _weight(
+                node_id, neighbor,
+                search_graph.get_edge_data(node_id, neighbor) or {})
+            next_state = (next_cost, hops + 1)
+            if next_state >= best.get(neighbor, (float("inf"), max_hops + 1)):
+                continue
+            best[neighbor] = next_state
+            next_meaningful = meaningful or relation in (
+                "constructs", "uses", "registers")
+            heapq.heappush(frontier, (
+                next_cost, hops + 1, str(neighbor), neighbor,
+                path + [neighbor], next_meaningful))
+
+    lines = [f"Implementation flow from: {start_name}"]
+    for category in ("instruments", "builders/models", "pricing engines"):
+        lines.append(f"{category.upper()}:")
+        ranked = sorted(candidates[category])[:per_category]
+        if not ranked:
+            lines.append("  NO ENDPOINT FOUND")
+            continue
+        for _cost, _length, _node_id, path in ranked:
+            first = graph.nodes[path[0]]
+            lines.append(f"  NODE {_label(path[0], first)} [src={_source(first)}]")
+            for source, target in zip(path, path[1:]):
+                edge, reversed_edge = _edge_data(graph, source, target)
+                relation = edge.get("relation", "related")
+                confidence = edge.get("confidence", "")
+                suffix = f" [{confidence}]" if confidence else ""
+                target_data = graph.nodes[target]
+                arrow = "<--" if reversed_edge else "--"
+                end = "--" if reversed_edge else "-->"
+                lines.append(
+                    f"    {arrow}{relation}{suffix}{end} "
+                    f"{_label(target, target_data)} [src={_source(target_data)}]")
     return "\n".join(lines)

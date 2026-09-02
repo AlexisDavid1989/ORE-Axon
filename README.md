@@ -57,6 +57,8 @@ and schemas were extracted once by an LLM and the results are committed under
 **Works well — structural questions.** Use `oregraph query-symbol X` for an
 exact symbol, `oregraph query` for a broad concept, `oregraph query-path A B`
 for a compact implementation corridor,
+`oregraph query-flow X` to discover concrete pricing and build endpoints
+without guessing their names,
 `oregraph query-batch A B C` for several exact neighborhoods with one graph
 load, `oregraph query-impact X` for directional blast radius, and
 `oregraph query-example X` for a categorized implementation analogue before
@@ -76,8 +78,9 @@ asked that question, `shortest_path` matches the `ScriptedTrade` *class* and
 returns a confident-looking code-to-code path, never touching the 31 documentation
 nodes on the subject. Treat any docs↔code answer as unfounded. Planned for v1.1.
 
-**Use the right mode.** `query-path` answers implementation flow between known
-symbols; it does not replace broad discovery or reverse-impact analysis. Generic
+**Use the right mode.** `query-flow` discovers endpoints from one trade symbol;
+`query-path` answers implementation flow between known symbols. Neither replaces
+broad discovery or reverse-impact analysis. Generic
 file includes remain weaker evidence than `calls`, `constructs`, `registers`,
 `uses`, and `inherits`. Avoid DFS on broad questions; it returns thousands of
 loosely related nodes.

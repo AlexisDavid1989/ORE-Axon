@@ -201,15 +201,18 @@ The agent uses the same CLI commands you can run manually from `ORE-Axon`:
 
 ```bash
 python -m oregraph query-symbol "FdDefaultableEquityJumpDiffusionConvertibleBondEngine" --limit 40
+python -m oregraph query-flow ConvertibleBond --max-hops 4 --per-category 3
 python -m oregraph query-path "ConvertibleBond::build" ConvertibleBond2
 python -m oregraph query-batch ConvertibleBond ConvertibleBond2 --limit 40
 python -m oregraph query-impact ConvertibleBond2 --limit 40
 python -m oregraph query-example EquityOption --depth 2 --limit 80
 ```
 
-Use `query-symbol` for a ranked exact neighborhood, `query-path` for a compact
-implementation corridor, and `query-batch` when several exact symbols are
-needed. Use `query-impact` for directional callers,
+Use `query-symbol` for a ranked exact neighborhood and `query-flow` to discover
+concrete pricing/build endpoints from one trade symbol. Copy endpoint labels
+verbatim from its output; do not guess or concatenate class names. Use
+`query-path` for a compact corridor between known endpoints and `query-batch`
+when several exact symbols are needed. Use `query-impact` for directional callers,
 callees, and typed dependencies. Use `query-example` to gather an existing
 implementation bundle before creating similar code; it explicitly marks
 missing schema or test context. Keep `query` BFS for broad concepts, and add

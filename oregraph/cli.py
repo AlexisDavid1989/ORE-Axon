@@ -384,6 +384,22 @@ def cmd_query_path(args):
     return 1 if result.startswith(("NO ", "PATH TOO LONG")) else 0
 
 
+def cmd_query_flow(args):
+    """Discover ranked implementation endpoints from a concrete symbol."""
+    from .query import load_path_graph, query_flow
+    cfg = _cfg(args)
+    _require_graphify(cfg)
+    if not cfg.merged_graph.exists():
+        print(f"error: {cfg.merged_graph} not found - run `build` first",
+              file=sys.stderr)
+        return 1
+    result = query_flow(load_path_graph(cfg.merged_graph), args.symbol,
+                        max_hops=args.max_hops,
+                        per_category=args.per_category)
+    print(result)
+    return 1 if result.startswith("NO EXACT MATCH") else 0
+
+
 def cmd_query_batch(args):
     """Query several exact symbols while loading the merged graph once."""
     from .query import load_path_graph, query_symbol
@@ -539,6 +555,13 @@ def main(argv=None):
     p.add_argument("symbols", nargs="+", metavar="SYMBOL")
     p.add_argument("--max-hops", type=int, default=12)
     p.set_defaults(func=cmd_query_path)
+
+    p = sub.add_parser("query-flow",
+                       help="discover implementation endpoints and paths")
+    p.add_argument("symbol", metavar="SYMBOL")
+    p.add_argument("--max-hops", type=int, default=4)
+    p.add_argument("--per-category", type=int, default=3)
+    p.set_defaults(func=cmd_query_flow)
 
     p = sub.add_parser("query-batch",
                        help="query several exact symbols with one graph load")

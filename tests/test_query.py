@@ -2,7 +2,7 @@ import unittest
 
 import networkx as nx
 
-from oregraph.query import (query_example, query_impact, query_path,
+from oregraph.query import (query_example, query_flow, query_impact, query_path,
                             query_symbol, resolve_exact)
 
 
@@ -64,6 +64,30 @@ class QueryPathTest(unittest.TestCase):
         self.assertIn("BUILDER:", output)
         self.assertIn("OREData/ored/portfolio/builders/trade.hpp", output)
         self.assertIn("SCHEMA:\n  MISSING FROM CONNECTED GRAPH CONTEXT", output)
+
+    def test_flow_discovers_endpoint_without_target_name(self):
+        graph = nx.MultiDiGraph()
+        graph.add_node("trade", label="ConvertibleBond",
+                       repo_path="OREData/ored/portfolio/convertiblebond.hpp")
+        graph.add_node("build", label="build",
+                       repo_path="OREData/ored/portfolio/convertiblebond.hpp")
+        graph.add_node("builder", label="ConvertibleBondEngineBuilder",
+                       repo_path="OREData/ored/portfolio/builders/convertiblebond.hpp")
+        graph.add_node("engine", label="FdConvertibleBondEngine",
+                       repo_path="QuantExt/qle/pricingengines/fdconvertiblebondengine.hpp")
+        graph.add_node("calculate", label="calculate",
+                   repo_path="QuantExt/qle/pricingengines/fdconvertiblebondengine.cpp")
+        graph.add_edge("build", "builder", relation="uses", confidence="RESOLVED")
+        graph.add_edge("builder", "engine", relation="constructs", confidence="RESOLVED")
+        graph.add_edge("builder", "calculate", relation="calls", confidence="RESOLVED")
+
+        output = query_flow(graph, "ConvertibleBond")
+
+        self.assertIn("Implementation flow from: ConvertibleBond::build", output)
+        self.assertIn("PRICING ENGINES:", output)
+        self.assertIn("FdConvertibleBondEngine", output)
+        self.assertIn("--constructs [RESOLVED]-->", output)
+        self.assertNotIn("calculate", output)
 
 
 if __name__ == "__main__":

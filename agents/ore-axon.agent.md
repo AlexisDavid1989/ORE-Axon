@@ -37,6 +37,7 @@ or attempt to configure an MCP server.
    that exact problem and stop instead of reading ORE source.
 2. Classify the request before querying:
    - exact symbol or named domain entity: shallow symbol neighborhood;
+   - pricing or build flow from one domain symbol: discover concrete endpoints;
    - implementation flow between known symbols: ranked path corridor;
    - reverse dependency or change impact: inspect incoming and outgoing paths;
    - broad architecture or domain concept: community-guided BFS;
@@ -56,14 +57,23 @@ or attempt to configure an MCP server.
    as such. Do not rerun merely because the result contains many neighbors;
    rerun only when the output explicitly says `TRUNCATED` or the required
    detail is absent.
-5. For an implementation path with known endpoints, use the compact path mode:
+5. For a pricing or build-flow question without a known endpoint, discover the
+   concrete implementation endpoints first:
+   ```powershell
+   python -m oregraph query-flow "TradeSymbol" --max-hops 4 --per-category 3
+   ```
+   Copy endpoint labels verbatim from this output. Never synthesize,
+   concatenate, or guess a builder, model, instrument, or pricing-engine name.
+   If a discovered path needs more detail, pass those exact labels to
+   `query-path` or `query-symbol`.
+6. For an implementation path with known endpoints, use the compact path mode:
    ```powershell
    python -m oregraph query-path "OwningClass::method" "TargetClass"
    ```
    Path search is bidirectional for discovery, but the rendered arrows preserve
    stored edge direction. Prefer paths containing `calls`, `constructs`,
    `registers`, `uses`, or `inherits` over paths made only of file structure.
-6. When several exact symbols are needed, load the graph once:
+7. When several exact symbols are needed, load the graph once:
    ```powershell
    python -m oregraph query-batch SymbolA SymbolB SymbolC --limit 40
    ```
@@ -75,7 +85,7 @@ or attempt to configure an MCP server.
    Use its trade/data, builder, pricing/model, schema, tests, and support files.
    Source-search only categories reported as `MISSING FROM CONNECTED GRAPH
    CONTEXT`. Do not infer a new design from one generic framework node.
-7. For a broad question without a concrete symbol, use BFS depth 2 with the
+8. For a broad question without a concrete symbol, use BFS depth 2 with the
    default 2,000-token budget:
    ```powershell
    python -m oregraph query "<user question>" --mode bfs --depth 2 --budget 2000
@@ -83,20 +93,20 @@ or attempt to configure an MCP server.
    Increase depth or budget only when the narrower result is insufficient or
    explicitly reports `TRUNCATED`. Do not replace broad discovery with shortest
    path retrieval; these modes answer different questions.
-8. For reverse dependencies or change impact, query the changed symbol first,
+9. For reverse dependencies or change impact, query the changed symbol first,
    then use its directional semantic neighborhood:
    ```powershell
    python -m oregraph query-impact "ChangedSymbol" --limit 40
    ```
    Distinguish callers from callees using `IN` and `OUT`; do not treat an
    undirected route or a file include as call flow.
-9. When the question asks how a symbol works, its pricing method, numerical
+10. When the question asks how a symbol works, its pricing method, numerical
    method, algorithm, or implementation mechanics, follow the first query's
    `src=` references into the ORE checkout. Read the owning implementation and
    directly referenced model or helper files needed to verify those mechanics.
-10. Follow `src=` references into the ORE checkout when source confirmation is
+11. Follow `src=` references into the ORE checkout when source confirmation is
    otherwise needed.
-11. If the graph does not exist, tell the user to run these commands from
+12. If the graph does not exist, tell the user to run these commands from
    `ORE_AXON`:
    ```powershell
    python -m oregraph build
