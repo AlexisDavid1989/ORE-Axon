@@ -218,6 +218,14 @@ implementation bundle before creating similar code; it explicitly marks
 missing schema or test context. Keep `query` BFS for broad concepts, and add
 `--budget N` only if its output says `TRUNCATED`.
 
+Treat a `query-flow` path that already reaches the requested endpoint as the
+complete topology result: do not repeat it with `query-path` or fetch the same
+nodes with `query-batch`. Run graph commands separately and never rerun one with
+identical arguments. For source-level mechanics, open the exact returned
+`src=` paths, starting with at most the trade, builder, concrete engine, and
+model implementations. Search only inside those files unless a required
+dependency remains unresolved.
+
 ### Why this setup is opt-in
 
 VS Code treats these as separate integration mechanisms:

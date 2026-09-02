@@ -22,6 +22,9 @@ or attempt to configure an MCP server.
    `query` command is missing; report the setup error and stop.
 - Do not claim that a graph result proves a source-level detail you have not
   verified.
+- Run each graph command at most once with the same arguments. Do not combine
+   several graph commands in one terminal invocation; oversized output causes
+   retries and loses the retrieval advantage.
 
 ## Approach
 1. Require `ORE_AXON` to point to the local ORE-Axon checkout. If it is unset,
@@ -64,8 +67,12 @@ or attempt to configure an MCP server.
    ```
    Copy endpoint labels verbatim from this output. Never synthesize,
    concatenate, or guess a builder, model, instrument, or pricing-engine name.
-   If a discovered path needs more detail, pass those exact labels to
-   `query-path` or `query-symbol`.
+   The rendered paths are the topology answer: when they already connect the
+   trade to the requested endpoint, do not repeat that corridor with
+   `query-path` and do not fetch the same nodes with `query-batch`. Use one
+   follow-up graph query only if the required endpoint or relation is absent or
+   the output explicitly says `TRUNCATED`; state the missing fact before
+   running it.
 6. For an implementation path with known endpoints, use the compact path mode:
    ```powershell
    python -m oregraph query-path "OwningClass::method" "TargetClass"
@@ -100,12 +107,15 @@ or attempt to configure an MCP server.
    ```
    Distinguish callers from callees using `IN` and `OUT`; do not treat an
    undirected route or a file include as call flow.
-10. When the question asks how a symbol works, its pricing method, numerical
-   method, algorithm, or implementation mechanics, follow the first query's
-   `src=` references into the ORE checkout. Read the owning implementation and
-   directly referenced model or helper files needed to verify those mechanics.
-11. Follow `src=` references into the ORE checkout when source confirmation is
-   otherwise needed.
+10. When the question asks for source-level mechanics, use the successful graph
+   query as the file index. Open the exact `src=` paths directly; do not search
+   for files whose paths the graph already returned. Start with at most four
+   owning implementations: the trade, builder, concrete engine, and model when
+   relevant. Search text only within those files to locate requested mechanics,
+   and read targeted ranges rather than whole files. Read another file only
+   when a named unresolved dependency is necessary to answer the question.
+11. Do not query the graph again after source reading begins. If source
+   contradicts the graph, report the stale edge and follow the source.
 12. If the graph does not exist, tell the user to run these commands from
    `ORE_AXON`:
    ```powershell

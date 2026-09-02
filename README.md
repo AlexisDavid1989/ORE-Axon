@@ -85,6 +85,12 @@ file includes remain weaker evidence than `calls`, `constructs`, `registers`,
 `uses`, and `inherits`. Avoid DFS on broad questions; it returns thousands of
 loosely related nodes.
 
+For pricing-flow questions, the `query-flow` paths are the topology result. Do
+not repeat a corridor with `query-path` when the endpoint is already present.
+For implementation mechanics, open the returned `src=` paths directly and
+start with the trade, builder, engine, and model implementations instead of
+rediscovering those files through broad source searches.
+
 **Queries need a real symbol as the entry point.** `"portfolio/swap.hpp"` finds
 nothing; `"TradeFactory"` works. Start from a class or function name, not a path.
 
