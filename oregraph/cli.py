@@ -348,7 +348,8 @@ def cmd_bench(args):
     result = bench.run(cfg, source_path=spath)
     print("\n" + result["_report"])
     print(f"\nwrote {result['_paths']['report']}\n      {result['_paths']['results']}")
-    return 0
+    paths = result.get("path_quality", {}).get("totals", {})
+    return 1 if paths.get("passed", 0) < paths.get("cases", 0) else 0
 
 
 def cmd_query(args):
@@ -366,6 +367,84 @@ def cmd_query(args):
     print(serve._query_graph_text(
         G, args.question, mode=args.mode, depth=min(args.depth, 6),
         token_budget=args.budget))
+
+
+def cmd_query_path(args):
+    """Render a compact, relation-ranked corridor between exact symbols."""
+    from .query import load_path_graph, query_path
+    cfg = _cfg(args)
+    _require_graphify(cfg)
+    if not cfg.merged_graph.exists():
+        print(f"error: {cfg.merged_graph} not found - run `build` first",
+              file=sys.stderr)
+        return 1
+    graph = load_path_graph(cfg.merged_graph)
+    result = query_path(graph, args.symbols, max_hops=args.max_hops)
+    print(result)
+    return 1 if result.startswith(("NO ", "PATH TOO LONG")) else 0
+
+
+def cmd_query_batch(args):
+    """Query several exact symbols while loading the merged graph once."""
+    from .query import load_path_graph, query_symbol
+    cfg = _cfg(args)
+    _require_graphify(cfg)
+    if not cfg.merged_graph.exists():
+        print(f"error: {cfg.merged_graph} not found - run `build` first",
+              file=sys.stderr)
+        return 1
+    graph = load_path_graph(cfg.merged_graph)
+    for index, symbol in enumerate(args.symbols):
+        if index:
+            print()
+        print(f"=== {symbol} ===")
+        print(query_symbol(graph, symbol, limit=args.limit))
+    return 0
+
+
+def cmd_query_symbol(args):
+    """Render a ranked, multigraph-aware exact-symbol neighborhood."""
+    from .query import load_path_graph, query_symbol
+    cfg = _cfg(args)
+    _require_graphify(cfg)
+    if not cfg.merged_graph.exists():
+        print(f"error: {cfg.merged_graph} not found - run `build` first",
+              file=sys.stderr)
+        return 1
+    result = query_symbol(load_path_graph(cfg.merged_graph), args.symbol,
+                          limit=args.limit)
+    print(result)
+    return 1 if result.startswith("NO EXACT MATCH") else 0
+
+
+def cmd_query_impact(args):
+    """Render direct callers, callees and typed dependencies for a symbol."""
+    from .query import load_path_graph, query_impact
+    cfg = _cfg(args)
+    _require_graphify(cfg)
+    if not cfg.merged_graph.exists():
+        print(f"error: {cfg.merged_graph} not found - run `build` first",
+              file=sys.stderr)
+        return 1
+    result = query_impact(load_path_graph(cfg.merged_graph), args.symbol,
+                          limit=args.limit)
+    print(result)
+    return 1 if result.startswith("NO EXACT MATCH") else 0
+
+
+def cmd_query_example(args):
+    """Retrieve a categorized implementation bundle for an analogue."""
+    from .query import load_path_graph, query_example
+    cfg = _cfg(args)
+    _require_graphify(cfg)
+    if not cfg.merged_graph.exists():
+        print(f"error: {cfg.merged_graph} not found - run `build` first",
+              file=sys.stderr)
+        return 1
+    result = query_example(load_path_graph(cfg.merged_graph), args.symbol,
+                           depth=min(args.depth, 3), limit=args.limit)
+    print(result)
+    return 1 if result.startswith("NO EXACT MATCH") else 0
 
 
 def cmd_verify(args):
@@ -450,10 +529,41 @@ def main(argv=None):
     p.add_argument("question")
     p.add_argument("--mode", choices=["bfs", "dfs"], default="bfs",
                    help="bfs for broad context, dfs to trace a specific path")
-    p.add_argument("--depth", type=int, default=3)
+    p.add_argument("--depth", type=int, default=2)
     p.add_argument("--budget", type=int, default=2000, metavar="TOKENS",
                    help="raise this if the answer is truncated")
     p.set_defaults(func=cmd_query)
+
+    p = sub.add_parser("query-path",
+                       help="connect exact symbols with a compact ranked path")
+    p.add_argument("symbols", nargs="+", metavar="SYMBOL")
+    p.add_argument("--max-hops", type=int, default=12)
+    p.set_defaults(func=cmd_query_path)
+
+    p = sub.add_parser("query-batch",
+                       help="query several exact symbols with one graph load")
+    p.add_argument("symbols", nargs="+", metavar="SYMBOL")
+    p.add_argument("--limit", type=int, default=40)
+    p.set_defaults(func=cmd_query_batch)
+
+    p = sub.add_parser("query-symbol",
+                       help="show a ranked exact-symbol neighborhood")
+    p.add_argument("symbol", metavar="SYMBOL")
+    p.add_argument("--limit", type=int, default=40)
+    p.set_defaults(func=cmd_query_symbol)
+
+    p = sub.add_parser("query-impact",
+                       help="show direct incoming and outgoing semantic links")
+    p.add_argument("symbol", metavar="SYMBOL")
+    p.add_argument("--limit", type=int, default=40)
+    p.set_defaults(func=cmd_query_impact)
+
+    p = sub.add_parser("query-example",
+                       help="retrieve a source bundle for an existing analogue")
+    p.add_argument("symbol", metavar="SYMBOL")
+    p.add_argument("--depth", type=int, default=2)
+    p.add_argument("--limit", type=int, default=80)
+    p.set_defaults(func=cmd_query_example)
 
     p = sub.add_parser("bench",
                        help="Graphify vs no-Graphify: graph-query tokens vs "

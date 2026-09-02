@@ -72,11 +72,15 @@ No API key is required. Everything else has a sensible default.
    ```powershell
    Set-Location $env:ORE_AXON
    python -c "import oregraph.cli; print(oregraph.cli.__file__)"
-   python -m oregraph query --help
+   python -m oregraph query-path --help
+   python -m oregraph query-symbol --help
+   python -m oregraph query-batch --help
+   python -m oregraph query-impact --help
+   python -m oregraph query-example --help
    ```
 
    The printed module path must be inside your ORE-Axon checkout. If the help
-   command says `query` is invalid, update the checkout or correct `ORE_AXON`;
+   commands are invalid, update the checkout or correct `ORE_AXON`;
    do not continue with the agent installation.
 
 7. Install the repository's Copilot agent in your Engine checkout:
@@ -98,7 +102,7 @@ No API key is required. Everything else has a sensible default.
    > neighbors: `FdDefaultableEquityJumpDiffusionConvertibleBondEngine`.
 
    The agent should pass only the identifier, not the full sentence, to
-   `oregraph query`. It should produce 30 nodes without truncation, including
+   `oregraph query-symbol`. It should include
    `DefaultableEquityJumpDiffusionModel`, the discounting and credit inputs,
    `FxIndex`, `calculate`, `softCallBarrier`, and the conversion-ratio grid.
    It is a better installation check than a broad question about how swaps
@@ -117,3 +121,9 @@ No API key is required. Everything else has a sensible default.
    `python -m oregraph query` through the workspace custom agent.
 - Queries need a concrete symbol name as the entry point. `"portfolio/swap.hpp"`
   finds nothing; `"TradeFactory"` works.
+- Use `query-symbol` for ranked exact neighborhoods, `query-path` for
+   implementation flow between known symbols, and `query-batch` for several
+   exact neighborhoods. Use `query-impact` for direct
+   incoming and outgoing semantic dependencies, and `query-example` for a
+   categorized existing implementation when planning code creation. These
+   commands keep broad conceptual BFS available for discovery.

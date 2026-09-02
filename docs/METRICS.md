@@ -169,6 +169,27 @@ selection - the real no-graph alternative is grepping and reading whole modules.
 Reproduce: `python -m oregraph bench`. Results land in
 `<ORE_GRAPH_OUT>/bench/report.md` and `results.json`.
 
+---
+
+## 4. Golden implementation-path quality
+
+The token comparison above does not prove that retrieval found the required
+implementation route. `oregraph bench` now also runs the committed cases in
+`bench/path_questions.json`. Each case requires exact endpoint resolution, a
+maximum hop count, required semantic relations, and a compact output budget.
+
+Baseline after adding deterministic C++ symbol links and ranked path retrieval:
+
+| path | output tokens | required relation | result |
+|---|--:|---|---|
+| ConvertibleBond::build → FD engine | 123 | uses, constructs | PASS |
+| ConvertibleBond::build → model builder | 123 | uses, constructs | PASS |
+| ConvertibleBond::build → ConvertibleBond2 | 48 | constructs | PASS |
+
+**Headline: 3/3 golden implementation paths pass.** `oregraph verify` also
+gates the convertible-to-engine route so a future merge cannot silently leave
+the nodes present but disconnected.
+
 
 
 

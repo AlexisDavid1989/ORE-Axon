@@ -26,6 +26,7 @@ from . import config as configmod
 from .chunks import Chunk
 from .labels import attach_labels
 from .link import link
+from .symbol_links import link_symbols
 
 
 def load_graph(path: Path) -> dict:
@@ -132,6 +133,17 @@ def merge(engine: Path, chunks: list[Chunk], graph_paths: dict[str, Path],
         log(f"    ignored (no INCLUDE_ROOTS prefix matched): "
             f"{link_stats['ignored_non_ore_prefix']} - top prefixes: {link_stats['ignored_by_prefix']}")
 
+    # Explicit construction, qualified-call and registration evidence is
+    # recovered after namespacing so it can connect symbols across chunks.
+    symbol_edges, symbol_stats = link_symbols(engine, merged_nodes)
+    existing = {(edge["source"], edge["target"], edge.get("relation"))
+                for edge in merged_links}
+    symbol_edges = [edge for edge in symbol_edges
+                    if (edge["source"], edge["target"], edge["relation"]) not in existing]
+    merged_links.extend(symbol_edges)
+    symbol_stats["symbol_edges"] = len(symbol_edges)
+    log(f"  symbol links: {symbol_stats}")
+
     ore = configmod.ore_version(engine)
     ore["graphify_version"] = configmod.graphify_version()
     ore["built_at"] = datetime.now(timezone.utc).isoformat()
@@ -143,6 +155,7 @@ def merge(engine: Path, chunks: list[Chunk], graph_paths: dict[str, Path],
                   "chunks": sorted(graphs),
                   "cross_module_edges": len(fixed_cross),
                   "link_stats": link_stats,
+                  "symbol_link_stats": symbol_stats,
                   "ore": ore},
         "nodes": merged_nodes,
         "links": merged_links,
@@ -157,6 +170,7 @@ def merge(engine: Path, chunks: list[Chunk], graph_paths: dict[str, Path],
         "nodes": len(merged_nodes),
         "edges": len(merged_links),
         "cross_module_edges": len(fixed_cross),
+        "symbol_edges": len(symbol_edges),
         "labelled_communities": labelled,
         "labels": label_stats,
         "link": link_stats,

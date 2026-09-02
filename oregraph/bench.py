@@ -49,8 +49,10 @@ class GraphAdapter:
 
     def __init__(self, graph_path: Path):
         from graphify import serve  # imported lazily: needs graphify installed
+        from .query import load_path_graph
         self._serve = serve
         self.G = serve._load_graph(str(graph_path))
+        self.path_graph = load_path_graph(graph_path)
 
     def query_graph(self, question: str, *, mode: str = "bfs", depth: int = 3,
                     token_budget: int = 2000) -> str:
@@ -127,6 +129,34 @@ def run_vs_source(adapter: GraphAdapter, questions: list[dict], engine: Path,
     }
 
 
+def run_path_quality(adapter: GraphAdapter, cases: list[dict], log=print) -> dict:
+    """Check that compact paths contain the relations required by a rubric."""
+    from .query import query_path
+
+    rows = []
+    for case in cases:
+        output = query_path(adapter.path_graph, case["symbols"],
+                            max_hops=case.get("max_hops", 12))
+        tokens = estimate_tokens(output)
+        missing = [relation for relation in case.get("required_relations", [])
+                   if f"--{relation}" not in output]
+        failed = output.startswith(("NO ", "PATH TOO LONG"))
+        passed = (not failed and not missing
+                  and tokens <= case.get("max_tokens", 2000))
+        rows.append({
+            "id": case["id"],
+            "symbols": case["symbols"],
+            "tokens": tokens,
+            "missing_relations": missing,
+            "passed": passed,
+        })
+        log(f"    {case['id']}: {'PASS' if passed else 'FAIL'}  "
+            f"tokens={tokens}  missing={missing or '-'}")
+    return {"rows": rows,
+            "totals": {"cases": len(rows),
+                       "passed": sum(row["passed"] for row in rows)}}
+
+
 def format_report(result: dict) -> str:
     m = result["meta"]
     vs = result["vs_source"]
@@ -151,6 +181,17 @@ def format_report(result: dict) -> str:
     L.append("")
     L.append(f"Overall {t['overall_ratio']}x fewer tokens (median {t['median_ratio']}x "
              f"per question) to reach the same answer via the graph.\n")
+    paths = result.get("path_quality")
+    if paths:
+        L.append("## Golden implementation paths\n")
+        L.append("| path | tokens | missing relations | result |")
+        L.append("|---|--:|---|---|")
+        for row in paths["rows"]:
+            missing = ", ".join(row["missing_relations"]) or "-"
+            status = "PASS" if row["passed"] else "FAIL"
+            L.append(f"| {row['id']} | {row['tokens']:,} | {missing} | {status} |")
+        totals = paths["totals"]
+        L.append(f"\n{totals['passed']}/{totals['cases']} golden paths passed.\n")
     return "\n".join(L)
 
 
@@ -172,6 +213,11 @@ def run(cfg, *, source_path: Path | None = None, log=print) -> dict:
     adapter = GraphAdapter(cfg.merged_graph)
     log(f"[bench] running {len(questions)} questions (graph vs source)")
     vs = run_vs_source(adapter, questions, cfg.engine, log=log)
+    path_suite = cfg.bench_dir / "path_questions.json"
+    path_raw = path_suite.read_bytes()
+    path_cases = json.loads(path_raw.decode("utf-8"))["paths"]
+    log(f"[bench] running {len(path_cases)} golden paths")
+    path_quality = run_path_quality(adapter, path_cases, log=log)
 
     result = {
         "meta": {
@@ -182,9 +228,11 @@ def run(cfg, *, source_path: Path | None = None, log=print) -> dict:
             "graph_edges": adapter.G.number_of_edges(),
             "questions": len(questions),
             "questions_sha256": hashlib.sha256(raw).hexdigest(),
+            "paths_sha256": hashlib.sha256(path_raw).hexdigest(),
             "token_method": "regex word/punct split (deterministic, no deps)",
         },
         "vs_source": vs,
+        "path_quality": path_quality,
     }
 
     cfg.bench_out.mkdir(parents=True, exist_ok=True)

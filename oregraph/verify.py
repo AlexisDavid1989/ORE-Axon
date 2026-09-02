@@ -11,6 +11,45 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 
+def _node_label(node: dict) -> str:
+    for key in ("label", "name", "title"):
+        if node.get(key):
+            return str(node[key])
+    return str(node.get("local_id") or node.get("id", "")).rsplit("::", 1)[-1]
+
+
+def _has_relation_path(nodes: list[dict], links: list[dict], start: str,
+                   end: str, relations: set[str], max_hops: int,
+                   start_source: str | None = None) -> bool:
+    starts = {node["id"] for node in nodes
+            if _node_label(node).casefold() == start.casefold()
+            and (start_source is None or start_source.casefold() in
+                str(node.get("repo_path") or node.get("source_file") or "").casefold())}
+    ends = {node["id"] for node in nodes
+            if _node_label(node).casefold() == end.casefold()}
+    adjacency = defaultdict(list)
+    for link in links:
+        edge_relation = str(link.get("relation", "")).casefold()
+        adjacency[link["source"]].append((link["target"], edge_relation))
+        adjacency[link["target"]].append((link["source"], edge_relation))
+    wanted = {relation.casefold() for relation in relations}
+    frontier = [(node_id, 0, frozenset()) for node_id in starts]
+    seen = {(node_id, frozenset()) for node_id in starts}
+    for node_id, hops, matched in frontier:
+        if node_id in ends and wanted <= matched:
+            return True
+        if hops >= max_hops:
+            continue
+        for neighbor, edge_relation in adjacency.get(node_id, []):
+            next_matched = matched | ({edge_relation} if edge_relation in wanted else set())
+            state = (neighbor, frozenset(next_matched))
+            if state in seen:
+                continue
+            seen.add(state)
+            frontier.append((neighbor, hops + 1, state[1]))
+    return False
+
+
 def verify(cfg) -> dict:
     checks: list[dict] = []
 
@@ -158,6 +197,26 @@ def verify(cfg) -> dict:
     else:
         detail = "no link_stats in merged graph - re-run `merge` to populate"
     check("include recall computed", bool(total_inc), detail)
+
+    # 9. implementation-flow queries need symbol links beyond file includes.
+    symbol_stats = g.get("graph", {}).get("symbol_link_stats") or {}
+    symbol_links = [link for link in links
+                    if link.get("_origin") == "symbol_link"]
+    relations = Counter(link.get("relation") for link in symbol_links)
+    relation_detail = ", ".join(
+        f"{key}={value:,}" for key, value in relations.most_common())
+    detail = f"{len(symbol_links):,} symbol links; {relation_detail}"
+    if not symbol_links:
+        detail = f"none (recorded stats: {symbol_stats or 'missing'}; re-run merge)"
+    check("symbol-level links present", bool(symbol_links), detail)
+
+    convertible_path = _has_relation_path(
+                nodes, links, "build",
+        "FdDefaultableEquityJumpDiffusionConvertibleBondEngine",
+                {"uses", "constructs"}, 4, "portfolio/convertiblebond")
+    check("convertible pricing path connected", convertible_path,
+                    "ConvertibleBond::build reaches its FD engine within 4 hops through a "
+                    "uses and constructs edge")
 
     return {"checks": checks, "ore": ore,
             "nodes": len(nodes), "edges": len(links),

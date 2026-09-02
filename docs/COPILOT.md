@@ -193,18 +193,27 @@ Then try it with **ore-axon** selected, from inside the Engine repo:
 > Look up exactly this symbol at depth 1 and summarize its direct graph
 > neighbors: `FdDefaultableEquityJumpDiffusionConvertibleBondEngine`.
 
-The agent should pass only the identifier to `oregraph query`. This avoids the
+The agent should pass only the identifier to `oregraph query-symbol`. This avoids the
 broad, noisy traversal produced by conceptual questions or by passing the full
 sentence to the retriever.
 
-The agent uses the same CLI command you can run manually from `ORE-Axon`:
+The agent uses the same CLI commands you can run manually from `ORE-Axon`:
 
 ```bash
-python -m oregraph query "FdDefaultableEquityJumpDiffusionConvertibleBondEngine" --depth 1 --budget 2000
+python -m oregraph query-symbol "FdDefaultableEquityJumpDiffusionConvertibleBondEngine" --limit 40
+python -m oregraph query-path "ConvertibleBond::build" ConvertibleBond2
+python -m oregraph query-batch ConvertibleBond ConvertibleBond2 --limit 40
+python -m oregraph query-impact ConvertibleBond2 --limit 40
+python -m oregraph query-example EquityOption --depth 2 --limit 80
 ```
 
-Add `--mode dfs` to trace one specific path instead of broad context, and
-`--budget N` if the output says `TRUNCATED`.
+Use `query-symbol` for a ranked exact neighborhood, `query-path` for a compact
+implementation corridor, and `query-batch` when several exact symbols are
+needed. Use `query-impact` for directional callers,
+callees, and typed dependencies. Use `query-example` to gather an existing
+implementation bundle before creating similar code; it explicitly marks
+missing schema or test context. Keep `query` BFS for broad concepts, and add
+`--budget N` only if its output says `TRUNCATED`.
 
 ### Why this setup is opt-in
 

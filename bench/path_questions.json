@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "description": "Golden implementation paths used to measure graph answerability, relation quality, and compactness.",
+    "version": 1
+  },
+  "paths": [
+    {
+      "id": "convertible_engine",
+      "symbols": ["ConvertibleBond::build", "FdDefaultableEquityJumpDiffusionConvertibleBondEngine"],
+      "required_relations": ["uses", "constructs"],
+      "max_hops": 4,
+      "max_tokens": 250
+    },
+    {
+      "id": "convertible_model_builder",
+      "symbols": ["ConvertibleBond::build", "DefaultableEquityJumpDiffusionModelBuilder"],
+      "required_relations": ["uses", "constructs"],
+      "max_hops": 4,
+      "max_tokens": 250
+    },
+    {
+      "id": "convertible_instrument",
+      "symbols": ["ConvertibleBond::build", "ConvertibleBond2"],
+      "required_relations": ["constructs"],
+      "max_hops": 4,
+      "max_tokens": 250
+    }
+  ]
+}
