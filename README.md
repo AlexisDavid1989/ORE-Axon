@@ -91,6 +91,11 @@ For implementation mechanics, open the returned `src=` paths directly and
 start with the trade, builder, engine, and model implementations instead of
 rediscovering those files through broad source searches.
 
+The Copilot agent derives answer coverage from each question; it does not force
+a fixed lifecycle template. Graph results establish structural connectivity and
+edge types, while targeted source reads determine runtime behavior and the
+precise meaning of each relevant connection.
+
 **Queries need a real symbol as the entry point.** `"portfolio/swap.hpp"` finds
 nothing; `"TradeFactory"` works. Start from a class or function name, not a path.
 

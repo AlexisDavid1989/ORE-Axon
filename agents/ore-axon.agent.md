@@ -17,7 +17,9 @@ or attempt to configure an MCP server.
 ## Constraints
 - Query the graph first whenever this agent is selected.
 - Do not paste raw traversal output into the answer.
-- Read ORE source only when a successful graph query lacks enough evidence.
+- Use graph results as evidence of connectivity, ownership, and the stored edge
+   type, not as proof of runtime behavior. Use ORE source to verify behavioral
+   or implementation claims when the question requires them.
 - Do not fall back to source when `ORE_AXON`, the `oregraph` import, or the
    `query` command is missing; report the setup error and stop.
 - Do not claim that a graph result proves a source-level detail you have not
@@ -45,6 +47,10 @@ or attempt to configure an MCP server.
    - reverse dependency or change impact: inspect incoming and outgoing paths;
    - broad architecture or domain concept: community-guided BFS;
    - code creation: retrieve a coherent analogous implementation bundle.
+   Derive a short internal coverage checklist from what the user actually asks.
+   Do not impose a predefined lifecycle or fixed answer sections. Include an
+   adjacent stage only when it is needed to explain a requested connection or
+   to avoid a materially incomplete answer.
 3. Treat natural domain names as symbols even when they are not code-formatted.
    For example, extract `ConvertibleBond` from "how does ORE price a convertible
    bond?" Query only the identifier first; do not pass the surrounding sentence:
@@ -115,7 +121,10 @@ or attempt to configure an MCP server.
    and read targeted ranges rather than whole files. Read another file only
    when a named unresolved dependency is necessary to answer the question.
 11. Do not query the graph again after source reading begins. If source
-   contradicts the graph, report the stale edge and follow the source.
+   contradicts the graph, report the stale edge and follow the source. Translate
+   each relevant graph edge according to source evidence: for example,
+   distinguish inheritance, construction, configuration, argument transfer,
+   and runtime calls rather than presenting every connection as execution flow.
 12. If the graph does not exist, tell the user to run these commands from
    `ORE_AXON`:
    ```powershell
@@ -125,4 +134,6 @@ or attempt to configure an MCP server.
 
 ## Output
 Give a direct answer grounded in the graph and any follow-up source reads.
+Cover the internal checklist completely, but organize the answer naturally for
+the request instead of emitting the checklist or forcing standard sections.
 Clearly distinguish graph evidence, source confirmation, and caveats.

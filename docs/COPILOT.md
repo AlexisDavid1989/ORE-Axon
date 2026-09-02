@@ -226,6 +226,14 @@ identical arguments. For source-level mechanics, open the exact returned
 model implementations. Search only inside those files unless a required
 dependency remains unresolved.
 
+Build an internal coverage checklist from the user's request rather than using
+fixed answer sections. Graph edges establish connectivity, ownership, and their
+recorded relation; they do not by themselves establish runtime behavior. Verify
+requested implementation claims in source and describe each connection with
+its actual semantics, such as inheritance, construction, configuration,
+argument transfer, or a runtime call. Include adjacent lifecycle stages only
+when needed for completeness or to explain a requested connection.
+
 ### Why this setup is opt-in
 
 VS Code treats these as separate integration mechanisms:
