@@ -24,6 +24,12 @@ PKG_ROOT = Path(__file__).resolve().parent.parent
 # Directories that must exist directly under a path for it to be the ORE Engine repo.
 ENGINE_MARKERS = ("OREData", "OREAnalytics", "QuantExt", "QuantLib")
 
+# Files that must exist under a path for it to be an ORE_Forge checkout - the
+# separate repo that resolves ORE trade fields into concrete XPaths (see
+# docs/FIELDMAP-SOURCE.md). Optional: unlike the Engine, nothing in the core
+# build/merge path depends on this yet.
+FIELDMAP_MARKERS = ("scripts/xpath/unified_xpath_provider.py", "data/unified/trades.json")
+
 
 class ConfigError(RuntimeError):
     pass
@@ -41,6 +47,10 @@ def _looks_like_engine(path: Path) -> bool:
     return path.is_dir() and all((path / m).is_dir() for m in ENGINE_MARKERS)
 
 
+def _looks_like_fieldmap_source(path: Path) -> bool:
+    return path.is_dir() and all((path / m).is_file() for m in FIELDMAP_MARKERS)
+
+
 def _git(args: list[str], cwd: Path) -> str | None:
     try:
         r = subprocess.run(["git", *args], cwd=str(cwd),
@@ -50,6 +60,18 @@ def _git(args: list[str], cwd: Path) -> str | None:
     if r.returncode != 0:
         return None
     return r.stdout.strip() or None
+
+
+def _git_ran(args: list[str], cwd: Path) -> tuple[bool, str]:
+    """Like _git, but keeps "ran and produced empty output" distinguishable
+    from "failed to run" - _git's `or None` collapses both, which is wrong
+    for a status check where empty output (clean tree) is meaningful."""
+    try:
+        r = subprocess.run(["git", *args], cwd=str(cwd),
+                           capture_output=True, text=True, timeout=10)
+    except Exception:
+        return False, ""
+    return (r.returncode == 0), r.stdout
 
 
 def _read_git_head(engine: Path) -> str | None:
@@ -112,6 +134,25 @@ def ore_version(engine: Path) -> dict:
     return {"commit": commit, "describe": describe, "release": release, "quantlib": quantlib}
 
 
+def fieldmap_version(fieldmap_root: Path) -> dict:
+    """Identify the ORE_Forge checkout a fieldmap snapshot ran against.
+
+    Mirrors ore_version(): every field degrades independently. ``dirty`` is
+    scoped to ``data/unified`` specifically, not the whole checkout - a
+    fieldmap.snapshot() run only ever reads that subtree, and ORE_Forge's
+    working tree commonly carries unrelated local changes elsewhere (see
+    docs/FIELDMAP-SOURCE.md Step 5) that don't affect what was read.
+    ``dirty`` is ``None`` (not ``False``) when git itself couldn't be asked -
+    that's a different, worse case than "asked and it's clean" and callers
+    should not conflate the two.
+    """
+    commit = _git(["rev-parse", "HEAD"], fieldmap_root) or _read_git_head(fieldmap_root)
+    describe = _git(["describe", "--tags", "--always"], fieldmap_root)
+    ok, status = _git_ran(["status", "--porcelain", "--", "data/unified"], fieldmap_root)
+    dirty = (status.strip() != "") if ok else None
+    return {"commit": commit, "describe": describe, "dirty": dirty}
+
+
 def graphify_version() -> str | None:
     try:
         return metadata.version("graphifyy")
@@ -127,6 +168,20 @@ def _autodetect_engine() -> Path | None:
                 return candidate
             sibling = candidate / "Engine"
             if _looks_like_engine(sibling):
+                return sibling
+    return None
+
+
+def _autodetect_fieldmap_source() -> Path | None:
+    """Walk up from cwd, then try siblings of this package, looking for ORE_Forge.
+
+    Best-effort only: unlike the Engine, there's no error if this comes back
+    empty - fieldmap support is opt-in, not required by the core pipeline.
+    """
+    for base in (Path.cwd(), PKG_ROOT):
+        for candidate in (base, *base.parents):
+            sibling = candidate / "ORE_Forge"
+            if _looks_like_fieldmap_source(sibling):
                 return sibling
     return None
 
@@ -168,12 +223,19 @@ class Config:
     out: Path
     python: str
     graphify_cli: str | None
+    fieldmap: Path | None = None
     package_root: Path = PKG_ROOT
 
     # ---- derived locations -------------------------------------------------
     @property
     def merged_graph(self) -> Path:
         return self.out / "merged" / "graph.json"
+
+    @property
+    def fieldmap_out(self) -> Path:
+        """Where a fieldmap snapshot is cached - a build intermediate like
+        module_out(), not a vendored copy of ORE_Forge's own files."""
+        return self.out / "fieldmap" / "snapshot.json"
 
     @property
     def labels_dir(self) -> Path:
@@ -221,7 +283,8 @@ def check_graphify_importable(python: str) -> bool:
         return False
 
 
-def load(engine: str | None = None, out: str | None = None) -> Config:
+def load(engine: str | None = None, out: str | None = None,
+         fieldmap: str | None = None) -> Config:
     toml = _read_toml()
     paths = toml.get("paths", {})
 
@@ -246,9 +309,25 @@ def load(engine: str | None = None, out: str | None = None) -> Config:
     out_raw = out or os.environ.get("ORE_GRAPH_OUT") or paths.get("out")
     out_path = Path(out_raw).expanduser().resolve() if out_raw else _default_out_dir()
 
+    # Optional, unlike engine: nothing in the core build/merge path requires
+    # a fieldmap source yet, so a bad explicit value fails loudly but a
+    # missing one just leaves this None rather than blocking every command.
+    fieldmap_raw = fieldmap or os.environ.get("ORE_FIELDMAP") or paths.get("fieldmap")
+    if fieldmap_raw:
+        fieldmap_path = Path(fieldmap_raw).expanduser().resolve()
+        if not _looks_like_fieldmap_source(fieldmap_path):
+            missing = [m for m in FIELDMAP_MARKERS if not (fieldmap_path / m).is_file()]
+            raise ConfigError(
+                f"{fieldmap_path} does not look like an ORE_Forge checkout "
+                f"(missing: {', '.join(missing)})."
+            )
+    else:
+        fieldmap_path = _autodetect_fieldmap_source()
+
     return Config(
         engine=engine_path,
         out=out_path,
         python=sys.executable,
         graphify_cli=_resolve_graphify_cli(),
+        fieldmap=fieldmap_path,
     )

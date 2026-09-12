@@ -24,7 +24,8 @@ from .chunks import ALL_CHUNKS, BY_NAME, CODE_CHUNKS, SEMANTIC
 def _cfg(args):
     try:
         cfg = configmod.load(engine=getattr(args, "engine", None),
-                             out=getattr(args, "out", None))
+                             out=getattr(args, "out", None),
+                             fieldmap=getattr(args, "fieldmap", None))
     except configmod.ConfigError as exc:
         print(f"error: {exc}", file=sys.stderr)
         raise SystemExit(2)
@@ -57,6 +58,13 @@ def cmd_info(args):
     if cfg.graphify_cli:
         print(f"graphify CLI: {cfg.graphify_cli}")
     print(f"graphify lib: {'importable' if configmod.check_graphify_importable(cfg.python) else 'NOT INSTALLED - pip install graphifyy'}")
+    if cfg.fieldmap:
+        fv = configmod.fieldmap_version(cfg.fieldmap)
+        dirty = " (dirty)" if fv["dirty"] else ""
+        print(f"Fieldmap src: {cfg.fieldmap} @ {fv['commit'] or '?'}{dirty}")
+    else:
+        print("Fieldmap src: not configured (set ORE_FIELDMAP to enable trade "
+              "field-mapping data; see `oregraph fieldmap`)")
     print(f"\nChunks: {len(CODE_CHUNKS)} code, {len(SEMANTIC)} semantic")
     for c in ALL_CHUNKS:
         built = "built" if cfg.module_graph(c.name).exists() else "-"
@@ -68,6 +76,29 @@ def cmd_coverage(args):
     from .coverage import audit, format_report
     cfg = _cfg(args)
     print(format_report(audit(cfg.engine)))
+
+
+def cmd_fieldmap(args):
+    # Read-only characterisation output (docs/FIELDMAP-SOURCE.md): snapshots
+    # ORE_Forge's resolved trade field mapping and caches it under
+    # cfg.fieldmap_out. Deliberately not called from build/merge/chunks.py -
+    # this data has no authority until checked against fromXML().
+    from . import fieldmap as fieldmapmod
+    cfg = _cfg(args)
+    try:
+        snap = fieldmapmod.snapshot(cfg)
+    except fieldmapmod.FieldmapError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        raise SystemExit(2)
+
+    v = snap.version
+    dirty = " (dirty)" if v["dirty"] else " (clean)" if v["dirty"] is False else " (unknown)"
+    print(f"Fieldmap src: {snap.source} @ {v['commit'] or '?'}{dirty}")
+    print(f"Trade types : {len(snap.trade_types)}")
+    print(f"Total nodes : {snap.total_nodes}")
+
+    fieldmapmod.save(snap, cfg.fieldmap_out)
+    print(f"Snapshot written to {cfg.fieldmap_out}")
 
 
 def cmd_build(args):
@@ -482,6 +513,7 @@ def main(argv=None):
         description="Build and maintain the ORE knowledge graph.")
     ap.add_argument("--engine", help="path to the ORE Engine repo")
     ap.add_argument("--out", help="graph output directory")
+    ap.add_argument("--fieldmap", help="path to the ORE_Forge repo (trade field-mapping source)")
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     p = sub.add_parser("info", help="show resolved paths and chunk status")
@@ -489,6 +521,12 @@ def main(argv=None):
 
     p = sub.add_parser("coverage", help="report repo files no chunk claims")
     p.set_defaults(func=cmd_coverage)
+
+    p = sub.add_parser("fieldmap",
+                       help="snapshot ORE trade field-mapping data from ORE_Forge "
+                            "(read-only; not wired into build/merge - see "
+                            "docs/FIELDMAP-SOURCE.md)")
+    p.set_defaults(func=cmd_fieldmap)
 
     p = sub.add_parser("build", help="build all chunks, then merge")
     p.add_argument("--only", nargs="+", metavar="CHUNK",
