@@ -6,3 +6,6 @@ graphify-out/
 *.egg-info/
 .venv/
 *.log
+
+# Machine-local MCP server config (absolute paths, not portable)
+.mcp.json
