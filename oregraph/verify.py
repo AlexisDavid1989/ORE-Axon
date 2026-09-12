@@ -210,6 +210,20 @@ def verify(cfg) -> dict:
         detail = f"none (recorded stats: {symbol_stats or 'missing'}; re-run merge)"
     check("symbol-level links present", bool(symbol_links), detail)
 
+    # 9b. XSD schema definitions should connect to the C++ that implements
+    # them (see xsd_link.py) - otherwise OREXsd sits in the graph as a
+    # disconnected island despite visibly describing the same trade
+    # structures OREData's fromXML() classes parse.
+    xsd_stats = g.get("graph", {}).get("xsd_link_stats") or {}
+    xsd_links = [link for link in links if link.get("_origin") == "xsd_link"]
+    detail = (f"{len(xsd_links):,} xsd links "
+              f"({xsd_stats.get('matched_exact', 0)} exact, "
+              f"{xsd_stats.get('matched_via_stripped_data_suffix', 0)} via "
+              "stripped 'Data' suffix)")
+    if not xsd_links:
+        detail = f"none (recorded stats: {xsd_stats or 'missing'}; re-run merge)"
+    check("xsd-to-code links present", bool(xsd_links), detail)
+
     convertible_path = _has_relation_path(
                 nodes, links, "build",
         "FdDefaultableEquityJumpDiffusionConvertibleBondEngine",

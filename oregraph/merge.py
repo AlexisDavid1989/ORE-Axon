@@ -27,6 +27,7 @@ from .chunks import Chunk
 from .labels import attach_labels
 from .link import link
 from .symbol_links import link_symbols
+from .xsd_link import link_xsd
 
 
 def load_graph(path: Path) -> dict:
@@ -144,6 +145,17 @@ def merge(engine: Path, chunks: list[Chunk], graph_paths: dict[str, Path],
     symbol_stats["symbol_edges"] = len(symbol_edges)
     log(f"  symbol links: {symbol_stats}")
 
+    # XSD schema <-> C++ class name matching (see xsd_link.py for why this is
+    # a separate, narrower-scoped pass rather than folded into symbol_links).
+    xsd_edges, xsd_stats = link_xsd(merged_nodes)
+    xsd_edges = [edge for edge in xsd_edges
+                 if (edge["source"], edge["target"], edge["relation"]) not in existing]
+    merged_links.extend(xsd_edges)
+    log(f"  xsd links: {xsd_stats['xsd_edges']} edges "
+        f"({xsd_stats['matched_exact']} exact, "
+        f"{xsd_stats['matched_via_stripped_data_suffix']} via stripped 'Data' suffix), "
+        f"{xsd_stats['unmatched']}/{xsd_stats['instruments_xsd_type_names']} unmatched")
+
     ore = configmod.ore_version(engine)
     ore["graphify_version"] = configmod.graphify_version()
     ore["built_at"] = datetime.now(timezone.utc).isoformat()
@@ -156,6 +168,7 @@ def merge(engine: Path, chunks: list[Chunk], graph_paths: dict[str, Path],
                   "cross_module_edges": len(fixed_cross),
                   "link_stats": link_stats,
                   "symbol_link_stats": symbol_stats,
+                  "xsd_link_stats": xsd_stats,
                   "ore": ore},
         "nodes": merged_nodes,
         "links": merged_links,
