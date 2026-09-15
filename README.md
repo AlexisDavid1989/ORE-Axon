@@ -71,12 +71,24 @@ Path corridor:
                            --constructs--> FdDefaultableEquityJumpDiffusionConvertibleBondEngine
 ```
 
-**Does not work — documentation-to-code questions.** Docs, XSD and code are
-separate layers with **zero edges between them**. "Which code implements what the
-ScriptedTrade docs describe" cannot be answered. Worse, the tools do not say so:
-asked that question, `shortest_path` matches the `ScriptedTrade` *class* and
-returns a confident-looking code-to-code path, never touching the 31 documentation
-nodes on the subject. Treat any docs↔code answer as unfounded. Planned for v1.1.
+**Does not work — treating the XSD as the contract.** XSD and code are linked
+(`implements`/`schema_for` edges connect OREXsd nodes to the OREData/OREAnalytics
+classes that parse them), but **the schema is not the authority on what ORE
+accepts** — it validates XML structure only, and is known incomplete. Measured:
+scanning every named type in `xsd/*.xsd` against every registered TradeType finds
+hundreds of schema types with no implementing class (mostly config leaf types,
+expected) and — the actionable direction — real, buildable TradeTypes with **no
+schema coverage at all**, plus at least one case (`CommoditySwap`) where the
+schema names the *wrong* XML element entirely. See `docs/XSD-DRIFT.md` for the
+full, regenerated-on-every-`merge` list. **`fromXML()` in the C++ is
+authoritative for what a trade type actually accepts — read the code, not the
+schema, when the question is "what fields does this type take".**
+
+Docs and code are a separate, still-open gap: "which code implements what the
+ScriptedTrade docs describe" cannot be answered — asked that question,
+`shortest_path` matches the `ScriptedTrade` *class* and returns a
+confident-looking code-to-code path, never touching the 31 documentation nodes
+on the subject. Treat any docs↔code answer as unfounded. Planned for v1.1.
 
 **Use the right mode.** `query-flow` discovers endpoints from one trade symbol;
 `query-path` answers implementation flow between known symbols. Neither replaces

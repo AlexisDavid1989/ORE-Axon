@@ -155,6 +155,7 @@ def _semantic_dir(name: str) -> str:
 
 def cmd_merge(args):
     from .merge import merge
+    from .link_schema import format_drift_report, DRIFT_REPORT_BEGIN, DRIFT_REPORT_END
     cfg = _cfg(args)
     print("[merge]")
     paths = {c.name: cfg.module_graph(c.name) for c in ALL_CHUNKS}
@@ -162,6 +163,30 @@ def cmd_merge(args):
                   cfg.merged_graph)
     print(f"\nMerged graph: {cfg.merged_graph}")
     print(json.dumps({k: v for k, v in stats.items() if k != "labels"}, indent=2))
+
+    schema_stats = stats.get("schema")
+    if schema_stats:
+        report = format_drift_report(schema_stats)
+        print("\n" + report)
+        drift_path = cfg.package_root / "docs" / "XSD-DRIFT.md"
+        # Only the auto-generated block between the markers is replaced -
+        # everything else (the A6 field-level findings, any hand-written
+        # intro) is written once and survives every later `oregraph merge`.
+        existing = drift_path.read_text(encoding="utf-8") if drift_path.exists() else None
+        if existing and DRIFT_REPORT_BEGIN in existing and DRIFT_REPORT_END in existing:
+            pre = existing.split(DRIFT_REPORT_BEGIN, 1)[0]
+            post = existing.split(DRIFT_REPORT_END, 1)[1]
+            new_text = pre + report + post
+        else:
+            header = ("# XSD <-> Code Drift\n\n"
+                      "The xsd/*.xsd schemas validate XML structure only and are known "
+                      "incomplete. `fromXML()` in the C++ is authoritative for what ORE "
+                      "actually accepts - see the sections below for where the two "
+                      "diverge, and README.md's Limitations section.\n\n")
+            new_text = (existing + "\n\n" if existing else header) + report + "\n"
+        drift_path.parent.mkdir(parents=True, exist_ok=True)
+        drift_path.write_text(new_text, encoding="utf-8")
+        print(f"\nwrote {drift_path}")
 
 
 def _gitignore_covers(repo: Path, rel_paths: list[str]) -> list[bool]:

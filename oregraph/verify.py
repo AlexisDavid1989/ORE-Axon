@@ -224,6 +224,153 @@ def verify(cfg) -> dict:
         detail = f"none (recorded stats: {xsd_stats or 'missing'}; re-run merge)"
     check("xsd-to-code links present", bool(xsd_links), detail)
 
+    # 9c. forward coverage: "some links exist" (9b) says nothing about how
+    # much of instruments.xsd actually resolved - xsd_link.py already
+    # computes the unmatched set, it just wasn't surfaced past merge.py's
+    # log line. A name can go unmatched for a legitimate reason (a wrapper/
+    # collection type with no 1:1 C++ class) or because the heuristic missed
+    # a real one (renamed class, paraphrased label) - list them so that
+    # distinction is a human judgment call, not a silent gap.
+    total_names = xsd_stats.get("instruments_xsd_type_names", 0)
+    unmatched_names = xsd_stats.get("unmatched_names") or []
+    if total_names:
+        rate = (total_names - len(unmatched_names)) / total_names
+        detail = (f"{total_names - len(unmatched_names)}/{total_names} "
+                  f"instruments.xsd type names matched ({rate:.0%})")
+        if unmatched_names:
+            sample = ", ".join(unmatched_names[:15])
+            more = f" (+{len(unmatched_names) - 15} more)" if len(unmatched_names) > 15 else ""
+            detail += f"; unmatched: {sample}{more}"
+        check("instruments.xsd match coverage", not unmatched_names, detail,
+              severity="warn")
+
+    # 9c2. the dispatch-table passes (trade type <-> databuilders.cpp,
+    # convention type <-> conventions.cpp - see xsd_link.py) read their two
+    # source files directly rather than through the (incomplete) OREXsd
+    # graph nodes, so their own coverage numbers matter independently of
+    # 9c's complexType-name numbers above.
+    for pass_name, stats_key, noun in (
+            ("trade dispatch (instruments.xsd <-> databuilders.cpp)",
+             "trade_dispatch", "trade elements"),
+            ("convention dispatch (conventions.xsd <-> conventions.cpp)",
+             "convention_dispatch", "convention elements")):
+        pass_stats = xsd_stats.get(stats_key) or {}
+        if pass_stats.get("skipped"):
+            check(pass_name, False,
+                  f"skipped: {pass_stats['skipped']} (merge must run with an "
+                  "Engine checkout to read source files directly)",
+                  severity="warn")
+            continue
+        attempted = pass_stats.get("attempted", 0)
+        pass_unmatched = pass_stats.get("unmatched_names") or []
+        if not attempted:
+            continue
+        matched = attempted - len(pass_unmatched)
+        rate = matched / attempted
+        detail = f"{matched}/{attempted} {noun} matched ({rate:.0%})"
+        if pass_unmatched:
+            sample = ", ".join(pass_unmatched[:15])
+            more = (f" (+{len(pass_unmatched) - 15} more)"
+                    if len(pass_unmatched) > 15 else "")
+            detail += (f"; unmatched (mostly missing OREXsd graph nodes for "
+                       f"that complexType, not a matching failure - see "
+                       f"xsd_link.py): {sample}{more}")
+        check(pass_name, not pass_unmatched, detail, severity="warn")
+
+    # 9d. reciprocal direction: does every OREData trade class (one that
+    # defines both fromXML and build - the Trade-subclass signature, as
+    # opposed to LegData/Convention/ScheduleData-style classes that parse
+    # XML but were never in instruments.xsd's scope) have an outbound xsd
+    # link at all? 9c only tells you which xsd *names* failed to match; this
+    # catches the opposite failure - a real trade class present in the
+    # merged graph that xsd_link.py's candidate index or name heuristic
+    # missed entirely (e.g. no source_file recorded, or a name that isn't
+    # even a candidate), which 9b/9c can't see because they start from the
+    # xsd side.
+    defines_targets = defaultdict(set)
+    for link in links:
+        if link.get("relation") == "defines":
+            defines_targets[link["source"]].add(link["target"])
+    label_of = {n["id"]: _node_label(n) for n in nodes}
+    xsd_matched_sources = {link["source"] for link in links
+                            if link.get("_origin") == "xsd_link"}
+    trade_classes = []
+    for n in nodes:
+        if n.get("repo") != "OREData" or not n.get("_callable_class"):
+            continue
+        # configuration/*.hpp (Convention, ...) also defines fromXML+build
+        # but parses conventions.xsd, never instruments.xsd - restricting to
+        # portfolio/ matches xsd_link.py's actual (deliberately narrow)
+        # scope and keeps the gap list free of by-design non-matches.
+        if not str(n.get("source_file", "")).startswith("portfolio/"):
+            continue
+        method_labels = {label_of.get(t, "").lower()
+                          for t in defines_targets.get(n["id"], set())}
+        if {"fromxml", "build"} <= method_labels:
+            trade_classes.append(n)
+    unmatched_classes = sorted(_node_label(n) for n in trade_classes
+                                if n["id"] not in xsd_matched_sources)
+    if trade_classes:
+        matched_count = len(trade_classes) - len(unmatched_classes)
+        detail = (f"{matched_count}/{len(trade_classes)} OREData classes with "
+                  "fromXML()+build() have an xsd link")
+        if unmatched_classes:
+            sample = ", ".join(unmatched_classes[:15])
+            more = (f" (+{len(unmatched_classes) - 15} more)"
+                    if len(unmatched_classes) > 15 else "")
+            detail += f"; missing: {sample}{more}"
+        check("fromXML/build classes reciprocally linked to xsd",
+              not unmatched_classes, detail, severity="warn")
+
+    # 9e. same reciprocal check, for conventions.xsd's target population:
+    # configuration/*.hpp classes that define fromXML but never build() (a
+    # Convention parses config, it doesn't price anything) - the population
+    # check 9d deliberately excludes.
+    convention_classes = []
+    for n in nodes:
+        if n.get("repo") != "OREData" or not n.get("_callable_class"):
+            continue
+        if not str(n.get("source_file", "")).startswith("configuration/"):
+            continue
+        method_labels = {label_of.get(t, "").lower()
+                          for t in defines_targets.get(n["id"], set())}
+        if "fromxml" in method_labels:
+            convention_classes.append(n)
+    unmatched_conventions = sorted(_node_label(n) for n in convention_classes
+                                    if n["id"] not in xsd_matched_sources)
+    if convention_classes:
+        matched_count = len(convention_classes) - len(unmatched_conventions)
+        detail = (f"{matched_count}/{len(convention_classes)} OREData "
+                  "configuration/ classes with fromXML() have an xsd link")
+        if unmatched_conventions:
+            sample = ", ".join(unmatched_conventions[:15])
+            more = (f" (+{len(unmatched_conventions) - 15} more)"
+                    if len(unmatched_conventions) > 15 else "")
+            detail += f"; missing: {sample}{more}"
+        check("fromXML configuration classes reciprocally linked to xsd",
+              not unmatched_conventions, detail, severity="warn")
+
+    # 10. schema_for links (link_schema.py) present, and not badly regressed
+    # against a recorded baseline - same shape as check 2 (cross-module
+    # edges: fail at zero), plus a soft regression guard the way "curated-
+    # name retention rate" guards labels: the tiered join depends on both
+    # the portfolio-scan trade registry and the full xsd census staying
+    # intact, so a silent collapse (a source-scan regex breaking, an xsd
+    # file failing to parse) should warn loudly rather than just quietly
+    # shrinking the edge count.
+    from .link_schema import SCHEMA_LINKS_BASELINE
+    schema_links = [l for l in links if l.get("_origin") == "schema_link"]
+    schema_stats = g.get("graph", {}).get("schema_link_stats") or {}
+    check("schema links present", bool(schema_links),
+          f"{len(schema_links):,} schema_for edges" if schema_links
+          else f"none (recorded stats: {schema_stats or 'missing'}; re-run merge)")
+    if schema_links and SCHEMA_LINKS_BASELINE:
+        drop = 1 - (len(schema_links) / SCHEMA_LINKS_BASELINE)
+        check("schema links not regressed vs baseline", drop <= 0.10,
+              f"{len(schema_links):,} schema_for edges vs baseline "
+              f"{SCHEMA_LINKS_BASELINE:,}" + (f" ({drop:+.0%})" if drop > 0.10 else ""),
+              severity="warn")
+
     convertible_path = _has_relation_path(
                 nodes, links, "build",
         "FdDefaultableEquityJumpDiffusionConvertibleBondEngine",

@@ -26,6 +26,7 @@ from . import config as configmod
 from .chunks import Chunk
 from .labels import attach_labels
 from .link import link
+from .link_schema import link_schema
 from .symbol_links import link_symbols
 from .xsd_link import link_xsd
 
@@ -49,6 +50,12 @@ def merge(engine: Path, chunks: list[Chunk], graph_paths: dict[str, Path],
         raise RuntimeError("no chunk graphs found - run `build` first")
 
     engine_roots = {c.name: c.root for c in chunks}
+
+    # link_schema() needs pre-namespaced (local-id) nodes AND each chunk's own
+    # "links" - both are still in that form here, before the namespacing loop
+    # below mutates `graphs` in place. Its own edges are collected now and
+    # remapped onto namespaced ids later, alongside link()'s cross-module ones.
+    schema_edges_local, schema_stats = link_schema(engine, list(chunks), graphs, engine_roots)
 
     # ---- per-chunk labelling, then namespacing -----------------------------
     merged_nodes: list[dict] = []
@@ -122,6 +129,23 @@ def merge(engine: Path, chunks: list[Chunk], graph_paths: dict[str, Path],
         fixed_cross.append(e)
     merged_links.extend(fixed_cross)
     link_stats["cross_module_edges"] = len(fixed_cross)
+
+    # link_schema()'s edges were collected before namespacing too; remap them
+    # onto the merged graph the same way.
+    fixed_schema = []
+    for e in schema_edges_local:
+        s, t = e["source"], e["target"]
+        so, to = id_owner.get(s), id_owner.get(t)
+        if not so or not to:
+            continue
+        e["source"], e["target"] = f"{so}::{s}", f"{to}::{t}"
+        fixed_schema.append(e)
+    merged_links.extend(fixed_schema)
+    schema_stats["schema_for_edges"] = len(fixed_schema)
+    log(f"  schema links: {len(fixed_schema)} schema_for edges "
+        f"(tiers: {schema_stats.get('tier_counts')}); "
+        f"{len(schema_stats.get('xsd_orphans', []))} xsd types with no code match, "
+        f"{len(schema_stats.get('code_trade_gaps', []))} trade types with no xsd match")
     log(f"  cross-module links: {link_stats}")
     total_inc = link_stats["total_includes"]
     resolved = link_stats["resolved_includes"]
@@ -147,14 +171,19 @@ def merge(engine: Path, chunks: list[Chunk], graph_paths: dict[str, Path],
 
     # XSD schema <-> C++ class name matching (see xsd_link.py for why this is
     # a separate, narrower-scoped pass rather than folded into symbol_links).
-    xsd_edges, xsd_stats = link_xsd(merged_nodes)
+    xsd_edges, xsd_stats = link_xsd(merged_nodes, engine)
     xsd_edges = [edge for edge in xsd_edges
                  if (edge["source"], edge["target"], edge["relation"]) not in existing]
     merged_links.extend(xsd_edges)
-    log(f"  xsd links: {xsd_stats['xsd_edges']} edges "
-        f"({xsd_stats['matched_exact']} exact, "
-        f"{xsd_stats['matched_via_stripped_data_suffix']} via stripped 'Data' suffix), "
-        f"{xsd_stats['unmatched']}/{xsd_stats['instruments_xsd_type_names']} unmatched")
+    td, cd = xsd_stats["trade_dispatch"], xsd_stats["convention_dispatch"]
+    log(f"  xsd links: {xsd_stats['xsd_edges']} edges total; "
+        f"legacy name-match {xsd_stats['matched_exact']} exact + "
+        f"{xsd_stats['matched_via_stripped_data_suffix']} via stripped 'Data' suffix "
+        f"({xsd_stats['unmatched']}/{xsd_stats['instruments_xsd_type_names']} unmatched); "
+        f"trade dispatch {td.get('matched_exact', 0)}+{td.get('matched_normalized', 0)} "
+        f"({len(td.get('unmatched_names', []))}/{td.get('attempted', 0)} unmatched); "
+        f"convention dispatch {cd.get('matched_exact', 0)}+{cd.get('matched_normalized', 0)} "
+        f"({len(cd.get('unmatched_names', []))}/{cd.get('attempted', 0)} unmatched)")
 
     ore = configmod.ore_version(engine)
     ore["graphify_version"] = configmod.graphify_version()
@@ -169,6 +198,7 @@ def merge(engine: Path, chunks: list[Chunk], graph_paths: dict[str, Path],
                   "link_stats": link_stats,
                   "symbol_link_stats": symbol_stats,
                   "xsd_link_stats": xsd_stats,
+                  "schema_link_stats": schema_stats,
                   "ore": ore},
         "nodes": merged_nodes,
         "links": merged_links,
@@ -187,4 +217,5 @@ def merge(engine: Path, chunks: list[Chunk], graph_paths: dict[str, Path],
         "labelled_communities": labelled,
         "labels": label_stats,
         "link": link_stats,
+        "schema": schema_stats,
     }
