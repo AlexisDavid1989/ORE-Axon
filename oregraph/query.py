@@ -15,6 +15,8 @@ RELATION_COST = {
     "returns": 1.0,
     "uses": 1.2,
     "inherits": 1.3,
+    "schema_for": 1.5,
+    "implements": 1.5,
     "references": 1.8,
     "defines": 2.2,
     "includes": 3.0,
@@ -24,7 +26,15 @@ CONFIDENCE_COST = {"RESOLVED": 0.0, "EXTRACTED": 0.2, "INFERRED": 2.5}
 
 IMPACT_RELATIONS = {"calls", "constructs", "registers", "returns", "uses",
                     "inherits", "references"}
-BUNDLE_RELATIONS = IMPACT_RELATIONS | {"defines", "imports"}
+# schema_for/implements (oregraph/link_schema.py, oregraph/xsd_link.py) are
+# XSD<->code links, not code-to-code impact edges - deliberately excluded
+# from IMPACT_RELATIONS (and so from FLOW_RELATIONS, which builds on it) but
+# included in BUNDLE_RELATIONS so query_example's "gather everything relevant
+# to this analogue" traversal can reach the schema type a class implements,
+# instead of reporting "SCHEMA: MISSING FROM CONNECTED GRAPH CONTEXT" for a
+# link that actually exists in the graph.
+SCHEMA_RELATIONS = {"schema_for", "implements"}
+BUNDLE_RELATIONS = IMPACT_RELATIONS | {"defines", "imports"} | SCHEMA_RELATIONS
 FLOW_RELATIONS = {"calls", "constructs", "registers", "uses", "inherits",
                   "references"}
 
