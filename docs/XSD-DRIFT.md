@@ -8,9 +8,9 @@ The xsd/*.xsd schemas validate XML structure only and are known incomplete. `fro
 
 - Tier 1 (EXTRACTED, `<T>Data` from the trade-type registry): 109
 - Tier 2 (EXTRACTED, exact class-label match): 31
-- Tier 3 (INFERRED, normalised match): 122
-- Total matched xsd type names: 262 / 955
-- `schema_for` edges written: 262
+- Tier 3 (INFERRED, normalised match): 121
+- Total matched xsd type names: 261 / 955
+- `schema_for` edges written: 261
 
 Trade-type registry: 113 confirmed TradeType registrations (`ORE_REGISTER_TRADE_BUILDER` in databuilders.cpp), cross-referenced against 137 classes found in portfolio/*.{hpp,cpp} transitively inheriting from Trade.
 24 of those classes are not independently registered TradeTypes (abstract intermediates used only to share code, e.g. scaffolding base classes, or scripted-trade example payloads dispatched generically under `ScriptedTrade`): `Accumulator`, `AsianOption`, `Autocallable_01`, `BarrierOption`, `BasketOption`, `BasketVarianceSwap`, `BestEntryOption`, `CliquetOption`, `EquityDerivative`, `EquityOptionWithBarrier`, `EquitySingleAssetDerivative`, `FxDerivative`, `FxOptionWithBarrier`, `FxSingleAssetDerivative`, `GenericBarrierOption`, `PairwiseVarSwap`, `PerformanceOption_01`, `RainbowOption`, `StrikeResettableOption`, `TaRF`, `VanillaOptionTrade`, `VarSwap`, `WindowBarrierOption`, `WorstOfBasketSwap`
@@ -19,10 +19,10 @@ Cross-check: the merged graph's own `inherits` edges into any node labelled `Tra
 
 ## (a) XSD types with no matching code
 
-693 of 955 named xsd types/elements across all xsd/*.xsd files matched no code at any tier - schema for something renamed, removed, or never implemented (or, for many non-instruments.xsd files, a config/enum type with no dedicated parsing class of its own, e.g. a nested value type). Not all of these are bugs; each is worth a human look.
+694 of 955 named xsd types/elements across all xsd/*.xsd files matched no code at any tier - schema for something renamed, removed, or never implemented (or, for many non-instruments.xsd files, a config/enum type with no dedicated parsing class of its own, e.g. a nested value type). Not all of these are bugs; each is worth a human look.
 
 - `xsd/calendaradjustment.xsd`: `CalendarAdjustments`, `Dates`, `calendaradjustment`, `newcalendar`
-- `xsd/conventions.xsd`: `AverageOIS`, `BMABasisSwap`, `BondYield`, `CDS`, `CmsSpreadOption`, `CommodityForward`, `CommodityFuture`, `CrossCurrencyBasis`, `CrossCurrencyFixFloat`, `Deposit`, `FRA`, `Future`, `FxOption`, `FxOptionTimeWeighting`, `IborIndex`, `InflationSwap`, `OIS`, `OvernightIndex`, `Swap`, `SwapIndex`, `TenorBasisSwap`, `TenorBasisTwoSwap`, `Zero`, `ZeroInflationIndex`, `averageOISType`, `averagingDataType`, `bmaBasisSwapType`, `bondYield`, `cdsConventionsType`, `cmsSpreadOptionType`, `commodityForwardType`, `commodityFutureType`, `continuationMappingType`, `continuationMappingsType`, `crossCurrencyBasisType`, `crossCurrencyFixFloatType`, `depositType`, `fraType`, `futureType`, `fxOption`, `fxOptionTimeWeighting`, `fxType`, `iborIndexType`, `inflationswapType`, `nthWeekdayType`, `offPeakPowerIndexDataType`, `oisType`, `overnightIndexType`, `prohibitedExpiriesBdcType`, `prohibitedExpiriesType`, `swapIndexType`, `swapType`, `tenorBasisSwapType`, `tenorBasisTwoSwapType`, `zeroInflationIndexType`, `zeroType`
+- `xsd/conventions.xsd`: `AverageOIS`, `BMABasisSwap`, `BondYield`, `CDS`, `CmsSpreadOption`, `CommodityForward`, `CommodityFuture`, `CrossCurrencyBasis`, `CrossCurrencyFixFloat`, `Deposit`, `FRA`, `FX`, `Future`, `FxOption`, `FxOptionTimeWeighting`, `IborIndex`, `InflationSwap`, `OIS`, `OvernightIndex`, `Swap`, `SwapIndex`, `TenorBasisSwap`, `TenorBasisTwoSwap`, `Zero`, `ZeroInflationIndex`, `averageOISType`, `averagingDataType`, `bmaBasisSwapType`, `bondYield`, `cdsConventionsType`, `cmsSpreadOptionType`, `commodityForwardType`, `commodityFutureType`, `continuationMappingType`, `continuationMappingsType`, `crossCurrencyBasisType`, `crossCurrencyFixFloatType`, `depositType`, `fraType`, `futureType`, `fxOption`, `fxOptionTimeWeighting`, `fxType`, `iborIndexType`, `inflationswapType`, `nthWeekdayType`, `offPeakPowerIndexDataType`, `oisType`, `overnightIndexType`, `prohibitedExpiriesBdcType`, `prohibitedExpiriesType`, `swapIndexType`, `swapType`, `tenorBasisSwapType`, `tenorBasisTwoSwapType`, `zeroInflationIndexType`, `zeroType`
 - `xsd/counterparty.xsd`: `CounterpartyInformation`, `counterPartyCorrelations`, `counterparties`, `counterparty`, `counterpartyInformation`, `creditQualityType`
 - `xsd/creditsimulation.xsd`: `CreditSimulation`, `creditsimulation`, `entities`, `entity`, `risk`, `transitionmatrices`, `transitionmatrix`
 - `xsd/currencyconfig.xsd`: `currencyDefinition`

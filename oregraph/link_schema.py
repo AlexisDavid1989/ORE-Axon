@@ -52,10 +52,12 @@ SCHEMA_FOR = "schema_for"
 #: this deliberately when a corpus change or a genuine improvement to the
 #: join moves the count, the same way labels/*.anchors.json gets re-pinned -
 #: never let it drift silently just to make a warning go away. Dropped from
-#: 268 to 262 when the Tier 2/3 off-domain-collision guard was added (see
-#: link_schema()) - those 6 edges were confirmed wrong (conventions.xsd/
-#: ore_types.xsd short names colliding with unrelated trade class names).
-SCHEMA_LINKS_BASELINE = 262
+#: 268 to 261 across two fixes (see link_schema()'s Tier 2/3 guards): a
+#: registry-trade-class collision guard (conventions.xsd/ore_types.xsd short
+#: names colliding with unrelated trade class names) and a conventions.xsd
+#: dispatch-alternative guard (short convention tags colliding with other,
+#: non-trade classes) - both confirmed wrong on inspection, not guessed at.
+SCHEMA_LINKS_BASELINE = 261
 
 
 # ---------------------------------------------------------------------------
@@ -197,19 +199,27 @@ _NAMED_TAGS = {
 }
 
 
-def _named_join_candidate_elements(root: ET.Element) -> set[int]:
-    """id() of every xs:element that names a reusable, globally-referenceable
-    concept, as opposed to an ordinary struct field:
+def _named_join_candidate_elements(root: ET.Element) -> tuple[set[int], set[int]]:
+    """(root_elements, dispatch_elements) - id()s of every xs:element that
+    names a reusable, globally-referenceable concept, as opposed to an
+    ordinary struct field, split by which of two shapes it comes from:
 
-    - a direct child of xs:schema (a genuine top-level/root element), or
-    - an alternative inside a NAMED dispatch xs:choice - a group or
-      complexType whose content is one xs:choice of element alternatives,
-      e.g. instruments.xsd's `<xs:group name="oreTradeData"><xs:choice>
-      <xs:element type="swapData" name="SwapData"/>...` - each such element
-      names a distinct XML tag bound to a shared type, which is exactly what
-      Tier 1 needs to find (the "<T>Data" names). conventions.xsd's
+    - root_elements: a direct child of xs:schema (a genuine top-level/root
+      element, e.g. conventions.xsd's own `<xs:element name="Conventions"
+      type="conventions"/>`) - unambiguous, names exactly one concept.
+    - dispatch_elements: an alternative inside a NAMED dispatch xs:choice - a
+      group or complexType whose content is one xs:choice of element
+      alternatives, e.g. instruments.xsd's `<xs:group name="oreTradeData">
+      <xs:choice><xs:element type="swapData" name="SwapData"/>...` - each
+      such element names a distinct XML tag bound to a shared type, which is
+      exactly what Tier 1 needs (the "<T>Data" names). conventions.xsd's
       `<xs:complexType name="conventions"><xs:choice>...` follows the same
-      shape.
+      shape, but its alternatives (Swap, FX, Deposit, CDS, ...) are short,
+      generic business words with a real collision risk against unrelated
+      code (see link_schema()'s Tier 2/3 guard) that root_elements doesn't
+      share - keeping the two sets distinct is what lets that guard target
+      dispatch alternatives specifically, without also excluding a file's
+      own unambiguous root element.
 
     An element inside a plain xs:sequence/xs:all (curveconfig.xsd's
     `<xs:element type="bool" name="AddBasis"/>` deep in a field list) is
@@ -218,13 +228,14 @@ def _named_join_candidate_elements(root: ET.Element) -> set[int]:
     ever expected a dedicated class for.
     """
     element_tag = f"{_XS_NS}element"
-    wanted = {id(child) for child in root if child.tag == element_tag}
+    root_elements = {id(child) for child in root if child.tag == element_tag}
+    dispatch_elements: set[int] = set()
     parent_of = {child: parent for parent in root.iter() for child in parent}
     for choice in root.iter(f"{_XS_NS}choice"):
         container = parent_of.get(choice)
         if container is not None and container.get("name"):
-            wanted.update(id(el) for el in choice if el.tag == element_tag)
-    return wanted
+            dispatch_elements.update(id(el) for el in choice if el.tag == element_tag)
+    return root_elements, dispatch_elements
 
 
 def extract_xsd_types(engine: Path, xsd_root: str) -> tuple[list[dict], dict]:
@@ -245,17 +256,19 @@ def extract_xsd_types(engine: Path, xsd_root: str) -> tuple[list[dict], dict]:
             parse_errors.append([f.name, str(exc)])
             continue
         rel = f"{xsd_root}/{f.name}"
-        join_candidates = _named_join_candidate_elements(root)
+        root_elements, dispatch_elements = _named_join_candidate_elements(root)
         for el in root.iter():
             kind = _NAMED_TAGS.get(el.tag)
             if kind is None:
                 continue
-            if kind == "element" and id(el) not in join_candidates:
+            is_dispatch = id(el) in dispatch_elements
+            if kind == "element" and not is_dispatch and id(el) not in root_elements:
                 continue
             name = el.get("name")
             if not name:
                 continue  # anonymous inline type/element - not a join key
-            types.append({"name": name, "kind": kind, "file": rel})
+            types.append({"name": name, "kind": kind, "file": rel,
+                          "dispatch": is_dispatch})
     types.sort(key=lambda t: (t["file"], t["name"], t["kind"]))
     return types, {
         "xsd_files_scanned": len(files),
@@ -371,8 +384,10 @@ def link_schema(engine: Path, chunks: list[Chunk], graphs: dict[str, dict],
     xsd_types, xsd_stats = extract_xsd_types(engine, xsd_root)
     xsd_names = sorted({t["name"] for t in xsd_types})
     xsd_name_files: dict[str, str] = {}
+    xsd_name_dispatch: dict[str, bool] = {}
     for t in xsd_types:
         xsd_name_files.setdefault(t["name"], t["file"])
+        xsd_name_dispatch.setdefault(t["name"], t["dispatch"])
 
     xsd_by_name, xsd_by_file = _index_xsd_nodes(graphs.get("OREXsd", {}).get("nodes", []))
     code_by_label = _index_code_labels(graphs, ("OREData", "OREAnalytics"))
@@ -394,30 +409,55 @@ def link_schema(engine: Path, chunks: list[Chunk], graphs: dict[str, dict],
         matched[candidate] = {"tier": 1, "code_node": node, "via": entry["type"]}
         tier_counts[1] += 1
 
-    # Tier 2/3 guard: a registry trade class's *real* schema binding is
-    # always Tier 1, from instruments.xsd - conventions.xsd, ore_types.xsd
-    # etc. legitimately reuse the same short business word for an unrelated
-    # concept (conventions.xsd's dispatch element `<xs:element type="swapType"
-    # name="Swap"/>` names a *convention*, not the Swap trade; ore_types.xsd's
-    # `capFloor` is a two-value Cap/Floor enum, not the CapFloor trade). Tier
-    # 1 already found the correct instruments.xsd binding for every
-    # registered type it can; a Tier 2/3 candidate landing on a registry
-    # class from any OTHER file is exactly this collision, not a real match -
-    # confirmed on inspection for every case in this corpus (Swap, FxOption,
-    # InflationSwap, CommodityForward via conventions.xsd; CapFloor via
-    # ore_types.xsd), so it's rejected outright rather than kept as a lower-
-    # confidence guess.
+    # Tier 2/3 guards against two confirmed collision patterns - both found
+    # by spot-checking real edges, not hypothesised:
+    #
+    # 1. A registry trade class's *real* schema binding is always Tier 1,
+    #    from instruments.xsd - conventions.xsd/ore_types.xsd/etc.
+    #    legitimately reuse the same short business word for an unrelated
+    #    concept (conventions.xsd's dispatch element
+    #    `<xs:element type="swapType" name="Swap"/>` names a *convention*,
+    #    not the Swap trade; ore_types.xsd's `capFloor` is a two-value
+    #    Cap/Floor enum, not the CapFloor trade). A Tier 2/3 candidate
+    #    landing on a registry class from any OTHER file is this collision,
+    #    confirmed for every case found (Swap, FxOption, InflationSwap,
+    #    CommodityForward via conventions.xsd; CapFloor via ore_types.xsd).
+    # 2. conventions.xsd's dispatch elements *specifically* (Zero, CDS,
+    #    Deposit, FX, ... - the xs:choice alternatives inside its
+    #    `conventions` complexType, not its own unambiguous root element) are
+    #    short, generic tags with no structure of their own - high collision
+    #    risk against ANY unrelated class, not just trade classes
+    #    (`<xs:element type="fxType" name="FX"/>` - an FX rate convention -
+    #    matched OREData's cross-asset-model `FxData` purely because
+    #    "FX".normalize() == "FxData".normalize() == "fx"; the real target is
+    #    `FXConvention`). These are already resolved correctly by
+    #    xsd_link.py's dedicated conventions.xsd<->conventions.cpp
+    #    dispatch-table pass (25/25 exact), so generic name matching adds
+    #    nothing but false positives here and is skipped entirely - but only
+    #    for dispatch alternatives, not the file's own root element (which
+    #    IS an unambiguous, correct Tier 2 match: `<xs:element name=
+    #    "Conventions" type="conventions"/>` -> the `Conventions` class).
+    #
+    # Both are rejected outright rather than kept as a lower-confidence
+    # guess - a wrong edge corrupts the A5(b) "actionable" gap list, which
+    # is worse than a missed one that just shows up honestly in A5(a).
     registry_classes = {entry["class"] for entry in registry}
+    conventions_file = f"{xsd_root}/conventions.xsd"
 
-    def _off_domain_collision(node: dict, source_file: str) -> bool:
-        return node["label"] in registry_classes and source_file != f"{xsd_root}/instruments.xsd"
+    def _rejected(name: str, node: dict) -> bool:
+        source_file = xsd_name_files.get(name, "")
+        if node["label"] in registry_classes and source_file != f"{xsd_root}/instruments.xsd":
+            return True
+        if source_file == conventions_file and xsd_name_dispatch.get(name):
+            return True
+        return False
 
     # Tier 2 (EXTRACTED): exact label match against OREData/OREAnalytics.
     for name in xsd_names:
         if name in matched:
             continue
         node = _resolve_code_node(name, code_by_label, xsd_name_files.get(name))
-        if node is not None and not _off_domain_collision(node, xsd_name_files.get(name, "")):
+        if node is not None and not _rejected(name, node):
             matched[name] = {"tier": 2, "code_node": node, "via": name}
             tier_counts[2] += 1
 
@@ -429,7 +469,7 @@ def link_schema(engine: Path, chunks: list[Chunk], graphs: dict[str, dict],
         if len(candidates) != 1:
             continue
         node = _resolve_code_node(candidates[0], code_by_label, xsd_name_files.get(name))
-        if node is not None and not _off_domain_collision(node, xsd_name_files.get(name, "")):
+        if node is not None and not _rejected(name, node):
             matched[name] = {"tier": 3, "code_node": node, "via": candidates[0]}
             tier_counts[3] += 1
 
