@@ -51,8 +51,11 @@ SCHEMA_FOR = "schema_for"
 #: (2026-09, against the ORE Engine checkout current at the time). Update
 #: this deliberately when a corpus change or a genuine improvement to the
 #: join moves the count, the same way labels/*.anchors.json gets re-pinned -
-#: never let it drift silently just to make a warning go away.
-SCHEMA_LINKS_BASELINE = 268
+#: never let it drift silently just to make a warning go away. Dropped from
+#: 268 to 262 when the Tier 2/3 off-domain-collision guard was added (see
+#: link_schema()) - those 6 edges were confirmed wrong (conventions.xsd/
+#: ore_types.xsd short names colliding with unrelated trade class names).
+SCHEMA_LINKS_BASELINE = 262
 
 
 # ---------------------------------------------------------------------------
@@ -391,12 +394,30 @@ def link_schema(engine: Path, chunks: list[Chunk], graphs: dict[str, dict],
         matched[candidate] = {"tier": 1, "code_node": node, "via": entry["type"]}
         tier_counts[1] += 1
 
+    # Tier 2/3 guard: a registry trade class's *real* schema binding is
+    # always Tier 1, from instruments.xsd - conventions.xsd, ore_types.xsd
+    # etc. legitimately reuse the same short business word for an unrelated
+    # concept (conventions.xsd's dispatch element `<xs:element type="swapType"
+    # name="Swap"/>` names a *convention*, not the Swap trade; ore_types.xsd's
+    # `capFloor` is a two-value Cap/Floor enum, not the CapFloor trade). Tier
+    # 1 already found the correct instruments.xsd binding for every
+    # registered type it can; a Tier 2/3 candidate landing on a registry
+    # class from any OTHER file is exactly this collision, not a real match -
+    # confirmed on inspection for every case in this corpus (Swap, FxOption,
+    # InflationSwap, CommodityForward via conventions.xsd; CapFloor via
+    # ore_types.xsd), so it's rejected outright rather than kept as a lower-
+    # confidence guess.
+    registry_classes = {entry["class"] for entry in registry}
+
+    def _off_domain_collision(node: dict, source_file: str) -> bool:
+        return node["label"] in registry_classes and source_file != f"{xsd_root}/instruments.xsd"
+
     # Tier 2 (EXTRACTED): exact label match against OREData/OREAnalytics.
     for name in xsd_names:
         if name in matched:
             continue
         node = _resolve_code_node(name, code_by_label, xsd_name_files.get(name))
-        if node is not None:
+        if node is not None and not _off_domain_collision(node, xsd_name_files.get(name, "")):
             matched[name] = {"tier": 2, "code_node": node, "via": name}
             tier_counts[2] += 1
 
@@ -408,7 +429,7 @@ def link_schema(engine: Path, chunks: list[Chunk], graphs: dict[str, dict],
         if len(candidates) != 1:
             continue
         node = _resolve_code_node(candidates[0], code_by_label, xsd_name_files.get(name))
-        if node is not None:
+        if node is not None and not _off_domain_collision(node, xsd_name_files.get(name, "")):
             matched[name] = {"tier": 3, "code_node": node, "via": candidates[0]}
             tier_counts[3] += 1
 
