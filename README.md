@@ -62,8 +62,11 @@ without guessing their names,
 `oregraph query-batch A B C` for several exact neighborhoods with one graph
 load, `oregraph query-impact X` for directional blast radius, and
 `oregraph query-example X` for a categorized implementation analogue before
-code creation. Cross-module traversal includes explicit `calls`, `constructs`,
-`uses`, and factory `registers` relationships in addition to file includes.
+code creation, and `oregraph query-fields X` for the XML fields a trade,
+curve config, convention or pricing-engine product takes, with the XSD type and
+C++ class each maps to (see "Field mapping" below). Cross-module traversal
+includes explicit `calls`, `constructs`, `uses`, and factory `registers`
+relationships in addition to file includes.
 
 ```
 Path corridor:
@@ -83,6 +86,26 @@ schema names the *wrong* XML element entirely. See `docs/XSD-DRIFT.md` for the
 full, regenerated-on-every-`merge` list. **`fromXML()` in the C++ is
 authoritative for what a trade type actually accepts — read the code, not the
 schema, when the question is "what fields does this type take".**
+
+**Field mapping (opt-in).** With `ORE_FIELDMAP` pointing at an `ORE_Forge`
+checkout, `oregraph fieldmap` snapshots its resolved XPath mapping - 177 trade
+types, 71 curve-config entries, 26 conventions, 112 pricing-engine products
+(every valid Model/Engine pair) - and the next `oregraph merge` puts it in the
+graph: one `OREFieldmap` node per entry, linked `maps_to_class` to the C++ class
+that parses it and `maps_to_schema` to the XSD type that validates it. The
+entry's fields (XPath, required/optional, data type, value set) ride on the node;
+`query-fields` renders the whole chain. The mapping is ORE_Forge's claim, audited
+there against `fromXML()`, so the graph does not take it on trust: a link ORE's
+own source can confirm (the TradeType registry, the conventions dispatch chain,
+the schema's dispatch blocks, a class that names the entry's XML tag) is
+`EXTRACTED`; one only ORE_Forge vouches for is `INFERRED`; a disagreement is
+reported by `verify`, never resolved silently. Two limits: links are per entry,
+not per field - nothing says which line of `fromXML()` reads a given field - and
+the fields are attributes, **not searchable nodes**, so `query` will find an entry
+but not a field by name (use `query-fields X --xpath Y`). They were nodes first;
+that measurably broke retrieval on the bench questions, see
+`oregraph/fieldmap_link.py`. Refresh with `oregraph fieldmap`, then `merge`;
+`verify` warns when the graph is behind ORE_Forge.
 
 Docs and code are a separate, still-open gap: "which code implements what the
 ScriptedTrade docs describe" cannot be answered — asked that question,

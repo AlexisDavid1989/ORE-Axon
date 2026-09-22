@@ -8,14 +8,14 @@ automatically at session start.
 Always drive this repo through its CLI, never by calling graphify directly:
 
 ```
-python -m oregraph info | coverage | build | merge | semantic | relabel | verify | mcp
+python -m oregraph info | coverage | build | merge | fieldmap | semantic | relabel | verify | bench | mcp
 ```
 
 Paths come from `ORE_ENGINE` and `ORE_GRAPH_OUT`. Never hardcode a path in any
 file here — `oregraph/config.py` resolves them, and hardcoded paths were what
 made the previous version unusable by anyone but its author.
 
-## Two rules that are easy to break silently
+## Three rules that are easy to break silently
 
 1. **Do not change the targets of a chunk in `oregraph/chunks.py` that has a
    file in `labels/`.** Community ids come from Louvain and shift when the
@@ -27,6 +27,15 @@ made the previous version unusable by anyone but its author.
    Anchors pin names permanently. Pinning a wrong mapping bakes the bug in.
    `oregraph relabel` without `--write-anchors` only proposes.
 
+3. **Do not add bulk nodes to the merged graph without running `oregraph bench`
+   before and after.** `verify` cannot see this failure. The ORE_Forge field
+   mapping was first merged as 12,135 field nodes (plus a node per pricing
+   combination); verify passed, and bench showed 4 of 8 answers changed and one at
+   2x the tokens - graphify's term weights are global, so the damage reaches
+   questions that never touch a new node. It is now one node per entry with the
+   fields as attributes (bench-identical). `verify` fails if a fieldmap node is not
+   an entry; the general rule is yours to keep.
+
 ## Current state
 
 - Community names: 530 curated names in `labels/`, audited and pinned to content
@@ -36,6 +45,12 @@ made the previous version unusable by anyone but its author.
   it after a rebuild, never trust its ids directly. To add or fix a name, follow
   `docs/RELABELLING.md`.
 - `semantic-chunks/examples/` is not populated yet; everything else is.
+- ORE_Forge's field mapping (trade, curve config, convention, pricing engine) is
+  in the graph when `ORE_FIELDMAP` is set: `oregraph fieldmap` snapshots it,
+  `oregraph merge` consumes the cached snapshot (merge never calls ORE_Forge), and
+  `oregraph query-fields X` reads it. ORE_Forge is a moving target edited by other
+  sessions - re-run `fieldmap` then `merge` after it changes; `verify` warns when
+  the graph is behind. It is opt-in: without a snapshot, merge is unchanged.
 - Run `oregraph verify` after any change to the build or merge path. Two of its
   checks are about names: `curated labels attached` and `all curated names
   attached`. The second is the one that catches a name passing `--audit` on the
@@ -54,5 +69,8 @@ call graphify's Gemini backend so the token cost lands there, not on the plan.
 
 Prefer editing the pipeline over patching output. If a graph looks wrong, the
 cause is nearly always in `chunks.py` (coverage), `link.py` (cross-module
-edges), `merge.py` (namespacing and labels) or `labels.py` (name attachment).
+edges), `merge.py` (namespacing and labels), `labels.py` (name attachment),
+`link_schema.py`/`xsd_link.py` (XSD-to-class links - four tiers plus three
+dispatch-table passes now; see link_schema.py's module docstring) or, for
+the field mapping, `fieldmap_link.py`.
 Add a check to `verify.py` for any defect you fix, so it cannot return unnoticed.

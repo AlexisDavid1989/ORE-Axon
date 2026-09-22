@@ -24,6 +24,8 @@ from pathlib import Path
 
 from . import config as configmod
 from .chunks import Chunk
+from .fieldmap import FieldmapSnapshot
+from .fieldmap_link import link_fieldmap
 from .labels import attach_labels
 from .link import link
 from .link_schema import link_schema
@@ -36,7 +38,8 @@ def load_graph(path: Path) -> dict:
 
 
 def merge(engine: Path, chunks: list[Chunk], graph_paths: dict[str, Path],
-          labels_dir: Path, out_path: Path, quiet: bool = False) -> dict:
+          labels_dir: Path, out_path: Path, quiet: bool = False,
+          fieldmap: FieldmapSnapshot | None = None) -> dict:
     log = (lambda *a: None) if quiet else print
 
     graphs: dict[str, dict] = {}
@@ -176,6 +179,7 @@ def merge(engine: Path, chunks: list[Chunk], graph_paths: dict[str, Path],
                  if (edge["source"], edge["target"], edge["relation"]) not in existing]
     merged_links.extend(xsd_edges)
     td, cd = xsd_stats["trade_dispatch"], xsd_stats["convention_dispatch"]
+    rd = xsd_stats["reference_data_dispatch"]
     log(f"  xsd links: {xsd_stats['xsd_edges']} edges total; "
         f"legacy name-match {xsd_stats['matched_exact']} exact + "
         f"{xsd_stats['matched_via_stripped_data_suffix']} via stripped 'Data' suffix "
@@ -183,7 +187,28 @@ def merge(engine: Path, chunks: list[Chunk], graph_paths: dict[str, Path],
         f"trade dispatch {td.get('matched_exact', 0)}+{td.get('matched_normalized', 0)} "
         f"({len(td.get('unmatched_names', []))}/{td.get('attempted', 0)} unmatched); "
         f"convention dispatch {cd.get('matched_exact', 0)}+{cd.get('matched_normalized', 0)} "
-        f"({len(cd.get('unmatched_names', []))}/{cd.get('attempted', 0)} unmatched)")
+        f"({len(cd.get('unmatched_names', []))}/{cd.get('attempted', 0)} unmatched); "
+        f"reference-datum dispatch {rd.get('matched_exact', 0)}+{rd.get('matched_normalized', 0)} "
+        f"({len(rd.get('unmatched_names', []))}/{rd.get('attempted', 0)} unmatched)")
+
+    # ORE_Forge's field mapping (all four domains), from the cached snapshot -
+    # merge never calls ORE_Forge itself. Optional: without a snapshot the
+    # graph is exactly what it was before this pass existed. Runs last so it
+    # sees every namespaced node and every registration edge above; its
+    # communities start past the last chunk's range (ephemeral, like the rest).
+    fieldmap_stats = None
+    if fieldmap is not None:
+        fm_nodes, fm_edges, fieldmap_stats = link_fieldmap(
+            fieldmap, merged_nodes, merged_links, engine,
+            community_base=len(graphs) * COMMUNITY_STRIDE)
+        merged_nodes.extend(fm_nodes)
+        merged_links.extend(fm_edges)
+        per = fieldmap_stats["domains"]
+        log(f"  fieldmap: {len(fm_nodes):,} nodes, {len(fm_edges):,} edges from "
+            f"ORE_Forge @ {(fieldmap.version.get('commit') or '?')[:9]} - "
+            + ", ".join(f"{d} {per[d]['entries']} entries/{per[d]['fields']:,} fields "
+                        f"({per[d]['class_linked']} class, {per[d]['schema_linked']} schema)"
+                        for d in per))
 
     ore = configmod.ore_version(engine)
     ore["graphify_version"] = configmod.graphify_version()
@@ -199,6 +224,7 @@ def merge(engine: Path, chunks: list[Chunk], graph_paths: dict[str, Path],
                   "symbol_link_stats": symbol_stats,
                   "xsd_link_stats": xsd_stats,
                   "schema_link_stats": schema_stats,
+                  **({"fieldmap": fieldmap_stats} if fieldmap_stats else {}),
                   "ore": ore},
         "nodes": merged_nodes,
         "links": merged_links,
@@ -218,4 +244,7 @@ def merge(engine: Path, chunks: list[Chunk], graph_paths: dict[str, Path],
         "labels": label_stats,
         "link": link_stats,
         "schema": schema_stats,
+        "fieldmap": ({"nodes": fieldmap_stats["nodes"], "edges": fieldmap_stats["edges"],
+                      "relations": fieldmap_stats["relations"]}
+                     if fieldmap_stats else None),
     }

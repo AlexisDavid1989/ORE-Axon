@@ -22,9 +22,11 @@ Two independent strategies, run as separate passes
    conventions.xsd, curveconfig.xsd etc. have far more paraphrased,
    non-literal LLM labels and would need their own matching strategy (see
    pass 2).
-2. **Dispatch-table matching** (`_authoritative_pass`, run once for
-   instruments.xsd against databuilders.cpp and once for conventions.xsd
-   against conventions.cpp): several of ORE's xsd files declare a literal,
+2. **Dispatch-table matching** (`_authoritative_pass`, run once each for
+   instruments.xsd against databuilders.cpp's `ORE_REGISTER_TRADE_BUILDER`
+   table, conventions.xsd against conventions.cpp's `type == "X"` chain, and
+   referencedata.xsd against databuilders.cpp's `ORE_REGISTER_REFERENCE_DATUM`
+   table): several of ORE's xsd files declare a literal,
    complete enumeration mapping every concrete XML element name to its
    shared structural type - e.g. instruments.xsd's `oreTradeData` group has
    one `<xs:element type="eqBarrierOptionData" name="EquityBarrierOptionData"/>`
@@ -44,7 +46,7 @@ Two independent strategies, run as separate passes
    of instruments.xsd's ~180 oreTradeData element aliases got their own
    graph node, only the complexTypes they point at did).
 
-Both passes only add an edge where they can point at a real graph node on
+Both strategies only add an edge where they can point at a real graph node on
 each side; anything that doesn't resolve is reported, not guessed at.
 """
 from __future__ import annotations
@@ -224,6 +226,16 @@ def _parse_convention_dispatch(cpp_text: str) -> dict[str, str]:
         r'(?:QuantLib::ext::)?make_shared<(\w+)>', cpp_text))
 
 
+def _parse_reference_datum_registrations(cpp_text: str) -> dict[str, str]:
+    """ReferenceDatum type string -> registered C++ class name, from
+    `ORE_REGISTER_REFERENCE_DATUM("Type", ClassName, ...)` calls in
+    databuilders.cpp - `ReferenceDatumFactory`'s own registration table,
+    the same discipline `_parse_trade_builder_registrations` already gets
+    for `TradeFactory`."""
+    return dict(re.findall(
+        r'ORE_REGISTER_REFERENCE_DATUM\(\s*"([^"]+)"\s*,\s*([A-Za-z_:]+)\s*,', cpp_text))
+
+
 def _legacy_class_name_pass(nodes: list[dict], by_name: dict[str, list[dict]]) -> tuple[list[dict], dict]:
     """Pass 1: literal xsd type name vs. OREData class name, instruments.xsd only."""
     xsd_names = _extract_type_names(nodes, "xsd/instruments.xsd")
@@ -260,12 +272,22 @@ def _legacy_class_name_pass(nodes: list[dict], by_name: dict[str, list[dict]]) -
 
 def _authoritative_pass(nodes: list[dict], by_name: dict[str, list[dict]],
                          *, xsd_path: Path, container_name: str, xsd_source_file: str,
-                         cpp_path: Path, cpp_parser, strip_data_suffix: bool,
+                         cpp_path: Path, cpp_parser, strip_suffixes: tuple[str, ...] | None,
                          context_label: str) -> tuple[list[dict], dict]:
     """Join an xsd's literal element-name dispatch enumeration against a C++
     dispatch table (registration macro or if/else chain), both parsed from
     their real source files. See module docstring for why this exists
-    alongside (not instead of) the name-guessing pass."""
+    alongside (not instead of) the name-guessing pass.
+
+    *strip_suffixes*: candidate dispatch strings are the element name minus
+    each of these trailing suffixes, in order, longest/most-specific first -
+    trades use `<TradeType>Data` (`("Data",)`); reference data mostly uses
+    `<Type>ReferenceData` but one entry (`BondBasketData`) only has the bare
+    `Data` suffix, so both are tried (`("ReferenceData", "Data")`) and the
+    first that resolves wins, so a genuine `...ReferenceData` entry is never
+    mismatched against the shorter suffix by trying it first. Conventions'
+    dispatch elements (`Zero`, `CDS`, ...) already equal the dispatch string
+    with nothing to strip (pass None)."""
     stats = {"attempted": 0, "matched_exact": 0, "matched_normalized": 0,
              "unmatched_names": []}
     if not xsd_path.exists() or not cpp_path.exists():
@@ -281,12 +303,13 @@ def _authoritative_pass(nodes: list[dict], by_name: dict[str, list[dict]],
 
     edges: list[dict] = []
     for elem_name, type_name in sorted(dispatch.items()):
-        if strip_data_suffix:
-            if not elem_name.endswith("Data"):
-                continue
-            candidate = elem_name[:-4]
+        if strip_suffixes:
+            candidates = [elem_name[: -len(suffix)] for suffix in strip_suffixes
+                         if elem_name.endswith(suffix)]
         else:
-            candidate = elem_name
+            candidates = [elem_name]
+        if not candidates:
+            continue
         stats["attempted"] += 1
 
         xsd_id = _lookup_xsd_node(xsd_index, type_name)
@@ -294,15 +317,21 @@ def _authoritative_pass(nodes: list[dict], by_name: dict[str, list[dict]],
             stats["unmatched_names"].append(elem_name)
             continue
 
-        cls_name = registrations.get(candidate)
+        cls_name = None
         score = AUTHORITATIVE_CONFIDENCE_SCORE
         via_normalized = False
+        for candidate in candidates:
+            cls_name = registrations.get(candidate)
+            if cls_name is not None:
+                break
         if cls_name is None:
-            hits = norm_registrations.get(_normalize(candidate), [])
-            if len(hits) == 1:
-                cls_name = hits[0][1]
-                via_normalized = True
-                score = AUTHORITATIVE_CONFIDENCE_SCORE_NORMALIZED
+            for candidate in candidates:
+                hits = norm_registrations.get(_normalize(candidate), [])
+                if len(hits) == 1:
+                    cls_name = hits[0][1]
+                    via_normalized = True
+                    score = AUTHORITATIVE_CONFIDENCE_SCORE_NORMALIZED
+                    break
         if cls_name is None:
             stats["unmatched_names"].append(elem_name)
             continue
@@ -347,6 +376,8 @@ def link_xsd(nodes: list[dict], engine_root: Path | None = None) -> tuple[list[d
     trade_stats: dict = {"skipped": "no engine_root"}
     convention_edges: list[dict] = []
     convention_stats: dict = {"skipped": "no engine_root"}
+    refdata_edges: list[dict] = []
+    refdata_stats: dict = {"skipped": "no engine_root"}
 
     if engine_root is not None:
         trade_edges, trade_stats = _authoritative_pass(
@@ -356,7 +387,7 @@ def link_xsd(nodes: list[dict], engine_root: Path | None = None) -> tuple[list[d
             xsd_source_file="xsd/instruments.xsd",
             cpp_path=engine_root / "OREData" / "ored" / "utilities" / "databuilders.cpp",
             cpp_parser=_parse_trade_builder_registrations,
-            strip_data_suffix=True,
+            strip_suffixes=("Data",),
             context_label="xsd_tradedata_registration_match",
         )
         convention_edges, convention_stats = _authoritative_pass(
@@ -366,17 +397,37 @@ def link_xsd(nodes: list[dict], engine_root: Path | None = None) -> tuple[list[d
             xsd_source_file="xsd/conventions.xsd",
             cpp_path=engine_root / "OREData" / "ored" / "configuration" / "conventions.cpp",
             cpp_parser=_parse_convention_dispatch,
-            strip_data_suffix=False,
+            strip_suffixes=None,
             context_label="xsd_convention_dispatch_match",
         )
+        # referencedata.xsd's `referenceDataTypes` group is the same shape as
+        # instruments.xsd's `oreTradeData` (a literal element->type dispatch
+        # enumeration), and `ReferenceDatumFactory` is registered the same way
+        # `TradeFactory` is (`ORE_REGISTER_REFERENCE_DATUM` in the same
+        # databuilders.cpp) - the difference is the suffix the element name
+        # wraps the registered string in: almost always "ReferenceData" (e.g.
+        # element `BondReferenceData` -> registered string "Bond"), but one
+        # entry (`BondBasketData`) only has the bare "Data" suffix - both are
+        # tried, longest first, so a genuine "...ReferenceData" entry is never
+        # mismatched against the shorter suffix.
+        refdata_edges, refdata_stats = _authoritative_pass(
+            nodes, by_name,
+            xsd_path=engine_root / "xsd" / "referencedata.xsd",
+            container_name="referenceDataTypes",
+            xsd_source_file="xsd/referencedata.xsd",
+            cpp_path=engine_root / "OREData" / "ored" / "utilities" / "databuilders.cpp",
+            cpp_parser=_parse_reference_datum_registrations,
+            strip_suffixes=("ReferenceData", "Data"),
+            context_label="xsd_referencedata_registration_match",
+        )
 
-    # Merge all three passes, de-duplicating (source, target) pairs - a
+    # Merge all four passes, de-duplicating (source, target) pairs - a
     # name can legitimately resolve through more than one pass (e.g. the
     # legacy pass already gets `Swap` from complexType `swapData` directly;
     # pass 2 would add the same edge again via element `SwapData`).
     edges: list[dict] = []
     seen: set[tuple[str, str]] = set()
-    for edge in legacy_edges + trade_edges + convention_edges:
+    for edge in legacy_edges + trade_edges + convention_edges + refdata_edges:
         key = (edge["source"], edge["target"])
         if key in seen:
             continue
@@ -389,5 +440,6 @@ def link_xsd(nodes: list[dict], engine_root: Path | None = None) -> tuple[list[d
         "xsd_edges": len(edges),
         "trade_dispatch": trade_stats,
         "convention_dispatch": convention_stats,
+        "reference_data_dispatch": refdata_stats,
     }
     return edges, stats

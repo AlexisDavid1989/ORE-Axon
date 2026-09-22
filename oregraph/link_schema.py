@@ -57,7 +57,18 @@ SCHEMA_FOR = "schema_for"
 #: names colliding with unrelated trade class names) and a conventions.xsd
 #: dispatch-alternative guard (short convention tags colliding with other,
 #: non-trade classes) - both confirmed wrong on inspection, not guessed at.
-SCHEMA_LINKS_BASELINE = 261
+#: Raised 261 -> 290 (2026-09-22) by three genuine additions, none of which
+#: touched an existing edge (checked by diffing the merged graph before and
+#: after): Tier 4 (a root xsd element's literal tag, verified against the
+#: implementing class's own fromXML() source - see _root_class_declarations,
+#: +11), xsd_link.py's new referencedata.xsd<->databuilders.cpp dispatch pass
+#: (+12, feeding "implements" edges counted the same way as the trade/
+#: convention dispatch passes), and hardening _resolve_code_node against a
+#: real forward-declaration bug (OREAnalytics' app/inputparameters.hpp
+#: forward-declares dozens of classes it doesn't define, which previously
+#: made an otherwise-unique Tier 2/3 match look ambiguous - this alone
+#: resolved 18 previously-unmatched names, +4 Tier 2 / +14 Tier 3).
+SCHEMA_LINKS_BASELINE = 290
 
 
 # ---------------------------------------------------------------------------
@@ -327,6 +338,54 @@ def _index_xsd_nodes(xsd_nodes: list[dict]) -> tuple[dict[str, str], dict[str, s
     return by_name, by_file
 
 
+#: The two idioms this codebase actually uses to validate an XML root's tag
+#: against a literal string, confirmed by reading source (not hypothesised):
+#: `XMLUtils::checkNode(node, "Tag")` (the common case, e.g.
+#: calendaradjustmentconfig.cpp, referencedata.cpp, todaysmarketparameters.cpp),
+#: `XMLUtils::getNodeName(root) == "Tag"` (e.g. crossassetmodeldata.cpp), and
+#: portfolio.cpp's own `node->name()) == "Tag"` (Portfolio parses either
+#: `<Portfolio>` or a bare `<Trade>`, so it doesn't use checkNode's single-tag
+#: assertion). Not every fromXML() validates its root tag at all - a class with
+#: no hit here is a legitimate finding, not a search failure.
+_FROMXML_DEF_RE = re.compile(r"(?:void|XMLNode\*)\s+([\w:]+)::fromXML\s*\(")
+_ROOT_TAG_CHECK_RE = re.compile(
+    r'XMLUtils::checkNode\([^,]+,\s*"([^"]+)"\)'
+    r'|XMLUtils::getNodeName\([^)]*\)\s*==\s*"([^"]+)"'
+    r'|node(?:Ptr)?->name\(\)\)\s*==\s*"([^"]+)"')
+
+
+def _root_class_declarations(engine: Path, chunks_by_name: dict[str, Chunk]) -> dict[str, set[str]]:
+    """xml root tag -> the set of distinct class names whose own fromXML()
+    validates that exact literal tag (see _ROOT_TAG_CHECK_RE). A tag-check is
+    attributed to the nearest preceding fromXML definition in the same file -
+    true for every case checked by hand while building Tier 4, and far cheaper
+    than a real C++ brace-matching parse of function bodies. Scoped to
+    OREData + OREAnalytics .cpp, the same trees Tiers 1-3 draw classes from.
+    """
+    roots = [engine / chunks_by_name[c].root for c in ("OREData", "OREAnalytics")
+             if c in chunks_by_name]
+    result: dict[str, set[str]] = defaultdict(set)
+    for root in roots:
+        if not root.exists():
+            continue
+        for path in sorted(root.rglob("*.cpp")):
+            text = path.read_text(encoding="utf-8", errors="ignore")
+            defs = [(m.start(), m.group(1)) for m in _FROMXML_DEF_RE.finditer(text)]
+            if not defs:
+                continue
+            for m in _ROOT_TAG_CHECK_RE.finditer(text):
+                tag = next(g for g in m.groups() if g)
+                cls = None
+                for pos, cname in defs:
+                    if pos <= m.start():
+                        cls = cname
+                    else:
+                        break
+                if cls:
+                    result[tag].add(cls)
+    return result
+
+
 def _index_code_labels(graphs: dict[str, dict], repos: tuple[str, ...]) -> dict[str, list[dict]]:
     """Exact class label -> candidate OREData/OREAnalytics nodes with a real
     source file. Excludes nodes with no source_file: the AST extractor emits
@@ -348,12 +407,53 @@ def _index_code_labels(graphs: dict[str, dict], repos: tuple[str, ...]) -> dict[
     return by_label
 
 
-def _resolve_code_node(name: str, by_label: dict[str, list[dict]],
+#: Cache of (repo_path -> file text), populated lazily by _defines_class. Module-
+#: level and unbounded is fine: link_schema() runs once per merge process, over
+#: a fixed, small set of candidate files revisited across tiers.
+_file_text_cache: dict[str, str] = {}
+
+#: Cache of (class name -> compiled "real definition" pattern), see _defines_class.
+_class_def_pattern_cache: dict[str, re.Pattern] = {}
+
+
+def _read_cached(engine: Path, repo_path: str) -> str:
+    cached = _file_text_cache.get(repo_path)
+    if cached is None:
+        p = engine / repo_path
+        cached = p.read_text(encoding="utf-8", errors="ignore") if p.exists() else ""
+        _file_text_cache[repo_path] = cached
+    return cached
+
+
+def _defines_class(text: str, name: str) -> bool:
+    """True if *text* contains a real `class`/`struct` definition of *name*
+    (its declaration runs to a `{`), not merely a forward declaration
+    (`class Name;`) or an ordinary mention (a member type, a function
+    parameter). Found for real, not hypothesised: OREAnalytics'
+    `app/inputparameters.hpp` forward-declares dozens of classes it doesn't
+    define (`class StressTestScenarioData;`, `class SimmCalibrationData;`,
+    `class ReturnConfiguration;` among them, confirmed by reading the file) -
+    graphify's AST extractor gives a forward declaration the same
+    `_callable_class` node shape as a real definition, indistinguishable
+    without reading the source. `[^;{]*` is what makes this a definition test
+    and not just a name search: an inheritance clause has no `;`/`{` of its
+    own, so it's skipped over, but a bare forward declaration hits the `;`
+    first and the pattern fails to match."""
+    pattern = _class_def_pattern_cache.get(name)
+    if pattern is None:
+        pattern = re.compile(r"\b(?:class|struct)\s+" + re.escape(name) + r"\b[^;{]*\{")
+        _class_def_pattern_cache[name] = pattern
+    return bool(pattern.search(text))
+
+
+def _resolve_code_node(engine: Path, name: str, by_label: dict[str, list[dict]],
                        preferred_file: str | None = None) -> dict | None:
     """A single candidate node for *name*, or None (no match / unresolved
     ambiguity). Ties are broken by preferring the candidate whose source file
     stem equals the expected file's stem - the file a class is declared in is
-    overwhelmingly likely to be named after the class itself."""
+    overwhelmingly likely to be named after the class itself - and, failing
+    that, by preferring whichever single candidate's own source is a real
+    definition rather than a forward declaration (see _defines_class)."""
     candidates = by_label.get(name, [])
     if len(candidates) == 1:
         return candidates[0]
@@ -363,6 +463,12 @@ def _resolve_code_node(name: str, by_label: dict[str, list[dict]],
                 if PurePosixPath(str(c["source_file"])).stem.lower() == stem]
         if len(exact) == 1:
             return exact[0]
+    if len(candidates) > 1:
+        defining = [c for c in candidates
+                   if c.get("repo_path")
+                   and _defines_class(_read_cached(engine, c["repo_path"]), name)]
+        if len(defining) == 1:
+            return defining[0]
     return None
 
 
@@ -403,7 +509,7 @@ def link_schema(engine: Path, chunks: list[Chunk], graphs: dict[str, dict],
         candidate = f"{entry['type']}Data"
         if candidate not in xsd_name_files or candidate in matched:
             continue
-        node = _resolve_code_node(entry["class"], code_by_label, entry["file"])
+        node = _resolve_code_node(engine, entry["class"], code_by_label, entry["file"])
         if node is None:
             continue
         matched[candidate] = {"tier": 1, "code_node": node, "via": entry["type"]}
@@ -456,7 +562,7 @@ def link_schema(engine: Path, chunks: list[Chunk], graphs: dict[str, dict],
     for name in xsd_names:
         if name in matched:
             continue
-        node = _resolve_code_node(name, code_by_label, xsd_name_files.get(name))
+        node = _resolve_code_node(engine, name, code_by_label, xsd_name_files.get(name))
         if node is not None and not _rejected(name, node):
             matched[name] = {"tier": 2, "code_node": node, "via": name}
             tier_counts[2] += 1
@@ -468,12 +574,36 @@ def link_schema(engine: Path, chunks: list[Chunk], graphs: dict[str, dict],
         candidates = normalized_code.get(_normalize(name), [])
         if len(candidates) != 1:
             continue
-        node = _resolve_code_node(candidates[0], code_by_label, xsd_name_files.get(name))
+        node = _resolve_code_node(engine, candidates[0], code_by_label, xsd_name_files.get(name))
         if node is not None and not _rejected(name, node):
             matched[name] = {"tier": 3, "code_node": node, "via": candidates[0]}
             tier_counts[3] += 1
 
-    confidence = {1: ("EXTRACTED", 0.95), 2: ("EXTRACTED", 0.9), 3: ("INFERRED", 0.6)}
+    # Tier 4 (EXTRACTED): a root xsd element (a direct child of <xs:schema> -
+    # A2's "element"-kind, non-dispatch entries) whose exact literal tag is
+    # validated, in source, by exactly one class's own fromXML() - orthogonal
+    # to Tiers 1-3, which are all name-matching and structurally cannot find a
+    # link like `ORE` (the xsd tag) -> `Parameters` (the class): no name
+    # resemblance at all, only a shared literal string in real code. Scoped to
+    # root elements specifically - running this over every field name in the
+    # corpus would be a far broader net, with exactly the collision risk
+    # Tiers 2/3's guards above exist to reject.
+    root_names = {t["name"] for t in xsd_types if t["kind"] == "element" and not t["dispatch"]}
+    root_declarations = _root_class_declarations(engine, chunks_by_name)
+    for name in xsd_names:
+        if name in matched or name not in root_names:
+            continue
+        candidates = root_declarations.get(name, set())
+        if len(candidates) != 1:
+            continue  # 0: no source evidence; >1: ambiguous - neither is guessed
+        node = _resolve_code_node(engine, next(iter(candidates)), code_by_label,
+                                  xsd_name_files.get(name))
+        if node is not None and not _rejected(name, node):
+            matched[name] = {"tier": 4, "code_node": node, "via": next(iter(candidates))}
+            tier_counts[4] += 1
+
+    confidence = {1: ("EXTRACTED", 0.95), 2: ("EXTRACTED", 0.9), 3: ("INFERRED", 0.6),
+                 4: ("EXTRACTED", 0.92)}
     edges: list[dict] = []
     unanchored: list[str] = []
     for name in sorted(matched):
@@ -567,6 +697,8 @@ def format_drift_report(stats: dict) -> str:
                 f"{tiers.get('1', 0)}")
     lines.append(f"- Tier 2 (EXTRACTED, exact class-label match): {tiers.get('2', 0)}")
     lines.append(f"- Tier 3 (INFERRED, normalised match): {tiers.get('3', 0)}")
+    lines.append(f"- Tier 4 (EXTRACTED, a root element's exact tag validated by "
+                f"one class's fromXML() in source - see link_schema.py): {tiers.get('4', 0)}")
     lines.append(f"- Total matched xsd type names: {stats.get('matched_total', 0)} / "
                 f"{census.get('distinct_names', 0)}")
     lines.append(f"- `schema_for` edges written: {stats.get('schema_for_edges', 0)}"

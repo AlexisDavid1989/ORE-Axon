@@ -79,10 +79,10 @@ def cmd_coverage(args):
 
 
 def cmd_fieldmap(args):
-    # Read-only characterisation output (docs/FIELDMAP-SOURCE.md): snapshots
-    # ORE_Forge's resolved trade field mapping and caches it under
-    # cfg.fieldmap_out. Deliberately not called from build/merge/chunks.py -
-    # this data has no authority until checked against fromXML().
+    # Snapshots ORE_Forge's resolved field mapping (all four domains) and caches
+    # it under cfg.fieldmap_out. `merge` reads that cache - never ORE_Forge
+    # itself - and turns it into graph nodes (fieldmap_link.py), so the graph
+    # only changes when this command is re-run: refresh here, then `merge`.
     from . import fieldmap as fieldmapmod
     cfg = _cfg(args)
     try:
@@ -94,11 +94,14 @@ def cmd_fieldmap(args):
     v = snap.version
     dirty = " (dirty)" if v["dirty"] else " (clean)" if v["dirty"] is False else " (unknown)"
     print(f"Fieldmap src: {snap.source} @ {v['commit'] or '?'}{dirty}")
-    print(f"Trade types : {len(snap.trade_types)}")
+    for domain in fieldmapmod.DOMAINS:
+        print(f"  {domain:15s} {snap.entry_count(domain):4d} entries  "
+              f"{snap.node_count(domain):6d} nodes")
     print(f"Total nodes : {snap.total_nodes}")
 
     fieldmapmod.save(snap, cfg.fieldmap_out)
     print(f"Snapshot written to {cfg.fieldmap_out}")
+    print("Run `python -m oregraph merge` to put it in the graph.")
 
 
 def cmd_build(args):
@@ -153,6 +156,32 @@ def _semantic_dir(name: str) -> str:
             "OREExamplesConfig": "examples"}.get(name, name.lower())
 
 
+def _load_fieldmap(cfg):
+    """The cached ORE_Forge snapshot for merge, or None. Never fatal: the
+    fieldmap is optional, and a merge for someone who has never run
+    `oregraph fieldmap` must behave exactly as it always did. But a snapshot
+    that is unusable or behind ORE_Forge is said out loud - a graph quietly
+    built from a stale mapping is the failure this exists to end."""
+    from . import fieldmap as fieldmapmod
+    if not cfg.fieldmap_out.exists():
+        if cfg.fieldmap:
+            print("  fieldmap: ORE_FIELDMAP is set but no snapshot exists - run "
+                  "`python -m oregraph fieldmap`, then merge again")
+        return None
+    try:
+        snap = fieldmapmod.load(cfg.fieldmap_out)
+    except fieldmapmod.FieldmapError as exc:
+        print(f"  fieldmap: snapshot ignored - {exc}")
+        return None
+    if cfg.fieldmap:
+        current = configmod.fieldmap_version(cfg.fieldmap)
+        if current["commit"] and current["commit"] != snap.version.get("commit"):
+            print(f"  fieldmap: snapshot is at ORE_Forge {str(snap.version.get('commit'))[:9]} "
+                  f"but the checkout is at {current['commit'][:9]} - re-run "
+                  "`python -m oregraph fieldmap` to refresh it")
+    return snap
+
+
 def cmd_merge(args):
     from .merge import merge
     from .link_schema import format_drift_report, DRIFT_REPORT_BEGIN, DRIFT_REPORT_END
@@ -160,7 +189,7 @@ def cmd_merge(args):
     print("[merge]")
     paths = {c.name: cfg.module_graph(c.name) for c in ALL_CHUNKS}
     stats = merge(cfg.engine, list(ALL_CHUNKS), paths, cfg.labels_dir,
-                  cfg.merged_graph)
+                  cfg.merged_graph, fieldmap=_load_fieldmap(cfg))
     print(f"\nMerged graph: {cfg.merged_graph}")
     print(json.dumps({k: v for k, v in stats.items() if k != "labels"}, indent=2))
 
@@ -474,6 +503,26 @@ def cmd_query_batch(args):
     return 0
 
 
+def cmd_query_fields(args):
+    """Render ORE_Forge's field mapping for an entry or class, with the XSD type
+    and C++ class it maps to."""
+    from .query import load_path_graph, query_fields
+    cfg = _cfg(args)
+    _require_graphify(cfg)
+    if not cfg.merged_graph.exists():
+        print(f"error: {cfg.merged_graph} not found - run `build` first",
+              file=sys.stderr)
+        return 1
+    result = query_fields(load_path_graph(cfg.merged_graph), args.symbol,
+                          xpath=args.xpath, limit=args.limit)
+    print(result)
+    if result.startswith("NO FIELD MAPPING"):
+        print("(no mapping entry names this - is the fieldmap merged? "
+              "`python -m oregraph verify` says)", file=sys.stderr)
+        return 1
+    return 0
+
+
 def cmd_query_symbol(args):
     """Render a ranked, multigraph-aware exact-symbol neighborhood."""
     from .query import load_path_graph, query_symbol
@@ -631,6 +680,16 @@ def main(argv=None):
     p.add_argument("symbols", nargs="+", metavar="SYMBOL")
     p.add_argument("--limit", type=int, default=40)
     p.set_defaults(func=cmd_query_batch)
+
+    p = sub.add_parser("query-fields",
+                       help="show ORE_Forge's field mapping for a trade, config, "
+                            "convention, product or class - with its XSD type and "
+                            "C++ class")
+    p.add_argument("symbol", metavar="SYMBOL",
+                   help="entry name, TradeType, XML node or class name")
+    p.add_argument("--xpath", metavar="TEXT", help="keep only fields whose XPath contains TEXT")
+    p.add_argument("--limit", type=int, default=60, help="max field lines (default 60)")
+    p.set_defaults(func=cmd_query_fields)
 
     p = sub.add_parser("query-symbol",
                        help="show a ranked exact-symbol neighborhood")

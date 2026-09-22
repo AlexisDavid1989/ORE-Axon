@@ -51,6 +51,56 @@ live call, a measured count), not inference.
 > "live-server dependency, different failure mode" framing above. Nothing
 > committed to `ORE_Forge` yet — fixes are in its working tree.
 
+> **Update, 2026-09-21 — the mapping is now in the graph.** The statement above
+> that this document "builds nothing" no longer describes the repo: `oregraph
+> fieldmap` snapshots all four ORE_Forge domains (trade 177 entries, curve_config
+> 71, convention 26, pricing_engine 112 with all 224 valid Model/Engine pairs -
+> not just the trade domain this document characterised), and `oregraph merge`
+> turns the cached snapshot into 386 `OREFieldmap` entry nodes linked to the C++
+> class and XSD type each maps to (`oregraph/fieldmap_link.py`; `oregraph
+> query-fields` reads them). What changed against the findings below:
+>
+> - **Risk 8 ("no authority until checked against `fromXML()`") is answered from
+>   both ends.** ORE_Forge's audits are that check. On this side the graph
+>   re-derives every link it can from ORE's own source rather than trusting the
+>   data: trade -> class from the TradeType registry (177/177 resolve, all
+>   `EXTRACTED`); convention -> class from conventions.cpp's dispatch chain (25
+>   confirmed, 0 disagreements with ORE_Forge's `Cpp_Class_Name`); the remaining
+>   `Cpp_Class_Name` claims (65: the curve configs plus `BondSpread`, which
+>   conventions.cpp does not dispatch) are checked against the class's own source
+>   naming the entry's XML tag, and all 65 do. That check is a mention, not a
+>   proof of a parse, and 7 of the 65 name nested classes the AST has no node
+>   for, so they link to the enclosing class and stay `INFERRED`. Where only
+>   ORE_Forge's word remains the link is `INFERRED`, and disagreements are
+>   listed by `verify`.
+> - **Step 5's versioning conclusion is what the graph does**: the snapshot
+>   records ORE_Forge's `git rev-parse HEAD` and dirty flag, the merged graph is
+>   stamped with it, and `verify` warns when the checkout has moved on. It moved
+>   during this work: 9367ff4 (1 Sep, the tree this document sampled), then
+>   deb8490 (21 Sep 21:46) and 675cf0e (21 Sep 22:30) - the snapshot the graph
+>   carries is 675cf0e.
+> - **The `enumerable` claim held for all four domains, with one correction:**
+>   `get_config_types()` returns only the 20 `Is_Top_Level` curve configs (a GUI
+>   filter); the other 51 entries have their own `Cpp_Class_Name` and resolve on
+>   their own, so all 71 are enumerated with `Is_Top_Level` kept in `meta`.
+>   Pricing engines are resolved per valid pair (`get_pricing_engine_xpath`),
+>   because a product's parameter set depends on it.
+> - **Fields are attributes on the entry nodes, not nodes.** They were nodes
+>   first (12,135 of them); against `oregraph bench` that changed 4 of the 8
+>   answers and doubled the SABR one, so the design was reversed. The reasoning
+>   and numbers are in `fieldmap_link.py`'s docstring.
+> - **Findings for ORE_Forge's owner this surfaced** (also reported by `verify`,
+>   not fixed here - ORE_Forge is read-only to this repo): `Cpp_Builders` names
+>   four classes that are absent from the Engine source at v1.8.16.0-3
+>   (`LGMGridBermudanSwaptionEngineBuilder`, `LgmAmcBermudanSwaptionEngineBuilder`,
+>   `LgmMcBermudanSwaptionEngineBuilder`, `SwapEngineBuilderOptimised` - each
+>   appears in OREData's git history but not at HEAD; the checkout does contain an
+>   `LGMBermudanSwaptionEngineBuilder`, which may or may not be what replaced
+>   them - not checked); `CamAmcFxOptionEngineBuilder` exists but only in
+>   `fxoption.cpp`, so the graph has no node for it; and 18 pricing products carry
+>   a `Trade_Type` that is not a registered TradeType and list no builders, so
+>   they link to no class.
+
 ---
 
 ## STEP 1 — Locate the source

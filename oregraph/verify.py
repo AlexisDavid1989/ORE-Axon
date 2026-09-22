@@ -50,6 +50,118 @@ def _has_relation_path(nodes: list[dict], links: list[dict], start: str,
     return False
 
 
+def _sample(items: list[str], n: int = 4) -> str:
+    more = f" (+{len(items) - n} more)" if len(items) > n else ""
+    return "; ".join(items[:n]) + more
+
+
+def _fieldmap_checks(cfg, graph_meta: dict, nodes: list[dict], links: list[dict],
+                     check) -> None:
+    """ORE_Forge's field mapping (fieldmap_link.py). It is optional, so its
+    absence is only a finding when ORE_FIELDMAP says it should be there - a
+    graph quietly built without the mapping it was configured to carry is the
+    gap this pass exists to end. Once present, the structure is an error if it
+    is inconsistent; everything that reflects ORE_Forge's data (stale, an
+    unresolved name, a disagreement with ORE's source) is a warning, because
+    those are findings about the mapping, not about the build."""
+    from . import config as configmod
+    from .fieldmap_link import FIELDMAP_REPO, FIELDMAP_RELATIONS
+
+    fm = graph_meta.get("fieldmap")
+    fm_nodes = [n for n in nodes if n.get("repo") == FIELDMAP_REPO]
+    if not fm or not fm_nodes:
+        if cfg.fieldmap:
+            check("fieldmap merged", False,
+                  "ORE_FIELDMAP is set but the graph carries no field mapping - run "
+                  "`python -m oregraph fieldmap`, then `python -m oregraph merge`",
+                  severity="warn")
+        return
+    per = fm["domains"]
+    check("fieldmap merged", True, "; ".join(
+        f"{d} {v['entries']} entries/{v['fields']:,} fields" for d, v in per.items()))
+
+    # Structure: what the pass recorded must be what is in the graph. The fields
+    # travel as attributes on the entry nodes (they are not nodes of their own -
+    # see fieldmap_link.py for why), so a truncated or dropped attribute would
+    # leave an entry that answers queries with a fraction of its fields and no
+    # error anywhere; the field totals are the check that catches it.
+    entries = [n for n in fm_nodes if n.get("kind") == "entry"]
+    carried = sum(len(n.get("fields") or []) + sum(len(c.get("fields") or [])
+                                                    for c in n.get("combinations") or [])
+                  for n in entries)
+    combos = sum(len(n.get("combinations") or []) for n in entries)
+    edges = [l for l in links if l.get("_origin") == "fieldmap_link"]
+    entry_ids = {n["id"] for n in entries}
+    problems = []
+    for what, have, want in (
+            ("entry nodes", len(entries), sum(v["entries"] for v in per.values())),
+            ("fields carried on entries", carried, sum(v["fields"] for v in per.values())),
+            ("combinations carried", combos, sum(v["combinations"] for v in per.values())),
+            ("fieldmap edges", len(edges), fm.get("edges"))):
+        if have != want:
+            problems.append(f"{what}: {have:,} in graph vs {want:,} recorded")
+    # Only entries may be nodes. Field (and combination) nodes were tried and
+    # measurably broke retrieval - `oregraph bench` went from identical to 4 of 8
+    # answers changed, one of them 2x the tokens - so a later change that turns
+    # the fields back into nodes must fail here, not surface as a slow bench
+    # regression nobody connects to the fieldmap (see fieldmap_link.py).
+    not_entries = [n for n in fm_nodes if n.get("kind") != "entry"]
+    if not_entries:
+        problems.append(f"{len(not_entries):,} fieldmap node(s) that are not entries - "
+                        "fields must be attributes, not nodes: they distort query "
+                        "retrieval (fieldmap_link.py explains, `oregraph bench` shows it)")
+    stray = [l for l in edges if l["source"] not in entry_ids
+             or l.get("relation") not in FIELDMAP_RELATIONS]
+    if stray:
+        problems.append(f"{len(stray)} fieldmap edge(s) not maps_to_* out of an entry node")
+    short_counted = [n["entry"] for n in entries
+                     if "fields" in n and n.get("field_count") != len(n["fields"])]
+    if short_counted:
+        problems.append(f"field_count disagrees with the fields carried on "
+                        f"{len(short_counted)} entr(ies): {_sample(short_counted, 3)}")
+    check("fieldmap structure", not problems,
+          f"{len(entries)} entries carry {carried:,} fields and {combos} combinations; "
+          "counts match the pass's own" if not problems else "; ".join(problems))
+
+    stamp = fm.get("snapshot") or {}
+    if cfg.fieldmap:
+        current = configmod.fieldmap_version(cfg.fieldmap)
+        stale = bool(current["commit"]) and current["commit"] != stamp.get("commit")
+        short = lambda c: str(c or "?")[:9]
+        check("fieldmap snapshot current", not stale and not stamp.get("dirty"),
+              f"graph carries ORE_Forge {short(stamp.get('commit'))}"
+              + (f", checkout is at {short(current['commit'])} - re-run `python -m "
+                 "oregraph fieldmap` then `merge`" if stale else "")
+              + (" (snapshot taken from a dirty tree)" if stamp.get("dirty") else ""),
+              severity="warn")
+
+    unresolved = [f"{d} {x}" for kind in ("unresolved_class", "unresolved_schema")
+                  for d, xs in (fm.get(kind) or {}).items() for x in xs]
+    linked = ", ".join(f"{d} {v['class_linked']}/{v['entries']} class + "
+                       f"{v['schema_linked']}/{v['entries']} schema" for d, v in per.items())
+    anchors = fm.get("schema_anchor") or {}
+    detail = linked + (f"; schema anchored at the type's own node for "
+                       f"{anchors.get('type', 0)}, at the file's summary node for "
+                       f"{anchors.get('file', 0)}" if anchors else "")
+    if unresolved:
+        detail += f"; {len(unresolved)} unresolved: {_sample(unresolved)}"
+    check("fieldmap entries linked to code and schema", not unresolved, detail,
+          severity="warn")
+
+    # Where ORE's own source disagrees with ORE_Forge, or ORE_Forge's own data
+    # is internally odd. Each is a finding to hand to whoever owns the mapping.
+    found = {"class": fm.get("class_disagreements") or [],
+             "schema": fm.get("schema_disagreements") or [],
+             "unsupported class claim": fm.get("unsupported_claims") or [],
+             "substituted combination": fm.get("substituted_combinations") or [],
+             "duplicate xpath": fm.get("duplicate_xpaths") or []}
+    flat = [f"[{k}] {x}" for k, xs in found.items() for x in xs]
+    check("fieldmap agrees with ORE's source", not flat,
+          "no disagreements between ORE_Forge's claims and the registry, dispatch "
+          "chain and schema" if not flat else f"{len(flat)}: {_sample(flat)}",
+          severity="warn")
+
+
 def verify(cfg) -> dict:
     checks: list[dict] = []
 
@@ -67,6 +179,13 @@ def verify(cfg) -> dict:
     ids = {n["id"] for n in nodes}
     check("merged graph exists", True, str(path))
     ore = (g.get("graph") or {}).get("ore")
+
+    # The field-mapping nodes (fieldmap_link.py) get a generated community name
+    # each - "FX Forward (trade mapping)" - and none of them is a curated name.
+    # Counting them in checks 4/4b/5 would push the retention rate past 100% and
+    # let a real collapse of the curated names hide behind ~400 generated ones.
+    from .fieldmap_link import FIELDMAP_REPO
+    curated_nodes = [n for n in nodes if n.get("repo") != FIELDMAP_REPO]
 
     # 1. every edge endpoint resolves
     dangling = sum(1 for l in links if l["source"] not in ids or l["target"] not in ids)
@@ -95,9 +214,9 @@ def verify(cfg) -> dict:
           + ("" if not bad else ": " + ", ".join(str(keys[c]) for c in bad[:5])))
 
     # 4. curated labels actually landed
-    named = sum(1 for n in nodes
+    named = sum(1 for n in curated_nodes
                 if n.get("community_name") and "Community " not in str(n["community_name"]))
-    distinct = len({n.get("community_name") for n in nodes
+    distinct = len({n.get("community_name") for n in curated_nodes
                     if n.get("community_name") and "Community " not in str(n["community_name"])})
     check("curated labels attached", distinct > 0,
           f"{distinct} named communities covering {named:,} nodes")
@@ -126,7 +245,7 @@ def verify(cfg) -> dict:
     #    still vanish - four OREDocs names did exactly that, dropped by an
     #    overlap guard they could not satisfy, with no error anywhere.
     attached: dict[str, set[str]] = defaultdict(set)
-    for n in nodes:
+    for n in curated_nodes:
         nm, chunk = n.get("community_name"), n.get("repo")
         if not nm or "Community " in str(nm):
             continue
@@ -245,15 +364,18 @@ def verify(cfg) -> dict:
               severity="warn")
 
     # 9c2. the dispatch-table passes (trade type <-> databuilders.cpp,
-    # convention type <-> conventions.cpp - see xsd_link.py) read their two
-    # source files directly rather than through the (incomplete) OREXsd
-    # graph nodes, so their own coverage numbers matter independently of
-    # 9c's complexType-name numbers above.
+    # convention type <-> conventions.cpp, reference-datum type <->
+    # databuilders.cpp - see xsd_link.py) read their source files directly
+    # rather than through the (incomplete) OREXsd graph nodes, so their own
+    # coverage numbers matter independently of 9c's complexType-name numbers
+    # above.
     for pass_name, stats_key, noun in (
             ("trade dispatch (instruments.xsd <-> databuilders.cpp)",
              "trade_dispatch", "trade elements"),
             ("convention dispatch (conventions.xsd <-> conventions.cpp)",
-             "convention_dispatch", "convention elements")):
+             "convention_dispatch", "convention elements"),
+            ("reference-datum dispatch (referencedata.xsd <-> databuilders.cpp)",
+             "reference_data_dispatch", "reference-datum elements")):
         pass_stats = xsd_stats.get(stats_key) or {}
         if pass_stats.get("skipped"):
             check(pass_name, False,
@@ -370,6 +492,9 @@ def verify(cfg) -> dict:
               f"{len(schema_links):,} schema_for edges vs baseline "
               f"{SCHEMA_LINKS_BASELINE:,}" + (f" ({drop:+.0%})" if drop > 0.10 else ""),
               severity="warn")
+
+    # 11. ORE_Forge's field mapping - see _fieldmap_checks.
+    _fieldmap_checks(cfg, g.get("graph") or {}, nodes, links, check)
 
     convertible_path = _has_relation_path(
                 nodes, links, "build",

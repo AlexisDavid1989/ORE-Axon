@@ -208,6 +208,177 @@ v1.0-graphify-0.9.6`) without anyone having to keep it building, keep its
 anchors current, or decide which of two graphs an agent question should
 answer against.
 
+## `query-example` on a trade class returns the whole `portfolio/` directory
+
+`query-example FxForward` (and any class an instruments.xsd type is linked
+to) fills its entire 80-file budget with `TRADE/DATA`, one line per trade
+class in OREData, and every later section reads `TRUNCATED`. Cause: since
+`schema_for` joined `BUNDLE_RELATIONS` (commit ab56558), the traversal goes
+class -> instruments.xsd's summary node -> every other class that node is
+`schema_for`-linked to (160 of instruments.xsd's 218 `schema_for` edges start at
+that one node, as of the link_schema.py Tier 4 work), which is depth 2. Confirmed present before
+the fieldmap change (81 `TRADE/DATA` lines on the same query against the
+pre-fieldmap graph) - the fieldmap section was moved to the front of the bundle
+only so it is not starved by it. Not fixed here because the right fix is a
+decision: skip hub nodes in this traversal, cap per-relation fan-out, or anchor
+`schema_for` at the type's own node instead of the file summary (which is the
+step-3 XSD work and would remove the hub).
+
+## The 8 XSD files with zero links are now closed (2026-09-22)
+
+Was: `calendaradjustment.xsd`, `counterparty.xsd`, `creditsimulation.xsd`,
+`historicalreturnconfig.xsd`, `input.xsd`, `ore.xsd`, `scriptlibrary.xsd` and
+`stress.xsd` had no `schema_for`/`implements` edge of any kind - the OREXsd
+node existed, but nothing connected it to the code that parses it. Cause:
+ORE_Forge's field mapping never modelled these files at all (it only covers
+trade/curve_config/convention/pricing_engine), and `link_schema.py`'s Tiers
+1-3 are all name-matching, which cannot find a link like the `ORE` xsd tag to
+the `Parameters` class - no name resemblance whatsoever.
+
+Closed by three mechanisms, all source-verified, none guessed:
+
+- **A real bug in the shared class-resolver, found while investigating why
+  these files matched nothing.** OREAnalytics' `app/inputparameters.hpp`
+  forward-declares dozens of classes it does not define
+  (`class StressTestScenarioData;`, `class ReturnConfiguration;`,
+  `class ScriptLibraryData;`, `class CreditSimulationParameters;` among them,
+  confirmed by reading the file), and graphify's AST extractor gives a forward
+  declaration the same `_callable_class` node shape as a real definition -
+  indistinguishable without reading the source, so it silently made an
+  otherwise-unique class name look ambiguous. Fixed in `_resolve_code_node`
+  (`link_schema.py`) and the equivalent `_pick` (`fieldmap_link.py`) by
+  preferring whichever single candidate's own source is a real definition
+  (`_defines_class`: the declaration runs to a `{`, not a `;`). The fix can
+  only turn a previous None into a match, never change an existing one -
+  confirmed by diffing the merged graph before/after, no existing edge
+  changed. This alone closed `historicalreturnconfig.xsd` (-> `ReturnConfiguration`,
+  Tier 2), `scriptlibrary.xsd` (-> `ScriptLibraryData`, Tier 3) and
+  `creditsimulation.xsd` (-> `CreditSimulationParameters`, Tier 3), and
+  resolved 18 names in total across Tiers 2/3 (`SCHEMA_LINKS_BASELINE`
+  re-pinned 261 -> 290; see that constant's comment for the breakdown).
+- **Tier 4**, new in `link_schema.py` (`_root_class_declarations`): scans
+  OREData/OREAnalytics source directly for the three idioms this codebase
+  actually uses to validate an XML root's tag (`XMLUtils::checkNode`,
+  `XMLUtils::getNodeName(...) ==`, `portfolio.cpp`'s own `node->name()) ==`),
+  and links a root xsd element to the one class whose own `fromXML()` checks
+  that literal tag - orthogonal to Tiers 1-3 (all name-matching, so they
+  cannot find a link like the `ORE` xsd tag to the `Parameters` class, no
+  name resemblance at all). 0 candidates (no source evidence) or >1
+  (ambiguous) are reported, never guessed at. Closed `calendaradjustment.xsd`
+  (-> `CalendarAdjustmentConfig`), `counterparty.xsd` (-> `CounterpartyManager`),
+  `ore.xsd` (-> `Parameters`), `stress.xsd` (-> `StressTestScenarioData`) and,
+  together with the dispatch pass below, `referencedata.xsd`.
+- **A new dispatch-table pass** in `xsd_link.py`: `_authoritative_pass`
+  (previously hardcoded to strip a trailing "Data" suffix) was generalized to
+  a configurable suffix and pointed at `referencedata.xsd`'s
+  `referenceDataTypes` dispatch group against `databuilders.cpp`'s
+  `ORE_REGISTER_REFERENCE_DATUM` table - the same dispatch-table shape the
+  trade/convention passes already use, just a different macro and a
+  "ReferenceData" suffix instead of "Data". Both suffixes are tried, longest
+  first, since one entry (`BondBasketData`) only has the bare "Data" suffix
+  (see below for why it still doesn't produce an edge). This is in addition
+  to Tier 4's link for `referencedata.xsd`'s own container tag
+  (-> `BasicReferenceDataManager`) - the two cover different things (the
+  container vs. its per-type dispatch alternatives) and both are needed.
+- `input.xsd` closed as a side effect of the forward-decl fix unblocking
+  Tier 2 for its `Portfolio` root element, not through Tier 4 or the dispatch
+  pass.
+
+Confirmed additive throughout: diffed the merged graph before and after this
+whole change, no existing node or edge was altered, and `oregraph bench` was
+unaffected (13,591 -> 13,671 tokens across the 8 questions; one question
+gained a genuinely relevant file it was missing before).
+
+What's still genuinely open within this, not chased further:
+
+- **`Simulation`'s own root tag has no source evidence at all** - no class in
+  OREData or OREAnalytics validates the literal `<Simulation>` wrapper tag
+  (confirmed by direct search, not merely a search miss). `CrossAssetModel`,
+  its most substantial child, does resolve, but the outer wrapper doesn't.
+  Legitimate finding: worth asking ORE_Forge's or the Engine's owner whether
+  that's intentional.
+- **`referencedata.xsd`'s `BondBasketData` still produces no edge, for a
+  different reason than first thought.** It was originally skipped outright
+  because its element name doesn't end in "ReferenceData" like its 12
+  siblings; `_authoritative_pass` now tries the bare "Data" suffix too
+  (2026-09-22), and that part works - `BondBasketData` -> `BondBasket` ->
+  `BondBasketReferenceDatum` resolves correctly (confirmed by an isolated unit
+  test). But no edge reaches the real graph, because the OREXsd extraction
+  never produced a node for this one type at all (checked directly: no
+  `OREXsd` node exists for it, unlike its 12 siblings) - the exact same
+  pre-existing extraction gap that leaves 115 of 182 trade-dispatch elements
+  unmatched (see the `xsd-to-code links present` checks). Confirmed the fix
+  changed nothing in the merged graph (diffed before/after: 0 nodes, 0 edges
+  changed) - it only moved this entry from silently skipped to honestly
+  reported as unmatched, which is the correct outcome given the missing node,
+  not a regression. Closing it for real needs the same fix the query-example
+  hub issue above is waiting on: OREXsd nodes for the types the LLM
+  extraction currently has none for.
+- **`ore_types.xsd`'s ~60 shared simple-type enums** (`dayCounter`,
+  `businessDayConvention`, `calendar`, ...) are parsed by free functions in
+  `OREData/ored/utilities/parsers.cpp` (`parseDayCounter`, `parseFrequency`,
+  ...), not by a class's `fromXML()` - a different kind of link (type ->
+  function, not type -> class) neither Tier 4 nor any existing pass attempts.
+  **Checked and closed as not viable (2026-09-22), not merely deferred:**
+  graphify's AST extraction does not reliably create nodes for free functions
+  in this codebase - checked 7 parser functions directly in the merged graph
+  (`parseDayCounter`, `parseFrequency`, `parseCompounding`, `parsePeriod`,
+  `parseBool`, `parseReal`, `parseDate`), and 6 have zero nodes at all. The one
+  exception, `parseCurrency`, isn't even the free function: it's a
+  coincidentally-named method on a different class (`CurrencyParser`) that the
+  real free function just delegates to in one line. Building this link would
+  mean linking most of the ~60 types to nothing and occasionally linking one to
+  the wrong thing - worse than the current honest gap. Would need a change to
+  the extraction itself (or a source-level join bypassing node lookup
+  entirely, e.g. matching `parseX` definitions directly the way
+  `_root_class_declarations` matches `fromXML`) before this is worth
+  attempting again.
+- **`input.xsd`'s other elements** (`Trade`, `SubTrade`, `componentTrade`,
+  `componentSubTrade`, `subTradeGroup`) are reachable indirectly, through
+  instruments.xsd's own trade-type dispatch, not through a dedicated class of
+  their own - not chased separately.
+
+## Field mapping: what the graph knows it does not know
+
+Reported by `verify` on every run rather than fixed, because each needs a
+decision by whoever owns ORE_Forge or the XSD extraction:
+
+- **132 of 383 entry -> XSD links anchor at the schema file's summary node, not
+  the type's own node** (251 are type-level). The OREXsd extraction has 337
+  nodes against 955 declared names, and the fallback anchor is the same one
+  `schema_for` uses. Type-level anchoring needs nodes for the missing types.
+- **Closed (2026-09-22): 4 of the original 6 ambiguous curve-config entries now
+  resolve.** `Segments`, `InflationSegments`, `YieldCurveReport` and
+  `Calibration` all name an element curveconfig.xsd declares more than once
+  with different types depending on the parent element (`Segments` under
+  `YieldCurve` vs. under `InflationCurve`, etc.). `fieldmap_link.py`'s
+  `_parent_narrowed_type` now uses the entry's own `Parent_Node` (already
+  present in ORE_Forge's data, previously unread) to resolve the parent's own
+  type and look the child up as its direct element - still never a guess:
+  ambiguous either way stays unresolved. Confirmed additive (`oregraph bench`:
+  13,671 tokens before and after, identical to the last measured baseline in
+  "The 8 XSD files with zero links" below - this only added edges to nodes
+  already in the graph, no new nodes).
+- **2 curve-config entries still resolve to no XSD type, for two different
+  reasons, neither fixable by narrowing further**: `Report` has no
+  `Parent_Node` in ORE_Forge's data at all - it is deliberately the *default*
+  `ReportConfig` shared by eight different parents that mostly agree on one
+  type (`reportConfiguration`), except `YieldCurve` (which is the separate,
+  now-resolved `YieldCurveReport` entry) - closing it needs a majority/fallback
+  heuristic, exactly the kind of guess this join's docstring says it
+  deliberately avoids; and `baseltrafficlightconfig` is a lower-case key with
+  no matching element in curveconfig.xsd at all - confirmed by direct search,
+  not a lookup gap. `BondSpread` (convention) is in ORE's `fromXML()` but not
+  declared in conventions.xsd at all.
+- **ORE_Forge's `Cpp_Builders` lists four classes absent from the Engine source
+  at HEAD, 7 curve-config entries carry no `Cpp_Class_Name` at all, and 18
+  pricing products have no class link** - see `docs/FIELDMAP-SOURCE.md`'s
+  2026-09-21 update. Findings for ORE_Forge, which this repo only reads.
+- **`Commodity Swap`: ORE_Forge's `XSD_Type` is `commoditySwapData`, the
+  schema's `SwapData` element declares `swapData`.** It is the CommoditySwap bug
+  already described in `docs/XSD-DRIFT.md` (the schema names the wrong wrapper
+  element), rediscovered independently by the graph's XSD derivation.
+
 ## Docs and XSD have zero edges to code (v1.1)
 
 `OREDocs` and `OREXsd` are extracted as their own chunks with no cross-links

@@ -10,6 +10,8 @@ python -m oregraph query-path "ConvertibleBond::build" ConvertibleBond2
 python -m oregraph query-batch ConvertibleBond ConvertibleBond2 --limit 40
 python -m oregraph query-impact ConvertibleBond2 --limit 40
 python -m oregraph query-example EquityOption --depth 2 --limit 80
+python -m oregraph query-fields FxForward --limit 40
+python -m oregraph query-fields BermudanSwaption --xpath EngineParameters
 python -m oregraph query "What builds ConvertibleBond?" --mode bfs --depth 2
 ```
 
@@ -24,6 +26,14 @@ python -m oregraph query "What builds ConvertibleBond?" --mode bfs --depth 2
   radius).
 - `query-example` - a categorized source bundle around an existing analogue,
   for "show me how a similar type is implemented" before writing new code.
+- `query-fields` - ORE_Forge's field mapping for an entry (a trade type, curve
+  config, convention or pricing-engine product), named by entry, TradeType, XML
+  node or class: its fields with required/optional, data type and value set,
+  the XSD type that validates it and the C++ class that parses it, each link
+  with its confidence and how it was established. Needs the opt-in fieldmap
+  (README, "Field mapping"); `--xpath TEXT` filters the fields, and a pricing
+  product lists one field set per Model/Engine pair. Fields are not nodes, so
+  this - not `query` - is how to look one up.
 - `query` - free-text BFS/DFS over the graph, same engine as the MCP server.
 
 All of these need a real symbol as the entry point - `"portfolio/swap.hpp"`
