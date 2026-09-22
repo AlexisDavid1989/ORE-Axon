@@ -47,7 +47,14 @@ Two independent strategies, run as separate passes
    graph node, only the complexTypes they point at did).
 
 Both strategies only add an edge where they can point at a real graph node on
-each side; anything that doesn't resolve is reported, not guessed at.
+each side; anything that doesn't resolve is reported, not guessed at. That
+"real graph node" requirement is exactly why pass 2's *target* complexTypes
+mattered even though it reads element aliases from text: 168 of instruments.xsd's
+241 complexTypes had no OREXsd node either, capping this pass at 37% match
+regardless of alias handling. `xsd_coverage_extract.py` deterministically
+fills that gap into a separate `OREXsdSupplement` chunk (see `_XSD_CHUNKS`
+below) rather than growing OREXsd itself, which would reshuffle OREXsd's
+Louvain communities and corrupt its curated labels (CLAUDE.md rule 1).
 """
 from __future__ import annotations
 
@@ -62,6 +69,13 @@ _TYPE_LABEL_RE = re.compile(
     r"^([A-Za-z][\w]*)\s*(?:\((?:top-level )?(?:complexType|simpleType|element)|"
     r"(?:complexType|simpleType|element)\b)")
 
+#: chunks whose nodes describe XSD schema types. OREXsdSupplement holds
+#: complexTypes/simpleTypes deterministically enumerated to cover names
+#: OREXsd's LLM extraction missed (see xsd_coverage_extract.py) - kept as a
+#: separate chunk so it never touches OREXsd's own Louvain communities, but
+#: both chunks' nodes are equally valid match targets here.
+_XSD_CHUNKS = ("OREXsd", "OREXsdSupplement")
+
 LINK_CONFIDENCE = "MATCHED"
 LINK_CONFIDENCE_SCORE = 0.85
 #: pass 2 joins two literal, authoritative source files (an xsd's own
@@ -75,7 +89,7 @@ def _extract_type_names(nodes: list[dict], source_file: str) -> dict[str, str]:
     """xsd node id -> literal type/element name, for nodes from *source_file*."""
     names: dict[str, str] = {}
     for n in nodes:
-        if n.get("repo") != "OREXsd":
+        if n.get("repo") not in _XSD_CHUNKS:
             continue
         if n.get("source_file") != source_file:
             continue
@@ -170,14 +184,16 @@ def _xsd_node_index(nodes: list[dict], source_file: str) -> dict[str, str]:
     paraphrased prose (conventions.xsd) instead of the literal
     "name (complexType)" shape instruments.xsd happens to use."""
     stem = source_file.rsplit("/", 1)[-1].rsplit(".", 1)[0]
-    prefix = f"OREXsd::xsd_{stem}_"
+    prefixes = [f"{chunk}::xsd_{stem}_" for chunk in _XSD_CHUNKS]
     index: dict[str, str] = {}
     for n in nodes:
-        if n.get("repo") != "OREXsd" or n.get("source_file") != source_file:
+        if n.get("repo") not in _XSD_CHUNKS or n.get("source_file") != source_file:
             continue
         nid = n["id"]
-        if nid.startswith(prefix):
-            index[nid[len(prefix):]] = nid
+        for prefix in prefixes:
+            if nid.startswith(prefix):
+                index[nid[len(prefix):]] = nid
+                break
     return index
 
 

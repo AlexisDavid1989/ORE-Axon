@@ -1,0 +1,1296 @@
+{
+  "nodes": [
+    {
+      "id": "xsd_instruments_level_data",
+      "label": "levelData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_swaption_straddle_data",
+      "label": "swaptionStraddleData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_delivery_basket",
+      "label": "deliveryBasket (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_settlement_data",
+      "label": "settlementData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_quantities_type",
+      "label": "quantitiesType (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_prices_type",
+      "label": "pricesType (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_commodity_spread_option_strip_payment_data",
+      "label": "commoditySpreadOptionStripPaymentData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_commodity_spread_option_data",
+      "label": "commoditySpreadOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_commodity_digital_average_price_option_data",
+      "label": "commodityDigitalAveragePriceOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_long_shorts_type",
+      "label": "longShortsType (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_strikes",
+      "label": "strikes (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_calls_puts_type",
+      "label": "callsPutsType (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_commodity_option_strip_data",
+      "label": "commodityOptionStripData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_forward_rate_agreement_data",
+      "label": "forwardRateAgreementData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_fx_average_forward_data",
+      "label": "fxAverageForwardData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_rate_digital_option_data",
+      "label": "rateDigitalOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_fx_digital_barrier_option_data",
+      "label": "fxDigitalBarrierOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_fx_touch_option_data",
+      "label": "fxTouchOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_fx_forward_settlement_data",
+      "label": "fxForwardSettlementData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_eq_forward_settlement_data",
+      "label": "eqForwardSettlementData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_flexi_swap_data",
+      "label": "flexiSwapData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_bg_swap_data",
+      "label": "bgSwapData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_cap_floor_data",
+      "label": "capFloorData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_equity_auto_delta_hedged_underlying_data",
+      "label": "equityAutoDeltaHedgedUnderlyingData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_equity_auto_delta_hedged_option_data",
+      "label": "equityAutoDeltaHedgedOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_equity_future_option_data",
+      "label": "equityFutureOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_eq_digital_option_data",
+      "label": "eqDigitalOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_eq_touch_option_data",
+      "label": "eqTouchOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_commodity_digital_option_data",
+      "label": "commodityDigitalOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_comm_forward_settlement_data",
+      "label": "commForwardSettlementData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_auction_settlement_information",
+      "label": "auctionSettlementInformation (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_single_underlying_asian_option_data",
+      "label": "singleUnderlyingAsianOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_trade_level_fixings",
+      "label": "tradeLevelFixings (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_float_with_attribute",
+      "label": "floatWithAttribute (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_callable_swap_data",
+      "label": "callableSwapData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_name_data",
+      "label": "nameData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_basket_data",
+      "label": "basketData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_funding_data",
+      "label": "fundingData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_fx_terms_data",
+      "label": "fxTermsData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_total_return_data",
+      "label": "totalReturnData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_ascot_data",
+      "label": "ascotData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_callable_bond_call_data",
+      "label": "callableBondCallData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_trs_funding_data",
+      "label": "trsFundingData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_trs_additional_cashflow_data",
+      "label": "trsAdditionalCashflowData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_equity_option_underlying_data",
+      "label": "equityOptionUnderlyingData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_equity_option_position_data",
+      "label": "equityOptionPositionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_bond_basket_data",
+      "label": "bondBasketData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_tranches",
+      "label": "tranches (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_tranche",
+      "label": "tranche (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_cbodata",
+      "label": "cbodata (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_cbo_investment",
+      "label": "cboInvestment (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_cbo_structure",
+      "label": "cboStructure (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_cbo_bond_basket_data",
+      "label": "cboBondBasketData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_cbotranches",
+      "label": "cbotranches (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_cbotranche",
+      "label": "cbotranche (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_cb_call_data",
+      "label": "cbCallData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_cb_contingent_conversion_data",
+      "label": "cbContingentConversionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_cb_peps_data",
+      "label": "cbPepsData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_cb_mandatory_conversion_data",
+      "label": "cbMandatoryConversionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_cb_conversion_reset_data",
+      "label": "cbConversionResetData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_cb_exchangeable_data",
+      "label": "cbExchangeableData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_cb_conversion_data",
+      "label": "cbConversionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_cb_dividend_protection_data",
+      "label": "cbDividendProtectionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_tlock_data",
+      "label": "tlockData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_composite_trade_components",
+      "label": "compositeTradeComponents (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_range_bound",
+      "label": "rangeBound (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_vol_barrier_option_data",
+      "label": "volBarrierOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_dual_euro_binary_option_data",
+      "label": "dualEuroBinaryOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_dual_euro_binary_option_double_ko_data",
+      "label": "dualEuroBinaryOptionDoubleKOData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_arc_option_data",
+      "label": "arcOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_extended_accumulator_data",
+      "label": "extendedAccumulatorData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_variance_option_data",
+      "label": "varianceOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_variance_dispersion_swap_data",
+      "label": "varianceDispersionSwapData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_kiko_variance_swap_data",
+      "label": "kikoVarianceSwapData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_corridor_variance_swap_data",
+      "label": "corridorVarianceSwapData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_indexed_corridor_variance_swap_data",
+      "label": "indexedCorridorVarianceSwapData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_kiko_corridor_variance_swap_data",
+      "label": "kikoCorridorVarianceSwapData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_corridor_variance_dispersion_swap_data",
+      "label": "corridorVarianceDispersionSwapData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_ko_corridor_variance_dispersion_swap_data",
+      "label": "koCorridorVarianceDispersionSwapData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_pairwise_geometric_variance_dispersion_swap_data",
+      "label": "pairwiseGeometricVarianceDispersionSwapData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_conditional_variance_swap01_data",
+      "label": "conditionalVarianceSwap01Data (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_conditional_variance_swap02_data",
+      "label": "conditionalVarianceSwap02Data (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_gamma_swap_data",
+      "label": "gammaSwapData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_basket_variance_swap_data",
+      "label": "basketVarianceSwapData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_best_entry_option_data",
+      "label": "bestEntryOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_strike_resettable_option_data",
+      "label": "strikeResettableOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_event",
+      "label": "stFreeStyleEvent (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_number",
+      "label": "stFreeStyleNumber (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_index",
+      "label": "stFreeStyleIndex (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_currency",
+      "label": "stFreeStyleCurrency (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_day_counter",
+      "label": "stFreeStyleDayCounter (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_bool",
+      "label": "stFreeStyleBool (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_option_type",
+      "label": "stFreeStyleOptionType (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_long_short",
+      "label": "stFreeStyleLongShort (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_barrier_type",
+      "label": "stFreeStyleBarrierType (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_event_schedule_base",
+      "label": "stFreeStyleEventScheduleBase (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_event_schedule",
+      "label": "stFreeStyleEventSchedule (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_number_vector_base",
+      "label": "stFreeStyleNumberVectorBase (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_number_vector",
+      "label": "stFreeStyleNumberVector (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_index_vector_base",
+      "label": "stFreeStyleIndexVectorBase (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_index_vector",
+      "label": "stFreeStyleIndexVector (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_currency_vector_base",
+      "label": "stFreeStyleCurrencyVectorBase (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_currency_vector",
+      "label": "stFreeStyleCurrencyVector (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_day_counter_vector_base",
+      "label": "stFreeStyleDayCounterVectorBase (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_day_counter_vector",
+      "label": "stFreeStyleDayCounterVector (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_bool_vector_base",
+      "label": "stFreeStyleBoolVectorBase (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_bool_vector",
+      "label": "stFreeStyleBoolVector (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_option_type_vector_base",
+      "label": "stFreeStyleOptionTypeVectorBase (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_option_type_vector",
+      "label": "stFreeStyleOptionTypeVector (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_long_short_vector_base",
+      "label": "stFreeStyleLongShortVectorBase (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_long_short_vector",
+      "label": "stFreeStyleLongShortVector (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_barrier_type_vector_base",
+      "label": "stFreeStyleBarrierTypeVectorBase (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_st_free_style_barrier_type_vector",
+      "label": "stFreeStyleBarrierTypeVector (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_asian_basket_option_data",
+      "label": "asianBasketOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_average_strike_basket_option_data",
+      "label": "averageStrikeBasketOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_lookback_call_basket_option_data",
+      "label": "lookbackCallBasketOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_lookback_put_basket_option_data",
+      "label": "lookbackPutBasketOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_vanilla_basket_option_data",
+      "label": "vanillaBasketOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_best_of_airbag_data",
+      "label": "bestOfAirbagData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_best_of_asset_or_cash_rainbow_option_data",
+      "label": "bestOfAssetOrCashRainbowOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_worst_of_asset_or_cash_rainbow_option_data",
+      "label": "worstOfAssetOrCashRainbowOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_min_rainbow_option_data",
+      "label": "minRainbowOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_max_rainbow_option_data",
+      "label": "maxRainbowOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_worst_performance_rainbow_option01_data",
+      "label": "worstPerformanceRainbowOption01Data (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_worst_performance_rainbow_option02_data",
+      "label": "worstPerformanceRainbowOption02Data (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_worst_performance_rainbow_option03_data",
+      "label": "worstPerformanceRainbowOption03Data (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_worst_performance_rainbow_option04_data",
+      "label": "worstPerformanceRainbowOption04Data (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_worst_performance_rainbow_option05_data",
+      "label": "worstPerformanceRainbowOption05Data (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_worst_performance_rainbow_option06_data",
+      "label": "worstPerformanceRainbowOption06Data (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_worst_performance_rainbow_option07_data",
+      "label": "worstPerformanceRainbowOption07Data (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_worst_performance_rainbow_option08_data",
+      "label": "worstPerformanceRainbowOption08Data (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_worst_performance_rainbow_option09_data",
+      "label": "worstPerformanceRainbowOption09Data (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_double_digital_option_data",
+      "label": "doubleDigitalOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_performance_option01_data",
+      "label": "performanceOption01Data (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_window_barrier_option_data",
+      "label": "windowBarrierOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_accumulator01_data",
+      "label": "accumulator01Data (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_accumulator02_data",
+      "label": "accumulator02Data (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_tarf_data",
+      "label": "tarfData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_callable_range_accrual_data",
+      "label": "callableRangeAccrualData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_european_rainbow_call_spread_option_data",
+      "label": "europeanRainbowCallSpreadOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_rainbow_call_spread_barrier_option_data",
+      "label": "rainbowCallSpreadBarrierOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_asian_rainbow_call_spread_option_data",
+      "label": "asianRainbowCallSpreadOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_asian_ir_cap_floor_data",
+      "label": "asianIrCapFloorData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_constant_maturity_volatility_swap_data",
+      "label": "constantMaturityVolatilitySwapData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_forward_volatility_agreement_data",
+      "label": "forwardVolatilityAgreementData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_asset_linked_cliquet_option_data",
+      "label": "assetLinkedCliquetOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_correlation_swap_data",
+      "label": "correlationSwapData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_cms_cap_floor_barrier_data",
+      "label": "cmsCapFloorBarrierData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_fixed_strike_forward_starting_option_data",
+      "label": "fixedStrikeForwardStartingOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_floating_strike_forward_starting_option_data",
+      "label": "floatingStrikeForwardStartingOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_forward_starting_swaption_data",
+      "label": "forwardStartingSwaptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_floored_average_cpizciis_data",
+      "label": "flooredAverageCPIZCIISData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_moving_max_yyiis_data",
+      "label": "movingMaxYYIISData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_irregular_yyiis_data",
+      "label": "irregularYYIISData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_generic_barrier_option_data_raw",
+      "label": "genericBarrierOptionDataRaw (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_ladder_lock_in_option_data",
+      "label": "ladderLockInOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_european_option_barrier_data",
+      "label": "europeanOptionBarrierData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_best_entry_option_data2",
+      "label": "bestEntryOptionData2 (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_strike_resettable_option_data2",
+      "label": "strikeResettableOptionData2 (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_worst_of_basket_swap_data2",
+      "label": "worstOfBasketSwapData2 (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_basket_variance_swap_data2",
+      "label": "basketVarianceSwapData2 (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_window_barrier_option_data2",
+      "label": "windowBarrierOptionData2 (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_asset_backed_credit_default_swap_data",
+      "label": "assetBackedCreditDefaultSwapData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_lapse_hedge_swap_data",
+      "label": "lapseHedgeSwapData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_knock_out_swap_data",
+      "label": "knockOutSwapData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_lpi_swap_data",
+      "label": "LPISwapData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_pairwise_variance_swap_data2",
+      "label": "pairwiseVarianceSwapData2 (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_pairwise_variance_swap_data1",
+      "label": "pairwiseVarianceSwapData1 (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_eq_outperformance_option_data",
+      "label": "eqOutperformanceOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_commodity_revenue_option_data",
+      "label": "commodityRevenueOptionData (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_stub_interpolation",
+      "label": "stubInterpolation (complexType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_price_type",
+      "label": "priceType (simpleType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_commodity_quantity_frequency_type",
+      "label": "commodityQuantityFrequencyType (simpleType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_commodity_pay_relative_to_type",
+      "label": "commodityPayRelativeToType (simpleType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_pricing_date_rule_type",
+      "label": "pricingDateRuleType (simpleType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_barrier_compare",
+      "label": "barrierCompare (simpleType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_barrier_style",
+      "label": "barrierStyle (simpleType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_trade_action_type",
+      "label": "tradeActionType (simpleType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_trade_action_owner",
+      "label": "tradeActionOwner (simpleType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_cds_optionstrike_type",
+      "label": "cdsOptionstrikeType (simpleType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_empty_float",
+      "label": "emptyFloat (simpleType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_trs_notional_type",
+      "label": "trsNotionalType (simpleType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_trs_fx_conversion",
+      "label": "trsFxConversion (simpleType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    },
+    {
+      "id": "xsd_instruments_notional_calculation",
+      "label": "notionalCalculation (simpleType)",
+      "file_type": "code",
+      "source_file": "xsd/instruments.xsd",
+      "rationale": "Deterministically enumerated from instruments.xsd; OREXsd's LLM extraction did not produce a node for this type."
+    }
+  ],
+  "edges": [],
+  "hyperedges": [],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

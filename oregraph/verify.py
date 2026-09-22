@@ -297,8 +297,13 @@ def verify(cfg) -> dict:
     #    rebuild_all.py, which merged only the code chunks)
     check("docs present", present.get("OREDocs", 0) > 0,
           f"{present.get('OREDocs', 0)} doc nodes")
-    check("xsd present", present.get("OREXsd", 0) > 0,
-          f"{present.get('OREXsd', 0)} xsd nodes")
+    xsd_node_count = present.get("OREXsd", 0) + present.get("OREXsdSupplement", 0)
+    check("xsd present", xsd_node_count > 0, f"{xsd_node_count} xsd nodes")
+    check("xsd supplement chunk present", present.get("OREXsdSupplement", 0) > 0,
+          f"{present.get('OREXsdSupplement', 0)} nodes deterministically filling "
+          "OREXsd's complexType/simpleType coverage gap (xsd_coverage_extract.py) "
+          "- a regression here means those instruments.xsd/referencedata.xsd "
+          "types silently lost their graph nodes again")
 
     # 8. include recall - informational, not a pass/fail gate (no baseline to
     #    gate against yet, see docs/METRICS.md). Surfaces the number so a

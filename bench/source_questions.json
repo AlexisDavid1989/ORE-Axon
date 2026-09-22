@@ -1,7 +1,7 @@
 {
   "meta": {
-    "description": "Graphify vs no-Graphify token cost. For each question the graph answers in one compact query_graph call; the 'no graph' baseline is the source files that query's answer nodes come from - i.e. the code an agent would have to read to answer the same question. That baseline is generous to the no-graph side: it assumes the agent already knows exactly which files to open, which is itself what the graph provides. Regenerate query set as needed; ratios depend on the ORE checkout (ORE_ENGINE).",
-    "version": 1
+    "description": "Graphify vs no-Graphify token cost. For each question the graph answers in one compact query_graph call; the 'no graph' baseline is the source files that query's answer nodes come from - i.e. the code an agent would have to read to answer the same question. That baseline is generous to the no-graph side: it assumes the agent already knows exactly which files to open, which is itself what the graph provides. Regenerate query set as needed; ratios depend on the ORE checkout (ORE_ENGINE). s01-s08 are the original suite (kept unchanged for history); s09-s50 widen coverage to every merged chunk and vary mode/depth/phrasing, added to catch term-weight drift outside the trade-pricing core the original 8 focus on (see CLAUDE.md rule 3).",
+    "version": 2
   },
   "questions": [
     {"id": "s01", "question": "how is a swap priced", "mode": "bfs", "depth": 3},
@@ -11,6 +11,72 @@
     {"id": "s05", "question": "how are scenarios generated for simulation", "mode": "bfs", "depth": 3},
     {"id": "s06", "question": "how is a bond priced", "mode": "bfs", "depth": 3},
     {"id": "s07", "question": "how does the SABR volatility model work", "mode": "bfs", "depth": 3},
-    {"id": "s08", "question": "how is a portfolio loaded from XML", "mode": "bfs", "depth": 3}
+    {"id": "s08", "question": "how is a portfolio loaded from XML", "mode": "bfs", "depth": 3},
+
+    {"id": "s09", "question": "how does the LGM model calibrate", "mode": "bfs", "depth": 3},
+    {"id": "s10", "question": "how is a CMS spread option priced", "mode": "bfs", "depth": 3},
+    {"id": "s11", "question": "what does the American Monte Carlo simulation framework do", "mode": "dfs", "depth": 3},
+
+    {"id": "s12", "question": "how is XVA computed", "mode": "bfs", "depth": 3},
+    {"id": "s13", "question": "how does stress testing work", "mode": "bfs", "depth": 2},
+    {"id": "s14", "question": "how is PnL explain computed", "mode": "bfs", "depth": 3},
+    {"id": "s15", "question": "what does the SIMM sensitivity framework do", "mode": "dfs", "depth": 3},
+
+    {"id": "s16", "question": "what do the ORE regression tests cover for swaptions", "mode": "bfs", "depth": 2},
+    {"id": "s17", "question": "how are golden baseline files used in the ORE test suite", "mode": "bfs", "depth": 2},
+
+    {"id": "s18", "question": "how does QuantLib represent a calendar", "mode": "bfs", "depth": 2},
+    {"id": "s19", "question": "how is a day count convention implemented", "mode": "bfs", "depth": 2},
+
+    {"id": "s20", "question": "how does QuantLib's Schedule class generate payment dates", "mode": "bfs", "depth": 3},
+    {"id": "s21", "question": "what is a Period and how is it parsed", "mode": "dfs", "depth": 2},
+
+    {"id": "s22", "question": "how is a yield curve bootstrapped", "mode": "bfs", "depth": 3},
+    {"id": "s23", "question": "how does QuantLib interpolate a term structure", "mode": "bfs", "depth": 3},
+
+    {"id": "s24", "question": "how is a Bermudan swaption priced", "mode": "bfs", "depth": 4},
+    {"id": "s25", "question": "how does the binomial tree pricing engine work", "mode": "bfs", "depth": 3},
+
+    {"id": "s26", "question": "how does the Hull-White model work", "mode": "bfs", "depth": 3},
+    {"id": "s27", "question": "how is the SABR model calibrated to market smiles", "mode": "dfs", "depth": 3},
+
+    {"id": "s28", "question": "what experimental pricing models does QuantLib provide", "mode": "bfs", "depth": 2},
+
+    {"id": "s29", "question": "how is a stochastic process simulated in QuantLib", "mode": "bfs", "depth": 3},
+
+    {"id": "s30", "question": "what are QuantLib's core math utilities", "mode": "bfs", "depth": 2},
+
+    {"id": "s31", "question": "what does the ORE user guide say about the simulation config file", "mode": "bfs", "depth": 2},
+
+    {"id": "s32", "question": "what does the ORE examples directory demonstrate", "mode": "bfs", "depth": 2},
+
+    {"id": "s33", "question": "what does the SWIG binding layer expose", "mode": "bfs", "depth": 2},
+
+    {"id": "s34", "question": "what fields does the fieldmap have for a Commodity Swap trade", "mode": "bfs", "depth": 2},
+    {"id": "s35", "question": "what pricing engine parameters exist for a Swaption", "mode": "bfs", "depth": 2},
+
+    {"id": "s36", "question": "how does ORE's XML schema define a barrier option trade", "mode": "bfs", "depth": 3},
+    {"id": "s37", "question": "what complexType does the accumulator trade XML schema use", "mode": "dfs", "depth": 3},
+
+    {"id": "s38", "question": "what do the QuantLib example programs demonstrate", "mode": "bfs", "depth": 2},
+
+    {"id": "s39", "question": "what does ORE's tools front end do", "mode": "bfs", "depth": 2},
+
+    {"id": "s40", "question": "what do the QuantLib fuzz tests check", "mode": "bfs", "depth": 2},
+    {"id": "s41", "question": "what utilities does QuantLibTools provide", "mode": "bfs", "depth": 2},
+
+    {"id": "s42", "question": "how does the Python integration layer expose ORE", "mode": "bfs", "depth": 2},
+    {"id": "s43", "question": "what does ORE's App entry point do", "mode": "dfs", "depth": 2},
+
+    {"id": "s44", "question": "how is an IborIndex convention defined", "mode": "bfs", "depth": 2},
+    {"id": "s45", "question": "what is a fixed-vs-float leg convention", "mode": "bfs", "depth": 2},
+
+    {"id": "s46", "question": "how is a default curve configured", "mode": "bfs", "depth": 3},
+    {"id": "s47", "question": "what is a cross-currency yield curve segment", "mode": "bfs", "depth": 3},
+
+    {"id": "s48", "question": "how does the ORE build system compile QuantExt", "mode": "bfs", "depth": 2},
+    {"id": "s49", "question": "what does ORE's XML portfolio loader validate", "mode": "dfs", "depth": 3},
+
+    {"id": "s50", "question": "how is a netting set's collateral CSA margining modeled", "mode": "bfs", "depth": 3}
   ]
 }

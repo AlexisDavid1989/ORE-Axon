@@ -153,7 +153,8 @@ def cmd_build(args):
 
 def _semantic_dir(name: str) -> str:
     return {"OREDocs": "docs", "OREXsd": "xsd",
-            "OREExamplesConfig": "examples"}.get(name, name.lower())
+            "OREExamplesConfig": "examples",
+            "OREXsdSupplement": "xsd_coverage"}.get(name, name.lower())
 
 
 def _load_fieldmap(cfg):

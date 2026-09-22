@@ -124,6 +124,12 @@ SEMANTIC: tuple[Chunk, ...] = (
           labelled=False,
           note="Example XML portfolios and CSV market data. Not yet extracted - "
                "run `python -m oregraph semantic --corpus examples`."),
+    Chunk("OREXsdSupplement", "xsd", (".",), kind="semantic", labelled=False,
+          note="instruments.xsd/referencedata.xsd complexTypes and simpleTypes "
+               "missing from OREXsd's LLM extraction, enumerated deterministically "
+               "by xsd_coverage_extract.py. Kept separate from OREXsd so it never "
+               "reshuffles OREXsd's Louvain communities and the 19 curated names "
+               "pinned to them in labels/OREXsd.json (see CLAUDE.md rule 1)."),
 )
 
 CODE_CHUNKS: tuple[Chunk, ...] = LABELLED + ADDED
