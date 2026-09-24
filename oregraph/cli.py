@@ -253,7 +253,7 @@ def cmd_mcp(args):
     # which is not on PATH by default - so the config was written successfully
     # and then failed to start, with no indication of why. The module entry
     # point exists (`python -m graphify.serve`) and needs no console script.
-    command, pre_args = sys.executable, ["-m", "graphify.serve"]
+    command, pre_args = sys.executable, ["-m", "oregraph.serve"]
 
     def _existing_graph(p: Path) -> str | None:
         """The graph path an existing config points at, or None."""
@@ -267,17 +267,19 @@ def cmd_mcp(args):
                 return str(entry["args"][-1])
         return None
 
+    # `oregraph.serve` is this repo, not an installed package, and the config
+    # lands in the Engine repo - so the server starts with a working directory
+    # that has no oregraph on the path unless we put it there.
+    entry = {"type": "stdio", "command": command, "args": pre_args + [graph],
+             "env": {"PYTHONPATH": str(Path(__file__).resolve().parent.parent)}}
+
     planned: list[tuple[Path, dict]] = []
     if args.host in ("claude", "both"):
         planned.append((cfg.engine / ".mcp.json",
-                        {"mcpServers": {"graphify-ore": {
-                            "type": "stdio", "command": command,
-                            "args": pre_args + [graph]}}}))
+                        {"mcpServers": {"graphify-ore": dict(entry)}}))
     if args.host in ("vscode", "both"):
         planned.append((cfg.engine / ".vscode" / "mcp.json",
-                        {"servers": {"graphify-ore": {
-                            "type": "stdio", "command": command,
-                            "args": pre_args + [graph]}}}))
+                        {"servers": {"graphify-ore": dict(entry)}}))
 
     # Refuse to silently replace a working config. These files live in the
     # shared Engine repo and point at a machine-specific graph, so overwriting
@@ -435,7 +437,9 @@ def cmd_bench(args):
     print("\n" + result["_report"])
     print(f"\nwrote {result['_paths']['report']}\n      {result['_paths']['results']}")
     paths = result.get("path_quality", {}).get("totals", {})
-    return 1 if paths.get("passed", 0) < paths.get("cases", 0) else 0
+    answers = result["vs_source"]["totals"]
+    return 1 if (paths.get("passed", 0) < paths.get("cases", 0)
+                 or answers["answers_failed"]) else 0
 
 
 def cmd_query(args):

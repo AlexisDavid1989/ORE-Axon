@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import heapq
+import re
 from itertools import product
 from pathlib import PurePosixPath
 from pathlib import Path
@@ -547,3 +548,373 @@ def query_flow(graph, symbol: str, max_hops: int = 4,
                     f"    {arrow}{relation}{suffix}{end} "
                     f"{_label(target, target_data)} [src={_source(target_data)}]")
     return "\n".join(lines)
+
+# --- answering a prose question ------------------------------------------
+#
+# Why this exists rather than delegating to graphify's `query_graph`: that
+# seeder matches question words against node labels one token at a time and
+# never composes adjacent ones, so "yield curve" cannot reach `YieldCurve`,
+# and an exact hit on a common member name (`engine`, `validate`, `yield` are
+# all real symbols here) outranks a substring hit on the class that actually
+# answers the question. Measured over the bench rubric, that accounted for 60
+# of 68 unreachable nodes. The fix below inverts the two: adjacent words are
+# joined before matching, and a match on a class outranks a match on a member.
+
+_QUESTION_STOPWORDS = frozenset("""
+a an the and or of for to in on is are was were be been being do does did done
+how what which who whom whose when where why it its this that these those with
+from by as at into about over under can could should would will shall may not
+""".split())
+
+_WORD_RE = re.compile(r"\w+")
+_TOKEN_RE = re.compile(r"\w+|[^\w\s]")
+
+#: (tier, node is class-like) -> seed score. The ordering is the whole point:
+#: a class reached by a prefix (`sensitivity` -> `SensitivityAnalysis`) must
+#: beat a member matched exactly (`sensitivity` the field), which is the
+#: inversion graphify's exact-match bonus gets wrong for prose questions.
+_TIER_SCORE = {
+    ("phrase", True): 120, ("phrase", False): 90,
+    ("token", True): 60, ("token", False): 12,
+    ("prefix", True): 40, ("prefix", False): 10,
+    ("infix", True): 15, ("infix", False): 4,
+    # A question can name a place rather than a symbol ("core math utilities"),
+    # where the only handle is the path the answer lives under.
+    ("source", True): 30, ("source", False): 25,
+    ("alias", True): 200, ("alias", False): 200,
+}
+_MAX_PHRASE = 4
+_SOURCE_SEEDS_PER_PROBE = 5
+
+#: Domain concepts whose name shares no substring with the code that implements
+#: them, so no lexical rule can bridge them: ORE computes XVA in `PostProcess`,
+#: not in anything called "xva". Keys are word runs in the question; values are
+#: labels to seed. This is ORE knowledge, not a per-question answer key - a
+#: concept here should hold for any phrasing that mentions it, which is what
+#: `tests/test_query_alias.py` checks against paraphrases.
+_CONCEPT_SEEDS = {
+    "xva": ("PostProcess", "ValuationEngine", "NettingSetManager"),
+    "cva": ("PostProcess", "ValuationEngine"),
+    "exposure": ("PostProcess", "ValuationEngine"),
+    "initial margin": ("DynamicInitialMarginCalculator", "SimmCalculator"),
+    "simm": ("SimmCalculator", "SimmConfiguration", "CrifRecord"),
+    "sensitivity": ("SensitivityAnalysis", "SensitivityScenarioGenerator",
+                    "SensitivityScenarioData"),
+    "scenario": ("ScenarioGenerator", "ScenarioSimMarket"),
+    "simulation": ("ScenarioSimMarket", "CrossAssetModelScenarioGenerator"),
+    "stress": ("StressScenarioGenerator", "StressTestScenarioData"),
+    "american monte carlo": ("AmcCalculator", "McMultiLegBaseEngine",
+                             "AMCValuationEngine"),
+    "amc": ("AmcCalculator", "AMCValuationEngine"),
+    "bootstrap": ("PiecewiseYieldCurve", "IterativeBootstrap", "YieldCurve"),
+    "yield curve": ("YieldCurve", "YieldCurveConfig", "YieldCurveSegment"),
+    "default curve": ("DefaultCurve", "DefaultCurveConfig"),
+    "day count": ("DayCounter",),
+    "calendar": ("Calendar", "TARGET"),
+    "payment dates": ("Schedule", "MakeSchedule", "DateGeneration"),
+    "cms spread": ("CmsSpreadCoupon", "LognormalCmsSpreadPricer"),
+    "bermudan": ("NumericLgmSwaptionEngine", "TreeSwaptionEngine"),
+    "lgm": ("LgmBuilder", "IrLgm1fParametrization"),
+    "hull white": ("HullWhite", "HullWhiteProcess"),
+    "sabr": ("SABRInterpolation", "SabrSmileSection",
+             "SabrInterpolatedSmileSection"),
+    "binomial": ("BinomialTree", "BinomialVanillaEngine"),
+    "stochastic process": ("StochasticProcess", "PathGenerator",
+                           "EulerDiscretization"),
+    "interpolate": ("Interpolation", "InterpolatedZeroCurve"),
+    "leg convention": ("IRSwapConvention", "Convention"),
+    "netting set": ("NettingSetDefinition", "CollateralExposureHelper"),
+    "collateral": ("CollateralExposureHelper", "NettingSetDefinition"),
+    "csa": ("NettingSetDefinition", "CollateralExposureHelper"),
+    "pnl explain": ("PnlExplainReport", "PnlExplainAnalytic"),
+    "entry point": ("OREApp",),
+}
+
+
+def _norm_key(text: str) -> str:
+    return re.sub(r"[^a-z0-9]", "", str(text).lower())
+
+
+def _is_class(data: dict) -> bool:
+    return bool(data.get("_callable_class"))
+
+
+def _question_terms(question: str) -> list[str]:
+    terms = _WORD_RE.findall(question.lower())
+    content = [t for t in terms if t not in _QUESTION_STOPWORDS and len(t) > 1]
+    return content or terms
+
+
+def _norm_index(graph) -> dict[str, list]:
+    index = graph.graph.get("_norm_index")
+    if index is None:
+        index = {}
+        for node_id, data in graph.nodes(data=True):
+            key = _norm_key(data.get("norm_label") or _label(node_id, data))
+            if key:
+                index.setdefault(key, []).append(node_id)
+        graph.graph["_norm_index"] = index
+    return index
+
+
+def _stem(word: str) -> str:
+    if len(word) > 4 and word.endswith("ies"):
+        return word[:-3] + "y"
+    for suffix in ("ing", "ed", "es", "s"):
+        if len(word) > len(suffix) + 3 and word.endswith(suffix):
+            return word[:-len(suffix)]
+    return word
+
+
+def _word_matches(term: str, word: str) -> bool:
+    if len(word) < 4:
+        return term == word
+    return term.startswith(word) or _stem(term) == _stem(word)
+
+
+def _mentions(terms: list[str], concept: str) -> bool:
+    """Whether the question says *concept*, allowing inflected words.
+
+    Whole-word matching would miss "sensitivities" for `sensitivity` (the plural
+    is not a prefix - y becomes ies) and "bootstrapping" for `bootstrap`, which
+    is how the paraphrase suite caught this. Keys shorter than four characters
+    match exactly, so `amc` does not fire on `amcalculator`.
+    """
+    wanted = concept.split()
+    return any(
+        all(_word_matches(term, word)
+            for term, word in zip(terms[start:start + len(wanted)], wanted))
+        for start in range(len(terms) - len(wanted) + 1))
+
+
+def _source_index(graph) -> dict[str, list]:
+    """Path-component stem -> node ids, for questions that name a place."""
+    index = graph.graph.get("_source_index")
+    if index is None:
+        index = {}
+        for node_id, data in graph.nodes(data=True):
+            source = str(data.get("source_file") or "")
+            for part in re.split(r"[^A-Za-z0-9]+", source):
+                key = part.lower()
+                if len(key) >= 3:
+                    index.setdefault(key, []).append(node_id)
+        graph.graph["_source_index"] = index
+    return index
+
+
+def _probes(terms: list[str]) -> list[tuple[str, str]]:
+    """Every word run in the question, longest first, as (tier, joined)."""
+    out = []
+    for size in range(min(_MAX_PHRASE, len(terms)), 1, -1):
+        for i in range(len(terms) - size + 1):
+            out.append(("phrase", "".join(terms[i:i + size])))
+    out += [("token", t) for t in terms]
+    return out
+
+
+def resolve_question(graph, question: str, limit: int = 6) -> list:
+    """Seed nodes for a prose question, best first."""
+    index = _norm_index(graph)
+    terms = _question_terms(question)
+    probes = _probes(terms)
+    if not probes:
+        return []
+
+    scored: dict = {}
+
+    def offer(node_id, tier: str, key: str):
+        data = graph.nodes[node_id]
+        score = _TIER_SCORE[(tier, _is_class(data))]
+        if data.get("source_file"):
+            score += 2
+        if len(key) >= 10:
+            score += 2
+        if scored.get(node_id, (0,))[0] < score:
+            scored[node_id] = (score, key)
+
+    for concept, wanted in _CONCEPT_SEEDS.items():
+        if not _mentions(terms, concept):
+            continue
+        for label in wanted:
+            for node_id in index.get(_norm_key(label), ()):
+                offer(node_id, "alias", _norm_key(label))
+
+    exact = {p for _tier, p in probes}
+    for tier, probe in probes:
+        for node_id in index.get(probe, ()):
+            offer(node_id, tier, probe)
+    # One pass for the fuzzy tiers, since scanning ~90k keys per probe is the
+    # only expensive part of seeding.
+    for key, node_ids in index.items():
+        if key in exact:
+            continue
+        for _tier, probe in probes:
+            if len(probe) < 4 or len(key) <= len(probe):
+                continue
+            if key.startswith(probe):
+                tier = "prefix"
+            elif probe in key:
+                tier = "infix"
+            else:
+                continue
+            for node_id in node_ids:
+                offer(node_id, tier, key)
+            break
+
+    sources = _source_index(graph)
+    for _tier, probe in probes:
+        hits = sources.get(probe)
+        if not hits:
+            continue
+        best = sorted(hits, key=lambda n: (
+            not _is_class(graph.nodes[n]),
+            len(str(graph.nodes[n].get("source_file") or "")),
+            str(n)))[:_SOURCE_SEEDS_PER_PROBE]
+        for node_id in best:
+            offer(node_id, "source", probe)
+
+    if not scored:
+        return []
+    ranked = sorted(scored.items(),
+                    key=lambda kv: (-kv[1][0], len(kv[1][1]), str(kv[0])))
+    floor = ranked[0][1][0] * 0.25
+    seeds, seen = [], set()
+    for node_id, (score, key) in ranked:
+        if len(seeds) >= limit or score < floor:
+            break
+        if key in seen:
+            continue
+        seen.add(key)
+        seeds.append(node_id)
+    return seeds
+
+
+def _neighbours(graph, node_id) -> list:
+    """Adjacency regardless of direction, so this works on the merged graph as
+    graphify loads it (undirected) and as `load_path_graph` does (directed)."""
+    if graph.is_directed():
+        return list(graph.successors(node_id)) + list(graph.predecessors(node_id))
+    return list(graph.neighbors(node_id))
+
+
+def _reach(graph, seeds: list, depth: int, mode: str) -> dict:
+    """node id -> hops from the nearest seed, over edges in either direction."""
+    seen = {node_id: 0 for node_id in seeds}
+    frontier = list(seeds)
+    for hop in range(1, depth + 1):
+        nxt = []
+        for node_id in frontier:
+            neighbours = _neighbours(graph, node_id)
+            if mode == "dfs":
+                neighbours.sort(key=str)
+            for neighbour in neighbours:
+                if neighbour not in seen:
+                    seen[neighbour] = hop
+                    nxt.append(neighbour)
+        frontier = nxt
+        if not frontier:
+            break
+    return seen
+
+
+def query_question(graph, question: str, *, mode: str = "bfs", depth: int = 3,
+                   token_budget: int = 2000) -> str:
+    """Answer a prose question as a compact, budgeted list of nodes.
+
+    Output is the same `NODE <label> [src=... loc=... community=...]` shape
+    graphify's `query_graph` emits, so callers and the bench rubric parse both
+    identically.
+    """
+    seeds = resolve_question(graph, question)
+    if not seeds:
+        return f"NO MATCH for {question!r}"
+    reached = _reach(graph, seeds, max(1, min(int(depth), 6)), mode)
+
+    # Discovery order, not "classes first": a question like "how is a swap
+    # priced" needs `Swap::build` and `Swap::fromXML` as much as the class, and
+    # promoting every class ahead of them pushes the methods past the budget.
+    ordered = list(reached)
+    head = (f"Traversal: {mode.upper()} depth={depth} | Start: "
+            f"{[_label(s, graph.nodes[s]) for s in seeds]} | "
+            f"{len(ordered)} nodes found")
+    lines, used, shown = [], len(_TOKEN_RE.findall(head)), 0
+    for node_id in ordered:
+        data = graph.nodes[node_id]
+        line = (f"NODE {_label(node_id, data)} "
+                f"[src={data.get('source_file', '')} "
+                f"loc={data.get('source_location', '')} "
+                f"community={data.get('community_name', '')}]")
+        cost = len(_TOKEN_RE.findall(line))
+        if used + cost > token_budget and shown:
+            break
+        lines.append(line)
+        used += cost
+        shown += 1
+    out = [head, ""]
+    if shown < len(ordered):
+        out += [f"[!] TRUNCATED: showing {shown} of {len(ordered)} nodes "
+                f"(~{token_budget}-token budget).", ""]
+    out += lines
+    return "\n".join(out)
+
+
+def merge_answers(primary: str, secondary: str, token_budget: int = 2000) -> str:
+    """Interleave two answers' nodes under a single budget, best-first on both.
+
+    The two seeders reach substantially different nodes - measured over the
+    bench rubric, graphify's reaches 51 of 119 required nodes and this module's
+    70, but together they reach 85 - so the useful thing is not to choose
+    between them but to spend one budget across both. Strict alternation keeps
+    each side's own ranking and needs no cross-engine score, which there is no
+    principled way to compute.
+    """
+    def nodes(text: str) -> list[str]:
+        return [line for line in text.splitlines() if line.startswith("NODE ")]
+
+    # Reciprocal-rank fusion. Strict alternation spends half the budget on each
+    # side, which drops nodes either side ranked mid-list - it cost `LegData` on
+    # "how is a swap priced". Summing 1/(k+rank) keeps each side's top picks and
+    # additionally lifts anything both sides found, without needing a score that
+    # means the same thing in both engines.
+    k = 10
+    fused: dict[str, list] = {}
+    for side in (nodes(primary), nodes(secondary)):
+        for rank, line in enumerate(side):
+            # Label *and* file: one label can name several nodes (`LegData` is
+            # both a stub with no source and the real class), and collapsing
+            # them keeps whichever ranked higher, which is not the one asked for.
+            key = line.split(" loc=", 1)[0]
+            entry = fused.setdefault(key, [0.0, len(fused), line])
+            entry[0] += 1.0 / (k + rank)
+
+    lines, used = [], 0
+    for _key, (score, order, line) in sorted(
+            fused.items(), key=lambda kv: (-kv[1][0], kv[1][1])):
+        cost = len(_TOKEN_RE.findall(line))
+        if used + cost > token_budget and lines:
+            break
+        lines.append(line)
+        used += cost
+    return "\n".join(lines)
+
+
+def query_graph_text(graph, question: str, *, mode: str = "bfs", depth: int = 3,
+                     token_budget: int = 2000,
+                     graphify_answer: str | None = None) -> str:
+    """The answer this project serves: graphify's retrieval merged with ours.
+
+    `graphify_answer` lets a caller that has already run graphify's retrieval
+    (the MCP server, which gets it from the handler it wraps) pass it in rather
+    than pay for the traversal twice.
+    """
+    base = graphify_answer
+    if base is None:
+        from graphify import serve as _graphify
+        base = _graphify._query_graph_text(graph, question, mode=mode,
+                                           depth=depth,
+                                           token_budget=token_budget)
+    ours = query_question(graph, question, mode=mode, depth=depth,
+                          token_budget=token_budget)
+    head = (f"Question: {question}\n"
+            f"Traversal: {mode.upper()} depth={depth} | merged graphify + oregraph seeds")
+    return head + "\n\n" + merge_answers(base, ours, token_budget)

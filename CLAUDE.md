@@ -51,6 +51,48 @@ made the previous version unusable by anyone but its author.
   `oregraph query-fields X` reads it. ORE_Forge is a moving target edited by other
   sessions - re-run `fieldmap` then `merge` after it changes; `verify` warns when
   the graph is behind. It is opt-in: without a snapshot, merge is unchanged.
+- **`oregraph.serve` is the MCP server, not `graphify.serve`.** It builds
+  graphify's server and intercepts one tool, `query_graph`, answering it with
+  `query.query_graph_text`; the other nine tools, and any call with a
+  `project_path` or `context_filters`, are delegated untouched. graphify is not
+  modified. Both `.mcp.json` files need `PYTHONPATH` set to this repo, since
+  `oregraph` is not an installed package and the config lands in the Engine
+  repo. The server memoizes graphify's `_load_graph` so its copy of the graph
+  and ours are the same object - without that it is two ~120MB loads.
+- `query_graph` answers are graphify's retrieval fused with `query_question`'s.
+  graphify seeds badly on prose: query words are matched against labels one at
+  a time and never joined, so "yield curve" cannot reach `YieldCurve`, and an
+  exact hit on a common member name (`engine`, `validate`, `yield` are all real
+  symbols here) outranks the class that answers the question. `query_question`
+  joins adjacent words, ranks a class above a member, and carries
+  `_CONCEPT_SEEDS`, 32 concepts whose name shares no substring with their
+  implementation (ORE computes XVA in `PostProcess`). Neither engine dominates
+  - over the rubric graphify reaches 51 of 119 nodes and ours 70, together 85 -
+  so `merge_answers` fuses both by reciprocal rank. Keep the fusion key on
+  label *and* file: `LegData` names two nodes and collapsing them returns the
+  wrong one.
+- `oregraph bench` grades answers as well as pricing them, through the same
+  call the server uses - if you change one, change both, or the benchmark stops
+  describing what is served. `GraphAdapter.graphify_only` keeps the old path as
+  the baseline to measure against. All 50 questions carry a rubric:
+  `required_nodes` fails the command when missing, `xfail_nodes` only reports.
+  Entries are `label`, `label@source-file`, or `src:<path fragment>`. Today 27
+  of 50 pass, 88 entries gate and 31 gaps remain; when a gap closes, bench says
+  XPASS and the entry moves to `required_nodes`. `verify` fails if a
+  `required_nodes` entry names nothing in the graph, and warns for an
+  `xfail_nodes` one, which is either a typo or a corpus gap.
+- A concept added to `_CONCEPT_SEEDS` must be domain knowledge, not an answer
+  key for a bench question. The test is paraphrase: re-ask the question the way
+  someone else would and the rubric should still be met. That check is what
+  caught the alias matcher missing "sensitivities" for `sensitivity` (the
+  plural is not a prefix) and "bootstrapping" for `bootstrap`.
+- A `src:` fragment is matched against `source_file`, which is chunk-relative
+  (`Bonds/Bonds.cpp`), not `repo_path` (`QuantLib/Examples/Bonds/Bonds.cpp`) - so
+  `src:QuantLib/Examples` can never match; use a fragment inside the chunk. Case
+  matters in labels too: xsd nodes are `accumulator01Data (complexType)`, not
+  `Accumulator01Data`. `verify` flags both. s48's `src:Makefile.am` is a real
+  corpus gap, not a typo: `CODE_EXTS` in `build_ast.py` has no build-file
+  extractor, so no Makefile node exists to reach.
 - Run `oregraph verify` after any change to the build or merge path. Two of its
   checks are about names: `curated labels attached` and `all curated names
   attached`. The second is the one that catches a name passing `--audit` on the

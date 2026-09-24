@@ -501,6 +501,48 @@ def verify(cfg) -> dict:
     # 11. ORE_Forge's field mapping - see _fieldmap_checks.
     _fieldmap_checks(cfg, g.get("graph") or {}, nodes, links, check)
 
+    # 12. every node a bench rubric names is really in the graph. A rubric entry
+    # with a typo can never be satisfied, so it would sit in the suite as a
+    # permanent `xfail` that reads as a retrieval gap instead of the rubric bug
+    # it is - and bench alone cannot tell the two apart, because both look like
+    # a node the answer did not contain.
+    suite = cfg.bench_dir / "source_questions.json"
+    if suite.exists():
+        labels = defaultdict(set)
+        for n in nodes:
+            labels[_node_label(n)].add(str(n.get("source_file") or ""))
+        all_sources = {s for files in labels.values() for s in files}
+        has_fieldmap = any(n.get("repo") == FIELDMAP_REPO for n in nodes)
+        def resolves(entry: str) -> bool:
+            if entry.startswith("src:"):
+                want = entry[4:]
+                return (want.startswith("fieldmap/") and not has_fieldmap) or \
+                    any(want in s for s in all_sources)
+            label, _, src = entry.partition("@")
+            if src.startswith("fieldmap/") and not has_fieldmap:
+                return True
+            files = labels.get(label)
+            return files is not None and (not src or any(src in f for f in files))
+
+        unresolved, absent_gaps = [], []
+        for q in json.loads(suite.read_text(encoding="utf-8"))["questions"]:
+            unresolved += [f"{q['id']}:{e}" for e in q.get("required_nodes") or []
+                           if not resolves(e)]
+            absent_gaps += [f"{q['id']}:{e}" for e in q.get("xfail_nodes") or []
+                            if not resolves(e)]
+        check("bench rubric nodes exist", not unresolved,
+              f"{len(unresolved)} required_nodes entries name no node in the graph"
+              + ("" if not unresolved else ": " + _sample(unresolved)))
+        # An xfail_nodes entry naming nothing is not necessarily a typo: it is
+        # also how a corpus gap looks, where the answer is missing because the
+        # content was never ingested. Both want looking at, neither should fail
+        # the build.
+        check("bench known gaps name graph content", not absent_gaps,
+              f"{len(absent_gaps)} xfail_nodes entries name no node in the graph "
+              "(a typo, or content the corpus does not cover)"
+              + ("" if not absent_gaps else ": " + _sample(absent_gaps)),
+              severity="warn")
+
     convertible_path = _has_relation_path(
                 nodes, links, "build",
         "FdDefaultableEquityJumpDiffusionConvertibleBondEngine",

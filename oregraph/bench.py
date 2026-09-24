@@ -8,6 +8,14 @@ knows exactly which files to open, which is itself what the graph provides. The
 real no-graph alternative is grepping and reading whole modules, so the true
 saving is larger than the ratio reported here.
 
+Cost is only half of it
+-----------------------
+A cheaper answer is not a better one, so a question may also carry a
+`required_nodes` rubric naming nodes the answer has to contain. Without one a
+question measures cost and nothing else, and a change that drops the right node
+while getting cheaper reads as an improvement - which is how a retrieval
+regression hides. `xfail` records a rubric the graph does not satisfy yet.
+
 Why it does not talk to the MCP server
 --------------------------------------
 `query_graph`'s text output is produced by a module-level render helper in
@@ -37,15 +45,91 @@ _TOKEN_RE = re.compile(r"\w+|[^\w\s]")
 
 #: The query_graph renderer prints each node as `NODE <label> [src=<file> ...]`.
 _SRC_RE = re.compile(r"src=(\S+)")
+_NODE_RE = re.compile(r"^NODE (.+?) \[src=(\S*)", re.M)
 
 
 def estimate_tokens(text: str) -> int:
     return len(_TOKEN_RE.findall(text))
 
 
+def _missing_nodes(output: str, required: list[str]) -> list[str]:
+    """Which rubric entries the answer failed to satisfy.
+
+    An entry is one of:
+      `PiecewiseYieldCurve`                     - a node label, matched whole
+      `YieldCurve@marketdata/yieldcurve.hpp`    - label from a particular file
+      `src:Tools/`                              - any node drawn from that path
+
+    Labels match whole, not as substrings, so requiring `Swap` is not satisfied
+    by `SwapIndex`; duplicate labels across files are why the `@` form exists.
+    The `src:` form is for questions about a body of code rather than a symbol
+    ("what does the tools front end do"), where naming one node would be
+    arbitrary but the answer still has to come from the right place.
+    """
+    found = _NODE_RE.findall(output)
+    missing = []
+    for req in required:
+        if req.startswith("src:"):
+            want = req[4:]
+            ok = any(want in file for _lab, file in found)
+        else:
+            label, _, src = req.partition("@")
+            ok = any(lab == label and (not src or src in file)
+                     for lab, file in found)
+        if not ok:
+            missing.append(req)
+    return missing
+
+
+def _needs_fieldmap(entry: str) -> bool:
+    return entry.removeprefix("src:").partition("@")[2].startswith("fieldmap/") \
+        or entry.startswith("src:fieldmap/")
+
+
+def grade_answer(output: str, question: dict, *, has_fieldmap: bool = True
+                 ) -> tuple[str | None, list[str], list[str]]:
+    """Grade one answer: (status, missing required, missing known-gap).
+
+    `required_nodes` is what the answer must contain and is what gates the
+    command. `xfail_nodes` states what the answer *should* also contain but
+    demonstrably does not yet - reported, never gating, so a known gap is
+    recorded rather than either forgotten or left souring the suite. Splitting
+    the two matters on a question that is half right: the working half still
+    gates while the gap stays visible, which a question-level xfail cannot do.
+    An `xfail_nodes` entry that starts passing is reported as `xpass` so it can
+    be promoted.
+
+    A rubric naming a `fieldmap/...` path is skipped when the graph was merged
+    without a fieldmap snapshot, since that merge is opt-in and its absence is
+    not a regression.
+    """
+    required = question.get("required_nodes") or []
+    gaps = question.get("xfail_nodes") or []
+    if not required and not gaps:
+        return None, [], []
+    if not has_fieldmap and any(_needs_fieldmap(e) for e in required + gaps):
+        return "skip", [], []
+    missing_req = _missing_nodes(output, required)
+    missing_gap = _missing_nodes(output, gaps)
+    if missing_req:
+        status = "fail"
+    elif gaps and len(missing_gap) < len(gaps):
+        status = "xpass"
+    elif gaps:
+        status = "xfail"
+    else:
+        status = "pass"
+    return status, missing_req, missing_gap
+
+
 class GraphAdapter:
     """Load one graph.json and answer `query_graph` with the exact text the MCP
-    server would return, by delegating to `graphify.serve`'s render helper."""
+    server would return.
+
+    That is `oregraph.serve`'s merged answer, not graphify's alone - the two
+    must stay the same call, or the benchmark stops describing what the server
+    actually serves. `graphify_only` keeps the old path available as the
+    baseline a change is measured against."""
 
     def __init__(self, graph_path: Path):
         from graphify import serve  # imported lazily: needs graphify installed
@@ -56,6 +140,13 @@ class GraphAdapter:
 
     def query_graph(self, question: str, *, mode: str = "bfs", depth: int = 3,
                     token_budget: int = 2000) -> str:
+        from .query import query_graph_text
+        return query_graph_text(
+            self.G, question, mode=mode, depth=min(int(depth), 6),
+            token_budget=int(token_budget))
+
+    def graphify_only(self, question: str, *, mode: str = "bfs", depth: int = 3,
+                      token_budget: int = 2000) -> str:
         return self._serve._query_graph_text(
             self.G, question, mode=mode, depth=min(int(depth), 6),
             token_budget=int(token_budget))
@@ -83,6 +174,8 @@ def run_vs_source(adapter: GraphAdapter, questions: list[dict], engine: Path,
     """For each question: tokens the graph returns vs tokens of the source files
     that answer draws from."""
     resolver = _source_resolver(adapter, engine)
+    has_fieldmap = any(str(d.get("source_file", "")).startswith("fieldmap/")
+                       for _n, d in adapter.G.nodes(data=True))
     tok_cache: dict = {}
 
     def file_tokens(p: Path):
@@ -105,17 +198,29 @@ def run_vs_source(adapter: GraphAdapter, questions: list[dict], engine: Path,
         present = [p for p in abspaths if file_tokens(p) is not None]
         source_tok = sum(file_tokens(p) for p in present)
         ratio = round(source_tok / graph_tok, 1) if graph_tok else None
+        status, missing_req, missing_gap = grade_answer(
+            out, q, has_fieldmap=has_fieldmap)
+        gaps = q.get("xfail_nodes") or []
         rows.append({
             "id": q["id"], "question": q["question"],
             "graph_tokens": graph_tok, "source_files": len(present),
             "source_tokens": source_tok, "ratio": ratio,
             "unresolved_files": len(abspaths) - len(present),
+            "answer_status": status,
+            "required_nodes": len(q.get("required_nodes") or []),
+            "missing_nodes": missing_req,
+            "known_gaps": missing_gap,
+            "closed_gaps": [g for g in gaps if g not in missing_gap],
+            "truncated": "TRUNCATED" in out,
         })
         log(f"    {q['id']}: graph={graph_tok} tok  source={source_tok:,} tok "
-            f"({len(present)} files)  {ratio}x")
+            f"({len(present)} files)  {ratio}x"
+            + (f"  answer={status.upper()}" if status else "")
+            + (f" missing={missing_req}" if missing_req else ""))
 
     tot_g = sum(r["graph_tokens"] for r in rows)
     tot_s = sum(r["source_tokens"] for r in rows)
+    graded = [r for r in rows if r["answer_status"] not in (None, "skip")]
     return {
         "rows": rows,
         "totals": {
@@ -125,6 +230,13 @@ def run_vs_source(adapter: GraphAdapter, questions: list[dict], engine: Path,
             "overall_ratio": round(tot_s / tot_g, 1) if tot_g else None,
             "median_ratio": round(statistics.median(
                 r["ratio"] for r in rows if r["ratio"] is not None), 1) if rows else None,
+            "asserted": len(graded),
+            "no_rubric": sum(r["answer_status"] is None for r in rows),
+            "skipped": sum(r["answer_status"] == "skip" for r in rows),
+            "answers_passed": sum(r["answer_status"] == "pass" for r in graded),
+            "answers_failed": sum(r["answer_status"] == "fail" for r in graded),
+            "xfail": sum(r["answer_status"] == "xfail" for r in graded),
+            "xpass": sum(r["answer_status"] == "xpass" for r in graded),
         },
     }
 
@@ -171,16 +283,40 @@ def format_report(result: dict) -> str:
     L.append("Compact graph query vs the source files that answer draws from (a "
              "conservative no-graph baseline: it assumes the agent already knows "
              "which files to open).\n")
-    L.append("| question | graph tok | source files | source tok | ratio |")
-    L.append("|---|--:|--:|--:|--:|")
+    L.append("| question | graph tok | source files | source tok | ratio | answer |")
+    L.append("|---|--:|--:|--:|--:|---|")
     for r in vs["rows"]:
+        status = r["answer_status"]
         L.append(f"| {r['question']} | {r['graph_tokens']:,} | {r['source_files']} "
-                 f"| {r['source_tokens']:,} | {r['ratio']}x |")
+                 f"| {r['source_tokens']:,} | {r['ratio']}x "
+                 f"| {status.upper() if status else '-'} |")
     L.append(f"| **total** | **{t['graph_tokens']:,}** | | **{t['source_tokens']:,}** "
-             f"| **{t['overall_ratio']}x** |")
+             f"| **{t['overall_ratio']}x** | |")
     L.append("")
     L.append(f"Overall {t['overall_ratio']}x fewer tokens (median {t['median_ratio']}x "
              f"per question) to reach the same answer via the graph.\n")
+    L.append("## Answer content\n")
+    skipped = (f", {t['skipped']} skipped for want of a fieldmap snapshot"
+               if t["skipped"] else "")
+    L.append(f"{t['answers_passed']}/{t['asserted']} asserted answers contained every "
+             f"node their rubric requires. {t['no_rubric']} of {t['questions']} "
+             f"questions carry no rubric and measure cost only{skipped}.\n")
+    for r in vs["rows"]:
+        if r["answer_status"] == "fail":
+            L.append(f"- **FAIL {r['id']}** ({r['question']}): "
+                     + ", ".join(r["missing_nodes"]))
+        elif r["answer_status"] == "xpass":
+            L.append(f"- **XPASS {r['id']}** ({r['question']}): now reached, "
+                     f"promote to required_nodes: " + ", ".join(r["closed_gaps"]))
+    gaps = [r for r in vs["rows"] if r["known_gaps"]]
+    if gaps:
+        L.append(f"\n{sum(len(r['known_gaps']) for r in gaps)} known gaps across "
+                 f"{len(gaps)} questions - nodes the answer should reach and does "
+                 f"not. These do not gate the command.\n")
+        for r in gaps:
+            L.append(f"- {r['id']} ({r['question']}): "
+                     + ", ".join(r["known_gaps"]))
+    L.append("")
     paths = result.get("path_quality")
     if paths:
         L.append("## Golden implementation paths\n")
