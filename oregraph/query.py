@@ -24,6 +24,10 @@ RELATION_COST = {
     # edge so a path between two code symbols does not cut through a mapping
     # entry that happens to name both.
     "maps_to_class": 2.0,
+    # Entry-to-entry links between mapping domains (fieldmap_link.py).
+    "maps_to_pricing_engine": 2.0,
+    "maps_to_curve_config": 2.0,
+    "maps_to_convention": 2.0,
     "defines": 2.2,
     "includes": 3.0,
     "contains": 3.5,
@@ -45,7 +49,8 @@ SCHEMA_RELATIONS = {"schema_for", "implements"}
 # a class should reach both. The entry's fields are attributes on the node, not
 # nodes of their own, so there is nothing further to traverse - query-fields
 # renders them.
-FIELDMAP_RELATIONS = {"maps_to_class", "maps_to_schema"}
+FIELDMAP_RELATIONS = {"maps_to_class", "maps_to_schema", "maps_to_pricing_engine",
+                      "maps_to_curve_config", "maps_to_convention"}
 BUNDLE_RELATIONS = (IMPACT_RELATIONS | {"defines", "imports"} | SCHEMA_RELATIONS
                     | FIELDMAP_RELATIONS)
 FLOW_RELATIONS = {"calls", "constructs", "registers", "uses", "inherits",
@@ -382,6 +387,34 @@ def _out_edges(graph, node_id) -> list[tuple]:
     return list(graph.edges(node_id, data=True))
 
 
+#: How `query-fields` names each mapping link.
+_LINK_KIND = {"maps_to_class": "class ", "maps_to_schema": "schema",   # padded as before
+              "maps_to_pricing_engine": "pricing engine",
+              "maps_to_curve_config": "curve config",
+              "maps_to_convention": "convention"}
+#: The entry-to-entry links; a hub entry is the target of many, so it lists its
+#: referrers as a count and a few names rather than one line each.
+_CROSS_LINKS = ("maps_to_pricing_engine", "maps_to_curve_config", "maps_to_convention")
+
+
+def _link_detail(edge: dict) -> str:
+    """The parenthesised part of a link line: what it was resolved from."""
+    parts = []
+    if edge.get("relation") == "maps_to_curve_config":
+        parts.append("from " + ", ".join(edge.get("risk_factor_types") or []))
+    elif edge.get("relation") == "maps_to_convention":
+        parts.append(str(edge.get("via") or ""))
+    else:
+        via = edge.get("via") or edge.get("xsd_type")
+        if via:
+            parts.append(str(via))
+    if (edge.get("candidates") or 0) > 1:
+        parts.append(f"1 of {edge['candidates']} candidates")
+    if edge.get("delegate"):
+        parts.append(f"delegated to {edge['delegate']}")
+    return ", ".join(p for p in parts if p)
+
+
 def _field_line(field: dict) -> str:
     extras = [str(field[k]) for k in ("data_type",) if field.get(k)]
     if field.get("value_set"):
@@ -434,14 +467,27 @@ def query_fields(graph, symbol: str, xpath: str | None = None, limit: int = 60) 
             if relation not in FIELDMAP_RELATIONS:
                 continue
             target_data = graph.nodes[target]
-            kind = "class " if relation == "maps_to_class" else "schema"
-            detail = edge.get("via") or edge.get("xsd_type") or ""
+            kind = _LINK_KIND[relation]
+            detail = _link_detail(edge)
             anchor = " (file-level anchor)" if edge.get("anchor") == "file" else ""
             lines.append(
                 f"  {kind}: {_label(target, target_data)} [src={_source(target_data)}]  "
                 f"{edge.get('confidence', '')} via {edge.get('context', '')}"
                 + (f" ({detail})" if detail else "") + anchor
                 + (f" [{edge['role']}]" if edge.get("role") else ""))
+        if data.get("pricing_engine_kind"):
+            lines.append(f"  pricing engine: {data['pricing_engine_kind']}"
+                         + (f" - {data['pricing_engine_note']}"
+                            if data.get("pricing_engine_note") else ""))
+        if graph.is_directed():
+            referrers: dict[str, list[str]] = {}
+            for source, _t, edge in graph.in_edges(node_id, data=True):
+                relation = str(edge.get("relation", "")).lower()
+                if relation in _CROSS_LINKS:
+                    referrers.setdefault(relation, []).append(_label(source, graph.nodes[source]))
+            for relation, names in sorted(referrers.items()):
+                shown = ", ".join(sorted(names)[:4]) + (", ..." if len(names) > 4 else "")
+                lines.append(f"  used by {len(names)} via {relation}: {shown}")
 
         groups = ([("", data.get("fields") or [])] if "fields" in data else
                   [(f"{c['model']} / {c['engine']}", c.get("fields") or [])

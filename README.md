@@ -92,7 +92,15 @@ checkout, `oregraph fieldmap` snapshots its resolved XPath mapping - 177 trade
 types, 71 curve-config entries, 26 conventions, 112 pricing-engine products
 (every valid Model/Engine pair) - and the next `oregraph merge` puts it in the
 graph: one `OREFieldmap` node per entry, linked `maps_to_class` to the C++ class
-that parses it and `maps_to_schema` to the XSD type that validates it. The
+that parses it and `maps_to_schema` to the XSD type that validates it. Entries
+also link to each other, using ORE_Forge's own resolvers: `maps_to_pricing_engine`
+(a trade to the engine entries that serve it - several when which one applies
+depends on trade content), `maps_to_curve_config` (a trade to the curve-config
+*type* its market data resolves to - a trade names `EUR`, never a curve config, so
+this is `YieldCurve`, not a particular curve) and `maps_to_convention` (a curve
+config to the convention types it refers to). All are `INFERRED`, and `verify`
+lists what ORE_Forge has no answer for (a trade with no pricing-engine entry, the
+`underlying` market-data kind). The
 entry's fields (XPath, required/optional, data type, value set) ride on the node;
 `query-fields` renders the whole chain. The mapping is ORE_Forge's claim, audited
 there against `fromXML()`, so the graph does not take it on trust: a link ORE's

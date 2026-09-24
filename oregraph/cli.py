@@ -98,6 +98,15 @@ def cmd_fieldmap(args):
         print(f"  {domain:15s} {snap.entry_count(domain):4d} entries  "
               f"{snap.node_count(domain):6d} nodes")
     print(f"Total nodes : {snap.total_nodes}")
+    links = fieldmapmod.link_summary(snap)
+    e = links["edges"]
+    print(f"Cross-links : trade->pricing engine {e['pricing_engine']}, "
+          f"trade->curve config {e['curve_config']}, "
+          f"curve config->convention {e['convention']}")
+    print(f"  pricing engine plans: {links['pricing_plans']}")
+    if links["unmapped_risk_factors"]:
+        print(f"  risk-factor kinds with no curve config (fields): "
+              f"{links['unmapped_risk_factors']}")
 
     fieldmapmod.save(snap, cfg.fieldmap_out)
     print(f"Snapshot written to {cfg.fieldmap_out}")

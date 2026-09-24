@@ -27,11 +27,14 @@ there is. Disagreements are reported, not resolved silently.
 """
 from __future__ import annotations
 
+import importlib.util
 import json
 import sys
+from collections import Counter, defaultdict
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from types import SimpleNamespace
+from typing import Any, Mapping
 
 from . import config as configmod
 
@@ -39,8 +42,9 @@ DOMAINS = ("trade", "curve_config", "convention", "pricing_engine")
 
 #: Bumped whenever the snapshot layout changes, so `load()` refuses an old file
 #: with an instruction instead of half-reading it. Format 1 was trade-only
-#: (`trade_types` + `nodes_by_trade`).
-SNAPSHOT_FORMAT = 2
+#: (`trade_types` + `nodes_by_trade`); format 3 adds a `links` section to a
+#: record (see `cross_links`).
+SNAPSHOT_FORMAT = 3
 
 
 class FieldmapError(RuntimeError):
@@ -57,7 +61,9 @@ class FieldmapSnapshot:
     pricing_engine, whose XML shape (and parameter set) depends on which
     (Model, Engine) pair is chosen - so every valid pair is resolved, not just
     the default. `meta` is the entry's scalar keys (XML_Node_Name, Trade_Type,
-    Cpp_Class_Name, ...): the join keys fieldmap_link.py works from.
+    Cpp_Class_Name, ...): the join keys fieldmap_link.py works from. A record
+    may also carry `links`: the cross-domain references ORE_Forge's own
+    resolvers derive for it (`cross_links`).
     """
     source: str
     version: dict
@@ -119,6 +125,144 @@ def _load_provider(fieldmap_root: Path):
     provider = UnifiedXPathProvider(data_dir=fieldmap_root / "data" / "unified")
     _provider_cache[fieldmap_root] = provider
     return provider
+
+
+_LINK_MODULES = ("curve_links", "convention_links", "pricing_engine_links")
+
+
+def _load_link_modules(fieldmap_root: Path) -> SimpleNamespace:
+    """Load ORE_Forge's link resolvers (src/core/*_links.py) by file path.
+
+    These are the modules its GUI uses to jump from a trade to its pricing
+    engine and curve configs, and from a curve config to its conventions - the
+    resolution logic is theirs and is not reimplemented here, same as
+    UnifiedXPathProvider. Loaded by path rather than as `src.core.<module>`
+    because importing the package would run src/core/__init__.py, which pulls
+    in the GUI's data reader; the modules themselves import only the standard
+    library. Each is registered in sys.modules before it runs, because
+    `dataclasses` resolves string annotations through it.
+    """
+    loaded: dict[str, Any] = {}
+    for name in _LINK_MODULES:
+        path = fieldmap_root / "src" / "core" / f"{name}.py"
+        spec = (importlib.util.spec_from_file_location(f"oreforge_{name}", path)
+                if path.is_file() else None)
+        if spec is None or spec.loader is None:
+            raise FieldmapError(
+                f"Could not find ORE_Forge's {name} at {path}.\n"
+                "Confirm ORE_FIELDMAP points at an ORE_Forge checkout that has "
+                "src/core/curve_links.py, convention_links.py and "
+                "pricing_engine_links.py.")
+        module = importlib.util.module_from_spec(spec)
+        sys.modules[spec.name] = module
+        try:
+            spec.loader.exec_module(module)
+        except Exception as exc:
+            sys.modules.pop(spec.name, None)
+            raise FieldmapError(f"Could not load ORE_Forge's {name}: {exc}") from exc
+        loaded[name] = module
+    return SimpleNamespace(**loaded)
+
+
+def cross_links(raw: Mapping[str, Mapping[str, Any]],
+                resolved: Mapping[str, Mapping[str, dict[str, Any]]],
+                modules: SimpleNamespace) -> dict[str, dict[str, dict[str, Any]]]:
+    """domain -> entry name -> the cross-domain links ORE_Forge derives for it.
+
+    Three links, each by ORE_Forge's own resolver over its own data:
+
+    trade -> pricing_engine     `plan_for_trade`: the entries serving the trade's
+                                lookup type (`Pricing_Engine_Type` or
+                                `Trade_Type`), or those of the types it
+                                delegates to, or none when it never looks one up
+                                (`not_required`) or has no entry (`unknown`).
+                                Several candidates are all kept - which one
+                                applies depends on trade content ORE_Forge does
+                                not parse.
+    trade -> curve_config       the trade's `risk_factor_type` fields, through
+                                `SPEC_KINDS`. A trade names a market object
+                                (EUR, EUR-EURIBOR-6M), not a curve config, so
+                                this is the config *type* it resolves to, never
+                                a particular curve. A kind absent from
+                                SPEC_KINDS (`underlying`) is counted as
+                                unmapped, not guessed.
+    curve_config -> convention  `build_link_index`: which convention types a
+                                top-level config's fields refer to - a fixed
+                                `linked_convention_type`, or one chosen by a
+                                sibling field (a yield-curve segment's Type).
+    """
+    trades = raw["trade"]["entries"]
+    pe_entries = raw["pricing_engine"]["entries"]
+    out: dict[str, dict[str, dict[str, Any]]] = {d: {} for d in DOMAINS}
+
+    for name, record in resolved.get("trade", {}).items():
+        entry = trades[name]
+        plan = modules.pricing_engine_links.plan_for_trade([], pe_entries, entry)
+        by_config: dict[str, dict[str, Any]] = {}
+        unmapped: Counter[str] = Counter()
+        for node in record["nodes"]:
+            kind = node.get("risk_factor_type")
+            if not kind:
+                continue
+            spec = modules.curve_links.SPEC_KINDS.get(kind)
+            if spec is None:
+                unmapped[kind] += 1
+                continue
+            slot = by_config.setdefault(spec.config_type,
+                                        {"risk_factor_types": [], "fields": 0})
+            if kind not in slot["risk_factor_types"]:
+                slot["risk_factor_types"].append(kind)
+            slot["fields"] += 1
+        for slot in by_config.values():
+            slot["risk_factor_types"].sort()
+        links: dict[str, Any] = {"pricing_engine": {
+            "kind": plan.kind,
+            "via": "Pricing_Engine_Type" if entry.get("Pricing_Engine_Type") else "Trade_Type",
+            "lookup_type": plan.trade_type or None,
+            "candidates": list(plan.candidates),
+            "delegates": [{"trade_type": dt, "kind": p.kind, "candidates": list(p.candidates)}
+                          for dt, p in plan.delegates],
+            "note": plan.note or None}}
+        if by_config:
+            links["curve_config"] = dict(sorted(by_config.items()))
+        if unmapped:
+            links["unmapped_risk_factor_types"] = dict(sorted(unmapped.items()))
+        out["trade"][name] = links
+
+    index = modules.convention_links.build_link_index(raw["curve_config"]["entries"])
+    per_root: dict[str, dict[str, dict[str, Any]]] = defaultdict(dict)
+    for (root, shape), link in sorted(index.items()):
+        if link.convention_type:
+            targets = {link.convention_type: "linked_convention_type"}
+        else:
+            targets = {t: f"sibling:{link.by_sibling}" for t in link.type_map.values()}
+        for conv_type, via in sorted(targets.items()):
+            slot = per_root[root].setdefault(conv_type, {"via": via, "fields": []})
+            slot["fields"].append(shape)
+    for root, conventions in per_root.items():
+        if root in resolved.get("curve_config", {}):
+            out["curve_config"][root] = {"convention": dict(sorted(conventions.items()))}
+    return out
+
+
+def link_summary(snapshot: "FieldmapSnapshot") -> dict[str, Any]:
+    """Counts of what `cross_links` recorded, for `oregraph fieldmap` to print."""
+    pricing: Counter[str] = Counter()
+    edges = {"pricing_engine": 0, "curve_config": 0, "convention": 0}
+    unmapped: Counter[str] = Counter()
+    for record in snapshot.domains.get("trade", {}).values():
+        links = record.get("links") or {}
+        plan = links.get("pricing_engine")
+        if plan:
+            pricing[plan["kind"]] += 1
+            edges["pricing_engine"] += (sum(len(d["candidates"]) for d in plan["delegates"])
+                                        if plan["kind"] == "delegates" else len(plan["candidates"]))
+        edges["curve_config"] += len(links.get("curve_config", {}))
+        unmapped.update(links.get("unmapped_risk_factor_types", {}))
+    for record in snapshot.domains.get("curve_config", {}).values():
+        edges["convention"] += len((record.get("links") or {}).get("convention", {}))
+    return {"edges": edges, "pricing_plans": dict(pricing),
+            "unmapped_risk_factors": dict(unmapped)}
 
 
 def _entry_meta(entry: dict[str, Any]) -> dict[str, Any]:
@@ -211,6 +355,11 @@ def snapshot(cfg: configmod.Config) -> FieldmapSnapshot:
                 record["nodes"] = provider.get_xpath(domain, name)
             records[name] = record
         domains[domain] = records
+
+    links = cross_links(raw, domains, _load_link_modules(cfg.fieldmap))
+    for domain, per_entry in links.items():
+        for name, entry_links in per_entry.items():
+            domains[domain][name]["links"] = entry_links
 
     return FieldmapSnapshot(
         source=str(cfg.fieldmap),

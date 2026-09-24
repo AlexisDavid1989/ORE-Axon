@@ -21,6 +21,31 @@ dependency, as schema_for already does):
   product: the trade it prices and the engine builders it selects);
 - `maps_to_schema` entry -> the XSD type that validates it.
 
+Cross-domain links
+------------------
+ORE_Forge also records how the four domains refer to one another, and its GUI
+follows those references. fieldmap.py captures them with ORE_Forge's own
+resolvers (`cross_links`) and they become edges between entry nodes:
+
+- `maps_to_pricing_engine` trade -> the pricing-engine entries that serve it -
+  by its `Pricing_Engine_Type` or `Trade_Type`, or, for a trade that only
+  delegates (CallableSwap), those of the types it delegates to. More than one
+  candidate is kept whole (a Swaption is European or Bermudan; which applies
+  depends on trade content ORE_Forge does not parse) and marked with a lower
+  confidence. A trade that never looks one up (`Pricing_Engine_Required: false`)
+  has no edge and says so on its node; one with no entry is listed as unresolved;
+- `maps_to_curve_config` trade -> the curve-config *type* its market-data fields
+  resolve to, from each field's `risk_factor_type`. A trade names a market object
+  (EUR, EUR-EURIBOR-6M), never a curve config, so this is the type
+  (YieldCurve, DefaultCurve, ...) and never a particular curve. A field kind
+  ORE_Forge has no config type for (`underlying`) is counted, not guessed;
+- `maps_to_convention` curve config -> the convention types its fields refer
+  to: a fixed `linked_convention_type`, or, for a yield-curve segment, the type
+  its own `Type` selects.
+
+All three are ORE_Forge's word - ORE's source has no table to re-derive them
+from - so every one is INFERRED. Each carries the fields that gave rise to it.
+
 The entry's resolved fields ride on the node as a `fields` attribute - XPath,
 optionality, data type, value set, default - and a pricing product carries
 `combinations`, one per valid (Model, Engine) pair with its own parameter
@@ -96,7 +121,13 @@ from .xsd_link import (_lookup_xsd_node, _parse_convention_dispatch,
 FIELDMAP_REPO = "OREFieldmap"
 MAPS_TO_CLASS = "maps_to_class"
 MAPS_TO_SCHEMA = "maps_to_schema"
-FIELDMAP_RELATIONS = frozenset({MAPS_TO_CLASS, MAPS_TO_SCHEMA})
+#: Between two entries of different domains (see "Cross-domain links" above).
+MAPS_TO_PRICING_ENGINE = "maps_to_pricing_engine"     # trade -> pricing engine
+MAPS_TO_CURVE_CONFIG = "maps_to_curve_config"         # trade -> curve config
+MAPS_TO_CONVENTION = "maps_to_convention"             # curve config -> convention
+CROSS_RELATIONS = frozenset({MAPS_TO_PRICING_ENGINE, MAPS_TO_CURVE_CONFIG,
+                             MAPS_TO_CONVENTION})
+FIELDMAP_RELATIONS = frozenset({MAPS_TO_CLASS, MAPS_TO_SCHEMA}) | CROSS_RELATIONS
 
 #: `_origin` stamped on every edge/node this module adds - verify.py counts them
 #: the way it counts symbol_link / xsd_link / schema_link.
@@ -122,6 +153,7 @@ _EXTRACTED_ELEMENT = ("EXTRACTED", 0.9)     # an xsd element declaration of that
 _EXTRACTED_LITERAL = ("EXTRACTED", 0.85)    # the class's source names the entry's XML tag
 _INFERRED_CLAIM = ("INFERRED", 0.75)        # ORE_Forge's claim; the target exists
 _INFERRED_NESTED = ("INFERRED", 0.6)        # claim names a nested class; linked to its enclosing class
+_INFERRED_AMBIGUOUS = ("INFERRED", 0.5)     # the claim names several candidates; which applies is not stated
 
 
 # ---------------------------------------------------------------------------
@@ -482,6 +514,7 @@ def link_fieldmap(snapshot: FieldmapSnapshot, nodes: list[dict], links: list[dic
 
     out_nodes: list[dict] = []
     out_edges: list[dict] = []
+    entry_ids: dict[tuple[str, str], str] = {}
     per_domain: dict[str, dict[str, Any]] = {}
     unresolved_class: dict[str, list[str]] = defaultdict(list)
     unresolved_schema: dict[str, list[str]] = defaultdict(list)
@@ -531,6 +564,12 @@ def link_fieldmap(snapshot: FieldmapSnapshot, nodes: list[dict], links: list[dic
                                      cpp_class_name=meta.get("Cpp_Class_Name"),
                                      top_level=meta.get("Is_Top_Level"))
             entry_id = entry_node["id"]
+            entry_ids[(domain, name)] = entry_id
+            plan = ((record.get("links") or {}).get("pricing_engine")
+                    if domain == "trade" else None)
+            if plan and plan["kind"] in ("not_required", "delegates", "unknown"):
+                entry_node["pricing_engine_kind"] = plan["kind"]
+                entry_node["pricing_engine_note"] = plan.get("note")
             out_nodes.append(entry_node)
             stats["entries"] += 1
 
@@ -650,6 +689,64 @@ def link_fieldmap(snapshot: FieldmapSnapshot, nodes: list[dict], links: list[dic
                     stats["schema_linked"] += 1
             community += 1
 
+    # ---- cross-domain links --------------------------------------------
+    # A second pass: a link's target is another domain's entry, so every entry
+    # node has to exist first. A target that is not an entry is reported, never
+    # dropped silently - the same rule the class and schema links follow.
+    cross_edges: Counter[str] = Counter()
+    unresolved_cross: dict[str, list[str]] = defaultdict(list)
+    unmapped_risk: Counter[str] = Counter()
+    plan_kinds: Counter[str] = Counter()
+
+    def link_entries(source_domain: str, source: str, target_domain: str, target: str,
+                     relation: str, context: str, confidence: tuple[str, float],
+                     **attrs: Any) -> bool:
+        target_id = entry_ids.get((target_domain, target))
+        if target_id is None:
+            unresolved_cross[relation].append(
+                f"{source_domain}/{source} -> {target_domain}/{target}")
+            return False
+        out_edges.append(_edge(entry_ids[(source_domain, source)], target_id, relation,
+                               context, confidence, **attrs))
+        cross_edges[relation] += 1
+        return True
+
+    for name, record in sorted(snapshot.domains.get("trade", {}).items()):
+        links = record.get("links") or {}
+        plan = links.get("pricing_engine")
+        if plan:
+            plan_kinds[plan["kind"]] += 1
+            if plan["kind"] == "delegates":
+                for delegate in plan["delegates"]:
+                    for candidate in delegate["candidates"]:
+                        link_entries("trade", name, "pricing_engine", candidate,
+                                     MAPS_TO_PRICING_ENGINE, "fieldmap_pricing_engine_delegate",
+                                     _INFERRED_CLAIM, via="delegates_to",
+                                     delegate=delegate["trade_type"])
+            elif plan["candidates"]:
+                confidence = (_INFERRED_CLAIM if len(plan["candidates"]) == 1
+                              else _INFERRED_AMBIGUOUS)
+                for candidate in plan["candidates"]:
+                    link_entries("trade", name, "pricing_engine", candidate,
+                                 MAPS_TO_PRICING_ENGINE, "fieldmap_pricing_engine",
+                                 confidence, via=plan["via"],
+                                 lookup_type=plan["lookup_type"],
+                                 candidates=len(plan["candidates"]))
+            elif plan["kind"] == "unknown":
+                unresolved_cross[MAPS_TO_PRICING_ENGINE].append(
+                    f"trade/{name}: no pricing-engine entry serves {plan['lookup_type']!r}")
+        for config_type, info in (links.get("curve_config") or {}).items():
+            link_entries("trade", name, "curve_config", config_type, MAPS_TO_CURVE_CONFIG,
+                         "fieldmap_risk_factor", _INFERRED_CLAIM,
+                         risk_factor_types=info["risk_factor_types"], fields=info["fields"])
+        unmapped_risk.update(links.get("unmapped_risk_factor_types") or {})
+
+    for name, record in sorted(snapshot.domains.get("curve_config", {}).items()):
+        for conv_type, info in ((record.get("links") or {}).get("convention") or {}).items():
+            link_entries("curve_config", name, "convention", conv_type, MAPS_TO_CONVENTION,
+                         "fieldmap_linked_convention", _INFERRED_CLAIM,
+                         via=info["via"], fields=info["fields"])
+
     for d in per_domain.values():
         d["confidence"] = dict(d["confidence"])
 
@@ -668,6 +765,10 @@ def link_fieldmap(snapshot: FieldmapSnapshot, nodes: list[dict], links: list[dic
         "unsupported_claims": sorted(unsupported_claims),
         "substituted_combinations": sorted(substituted),
         "duplicate_xpaths": sorted(duplicate_xpaths),
+        "cross_links": {"relations": dict(cross_edges),
+                        "pricing_plans": dict(plan_kinds),
+                        "unresolved": {r: sorted(v) for r, v in unresolved_cross.items()},
+                        "unmapped_risk_factors": dict(unmapped_risk)},
         "sources": {"trade_registry": len(trade_registry),
                     "convention_dispatch": len(convention_dispatch),
                     "xsd_dispatch": {d: len(v) for d, v in xsd_dispatch.items()}},

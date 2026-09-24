@@ -51,6 +51,14 @@ made the previous version unusable by anyone but its author.
   `oregraph query-fields X` reads it. ORE_Forge is a moving target edited by other
   sessions - re-run `fieldmap` then `merge` after it changes; `verify` warns when
   the graph is behind. It is opt-in: without a snapshot, merge is unchanged.
+  Entries also link across domains (`maps_to_pricing_engine`, `maps_to_curve_config`,
+  `maps_to_convention`), derived at snapshot time by ORE_Forge's own
+  `src/core/*_links.py` (snapshot format 3: an older snapshot is refused until
+  `oregraph fieldmap` is re-run). All INFERRED. They make hubs - `YieldCurve` is the
+  target of ~170 trades - and graphify seeds the word "fieldmap" on the
+  best-connected entry, so any change to entry degrees moves that seed (it was `Swap`'s
+  pricing engine, now `YieldCurve`'s config): bench before and after, as for any graph
+  change. s34 once required that accidental seed; it now requires only content.
 - **`oregraph.serve` is the MCP server, not `graphify.serve`.** It builds
   graphify's server and intercepts one tool, `query_graph`, answering it with
   `query.query_graph_text`; the other nine tools, and any call with a
@@ -76,8 +84,8 @@ made the previous version unusable by anyone but its author.
   describing what is served. `GraphAdapter.graphify_only` keeps the old path as
   the baseline to measure against. All 50 questions carry a rubric:
   `required_nodes` fails the command when missing, `xfail_nodes` only reports.
-  Entries are `label`, `label@source-file`, or `src:<path fragment>`. Today 32
-  of 50 pass, 97 entries gate and 22 gaps remain; when a gap closes, bench says
+  Entries are `label`, `label@source-file`, or `src:<path fragment>`. Today 31
+  of 50 pass, 96 entries gate and 23 gaps remain; when a gap closes, bench says
   XPASS and the entry moves to `required_nodes`. `verify` fails if a
   `required_nodes` entry names nothing in the graph, and warns for an
   `xfail_nodes` one, which is either a typo or a corpus gap.

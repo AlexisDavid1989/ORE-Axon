@@ -148,6 +148,60 @@ def _fieldmap_checks(cfg, graph_meta: dict, nodes: list[dict], links: list[dict]
     check("fieldmap entries linked to code and schema", not unresolved, detail,
           severity="warn")
 
+    # Cross-domain links (trade -> pricing engine / curve config, curve config ->
+    # convention). What the graph carries must be what the pass recorded, and
+    # each edge must join entries of the domains its relation names: a
+    # maps_to_convention edge that ended on a trade entry would still be a
+    # well-formed edge and would answer "which conventions does this curve use"
+    # with the wrong thing.
+    cross = fm.get("cross_links")
+    if cross is not None:
+        by_id = {n["id"]: n for n in entries}
+        joins = {"maps_to_pricing_engine": ("trade", "pricing_engine"),
+                 "maps_to_curve_config": ("trade", "curve_config"),
+                 "maps_to_convention": ("curve_config", "convention")}
+        got: dict[str, int] = {}
+        misjoined = []
+        for edge in edges:
+            relation = edge.get("relation")
+            if relation not in joins:
+                continue
+            got[relation] = got.get(relation, 0) + 1
+            src, tgt = by_id.get(edge["source"]), by_id.get(edge["target"])
+            if not src or not tgt or (src.get("domain"), tgt.get("domain")) != joins[relation]:
+                misjoined.append(f"{relation}: {(src or {}).get('label')} -> {(tgt or {}).get('label')}")
+        want = {r: n for r, n in (cross.get("relations") or {}).items() if n}
+        cross_problems = []
+        if got != want:
+            cross_problems.append(f"graph has {got or 'none'}, the pass recorded {want or 'none'}")
+        if misjoined:
+            cross_problems.append(f"{len(misjoined)} edge(s) join the wrong domains: "
+                                  f"{_sample(misjoined, 3)}")
+        check("fieldmap cross-domain links", not cross_problems,
+              f"{got.get('maps_to_pricing_engine', 0)} trade->pricing engine, "
+              f"{got.get('maps_to_curve_config', 0)} trade->curve config, "
+              f"{got.get('maps_to_convention', 0)} curve config->convention; every edge "
+              "joins entries of the domains its relation names"
+              if not cross_problems else "; ".join(cross_problems))
+
+        # Findings about ORE_Forge's data, not about the build: a trade with no
+        # pricing-engine entry, a market-data field kind ORE_Forge has no curve
+        # config type for. Reported, never guessed at.
+        gaps = [f"{r.replace('maps_to_', '')}: {x}"
+                for r, xs in (cross.get("unresolved") or {}).items() for x in xs]
+        unmapped = cross.get("unmapped_risk_factors") or {}
+        detail = "every cross-link target resolves to an entry"
+        if gaps or unmapped:
+            parts = []
+            if gaps:
+                parts.append(f"{len(gaps)} unresolved: {_sample(gaps)}")
+            if unmapped:
+                parts.append("risk-factor kinds with no curve config type (fields): "
+                             + ", ".join(f"{k} ({v})" for k, v in sorted(unmapped.items())))
+            detail = "; ".join(parts)
+        check("fieldmap cross-links complete", not gaps and not unmapped, detail,
+              severity="warn")
+
     # Where ORE's own source disagrees with ORE_Forge, or ORE_Forge's own data
     # is internally odd. Each is a finding to hand to whoever owns the mapping.
     found = {"class": fm.get("class_disagreements") or [],

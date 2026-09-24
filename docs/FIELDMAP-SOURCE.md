@@ -101,6 +101,46 @@ live call, a measured count), not inference.
 >   a `Trade_Type` that is not a registered TradeType and list no builders, so
 >   they link to no class.
 
+> **Update, 2026-09-24 — the four domains are now linked to each other.** The
+> entries used to link only outward (to code and to the schema). ORE_Forge also
+> records how its domains refer to one another - its GUI follows those references
+> through `src/core/pricing_engine_links.py`, `curve_links.py` and
+> `convention_links.py`, which import only the standard library - and
+> `oregraph fieldmap` now calls those resolvers itself (loaded by file path, since
+> importing `src.core` would run its `__init__`, which pulls in the GUI's data
+> reader). Snapshot format 3 records the result per entry and `merge` turns it into
+> edges between entry nodes, all `INFERRED` because ORE's source has no table to
+> re-derive them from:
+>
+> - **trade -> pricing engine** (`maps_to_pricing_engine`, 190 edges): the entries
+>   serving the trade's `Trade_Type`, or its declared `Pricing_Engine_Type`, or -
+>   for a trade that only delegates (`CallableSwap`) - the types it delegates to.
+>   19 trades have several candidates (which one applies depends on trade content
+>   ORE_Forge does not parse), kept whole at a lower confidence. 3 trades never look
+>   an engine up and say so on their node.
+> - **trade -> curve config** (`maps_to_curve_config`, 244 edges): from each field's
+>   `risk_factor_type` through `SPEC_KINDS`. This is the config *type*, never a
+>   curve: a trade names `EUR` or `EUR-EURIBOR-6M`, and ORE reaches the curve in two
+>   hops through TodaysMarket. `YieldCurve` is the target of 171 trades (nearly every
+>   trade has a currency) - a hub, see below.
+> - **curve config -> convention** (`maps_to_convention`, 23 edges): a fixed
+>   `linked_convention_type`, or, for a yield-curve segment, the type its own `Type`
+>   selects (a table `convention_links.py` keeps in code, mirrored from
+>   `yieldcurve.cpp`). Only 16 fields carry the fixed form in the data; the snapshot
+>   used to drop it because the resolved nodes do not.
+>
+> Two things this surfaced. **For ORE_Forge's owner:** 11 trade entries have no
+> pricing-engine entry serving them (for example `Commodity Asian Option`,
+> `Contract For Difference`, `Equity European Barrier Option`; the `verify` warning
+> lists all 11),
+> and `risk_factor_type: underlying` (76 fields) has no curve-config type in
+> `SPEC_KINDS`, so it is counted, not linked. **For this repo:** the links
+> change entry degrees, and graphify seeds the word "fieldmap" on the best-connected
+> entry - `Swap`'s pricing engine before, `YieldCurve`'s config after, for any
+> question that says "fieldmap". The bench question that required the former (s34)
+> was passing on that accident, not on content; it now requires content. Bench is
+> otherwise identical on all 50 questions.
+
 ---
 
 ## STEP 1 — Locate the source
