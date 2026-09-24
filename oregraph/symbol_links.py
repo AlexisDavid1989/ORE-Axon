@@ -23,6 +23,11 @@ REGISTER_RE = re.compile(
     r"ORE_REGISTER_(?P<kind>TRADE|ENGINE)_BUILDER\s*\(\s*"
     r"(?P<target>[A-Za-z_]\w*)")
 LINE_RE = re.compile(r"(?:^|[^0-9])L?(\d+)(?:[^0-9]|$)")
+# `class Foo {`, `struct QL_EXPORT Foo : public Bar {` - a class *body*, not a
+# forward declaration (no `{`) or a template parameter (`class T>`).
+CLASS_RE = re.compile(
+    r"\b(?:class|struct)\s+(?:[A-Z_][A-Z0-9_]*\s+)?(?P<name>[A-Za-z_]\w*)"
+    r"\s*(?:final\s+)?(?::[^;{]*)?\{")
 
 
 def _label(node: dict) -> str:
@@ -92,6 +97,17 @@ def _function_spans(text: str) -> list[tuple[int, int, str, str]]:
     return spans
 
 
+def _class_spans(text: str) -> list[tuple[int, int, str]]:
+    """(opening brace, closing brace, name) for every class or struct body."""
+    spans = []
+    for match in CLASS_RE.finditer(text):
+        if text[:match.start()].rstrip().endswith("enum"):   # `enum class E {`
+            continue
+        opening = match.end() - 1
+        spans.append((opening, _matching_brace(text, opening), match.group("name")))
+    return spans
+
+
 def _source_files(engine: Path, nodes: list[dict]):
     paths = sorted({str(node.get("repo_path")) for node in nodes
                     if node.get("repo_path")})
@@ -136,6 +152,21 @@ def link_symbols(engine: Path, nodes: list[dict]) -> tuple[list[dict], dict]:
         return min(candidates, key=lambda node: (
             abs((_line(node) or line) - line), str(node["id"])))
 
+    def class_owner(path: str, name: str, line: int) -> dict | None:
+        """The node for class `name` in `path`, for code written inside its body.
+
+        Header-inline code has no `Class::method` span, so it used to fall back
+        to the node with the shortest id in the file - which was the main class
+        only by luck. A nested `struct Curves` inside `FwdBondEngineBuilder`
+        has the shorter id, so once the extractor began emitting nested types
+        every construct in that header was attributed to `Curves`.
+        """
+        named = [node for node in by_path.get(path, [])
+                 if _label(node).casefold() == name.casefold()]
+        candidates = [node for node in named if node.get("_callable_class")] or named
+        return min(candidates, key=lambda node: (
+            abs((_line(node) or line) - line), str(node["id"])), default=None)
+
     def targets(label: str, included: set[str], source_path: str) -> list[dict]:
         candidates = [node for node in by_label.get(label.casefold(), [])
                       if node.get("repo_path") != source_path]
@@ -159,6 +190,7 @@ def link_symbols(engine: Path, nodes: list[dict]) -> tuple[list[dict], dict]:
             included.update(include_index.get(suffix, ()))
 
         spans = _function_spans(text)
+        class_spans = _class_spans(text)
         definitions = [(match.start(), match.end())
                    for match in FUNCTION_RE.finditer(text)]
 
@@ -167,7 +199,15 @@ def link_symbols(engine: Path, nodes: list[dict]) -> tuple[list[dict], dict]:
             enclosing = [item for item in spans
                          if item[0] <= match.start() <= item[1]]
             span = max(enclosing, key=lambda item: item[0], default=None)
-            source = owner(relative, span[3], line) if span else owner(relative, "", line)
+            if span:
+                source = owner(relative, span[3], line)
+            else:
+                # Innermost class whose braces contain the call.
+                scope = max((item for item in class_spans
+                             if item[0] <= match.start() <= item[1]),
+                            key=lambda item: item[0], default=None)
+                source = (class_owner(relative, scope[2], line) if scope else None
+                          ) or owner(relative, "", line)
             if source is None:
                 return
             for target in targets(target_label, included, relative):

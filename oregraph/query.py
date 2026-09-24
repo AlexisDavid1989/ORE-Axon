@@ -476,6 +476,28 @@ def _flow_category(label: str, source: str) -> str | None:
     return None
 
 
+def _flow_defines_ok(graph, a, b) -> bool:
+    """May a flow cross a `defines` edge between these two nodes?
+
+    `defines` is class-to-member, so following it everywhere floods a flow with
+    every method of every class it touches (measured: the real CDS engines were
+    replaced by unrelated FxBarrierOption members). It is needed in exactly one
+    place: from graphify 0.9.51 an engine builder is linked to its nested
+    `engineImpl` with `defines`, where earlier versions emitted `references`,
+    which the flow did follow - so the builder-to-engine step disappeared. Both
+    ends live under builders/, which keeps the exception that narrow.
+    """
+    return ("/builders/" in _source(graph.nodes[a])
+            and "/builders/" in _source(graph.nodes[b]))
+
+
+def _ends_in_defines(graph, path: list) -> bool:
+    """A member reached only through `defines` is not an endpoint: a method
+    named `engine` is not the engine."""
+    return (len(path) > 1 and str(_edge_data(graph, path[-2], path[-1])[0]
+            .get("relation", "")).lower() == "defines")
+
+
 def query_flow(graph, symbol: str, max_hops: int = 4,
                per_category: int = 3) -> str:
     """Discover implementation endpoints and paths without guessing labels."""
@@ -499,7 +521,7 @@ def query_flow(graph, symbol: str, max_hops: int = 4,
         cost, hops, _order, node_id, path, meaningful = heapq.heappop(frontier)
         if (cost, hops) > best.get(node_id, (float("inf"), max_hops + 1)):
             continue
-        if hops and meaningful:
+        if hops and meaningful and not _ends_in_defines(graph, path):
             data = graph.nodes[node_id]
             label = _label(node_id, data)
             category = _flow_category(label, _source(data))
@@ -511,7 +533,9 @@ def query_flow(graph, symbol: str, max_hops: int = 4,
         for neighbor in search_graph.neighbors(node_id):
             edge, _reversed = _edge_data(graph, node_id, neighbor)
             relation = str(edge.get("relation", "")).lower()
-            if relation not in FLOW_RELATIONS:
+            if relation not in FLOW_RELATIONS and not (
+                    relation == "defines"
+                    and _flow_defines_ok(graph, node_id, neighbor)):
                 continue
             next_cost = cost + _weight(
                 node_id, neighbor,
@@ -775,8 +799,15 @@ def resolve_question(graph, question: str, limit: int = 6) -> list:
 
     if not scored:
         return []
+    # Equal score and key means one label on several nodes: a forward
+    # declaration in a .cpp, a stub, and the class itself. Take the best
+    # connected, not the one whose id sorts first - graphify 0.9.51+ emits a
+    # class node for a forward declaration, and `OREAnalytics::` sorts before
+    # `QuantExt::`, so `AmcCalculator` seeded on the declaration and the real
+    # class dropped out of the answer.
     ranked = sorted(scored.items(),
-                    key=lambda kv: (-kv[1][0], len(kv[1][1]), str(kv[0])))
+                    key=lambda kv: (-kv[1][0], len(kv[1][1]),
+                                    -graph.degree(kv[0]), str(kv[0])))
     floor = ranked[0][1][0] * 0.25
     seeds, seen = [], set()
     for node_id, (score, key) in ranked:

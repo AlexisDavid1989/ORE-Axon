@@ -108,6 +108,33 @@ run once pinned. Same shape as 0.9.42: the clustering-variance half of the
 bug is unchanged. Do not remove the `PYTHONHASHSEED=0` relaunch in
 `oregraph/cli.py` on the strength of a version bump - it is still required.
 
+**Fixed upstream in 0.9.51 (re-verified 2026-09-23).** On one frozen
+extraction (QuantLib-01-foundations: 4,079 nodes / 8,375 edges from 0.9.44's
+`extract()`, so extraction is not a variable) run through stock
+`build_from_json()` + `cluster()` only:
+
+| graphifyy | seeds tried | distinct partitions |
+|---|---|---|
+| 0.9.44 | 0, 1, 2, 7, 12345, 99991 + 3 unpinned | 9 (all 9 runs differed; 215-217 communities) |
+| 0.9.51 | 0, 1, 2, 7, 12345, 99991 + 4 unpinned | 1 |
+| 0.9.65 | 0, 1, 2, 7, 12345, 99991 + 2 unpinned | 1 |
+| 0.9.66 | 0, 1, 2, 7, 12345, 99991 + 4 unpinned | 1 |
+
+Root cause, from the diff of `cluster()` between 0.9.44 and 0.9.51: the
+"stable" graph sorted edges on the raw `(u, v)` pair, but on an undirected
+graph the orientation an edge is yielded with follows per-process string-hash
+order, so the same edge sorted into a different position from run to run and
+Louvain (order-sensitive even with a fixed seed) grouped differently. 0.9.51
+sorts the endpoints within each pair first. Extraction itself was also
+byte-identical across seeds 1 and 2 on 0.9.66 from cold caches.
+
+This repo stays on 0.9.44 (see "Upgrading graphifyy" - 0.9.65 fixed this but
+answered less accurately), so the relaunch in `oregraph/cli.py` is **still
+required** here. If the pin ever moves to 0.9.51 or later it would no longer be
+needed for graphify's sake, but do not remove it on this probe alone: it only
+covers build + cluster, and the check that would justify removal is the
+two-full-builds comparison in docs/RELABELLING.md.
+
 Worked around here by relaunching every `build`/`merge` under
 `PYTHONHASHSEED=0`. Upstream issue (title and body updated with the 0.9.42
 numbers above):
@@ -193,6 +220,70 @@ un-merged. Also fixed, by writing one entry per sub-name. Both fixes are in
 `oregraph/relabel.py::write_anchors`; `oregraph/verify.py` now has a
 "curated-name retention rate" check (informational floor at 50%) so a
 collapse like the unfixed 63/530 can never pass silently again.
+
+### 0.9.44 -> 0.9.65 (2026-09-23): evaluated, not adopted
+
+0.9.65 was the newest release available to the team. It fixes #2817
+(see above) but gave less accurate answers on this corpus, so the pin stayed at
+0.9.44. Measured on the 50 bench questions, with the same (fixed) query code
+throughout; "delivered" is how many of the 119 nodes the rubric expects
+(`required_nodes` + `xfail_nodes`) appear in the answer:
+
+| graph built by | graphify answering | gate | delivered |
+|---|---|---|--:|
+| 0.9.44 | 0.9.44 | 27 pass / 0 fail | 97 / 119 (82%) |
+| 0.9.65 | 0.9.44 | 24 / 3 | 95 / 119 (80%) |
+| 0.9.44 | 0.9.65 | 24 / 4 | 92 / 119 (77%) |
+| 0.9.65 | 0.9.65 | 22 / 6 | 89 / 119 (75%) |
+
+Two separate effects, so a bump can be judged on each:
+
+- **graphify's retrieval** (`serve._query_graph_text`). Same graph, same
+  question, same start nodes, different result: for "how is a swap priced"
+  `LegData` was 18th and is gone, `build` fell from 9th to 40th; for "how is a
+  default curve configured" it now seeds on the doc node "Default Curve from
+  YieldCurve" instead of the class `DefaultCurve`. Asking graphify for twice
+  the token budget does not bring the nodes back, so it is ordering and
+  seeding, not truncation. Which change inside graphify does it was not found.
+- **the extractor's graph**: about 8% more nodes (94,442 -> 102,441) because
+  nested structs and forward declarations now become nodes, and a class is
+  linked to its nested member function with `defines` where 0.9.44 emitted
+  `references`. That is a richer graph, but it put more competitors into the
+  same 2,000-token answer and it exposed three bugs of ours, all fixed:
+  1. `symbol_links.py` gave a construct written inside a class body to the
+     node with the shortest id in the file. With a nested `struct Curves`
+     inside `FwdBondEngineBuilder`, `Curves` took every construct in that
+     header. It now uses the innermost enclosing class. This was a latent bug
+     on 0.9.44 as well: re-merging the 0.9.44 chunks re-attributed 505
+     symbol-link edges.
+  2. `query.resolve_question` broke ties between same-label nodes by id order,
+     so `AmcCalculator` seeded on a forward declaration in a `.cpp`. It now
+     prefers the best-connected node.
+  3. `query_flow` did not follow `defines`, so the builder -> `engineImpl` step
+     vanished. It now follows `defines` between two `builders/` nodes only, and
+     never as the final hop. Following it everywhere replaces the real CDS
+     engines with unrelated members.
+  `verify` guards 1 and 2 ("inline constructs owned by enclosing class",
+  "question seeds prefer the defining class") and 3 was caught by "convertible
+  pricing endpoint discovered".
+
+Tried and not worth repeating: ordering our half by proximity to several seeds
+(the missing nodes score no better than the ones already shown) and a third
+fused list of the best-connected classes near the seeds (recovers two nodes,
+loses another).
+
+0.9.65 also re-clustered the communities: the audit flagged 3 of 487 names
+(QuantExt "Exotic swaptions and annuity mapping" was a false positive - 15/15
+anchors intact, but `genericswaption` is one token; QuantLib-01 "Incremental
+statistics and histograms" and "Simulated annealing optimizer" had genuinely
+moved). None of that applies on 0.9.44.
+
+If a later release is worth trying: build into a separate `ORE_GRAPH_OUT`, run
+`bench` on all four combinations above, and compare *delivered* first. Do not
+adopt on `verify` alone - it passed on 0.9.65 once the three fixes were in.
+On the machine this was tried on, pip could not write `C:\Python312\Scripts`, so
+`pip install` failed and rolled back; `pip install --user` works and shadows
+the global copy (undo with `pip uninstall graphifyy`).
 
 ## Why there is one pinned graphifyy version, not two
 

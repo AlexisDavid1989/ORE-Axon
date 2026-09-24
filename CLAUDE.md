@@ -76,8 +76,8 @@ made the previous version unusable by anyone but its author.
   describing what is served. `GraphAdapter.graphify_only` keeps the old path as
   the baseline to measure against. All 50 questions carry a rubric:
   `required_nodes` fails the command when missing, `xfail_nodes` only reports.
-  Entries are `label`, `label@source-file`, or `src:<path fragment>`. Today 27
-  of 50 pass, 88 entries gate and 31 gaps remain; when a gap closes, bench says
+  Entries are `label`, `label@source-file`, or `src:<path fragment>`. Today 32
+  of 50 pass, 97 entries gate and 22 gaps remain; when a gap closes, bench says
   XPASS and the entry moves to `required_nodes`. `verify` fails if a
   `required_nodes` entry names nothing in the graph, and warns for an
   `xfail_nodes` one, which is either a typo or a corpus gap.
@@ -93,6 +93,12 @@ made the previous version unusable by anyone but its author.
   `Accumulator01Data`. `verify` flags both. s48's `src:Makefile.am` is a real
   corpus gap, not a typo: `CODE_EXTS` in `build_ast.py` has no build-file
   extractor, so no Makefile node exists to reach.
+- **graphifyy stays pinned at 0.9.44.** 0.9.65 (the newest the team can get) fixes
+  the `PYTHONHASHSEED` clustering bug but answered less accurately: 27 -> 22 of 50
+  bench answers, 97 -> 89 of 119 rubric nodes delivered, because graphify's own
+  retrieval changed and its extractor builds a different graph. Do not bump the pin
+  on version number alone, and keep the `PYTHONHASHSEED=0` relaunch. Evidence and
+  how to re-test: docs/KNOWN-ISSUES.md, "Upgrading graphifyy".
 - Run `oregraph verify` after any change to the build or merge path. Two of its
   checks are about names: `curated labels attached` and `all curated names
   attached`. The second is the one that catches a name passing `--audit` on the

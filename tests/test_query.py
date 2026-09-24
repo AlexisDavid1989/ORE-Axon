@@ -3,7 +3,7 @@ import unittest
 import networkx as nx
 
 from oregraph.query import (query_example, query_flow, query_impact, query_path,
-                            query_symbol, resolve_exact)
+                            query_symbol, resolve_exact, resolve_question)
 
 
 class QueryPathTest(unittest.TestCase):
@@ -88,6 +88,69 @@ class QueryPathTest(unittest.TestCase):
         self.assertIn("FdConvertibleBondEngine", output)
         self.assertIn("--constructs [RESOLVED]-->", output)
         self.assertNotIn("calculate", output)
+
+    @staticmethod
+    def _builder_graph(builder_path, link_relation="defines"):
+        """build --uses--> Builder --link--> engineImpl --constructs--> Engine."""
+        graph = nx.MultiDiGraph()
+        graph.add_node("trade", label="ConvertibleBond",
+                       repo_path="OREData/ored/portfolio/convertiblebond.hpp")
+        graph.add_node("build", label="build",
+                       repo_path="OREData/ored/portfolio/convertiblebond.hpp")
+        graph.add_node("builder", label="ConvertibleBondEngineBuilder",
+                       repo_path=builder_path)
+        graph.add_node("impl", label="engineImpl", repo_path=builder_path)
+        graph.add_node("engine", label="FdConvertibleBondEngine",
+                       repo_path="QuantExt/qle/pricingengines/fdconvertiblebondengine.hpp")
+        graph.add_edge("build", "builder", relation="uses", confidence="RESOLVED")
+        graph.add_edge("builder", "impl", relation=link_relation, confidence="EXTRACTED")
+        graph.add_edge("impl", "engine", relation="constructs", confidence="RESOLVED")
+        return graph
+
+    def test_flow_crosses_defines_between_a_builder_and_its_engine_impl(self):
+        # graphify 0.9.51+ links the two with `defines`; earlier versions used
+        # `references`, which the flow followed. Losing this step is what made
+        # `verify` stop discovering the convertible FD engine after the upgrade.
+        for relation in ("defines", "references"):
+            with self.subTest(relation=relation):
+                output = query_flow(self._builder_graph(
+                    "OREData/ored/portfolio/builders/convertiblebond.hpp", relation),
+                    "ConvertibleBond")
+                self.assertIn("FdConvertibleBondEngine", output)
+
+    def test_flow_does_not_follow_defines_outside_builders(self):
+        output = query_flow(self._builder_graph(
+            "OREData/ored/portfolio/convertiblebond.hpp"), "ConvertibleBond")
+        self.assertNotIn("FdConvertibleBondEngine", output)
+
+    def test_flow_never_reports_a_member_reached_through_defines(self):
+        graph = self._builder_graph(
+            "OREData/ored/portfolio/builders/convertiblebond.hpp")
+        graph.add_node("member", label="engine",
+                       repo_path="OREData/ored/portfolio/builders/convertiblebond.hpp")
+        graph.add_edge("builder", "member", relation="defines", confidence="EXTRACTED")
+
+        output = query_flow(graph, "ConvertibleBond")
+
+        self.assertIn("FdConvertibleBondEngine", output)
+        self.assertNotIn("--> engine [src=", output)   # the member; engineImpl is fine
+
+    def test_seed_prefers_the_connected_definition_over_a_same_label_declaration(self):
+        # Same label, same score: the forward declaration's id sorts first, but
+        # the class that has the relations is the one the question is about.
+        graph = nx.MultiDiGraph()
+        graph.add_node("a_decl", label="AmcCalculator", _callable_class=True,
+                       source_file="engine/amcvaluationengine.cpp")
+        graph.add_node("z_real", label="AmcCalculator", _callable_class=True,
+                       source_file="pricingengines/amccalculator.hpp")
+        for other in ("m1", "m2", "m3"):
+            graph.add_node(other, label=other)
+            graph.add_edge("z_real", other, relation="defines")
+        graph.add_node("only", label="only")
+        graph.add_edge("a_decl", "only", relation="references")
+
+        self.assertEqual(resolve_question(graph, "how does the amc calculator work")[0],
+                         "z_real")
 
 
 if __name__ == "__main__":

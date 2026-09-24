@@ -543,6 +543,22 @@ def verify(cfg) -> dict:
               + ("" if not absent_gaps else ": " + _sample(absent_gaps)),
               severity="warn")
 
+    # 13. A construction written inside a class body belongs to that class. With
+    # no `Class::method` span to go on, symbol_links once gave it to the node
+    # with the shortest id in the header; graphify 0.9.51 began emitting nested
+    # types, and `Curves` inside `FwdBondEngineBuilder` took every construct in
+    # that file, so `DiscountingForwardBondEngine` looked built by `Curves`.
+    node_by_id = {n["id"]: n for n in nodes}
+    fwd_engine = {n["id"] for n in nodes
+                  if _node_label(n) == "DiscountingForwardBondEngine"}
+    fwd_owners = {_node_label(node_by_id[l["source"]]) for l in links
+                  if l.get("relation") == "constructs" and l.get("_origin") == "symbol_link"
+                  and l.get("target") in fwd_engine and l.get("source") in node_by_id}
+    check("inline constructs owned by enclosing class",
+          any(o.endswith("EngineBuilder") for o in fwd_owners) and "Curves" not in fwd_owners,
+          "DiscountingForwardBondEngine is constructed by "
+          + (_sample(sorted(fwd_owners)) if fwd_owners else "nothing"))
+
     convertible_path = _has_relation_path(
                 nodes, links, "build",
         "FdDefaultableEquityJumpDiffusionConvertibleBondEngine",
@@ -551,12 +567,23 @@ def verify(cfg) -> dict:
                     "ConvertibleBond::build reaches its FD engine within 4 hops through a "
                     "uses and constructs edge")
 
-    from .query import load_path_graph, query_flow
-    flow_output = query_flow(load_path_graph(path), "ConvertibleBond")
+    from .query import load_path_graph, query_flow, resolve_question
+    path_graph = load_path_graph(path)
+    flow_output = query_flow(path_graph, "ConvertibleBond")
     discovered_engine = (
         "FdDefaultableEquityJumpDiffusionConvertibleBondEngine" in flow_output)
     check("convertible pricing endpoint discovered", discovered_engine,
           "query-flow discovers the FD engine from ConvertibleBond alone")
+
+    # 14. One label on several nodes: graphify 0.9.51+ emits a class node for a
+    # forward declaration, so `AmcCalculator` names both the declaration in
+    # engine/amcvaluationengine.cpp and the class in amccalculator.hpp. The seed
+    # must be the definition, not whichever id sorts first.
+    amc_seeds = resolve_question(path_graph, "how does the amc calculator work")
+    amc_src = str(path_graph.nodes[amc_seeds[0]].get("source_file", "")) if amc_seeds else ""
+    check("question seeds prefer the defining class", amc_src.endswith("amccalculator.hpp"),
+          f"'amc calculator' seeds on {amc_src or 'nothing'}; a same-label forward "
+          "declaration in a .cpp must not outrank the class")
 
     return {"checks": checks, "ore": ore,
             "nodes": len(nodes), "edges": len(links),

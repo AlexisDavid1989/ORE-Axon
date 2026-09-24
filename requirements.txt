@@ -3,4 +3,8 @@
 # release that clusters differently would silently detach curated names from
 # their communities. 0.9.44 is API-compatible and available on our internal
 # mirror; 0.9.6 was not.
+# A newer release is not automatically better here: 0.9.65 fixes the
+# PYTHONHASHSEED clustering bug but answered less accurately (27/50 -> 22/50
+# bench answers). Evidence and how to re-test: docs/KNOWN-ISSUES.md,
+# "Upgrading graphifyy".
 graphifyy==0.9.44
