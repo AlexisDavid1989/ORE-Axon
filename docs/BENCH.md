@@ -175,24 +175,48 @@ without a field simply is not compared on it.
 
 ## State (2026-09-25, graphify 0.9.44)
 
-64 questions: 61 pass, 3 xfail, 0 fail. 163 required entries, all delivered; 3 known
-gaps open. Delivered 163/166 (98.2%); precision 89.5%, P@10 88.9%. 58 gating variants
-all pass and none loses a node; of the 16 recorded paraphrase gaps, 7 now pass. 122
-control queries. On `bench/heldout_questions.json` (see [RETRIEVAL.md](RETRIEVAL.md)):
-31/33 questions, 51/56 entries, from 13/33 and 28/56.
+64 questions: 63 pass, 1 xfail, 0 fail. 163 required entries, all delivered; 3 known
+gaps open, all of them s09's. Delivered 163/166 (98.2%); precision 89.4%, P@10 89.1%. 62
+gating variants all pass and none loses a node; of the 18 recorded paraphrase gaps, 7
+now pass. 124 control queries. On `bench/heldout_questions.json` (see
+[RETRIEVAL.md](RETRIEVAL.md)): 31/33 questions, 51/56 entries, from 13/33 and 28/56.
 
 What moved, and how (the mechanisms are in [RETRIEVAL.md](RETRIEVAL.md)): 27 questions
-went from xfail to pass, with 60 gap entries promoted by `bench --promote`, which held
-back only what was weak, fragile or stub-only at the time. Nothing was moved out of
-`required_nodes`, no rubric entry was edited to be met, and no `_CONCEPT_SEEDS` entry
-was added.
+went from xfail to pass through retrieval and graph changes, with 60 gap entries promoted
+by `bench --promote`, which held back only what was weak, fragile or stub-only at the
+time. Through that pass nothing was moved out of `required_nodes`, no rubric entry was
+edited to be met, and no `_CONCEPT_SEEDS` entry was added. The last three questions were
+then rewritten (below), which is a change to the rubric and is recorded as one.
 
-* **The three left are rubric questions.** s09 `LGM` (nine source-less stubs), s38
-  `src:AsianOption` (one of 20 example directories) and s48 `src:Makefile.am`
-  (QuantExt has none). They have no `why`; each needs its owner's decision.
-* **Weak: the same nine.** Fragile: one, s01 `LegData`, margin 19 (was 34; the
-  baseline's two, `SwapEngineBuilderBase` and `DefaultCurve`, are now robust). Stub-only:
-  one, `IrLgm1fParametrization` on s09.
+* **s09, s38 and s48 were rewritten (2026-09-25)** because their entries were unfair, not
+  because they were hard. Each new entry was drafted from the source before any answer to
+  the new wording was seen, has a `why` with file and line, and went in as a gap for
+  `--promote` to split.
+  * **s09** `how does the LGM model calibrate` (wording kept). Required `LGM` (nine
+    source-less stubs, so an answer met it with noise) and `IrLgm1fParametrization` (a
+    typedef of `Lgm1fParametrization<YieldTermStructure>`, so only stubs). Now
+    `LgmBuilder` (kept) plus `LgmData`, `LinearGaussMarkovModel` and
+    `Lgm1fParametrization`, from `LgmBuilder::calibrate()` (`lgmbuilder.cpp:156-291`).
+    The three new ones are **not reached**: a real gap. The second seed is the stub
+    `IrLgm1fParametrization` (a `_CONCEPT_SEEDS` alias predating this), and `LgmData` and
+    `LinearGaussMarkovModel` sit two hops out behind hubs (degree 63 and 90).
+  * **s38** was `what do the QuantLib example programs demonstrate` requiring
+    `src:AsianOption`, one of 20 directories and the first alphabetically. Now `which
+    QuantLib example prices Bermudan swaptions with calibrated short-rate models`,
+    requiring `src:BermudanSwaption/BermudanSwaption.cpp`, from `Examples/README.txt`.
+    Reached (rank 27, margin 57) and promoted.
+  * **s48** was `how does the ORE build system compile QuantExt` requiring
+    `src:Makefile.am` (QuantExt has none) and `src:vcxproj` (the ORE app's project, weak).
+    Now `how do I build ORE from source`, requiring `src:userguide_buildore.tex`, the user
+    guide's CMake chapter. Reached (rank 7, margin 87), both paraphrases pass, promoted.
+    QuantExt's own `CMakeLists.txt` is not in the corpus (no build-file extractor).
+  * Two paraphrases lose a node the main wording reaches (s09's "Linear Gauss Markov" one,
+    s38's "calibrates short-rate models" one); they are `xfail_variants`, written as they
+    were. One idea to fix s09 was tried and dropped: seeds without a source file (neutral
+    everywhere, and it does not reach the three).
+* **Weak: eight** (`src:vcxproj` went with the old s48). Fragile: one, s01 `LegData`,
+  margin 19 (was 34; the baseline's two, `SwapEngineBuilderBase` and `DefaultCurve`, are
+  now robust). Stub-only: none (`IrLgm1fParametrization` went with the old s09).
 * **A measurement bug, fixed.** A node's source ran to the next space, so
   `fieldmap/trade/Interest Rate Swaption` was read as `fieldmap/trade/Interest` and
   s51's entry for it could not be met by any answer, however good. It now runs to

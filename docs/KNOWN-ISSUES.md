@@ -491,13 +491,22 @@ below it changed.
 
 The mechanisms are in [RETRIEVAL.md](RETRIEVAL.md). What they do not do:
 
-- **Three bench entries are unmet on purpose** (s09 `LGM`, s38 `src:AsianOption`,
-  s48 `src:Makefile.am`). Each is a rubric question, not a retrieval one: `LGM` matches
-  nine source-less stub nodes; `AsianOption` is one of 20 example directories, the first
-  alphabetically; QuantExt has no `Makefile.am` (its build is CMake and a vcxproj) and
-  all 120 in the checkout are QuantLib's. They have no `why`, and need a decision by
-  whoever owns the rubric - edit or replace the entry, or extend `CODE_EXTS` with a
-  build-file extractor (`CMakeLists.txt`) and rewrite s48 to name it.
+- **One bench question is still open: s09**, "how does the LGM model calibrate". After
+  its entries were rewritten (2026-09-25; the old ones, `LGM` and `IrLgm1fParametrization`,
+  were met only by source-less stubs) three fair ones remain unreached: `LgmData`,
+  `LinearGaussMarkovModel` and `Lgm1fParametrization`, the classes `LgmBuilder::calibrate()`
+  reads, calls and calibrates. The answer reaches `LgmBuilder` and little else. The second
+  seed is the stub `IrLgm1fParametrization` (a `_CONCEPT_SEEDS` alias that predates this;
+  the name is only a typedef), and the other two are two hops out behind hubs (63 and 90
+  edges). Leaving stubs out of the seeds is neutral everywhere and does not reach them; naming
+  the classes in `_CONCEPT_SEEDS` would pass the question and prove nothing.
+- **QuantExt's build files are not in the corpus.** s48 now asks "how do I build ORE from
+  source" and is met by the user guide's CMake chapter. `QuantExt/CMakeLists.txt` and
+  `qle/CMakeLists.txt`, the files that actually compile it, have no nodes: `CODE_EXTS`
+  has no build-file extractor, and the only build nodes are `ore.vcxproj` and `ore.sln`
+  for the ORE app. Closing that is a corpus decision (a deterministic `CMakeLists.txt`
+  extractor in its own new chunk, benched before and after per CLAUDE.md rule 3), not a
+  retrieval one.
 - **Two held-out questions still fail.** `g03` "how is a variance swap priced": ORE's
   trade class is `VarSwap`, the question says "variance", and the QuantLib
   `VarianceSwap` seed has no ORE twin under that name, so `VarSwap` and its engine builder
@@ -512,18 +521,17 @@ The mechanisms are in [RETRIEVAL.md](RETRIEVAL.md). What they do not do:
   when the topic matches nothing, so this costs nothing, but it also does nothing. The
   fieldmap channel needs `ORE_FIELDMAP` (without a snapshot there are no entries).
 - **`inherits` edges that name several classes or none stay dangling**: of 2,146 that
-  ended at a per-header stub, `merge` resolves 1,249 and leaves 204 (a name two modules
-  define: `Bond`, `Impl`, a nested type) and 693 (a template parameter, a type the corpus
-  does not define). A wrong base is worse than a missing one, so it does not guess. The
-  stub edge is kept either way.
+  ended at a per-header stub, `merge` resolves 1,249 and leaves 204 (the name is defined
+  more than once) and 693 (no class of that name in the corpus). A wrong base is worse
+  than a missing one, so it does not guess. The stub edge is kept either way.
 - **The families it lists are capped.** A seed's derived classes are listed only for the
   question's main subject and only for a family of 40 or fewer (10 shown, best known
   first); a framework base such as `Trade` or `PricingEngine` lists none, and neither do
   its ancestors (`Observer`, `XMLSerializable`). Header siblings are capped at 10.
 - **One legacy entry got thinner.** s01 `LegData` is 19 nodes from the token-budget
   cut, was 34, and is now flagged fragile (< 25): a pricing question spends ~20 nodes on
-  builders and engines that used to be other neighbours' turn. Nine legacy entries are
-  weak, as before.
+  builders and engines that used to be other neighbours' turn. Eight legacy entries are
+  weak (nine before `src:vcxproj` went with the old s48).
 - **Two mechanisms have suite-only evidence** - the global label-overlap channel and
   the member-usage ordering. They change nothing on either held-out set; drop them first
   if either looks wrong.

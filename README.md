@@ -17,7 +17,7 @@ checkout in minutes, and a prebuilt copy would describe someone else's commit.
 Answering a question from the graph costs a fraction of the tokens of reading the
 ORE source it points to. Measured across 64 questions (`oregraph bench`, graphify
 0.9.44), the graph reaches the same answer for **~40× fewer tokens overall
-(median ~37×, from 8× to 124×)** — and that baseline is *generous* to the no-graph
+(median ~38×, from 8× to 124×)** — and that baseline is *generous* to the no-graph
 side, since it assumes you already know exactly which files to open. Every answer
 spends the same ~2,000-token budget, so the ratio mostly reflects how much source
 the answer points to.
@@ -28,9 +28,9 @@ the answer points to.
 | how are scenarios generated for simulation | 2,010 | 85,666 | 42.6× |
 | how is a yield curve constructed | 2,005 | 76,109 | 38.0× |
 | how is an equity option built & priced | 2,018 | 55,404 | 27.5× |
-| **total (64 questions)** | **128,613** | **5,098,101** | **39.6×** |
+| **total (64 questions)** | **128,622** | **5,228,324** | **40.6×** |
 
-The same suite also grades *what* the answer contains: **61 of 64 questions
+The same suite also grades *what* the answer contains: **63 of 64 questions
 return every node their rubric requires** (163 of 166 rubric nodes), and 31 of 33
 questions written separately from the source do too. See
 [docs/BENCH.md](docs/BENCH.md) and [docs/RETRIEVAL.md](docs/RETRIEVAL.md).

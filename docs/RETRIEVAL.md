@@ -75,9 +75,10 @@ Engine checkout, `query-fields`), not from any answer, and are kept in
 The two that still fail (`h06`, `g03`) are described in
 [KNOWN-ISSUES.md](KNOWN-ISSUES.md), with the other limits of this work.
 
-On the 64-question suite: 34 pass -> 61; delivered 103/166 -> 163/166; precision 88.2%
--> 89.5%, P@10 85.6% -> 88.9%; no required entry lost, no paraphrase lost, 7 of the 16
-recorded paraphrase gaps now pass. One legacy required entry paid for it: s01 `LegData`
+On the 64-question suite: 34 pass -> 63 (61 by retrieval and graph changes, then two more
+when their unfair rubric entries were rewritten); delivered 103/166 -> 163/166; precision
+88.2% -> 89.4%, P@10 85.6% -> 89.1%; no required entry lost, no paraphrase lost, 7 of the
+18 recorded paraphrase gaps now pass. One legacy required entry paid for it: s01 `LegData`
 went from margin 34 to 19 (fragile below 25), because a pricing question now spends ~20
 nodes on builders and engines that used to be the neighbours' turn. The baseline's two
 fragile entries are now robust.
@@ -94,6 +95,7 @@ What was tried and left out, with the reason:
 | tie-break by node degree | broke s08's paraphrase; `g01-g17` 15 -> 14/17 |
 | tie-break by "used by" among every node that shares a word | margins for s06 and s23 rose to ~50, but `g01-g17` 15 -> 14/17 |
 | a sourced class before a member as a tie-break | P@10 88.9% -> 90.5%, but s01 `LegData` fell from 19 to 13 |
+| no seed without a source file (a stub holds a seed slot on s09) | neutral on the suite and both held-out sets, and did not reach s09's three entries |
 | skipping a hub's derived classes in the traversal | did nothing: `Trade` has 32, so it is no hub; the fix was ranking a seed's derived classes last |
 
 Two mechanisms have evidence from the suite only (they change nothing on either held-out
@@ -115,22 +117,33 @@ better, nothing lost. It needed the derived-class step to be safe: on its own th
 made 24 `*Interpolation` classes reachable and pushed s23's `LinearInterpolation` out of
 the answer.
 
-## Still open, and not a retrieval question
+## Still open
 
-Three entries are still gaps. All three are rubric entries that the graph or the source
-does not support, and passing them would mean gaming them:
+One question, s09 ("how does the LGM model calibrate"), and it is a retrieval gap. Its three
+unreached entries are `LgmData`, `LinearGaussMarkovModel` and `Lgm1fParametrization`, the
+classes `LgmBuilder::calibrate()` reads, calls and calibrates (drafted from
+`lgmbuilder.cpp:156-291`, before any answer was seen). The answer reaches `LgmBuilder` and
+little else: the second seed is the source-less stub `IrLgm1fParametrization` (an alias in
+`_CONCEPT_SEEDS` that predates this work, for a name that is only a typedef), and the two
+classes sit two hops out behind hubs (`LgmData` has 63 edges, `LinearGaussMarkovModel` 90).
+Keeping stubs out of the seeds is neutral everywhere and does not reach them. Naming the
+three classes in `_CONCEPT_SEEDS` would pass the question and prove nothing, which is
+the answer-key move `CLAUDE.md` rules out.
 
-* **s09 `LGM`** - matches nine nodes with no source file (`stub`: a symbol the code
-  mentions and the corpus never defines). Returning one says nothing a reader can use.
-* **s38 `src:AsianOption`** - one of the 20 example directories, the first alphabetically;
-  "what do the example programs demonstrate" is answered by listing them, not by naming
-  one.
-* **s48 `src:Makefile.am`** - QuantExt has no `Makefile.am` (its build is CMake and a
-  vcxproj); all 120 `Makefile.am` files are QuantLib's autotools files, and `CODE_EXTS`
-  has no build-file extractor.
+The other entries that used to be open were the reverse: unfair, and rewritten on
+2026-09-25 rather than chased. s09's own old entries, `LGM` and `IrLgm1fParametrization`,
+were met only by source-less stubs (the second is a typedef of a template). And:
 
-These entries have no `why` (they predate s51). Each needs a decision from whoever owns
-the rubric, not a retrieval change.
+* **s38** required `src:AsianOption`, one of the 20 example directories and the first
+  alphabetically, for "what do the example programs demonstrate". It now asks which example
+  prices Bermudan swaptions with calibrated short-rate models - the README's own words for
+  `BermudanSwaption` - and requires that program. Reached without any new mechanism.
+* **s48** required `src:Makefile.am` for "how does the ORE build system compile QuantExt".
+  QuantExt has none (its build is CMake and a vcxproj); all 120 in the checkout are
+  QuantLib's autotools files. It now asks how to build ORE from source and requires the
+  user guide's CMake chapter. Reached, with both paraphrases. QuantExt's own
+  `CMakeLists.txt` is still not in the corpus, since `CODE_EXTS` has no build-file
+  extractor; that is a corpus decision, not something retrieval can fix.
 
 ## Cost
 

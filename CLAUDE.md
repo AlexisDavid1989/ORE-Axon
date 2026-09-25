@@ -108,12 +108,12 @@ made the previous version unusable by anyone but its author.
   describing what is served. `GraphAdapter.graphify_only` keeps the old path as
   the baseline to measure against. All 64 questions carry a rubric:
   `required_nodes` fails the command when missing, `xfail_nodes` only reports.
-  Entries are `label`, `label@source-file`, or `src:<path fragment>`. Today 61
+  Entries are `label`, `label@source-file`, or `src:<path fragment>`. Today 63
   of 64 pass, 163 entries gate and 3 gaps remain (delivered 163/166, precision
-  89.5%, P@10 88.9%; was 34 of 64, 103/166, 88.2%); when a gap is reached, bench
+  89.4%, P@10 89.1%; was 34 of 64, 103/166, 88.2%); when a gap is reached, bench
   says XPASS and `bench --promote` moves the entry to `required_nodes`, holding
-  back a weak, fragile or stub-only one. The three left are rubric questions,
-  not retrieval ones (see below and `docs/RETRIEVAL.md`). `verify` fails if a
+  back a weak, fragile or stub-only one. The three left are all s09's, and real
+  retrieval gaps (see below and `docs/RETRIEVAL.md`). `verify` fails if a
   `required_nodes` entry names nothing in the graph, and warns for an
   `xfail_nodes` one, which is either a typo or a corpus gap.
 - **A pass is not proof; read `docs/BENCH.md` before trusting or editing the
@@ -126,7 +126,7 @@ made the previous version unusable by anyone but its author.
   C++, xsd, docs), never from the answer it is graded against. `bench --explain
   <id>` shows each node's rank per half. Do not move an entry to `xfail_nodes`
   without a written reason. `verify` warns on weak/fragile/stub-only entries from
-  the last bench run and fails on a malformed question file. Nine legacy entries
+  the last bench run and fails on a malformed question file. Eight legacy entries
   are currently weak and one fragile (s01 `LegData`, margin 19; it was 34 before
   the channels took ~20 nodes for a pricing question's builders); they are
   flagged, not yet fixed.
@@ -142,13 +142,17 @@ made the previous version unusable by anyone but its author.
   `Accumulator01Data`. `verify` flags both. A node's source is read up to its
   ` loc=` (`bench._NODE_RE`), so it may contain spaces
   (`fieldmap/trade/Interest Rate Swaption`); it used to stop at the first one,
-  which made s51's entry for that node unmatchable whatever the answer held. The
-  three open gaps are rubric entries to decide, not to chase: s09 `LGM` matches
-  nine source-less stub nodes; s38 `src:AsianOption` is one of 20 example
-  directories and "what do the examples demonstrate" is answered by listing them;
-  s48 `src:Makefile.am` is a corpus gap (no build-file extractor in `CODE_EXTS`)
-  and also the wrong file - QuantExt builds with CMake and a vcxproj, and every
-  one of the 120 `Makefile.am` files is QuantLib's.
+  which made s51's entry for that node unmatchable whatever the answer held.
+  s09, s38 and s48 were rewritten on 2026-09-25 because their entries were unfair,
+  not because they were hard: s09 required `LGM` (nine source-less stubs) and
+  `IrLgm1fParametrization` (a typedef, so only stubs) - now `LgmData`,
+  `LinearGaussMarkovModel` and `Lgm1fParametrization`, from `LgmBuilder::calibrate()`;
+  s38 named `src:AsianOption`, one of 20 example directories - now "which QuantLib
+  example prices Bermudan swaptions" (Examples/README.txt), `src:BermudanSwaption/...`;
+  s48 required `src:Makefile.am` (QuantExt has none; all 120 are QuantLib's) - now
+  "how do I build ORE from source", the user guide's CMake chapter. s38 and s48 pass
+  with no new mechanism; s09's three new entries are honest gaps (`docs/KNOWN-ISSUES.md`). QuantExt's
+  `CMakeLists.txt` is still not in the corpus: `CODE_EXTS` has no build-file extractor.
 - **graphifyy stays pinned at 0.9.44.** 0.9.65 (the newest the team can get) fixes
   the `PYTHONHASHSEED` clustering bug but answered less accurately: 27 -> 22 of 50
   bench answers, 97 -> 89 of 119 rubric nodes delivered, because graphify's own

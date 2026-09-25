@@ -153,8 +153,8 @@ variants) and has tools for explaining, comparing and promoting results: see
 
 Graph: 94,442 nodes / 195,909 edges as graphify loads it (197,464 in the JSON).
 
-Over all 64 questions: **128,613 graph tokens against 5,098,101 source tokens, 39.6x
-overall, median 37.1x, from 7.8x to 123.9x.** The same eight questions as the first
+Over all 64 questions: **128,622 graph tokens against 5,228,324 source tokens, 40.6x
+overall, median 37.5x, from 7.8x to 123.9x.** The same eight questions as the first
 measurement below:
 
 | question | graph tok | source tok | ratio |
@@ -173,8 +173,8 @@ The graph column no longer varies: every answer now spends the whole ~2,000-toke
 budget (it was 986-2,578 when these eight were first measured), so a ratio moves with
 the size of the source the answer points to, not with how compact the answer is.
 What tells answers apart is their content - [BENCH.md](BENCH.md) and
-[RETRIEVAL.md](RETRIEVAL.md): 61 of 64 questions return every required node,
-163 of 166 rubric nodes are delivered, precision 89.5% (P@10 88.9%).
+[RETRIEVAL.md](RETRIEVAL.md): 63 of 64 questions return every required node,
+163 of 166 rubric nodes are delivered, precision 89.4% (P@10 89.1%).
 
 ### First measurement — graphify 0.9.44, 8-question suite
 
