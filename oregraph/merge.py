@@ -29,7 +29,7 @@ from .fieldmap_link import link_fieldmap
 from .labels import attach_labels
 from .link import link
 from .link_schema import link_schema
-from .symbol_links import link_symbols
+from .symbol_links import link_inheritance, link_symbols
 from .xsd_link import link_xsd
 
 
@@ -171,6 +171,15 @@ def merge(engine: Path, chunks: list[Chunk], graph_paths: dict[str, Path],
     merged_links.extend(symbol_edges)
     symbol_stats["symbol_edges"] = len(symbol_edges)
     log(f"  symbol links: {symbol_stats}")
+
+    # An `inherits` edge whose base is a per-header stub is pointed at the class it
+    # names (see link_inheritance); the stub edge stays.
+    inherit_edges, inherit_stats = link_inheritance(merged_nodes, merged_links)
+    merged_links.extend(inherit_edges)
+    symbol_stats["inheritance"] = inherit_stats
+    log(f"  inheritance links: {inherit_stats['resolved']:,} resolved of "
+        f"{inherit_stats.get('to_stub', 0):,} inherits edges that end at a stub "
+        f"({inherit_stats.get('ambiguous', 0):,} ambiguous, {inherit_stats.get('unknown', 0):,} unknown)")
 
     # XSD schema <-> C++ class name matching (see xsd_link.py for why this is
     # a separate, narrower-scoped pass rather than folded into symbol_links).

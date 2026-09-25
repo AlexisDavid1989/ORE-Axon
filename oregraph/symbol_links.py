@@ -245,3 +245,70 @@ def link_symbols(engine: Path, nodes: list[dict]) -> tuple[list[dict], dict]:
 
     edges.sort(key=lambda edge: (edge["source"], edge["target"], edge["relation"]))
     return edges, {"symbol_edges": len(edges), "by_relation": dict(counts)}
+
+def link_inheritance(nodes: list[dict], links: list[dict]) -> tuple[list[dict], dict]:
+    """Point an `inherits` edge that ends at a stub at the class it names.
+
+    Chunked extraction sees `class Actual360 : public DayCounter` in one header and
+    cannot see `DayCounter` (declared in another, often in another chunk), so it writes
+    a stub node for the base - one per header that mentions the type, no source file -
+    and points `inherits` at that. Measured on the merged graph: 2,146 of 3,967
+    `inherits` edges (54%) end at such a stub. The stub belongs to nobody, so the
+    defining class had no derived classes at all: `DayCounter` had 11 edges and none
+    of its 13 concrete day counters, and "how is a day count convention implemented"
+    could not reach `Actual360`.
+
+    The base is the one class of that name: the class in the file named after it
+    (`time/daycounter.hpp` for `DayCounter`), else the only class of that name. A name
+    that two modules define (`Bond`, `Impl`) is left alone - a wrong base is worse than
+    a missing one. The stub edge stays, so nothing graphify saw before disappears."""
+    classes: dict[str, list[dict]] = defaultdict(list)
+    stubs: set[str] = set()
+    for node in nodes:
+        if node.get("source_file"):
+            if node.get("_callable_class"):
+                classes[_label(node).casefold()].append(node)
+        else:
+            stubs.add(node["id"])
+    by_id = {node["id"]: node for node in nodes}
+
+    def base_for(label: str) -> tuple[dict | None, str]:
+        candidates = classes.get(label.casefold(), [])
+        definers = [c for c in candidates
+                    if PurePosixPath(str(c["source_file"])).stem.casefold() == label.casefold()]
+        if len(definers) == 1:
+            return definers[0], "definer"
+        if len(candidates) == 1:
+            return candidates[0], "unique"
+        return None, "ambiguous" if candidates else "unknown"
+
+    existing = {(l["source"], l["target"]) for l in links if l.get("relation") == "inherits"}
+    edges, counts = [], Counter()
+    for link in links:
+        if link.get("relation") != "inherits":
+            continue
+        counts["inherits_edges"] += 1
+        if link["target"] not in stubs:
+            continue
+        counts["to_stub"] += 1
+        base, how = base_for(_label(by_id[link["target"]]))
+        counts[how] += 1
+        if base is None or base["id"] == link["source"] or (link["source"], base["id"]) in existing:
+            continue
+        existing.add((link["source"], base["id"]))
+        edges.append({
+            "source": link["source"],
+            "target": base["id"],
+            "relation": "inherits",
+            "context": f"base_class_{how}",
+            "confidence": "INFERRED",
+            "confidence_score": 0.9 if how == "definer" else 0.8,
+            "weight": 1.0,
+            "source_file": link.get("source_file"),
+            "source_location": link.get("source_location"),
+            "_origin": "symbol_link",
+        })
+    edges.sort(key=lambda e: (e["source"], e["target"]))
+    return edges, {"resolved": len(edges),
+                   **{key: counts[key] for key in ("inherits_edges", "to_stub", "definer",
+                                                   "unique", "ambiguous", "unknown")}}
