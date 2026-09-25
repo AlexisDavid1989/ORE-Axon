@@ -34,7 +34,8 @@ made the previous version unusable by anyone but its author.
    2x the tokens - graphify's term weights are global, so the damage reaches
    questions that never touch a new node. It is now one node per entry with the
    fields as attributes (bench-identical). `verify` fails if a fieldmap node is not
-   an entry; the general rule is yours to keep.
+   an entry; the general rule is yours to keep. Copy `results.json` aside first,
+   then `oregraph bench --baseline <copy> --strict` says whether it is identical.
 
 ## Current state
 
@@ -79,16 +80,56 @@ made the previous version unusable by anyone but its author.
   so `merge_answers` fuses both by reciprocal rank. Keep the fusion key on
   label *and* file: `LegData` names two nodes and collapsing them returns the
   wrong one.
+- **`oregraph/channels.py` answers the questions one lexical scale cannot**: a
+  question that names a kind of artifact ("what tests cover...", "what does the
+  user guide say...", "which XSD complexType...", "which pricing engine /
+  conventions / curve config...") searches that kind of node (tests, docs,
+  schema, the fieldmap and its typed links) and hands the result to the ranker
+  as priority nodes; a pricing question follows trade -> registry builder ->
+  engine; the top seeds bring their header siblings, base classes and (for a
+  family of under 40) their best-known derived classes. Read `docs/RETRIEVAL.md`
+  before touching it: every rule there was a measured failure, the intent
+  vocabulary is English about artifacts and never an answer, and
+  `bench/heldout_questions.json` (questions written from the source, not the
+  answers; `g01-g17` were never tuned on) is the check that a change generalises.
+  Same-label seeds prefer the node in the file named after the label, and inside
+  a hop the traversal orders by question words no seed already says. `oregraph
+  query` (the CLI Copilot users have instead of MCP) prints this same fused
+  answer; it used to print graphify's half alone (`tests/test_cli_query.py`).
+  Known failures and limits: docs/KNOWN-ISSUES.md, "Retrieval: what
+  `query_graph` still gets wrong".
+- **`oregraph merge` points `inherits` edges at their class.** Chunked
+  extraction ends 54% of them at a source-less stub (`symbol_links.link_inheritance`
+  resolves the 1,249 that name one class and leaves the 204 ambiguous and 693
+  undefined ones alone; the stub edge stays). `verify` checks that none is left
+  that could be resolved. After a rebuild, re-run `merge` and `bench --baseline`.
 - `oregraph bench` grades answers as well as pricing them, through the same
   call the server uses - if you change one, change both, or the benchmark stops
   describing what is served. `GraphAdapter.graphify_only` keeps the old path as
-  the baseline to measure against. All 50 questions carry a rubric:
+  the baseline to measure against. All 64 questions carry a rubric:
   `required_nodes` fails the command when missing, `xfail_nodes` only reports.
-  Entries are `label`, `label@source-file`, or `src:<path fragment>`. Today 31
-  of 50 pass, 96 entries gate and 23 gaps remain; when a gap closes, bench says
-  XPASS and the entry moves to `required_nodes`. `verify` fails if a
+  Entries are `label`, `label@source-file`, or `src:<path fragment>`. Today 61
+  of 64 pass, 163 entries gate and 3 gaps remain (delivered 163/166, precision
+  89.5%, P@10 88.9%; was 34 of 64, 103/166, 88.2%); when a gap is reached, bench
+  says XPASS and `bench --promote` moves the entry to `required_nodes`, holding
+  back a weak, fragile or stub-only one. The three left are rubric questions,
+  not retrieval ones (see below and `docs/RETRIEVAL.md`). `verify` fails if a
   `required_nodes` entry names nothing in the graph, and warns for an
   `xfail_nodes` one, which is either a typo or a corpus gap.
+- **A pass is not proof; read `docs/BENCH.md` before trusting or editing the
+  suite.** Presence in a ~90-node answer is weak (s34 once passed for a bond
+  question), so questions also carry `controls` (an entry that appears for an
+  unrelated question is *weak*), rank/margin (*fragile* within 25 nodes of the
+  token-budget cut - measured by `bench --fragility`, not guessed), `variants`
+  (paraphrases; the ones known to fail sit in `xfail_variants`) and, from s51
+  on, a `why` on every rubric entry written from the source (`query-fields`, the
+  C++, xsd, docs), never from the answer it is graded against. `bench --explain
+  <id>` shows each node's rank per half. Do not move an entry to `xfail_nodes`
+  without a written reason. `verify` warns on weak/fragile/stub-only entries from
+  the last bench run and fails on a malformed question file. Nine legacy entries
+  are currently weak and one fragile (s01 `LegData`, margin 19; it was 34 before
+  the channels took ~20 nodes for a pricing question's builders); they are
+  flagged, not yet fixed.
 - A concept added to `_CONCEPT_SEEDS` must be domain knowledge, not an answer
   key for a bench question. The test is paraphrase: re-ask the question the way
   someone else would and the rubric should still be met. That check is what
@@ -98,9 +139,16 @@ made the previous version unusable by anyone but its author.
   (`Bonds/Bonds.cpp`), not `repo_path` (`QuantLib/Examples/Bonds/Bonds.cpp`) - so
   `src:QuantLib/Examples` can never match; use a fragment inside the chunk. Case
   matters in labels too: xsd nodes are `accumulator01Data (complexType)`, not
-  `Accumulator01Data`. `verify` flags both. s48's `src:Makefile.am` is a real
-  corpus gap, not a typo: `CODE_EXTS` in `build_ast.py` has no build-file
-  extractor, so no Makefile node exists to reach.
+  `Accumulator01Data`. `verify` flags both. A node's source is read up to its
+  ` loc=` (`bench._NODE_RE`), so it may contain spaces
+  (`fieldmap/trade/Interest Rate Swaption`); it used to stop at the first one,
+  which made s51's entry for that node unmatchable whatever the answer held. The
+  three open gaps are rubric entries to decide, not to chase: s09 `LGM` matches
+  nine source-less stub nodes; s38 `src:AsianOption` is one of 20 example
+  directories and "what do the examples demonstrate" is answered by listing them;
+  s48 `src:Makefile.am` is a corpus gap (no build-file extractor in `CODE_EXTS`)
+  and also the wrong file - QuantExt builds with CMake and a vcxproj, and every
+  one of the 120 `Makefile.am` files is QuantLib's.
 - **graphifyy stays pinned at 0.9.44.** 0.9.65 (the newest the team can get) fixes
   the `PYTHONHASHSEED` clustering bug but answered less accurately: 27 -> 22 of 50
   bench answers, 97 -> 89 of 119 rubric nodes delivered, because graphify's own

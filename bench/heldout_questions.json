@@ -1,0 +1,391 @@
+{
+ "meta": {
+  "note": "Questions written from the ORE source tree (grep of Engine/, query-fields), not from any answer, to check that changes to retrieval generalise beyond bench/source_questions.json. Every entry has a 'why' naming the file it was taken from. Run: python -m oregraph bench --questions bench/heldout_questions.json (it overwrites results.json; re-run the real suite afterwards).",
+  "sets": {
+   "h01-h16": "Written 2026-09-25 before any retrieval change was measured on them. Then used as a development set - their failures were read while the channels were built - so treat a pass here as weaker evidence.",
+   "g01-g17": "Written 2026-09-25 after h01-h16 and frozen (sha256 2311f38eb7bee2ac of the file as written) before any change was run on them. Only aggregate pass counts were ever read; no failing question was inspected while designing. The stronger evidence."
+  },
+  "baseline_before_channels": {
+   "h01-h16": "8/16 questions, 15/26 entries",
+   "g01-g17": "5/17 questions, 13/30 entries"
+  }
+ },
+ "questions": [
+  {
+   "id": "h01",
+   "question": "how is a cap floor priced",
+   "required_nodes": [
+    "CapFloor@portfolio/capfloor.hpp",
+    "CapFloorEngineBuilder@portfolio/builders/capfloor.hpp"
+   ],
+   "why": {
+    "CapFloor@portfolio/capfloor.hpp": "OREData/ored/portfolio/capfloor.hpp:37 class CapFloor : public Trade",
+    "CapFloorEngineBuilder@portfolio/builders/capfloor.hpp": "builders/capfloor.hpp:36, registered for trade type CapFloor (line 38)"
+   }
+  },
+  {
+   "id": "h02",
+   "question": "how is an FX forward priced",
+   "required_nodes": [
+    "FxForward@portfolio/fxforward.hpp",
+    "FxForwardEngineBuilder@portfolio/builders/fxforward.hpp"
+   ],
+   "why": {
+    "FxForward@portfolio/fxforward.hpp": "portfolio/fxforward.hpp:36 class FxForward : public Trade",
+    "FxForwardEngineBuilder@portfolio/builders/fxforward.hpp": "builders/fxforward.hpp:60; builds QuantExt::DiscountingFxForwardEngine (line 68)"
+   }
+  },
+  {
+   "id": "h03",
+   "question": "how is a credit default swap option priced",
+   "required_nodes": [
+    "CreditDefaultSwapOption@portfolio/creditdefaultswapoption.hpp",
+    "BlackCdsOptionEngineBuilder@portfolio/builders/creditdefaultswapoption.hpp"
+   ],
+   "why": {
+    "CreditDefaultSwapOption@portfolio/creditdefaultswapoption.hpp": "the trade class, portfolio/creditdefaultswapoption.hpp",
+    "BlackCdsOptionEngineBuilder@portfolio/builders/creditdefaultswapoption.hpp": "builders/creditdefaultswapoption.hpp:56"
+   }
+  },
+  {
+   "id": "h04",
+   "question": "how does QuantLib represent a date",
+   "required_nodes": [
+    "Date@time/date.hpp"
+   ],
+   "why": {
+    "Date@time/date.hpp": "QuantLib/ql/time/date.hpp:125 class Date"
+   }
+  },
+  {
+   "id": "h05",
+   "question": "how does QuantLib adjust a date for business day conventions",
+   "required_nodes": [
+    "Calendar@time/calendar.hpp"
+   ],
+   "why": {
+    "Calendar@time/calendar.hpp": "Calendar::adjust applies the convention, time/calendar.hpp"
+   }
+  },
+  {
+   "id": "h06",
+   "question": "how does QuantLib represent a swaption volatility surface",
+   "required_nodes": [
+    "SwaptionVolatilityStructure@termstructures/volatility/swaption/swaptionvolstructure.hpp",
+    "SwaptionVolatilityMatrix@termstructures/volatility/swaption/swaptionvolmatrix.hpp",
+    "SwaptionVolatilityCube@termstructures/volatility/swaption/swaptionvolcube.hpp"
+   ],
+   "why": {
+    "SwaptionVolatilityStructure@termstructures/volatility/swaption/swaptionvolstructure.hpp": "base class",
+    "SwaptionVolatilityMatrix@termstructures/volatility/swaption/swaptionvolmatrix.hpp": "matrix of ATM vols",
+    "SwaptionVolatilityCube@termstructures/volatility/swaption/swaptionvolcube.hpp": "smile cube"
+   }
+  },
+  {
+   "id": "h07",
+   "question": "what tests cover the commodity options",
+   "required_nodes": [
+    "src:test/commodityoption.cpp"
+   ],
+   "why": {
+    "src:test/commodityoption.cpp": "OREData/test/commodityoption.cpp exists"
+   }
+  },
+  {
+   "id": "h08",
+   "question": "what tests cover zero coupon swaps",
+   "required_nodes": [
+    "src:test/zerocouponswap.cpp"
+   ],
+   "why": {
+    "src:test/zerocouponswap.cpp": "OREData/test/zerocouponswap.cpp exists"
+   }
+  },
+  {
+   "id": "h09",
+   "question": "what tests cover the CMS trades",
+   "required_nodes": [
+    "src:test/cms.cpp",
+    "src:test/digitalcms.cpp"
+   ],
+   "why": {
+    "src:test/cms.cpp": "OREData/test/cms.cpp exists",
+    "src:test/digitalcms.cpp": "OREData/test/digitalcms.cpp exists"
+   }
+  },
+  {
+   "id": "h10",
+   "question": "what tests cover the day counters",
+   "required_nodes": [
+    "src:test-suite/daycounters.cpp"
+   ],
+   "why": {
+    "src:test-suite/daycounters.cpp": "QuantLib/test-suite/daycounters.cpp exists"
+   }
+  },
+  {
+   "id": "h11",
+   "question": "what does the ORE user guide say about the today's market configuration",
+   "required_nodes": [
+    "src:parameterisation/todaysmarket.tex"
+   ],
+   "why": {
+    "src:parameterisation/todaysmarket.tex": "Docs/UserGuide/parameterisation/todaysmarket.tex exists"
+   }
+  },
+  {
+   "id": "h12",
+   "question": "how does the ORE XSD define a cap floor trade",
+   "required_nodes": [
+    "capFloorData (complexType)@xsd/instruments.xsd"
+   ],
+   "why": {
+    "capFloorData (complexType)@xsd/instruments.xsd": "xsd/instruments.xsd:1734"
+   }
+  },
+  {
+   "id": "h13",
+   "question": "which XSD complexType defines an FX forward trade",
+   "required_nodes": [
+    "fxForwardData (complexType)@xsd/instruments.xsd"
+   ],
+   "why": {
+    "fxForwardData (complexType)@xsd/instruments.xsd": "xsd/instruments.xsd:1470"
+   }
+  },
+  {
+   "id": "h14",
+   "question": "which pricing engine prices a cap floor trade",
+   "required_nodes": [
+    "CapFloor [pricing engine mapping]@fieldmap/pricing_engine/CapFloor",
+    "CapFloorEngineBuilder@portfolio/builders/capfloor.hpp"
+   ],
+   "why": {
+    "CapFloor [pricing engine mapping]@fieldmap/pricing_engine/CapFloor": "query-fields CapFloor: pricing engine CapFloor via Trade_Type",
+    "CapFloorEngineBuilder@portfolio/builders/capfloor.hpp": "builders/capfloor.hpp:38 registered for CapFloor"
+   }
+  },
+  {
+   "id": "h15",
+   "question": "which curve config does an equity option resolve to",
+   "required_nodes": [
+    "EquityCurve [curve config mapping]@fieldmap/curve_config/EquityCurve",
+    "YieldCurve [curve config mapping]@fieldmap/curve_config/YieldCurve"
+   ],
+   "why": {
+    "EquityCurve [curve config mapping]@fieldmap/curve_config/EquityCurve": "query-fields 'Equity Option': curve config EquityCurve from equity_name",
+    "YieldCurve [curve config mapping]@fieldmap/curve_config/YieldCurve": "same: YieldCurve from currency"
+   }
+  },
+  {
+   "id": "h16",
+   "question": "which pricing engine prices an equity option trade",
+   "required_nodes": [
+    "EquityOption [pricing engine mapping]@fieldmap/pricing_engine/EquityOption",
+    "EquityOptionAmerican [pricing engine mapping]@fieldmap/pricing_engine/EquityOptionAmerican",
+    "EquityOptionEuropeanCS [pricing engine mapping]@fieldmap/pricing_engine/EquityOptionEuropeanCS"
+   ],
+   "why": {
+    "EquityOption [pricing engine mapping]@fieldmap/pricing_engine/EquityOption": "query-fields 'Equity Option': three pricing engine candidates",
+    "EquityOptionAmerican [pricing engine mapping]@fieldmap/pricing_engine/EquityOptionAmerican": "same",
+    "EquityOptionEuropeanCS [pricing engine mapping]@fieldmap/pricing_engine/EquityOptionEuropeanCS": "same"
+   }
+  },
+  {
+   "id": "g01",
+   "question": "how is a commodity forward priced",
+   "required_nodes": [
+    "CommodityForward@portfolio/commodityforward.hpp",
+    "CommodityForwardEngineBuilder@portfolio/builders/commodityforward.hpp"
+   ],
+   "why": {
+    "CommodityForward@portfolio/commodityforward.hpp": "portfolio/commodityforward.hpp:34 class CommodityForward : public Trade",
+    "CommodityForwardEngineBuilder@portfolio/builders/commodityforward.hpp": "builders/commodityforward.hpp:39"
+   }
+  },
+  {
+   "id": "g02",
+   "question": "how is an equity forward priced",
+   "required_nodes": [
+    "EquityForward@portfolio/equityforward.hpp",
+    "EquityForwardEngineBuilder@portfolio/builders/equityforward.hpp"
+   ],
+   "why": {
+    "EquityForward@portfolio/equityforward.hpp": "portfolio/equityforward.hpp:38",
+    "EquityForwardEngineBuilder@portfolio/builders/equityforward.hpp": "builders/equityforward.hpp:42"
+   }
+  },
+  {
+   "id": "g03",
+   "question": "how is a variance swap priced",
+   "required_nodes": [
+    "VarSwap@portfolio/varianceswap.hpp",
+    "VarSwapEngineBuilder@portfolio/builders/varianceswap.hpp"
+   ],
+   "why": {
+    "VarSwap@portfolio/varianceswap.hpp": "portfolio/varianceswap.hpp:35 class VarSwap : public Trade",
+    "VarSwapEngineBuilder@portfolio/builders/varianceswap.hpp": "builders/varianceswap.hpp:53"
+   }
+  },
+  {
+   "id": "g04",
+   "question": "how is a callable bond priced",
+   "required_nodes": [
+    "CallableBond@portfolio/callablebond.hpp",
+    "CallableBondEngineBuilder@portfolio/builders/callablebond.hpp"
+   ],
+   "why": {
+    "CallableBond@portfolio/callablebond.hpp": "portfolio/callablebond.hpp:95",
+    "CallableBondEngineBuilder@portfolio/builders/callablebond.hpp": "builders/callablebond.hpp:34"
+   }
+  },
+  {
+   "id": "g05",
+   "question": "how does QuantLib represent an interest rate index",
+   "required_nodes": [
+    "InterestRateIndex@indexes/interestrateindex.hpp",
+    "IborIndex@indexes/iborindex.hpp"
+   ],
+   "why": {
+    "InterestRateIndex@indexes/interestrateindex.hpp": "ql/indexes/interestrateindex.hpp:39",
+    "IborIndex@indexes/iborindex.hpp": "ql/indexes/iborindex.hpp:35 derives from InterestRateIndex"
+   }
+  },
+  {
+   "id": "g06",
+   "question": "how does QuantLib represent a coupon cash flow",
+   "required_nodes": [
+    "CashFlow@cashflow.hpp",
+    "Coupon@cashflows/coupon.hpp",
+    "FixedRateCoupon@cashflows/fixedratecoupon.hpp",
+    "FloatingRateCoupon@cashflows/floatingratecoupon.hpp"
+   ],
+   "why": {
+    "CashFlow@cashflow.hpp": "ql/cashflow.hpp:40",
+    "Coupon@cashflows/coupon.hpp": "ql/cashflows/coupon.hpp:39 Coupon : CashFlow",
+    "FixedRateCoupon@cashflows/fixedratecoupon.hpp": "fixedratecoupon.hpp:41",
+    "FloatingRateCoupon@cashflows/floatingratecoupon.hpp": "floatingratecoupon.hpp:48"
+   }
+  },
+  {
+   "id": "g07",
+   "question": "how does QuantLib model option exercise",
+   "required_nodes": [
+    "Exercise@exercise.hpp",
+    "EuropeanExercise@exercise.hpp",
+    "AmericanExercise@exercise.hpp",
+    "BermudanExercise@exercise.hpp"
+   ],
+   "why": {
+    "Exercise@exercise.hpp": "ql/exercise.hpp:35",
+    "EuropeanExercise@exercise.hpp": "exercise.hpp:93",
+    "AmericanExercise@exercise.hpp": "exercise.hpp:72",
+    "BermudanExercise@exercise.hpp": "exercise.hpp:84"
+   }
+  },
+  {
+   "id": "g08",
+   "question": "what tests cover the equity asian options",
+   "required_nodes": [
+    "src:test/equityasianoption.cpp"
+   ],
+   "why": {
+    "src:test/equityasianoption.cpp": "OREData/test/equityasianoption.cpp exists"
+   }
+  },
+  {
+   "id": "g09",
+   "question": "what tests cover the inflation curves",
+   "required_nodes": [
+    "src:test/inflationcurve.cpp"
+   ],
+   "why": {
+    "src:test/inflationcurve.cpp": "OREData/test/inflationcurve.cpp and QuantExt/test/inflationcurve.cpp exist"
+   }
+  },
+  {
+   "id": "g10",
+   "question": "what tests cover the yield curve",
+   "required_nodes": [
+    "src:test/yieldcurve.cpp"
+   ],
+   "why": {
+    "src:test/yieldcurve.cpp": "OREData/test/yieldcurve.cpp exists"
+   }
+  },
+  {
+   "id": "g11",
+   "question": "what does the ORE user guide say about the conventions",
+   "required_nodes": [
+    "src:parameterisation/conventions.tex"
+   ],
+   "why": {
+    "src:parameterisation/conventions.tex": "Docs/UserGuide/parameterisation/conventions.tex exists"
+   }
+  },
+  {
+   "id": "g12",
+   "question": "what does the ORE user guide say about the stress test configuration",
+   "required_nodes": [
+    "src:parameterisation/stressconfig.tex"
+   ],
+   "why": {
+    "src:parameterisation/stressconfig.tex": "Docs/UserGuide/parameterisation/stressconfig.tex exists"
+   }
+  },
+  {
+   "id": "g13",
+   "question": "what does the ORE user guide say about the cap floor trade",
+   "required_nodes": [
+    "src:tradedata/capfloor.tex"
+   ],
+   "why": {
+    "src:tradedata/capfloor.tex": "Docs/UserGuide/tradedata/capfloor.tex exists"
+   }
+  },
+  {
+   "id": "g14",
+   "question": "how does the ORE XSD define a variance swap trade",
+   "required_nodes": [
+    "varianceSwapData (complexType)@xsd/instruments.xsd"
+   ],
+   "why": {
+    "varianceSwapData (complexType)@xsd/instruments.xsd": "xsd/instruments.xsd complexType varianceSwapData"
+   }
+  },
+  {
+   "id": "g15",
+   "question": "which XSD complexType defines an equity forward trade",
+   "required_nodes": [
+    "equityForwardData (complexType)@xsd/instruments.xsd"
+   ],
+   "why": {
+    "equityForwardData (complexType)@xsd/instruments.xsd": "xsd/instruments.xsd complexType equityForwardData"
+   }
+  },
+  {
+   "id": "g16",
+   "question": "which pricing engine prices an FX forward trade",
+   "required_nodes": [
+    "FxForward [pricing engine mapping]@fieldmap/pricing_engine/FxForward",
+    "FxForwardEngineBuilder@portfolio/builders/fxforward.hpp"
+   ],
+   "why": {
+    "FxForward [pricing engine mapping]@fieldmap/pricing_engine/FxForward": "query-fields FxForward: pricing engine FxForward via Trade_Type",
+    "FxForwardEngineBuilder@portfolio/builders/fxforward.hpp": "builders/fxforward.hpp:60"
+   }
+  },
+  {
+   "id": "g17",
+   "question": "which curve config does an FX forward resolve to",
+   "required_nodes": [
+    "FXSpot [curve config mapping]@fieldmap/curve_config/FXSpot",
+    "YieldCurve [curve config mapping]@fieldmap/curve_config/YieldCurve"
+   ],
+   "why": {
+    "FXSpot [curve config mapping]@fieldmap/curve_config/FXSpot": "query-fields FxForward: curve config FXSpot from fx_index",
+    "YieldCurve [curve config mapping]@fieldmap/curve_config/YieldCurve": "same: YieldCurve from currency"
+   }
+  }
+ ]
+}

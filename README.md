@@ -12,21 +12,28 @@ checkout in minutes, and a prebuilt copy would describe someone else's commit.
 
 ---
 
-## Why use it — ~28× fewer tokens per answer
+## Why use it — ~40× fewer tokens per answer
 
 Answering a question from the graph costs a fraction of the tokens of reading the
-ORE source it points to. Measured across 8 questions (`oregraph bench`, graphify
-0.9.44), the graph reaches the same answer for **~28× fewer tokens overall
-(median ~14×, up to ~84×)** — and that baseline is *generous* to the no-graph
-side, since it assumes you already know exactly which files to open.
+ORE source it points to. Measured across 64 questions (`oregraph bench`, graphify
+0.9.44), the graph reaches the same answer for **~40× fewer tokens overall
+(median ~37×, from 8× to 124×)** — and that baseline is *generous* to the no-graph
+side, since it assumes you already know exactly which files to open. Every answer
+spends the same ~2,000-token budget, so the ratio mostly reflects how much source
+the answer points to.
 
 | question | graph tokens | reading the source | ratio |
 |---|--:|--:|--:|
-| how is a swap priced | 1,499 | 125,287 | **83.6×** |
-| how is sensitivity risk computed | 1,392 | 109,366 | **78.6×** |
-| how is a yield curve constructed | 1,479 | 23,965 | 16.2× |
-| how is an equity option built & priced | 2,578 | 32,828 | 12.7× |
-| **total (8 questions)** | **13,021** | **369,392** | **28.4×** |
+| how is a swap priced | 2,004 | 131,276 | **65.5×** |
+| how are scenarios generated for simulation | 2,010 | 85,666 | 42.6× |
+| how is a yield curve constructed | 2,005 | 76,109 | 38.0× |
+| how is an equity option built & priced | 2,018 | 55,404 | 27.5× |
+| **total (64 questions)** | **128,613** | **5,098,101** | **39.6×** |
+
+The same suite also grades *what* the answer contains: **61 of 64 questions
+return every node their rubric requires** (163 of 166 rubric nodes), and 31 of 33
+questions written separately from the source do too. See
+[docs/BENCH.md](docs/BENCH.md) and [docs/RETRIEVAL.md](docs/RETRIEVAL.md).
 
 Reproduce it yourself: `python -m oregraph bench`. Full table and method in
 [docs/METRICS.md](docs/METRICS.md).
@@ -74,6 +81,21 @@ Path corridor:
                            --constructs--> FdDefaultableEquityJumpDiffusionConvertibleBondEngine
 ```
 
+**Works well — prose questions, including ones that name a kind of artifact.**
+`oregraph query "<question>"` (and the MCP `query_graph` tool, which serves the
+same answer) fuses graphify's retrieval with oregraph's own. Beyond a symbol
+name, it routes a question by the *kind* of thing it asks for: "what tests cover
+credit default swaps" searches the test files, "what does the user guide say
+about default curves" the documentation, "which XSD complexType defines a barrier
+option" the schema (with what the type is composed of), and "which pricing engine
+prices a Swaption" / "which conventions does a yield curve config use" follow the
+field mapping's typed links. A pricing question follows trade → engine builder →
+engine even where the code has no edge (builders are looked up by trade-type
+string), and a class comes with its base classes, header siblings and, for a small
+family, its best-known implementations. It is silent when the topic matches
+nothing. How it works, what was measured and what was tried and dropped:
+[docs/RETRIEVAL.md](docs/RETRIEVAL.md).
+
 **Does not work — treating the XSD as the contract.** XSD and code are linked
 (`implements`/`schema_for` edges connect OREXsd nodes to the OREData/OREAnalytics
 classes that parse them), but **the schema is not the authority on what ORE
@@ -115,11 +137,13 @@ that measurably broke retrieval on the bench questions, see
 `oregraph/fieldmap_link.py`. Refresh with `oregraph fieldmap`, then `merge`;
 `verify` warns when the graph is behind ORE_Forge.
 
-Docs and code are a separate, still-open gap: "which code implements what the
-ScriptedTrade docs describe" cannot be answered — asked that question,
-`shortest_path` matches the `ScriptedTrade` *class* and returns a
-confident-looking code-to-code path, never touching the 31 documentation nodes
-on the subject. Treat any docs↔code answer as unfounded. Planned for v1.1.
+Docs and code are still not linked: documentation and schema nodes can now be
+*found* by topic ("what does the user guide say about X"), but there are no edges
+between them and the code, so "which code implements what the ScriptedTrade docs
+describe" cannot be answered — asked that question, `shortest_path` matches the
+`ScriptedTrade` *class* and returns a confident-looking code-to-code path, never
+touching the 31 documentation nodes on the subject. Treat any docs↔code answer as
+unfounded. Planned for v1.1.
 
 **Use the right mode.** `query-flow` discovers endpoints from one trade symbol;
 `query-path` answers implementation flow between known symbols. Neither replaces
@@ -178,7 +202,9 @@ of megabytes of intermediates. `oregraph info` warns if it detects a synced path
 | `relabel` | Check curated names against the current clustering |
 | `verify` | Post-build integrity checks |
 | `mcp` | Write MCP config for Claude Code and/or VS Code |
-| `bench` | Graph vs no-graph token cost (the numbers above) |
+| `bench` | Token cost (the numbers above) and answer content: a graded 64-question suite with explain, compare and promote tools ([docs/BENCH.md](docs/BENCH.md)) |
+
+Unit tests need no extra packages: `python -m unittest discover -s tests`.
 
 ---
 
@@ -254,9 +280,9 @@ The current build:
 
 | | |
 |---|---|
-| Nodes | 90,374 |
-| Edges | 190,550 |
-| Cross-module edges | 14,168 |
+| Nodes | 94,442 |
+| Edges | 197,464 |
+| Cross-module edges | 22,621 |
 | Curated community names | 530 |
 
 Built against:
@@ -280,7 +306,8 @@ comparable instead of guessed at.
 | Code chunks (AST) | Complete, including the previously missing paths |
 | Docs — 329 `.tex` | Complete, committed under `semantic-chunks/docs/` |
 | XSD — 23 schemas | Complete, committed under `semantic-chunks/xsd/` |
-| Cross-module links | Complete — 14,168 edges, verified on every build |
+| Cross-module links | Complete — 15,376 include-based edges, verified on every build |
+| Inheritance links | 1,249 `inherits` edges that ended at a per-header stub are pointed at their class; 897 that name several classes or none are left alone |
 | Community names | Complete — 530 names, curated, audited and pinned |
 | `Examples/` XML & CSV | Not yet extracted — see below |
 

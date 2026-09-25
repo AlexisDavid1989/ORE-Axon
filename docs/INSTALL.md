@@ -112,6 +112,19 @@ No API key is required. Everything else has a sensible default.
    Ask the same question with the default agent when you need a no-graph
    control. Do not select **ore-axon** and do not invoke `/oreaxon` for that run.
 
+## Checking the install
+
+```bash
+python -m oregraph verify                 # the merged graph, every link pass and the retrieval checks
+python -m unittest discover -s tests      # unit tests; no pytest needed
+python -m oregraph bench                  # token cost and answer content (docs/BENCH.md)
+```
+
+After pulling changes to this repo, restart the MCP server if you use one: it
+holds the graph and the retrieval code in memory and keeps serving the old ones.
+After a rebuild, re-run `merge` and `verify`; `merge` also points `inherits` edges
+at their classes (`verify` checks it).
+
 ## Caveats
 
 - The graph reflects **your own checkout**. If your Engine is on a different
@@ -120,8 +133,12 @@ No API key is required. Everything else has a sensible default.
   show up unnamed instead of missing.
 - MCP is not required. The recommended Copilot integration calls
    `python -m oregraph query` through the workspace custom agent.
-- Queries need a concrete symbol name as the entry point. `"portfolio/swap.hpp"`
-  finds nothing; `"TradeFactory"` works.
+- The `query-*` commands need a concrete symbol name as the entry point.
+  `"portfolio/swap.hpp"` finds nothing; `"TradeFactory"` works. `query` takes a
+  prose question instead, and understands one that names a kind of artifact -
+  "what tests cover credit default swaps", "what does the user guide say about
+  default curves", "which XSD complexType defines a barrier option", "which
+  pricing engine prices a Swaption" (see [RETRIEVAL.md](RETRIEVAL.md)).
 - Use `query-symbol` for ranked exact neighborhoods, `query-flow` to discover
    pricing/build endpoints without guessing names, `query-path` for
    implementation flow between known symbols, and `query-batch` for several

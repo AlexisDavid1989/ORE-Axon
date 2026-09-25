@@ -436,26 +436,23 @@ def cmd_relabel(args):
 
 def cmd_bench(args):
     """Graphify vs no-Graphify: graph-query tokens vs the source files each
-    answer draws from, across a fixed question set."""
-    from . import bench
+    answer draws from, across a fixed question set - and how much each passing
+    rubric entry proves (see oregraph/bench.py)."""
+    from . import bench_cli
     cfg = _cfg(args)
     _require_graphify(cfg)
-
-    spath = Path(args.questions) if args.questions else None
-    result = bench.run(cfg, source_path=spath)
-    print("\n" + result["_report"])
-    print(f"\nwrote {result['_paths']['report']}\n      {result['_paths']['results']}")
-    paths = result.get("path_quality", {}).get("totals", {})
-    answers = result["vs_source"]["totals"]
-    return 1 if (paths.get("passed", 0) < paths.get("cases", 0)
-                 or answers["answers_failed"]) else 0
+    return bench_cli.run_command(cfg, args)
 
 
 def cmd_query(args):
     """Answer a question from the merged graph directly, without an MCP
-    client - the same render path `oregraph mcp` exposes, callable by anyone
-    whose org policy blocks workspace-defined MCP servers."""
+    client - the same answer `oregraph mcp` serves (graphify's retrieval fused
+    with oregraph's, `query.query_graph_text`), callable by anyone whose org
+    policy blocks workspace-defined MCP servers. It used to print graphify's
+    half alone, so a Copilot user, who has no MCP server, never saw the docs,
+    tests, schema and fieldmap channels the server and the bench do."""
     from graphify import serve
+    from .query import query_graph_text
     cfg = _cfg(args)
     _require_graphify(cfg)
     if not cfg.merged_graph.exists():
@@ -463,7 +460,7 @@ def cmd_query(args):
               file=sys.stderr)
         return 1
     G = serve._load_graph(str(cfg.merged_graph))
-    print(serve._query_graph_text(
+    print(query_graph_text(
         G, args.question, mode=args.mode, depth=min(args.depth, 6),
         token_budget=args.budget))
 
@@ -729,6 +726,30 @@ def main(argv=None):
                             "reading the source each answer draws from")
     p.add_argument("--questions", metavar="PATH",
                    help="question suite to run (default bench/source_questions.json)")
+    p.add_argument("--explain", metavar="ID",
+                   help="for one question (s01, or s01#2 for its second variant) show "
+                        "each rubric node's rank in graphify's half, oregraph's half "
+                        "and the merged answer; writes no results")
+    p.add_argument("--baseline", metavar="RESULTS.json",
+                   help="compare with an earlier results.json and exit non-zero on a "
+                        "regression (read before this run overwrites it)")
+    p.add_argument("--strict", action="store_true",
+                   help="with --baseline: any difference at all fails, for a change "
+                        "that should be bench-identical")
+    p.add_argument("--promote", action="store_true",
+                   help="move known gaps the answer now reaches into required_nodes, "
+                        "editing the question file in place; weak, fragile and "
+                        "stub-only ones are held back")
+    p.add_argument("--promote-all", action="store_true",
+                   help="with --promote: also promote weak, fragile and stub-only "
+                        "entries")
+    p.add_argument("--fragility", action="store_true",
+                   help="re-ask the suite on harmlessly perturbed copies of the graph "
+                        "and report which required entries flip; writes no results")
+    p.add_argument("--seeds", type=int, default=3, metavar="N",
+                   help="with --fragility: perturbed graphs per kind (default 3)")
+    p.add_argument("--perturb", default="shuffle,inert", metavar="KINDS",
+                   help="with --fragility: comma-separated, from shuffle,inert")
     p.set_defaults(func=cmd_bench)
 
     args = ap.parse_args(argv)

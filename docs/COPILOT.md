@@ -216,7 +216,10 @@ when several exact symbols are needed. Use `query-impact` for directional caller
 callees, and typed dependencies. Use `query-example` to gather an existing
 implementation bundle before creating similar code; it explicitly marks
 missing schema or test context. Keep `query` BFS for broad concepts, and add
-`--budget N` only if its output says `TRUNCATED`.
+`--budget N` only if its output says `TRUNCATED`. `query` also takes a question
+that names a kind of artifact - the tests, the user guide, the XSD, or the field
+mapping's pricing engines, conventions and curve configs - and answers it from
+those nodes; pass the whole question, not a symbol (see `docs/RETRIEVAL.md`).
 
 Treat a `query-flow` path that already reaches the requested endpoint as the
 complete topology result: do not repeat it with `query-path` or fetch the same

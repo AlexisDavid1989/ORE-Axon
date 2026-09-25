@@ -139,14 +139,46 @@ jitter - so the token numbers are identical on any machine given the same build.
 ```
 python -m oregraph bench                          # default question set
 python -m oregraph bench --questions my.json      # your own questions
+python -m oregraph bench --questions bench/heldout_questions.json   # the generalisation check
 ```
 
 The question set lives in `bench/source_questions.json`; every run prints its
 sha256 and the graph node/edge counts so results are comparable across time.
 
-### Baseline — graphify 0.9.44, 8-question suite
+The suite also grades *content* (delivered, precision, weak and fragile entries, paraphrase
+variants) and has tools for explaining, comparing and promoting results: see
+[BENCH.md](BENCH.md).
 
-Graph: 93,872 nodes / 185,993 edges.
+### Current — graphify 0.9.44, 64-question suite (2026-09-25)
+
+Graph: 94,442 nodes / 195,909 edges as graphify loads it (197,464 in the JSON).
+
+Over all 64 questions: **128,613 graph tokens against 5,098,101 source tokens, 39.6x
+overall, median 37.1x, from 7.8x to 123.9x.** The same eight questions as the first
+measurement below:
+
+| question | graph tok | source tok | ratio |
+|---|--:|--:|--:|
+| how is a swap priced | 2,004 | 131,276 | 65.5x |
+| how is sensitivity risk computed | 2,013 | 71,447 | 35.5x |
+| how are scenarios generated for simulation | 2,010 | 85,666 | 42.6x |
+| how is a yield curve constructed | 2,005 | 76,109 | 38.0x |
+| how is an equity option trade built and priced | 2,018 | 55,404 | 27.5x |
+| how is a bond priced | 2,006 | 79,516 | 39.6x |
+| how is a portfolio loaded from XML | 2,002 | 60,832 | 30.4x |
+| how does the SABR volatility model work | 2,017 | 66,092 | 32.8x |
+| **total** | **16,075** | **626,342** | **39.0x** |
+
+The graph column no longer varies: every answer now spends the whole ~2,000-token
+budget (it was 986-2,578 when these eight were first measured), so a ratio moves with
+the size of the source the answer points to, not with how compact the answer is.
+What tells answers apart is their content - [BENCH.md](BENCH.md) and
+[RETRIEVAL.md](RETRIEVAL.md): 61 of 64 questions return every required node,
+163 of 166 rubric nodes are delivered, precision 89.5% (P@10 88.9%).
+
+### First measurement — graphify 0.9.44, 8-question suite
+
+Kept for comparison. Graph: 93,872 nodes / 185,993 edges.
 
 | question | graph tok | source tok | ratio |
 |---|--:|--:|--:|

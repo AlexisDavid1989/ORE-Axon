@@ -13,6 +13,8 @@ python -m oregraph query-example EquityOption --depth 2 --limit 80
 python -m oregraph query-fields FxForward --limit 40
 python -m oregraph query-fields BermudanSwaption --xpath EngineParameters
 python -m oregraph query "What builds ConvertibleBond?" --mode bfs --depth 2
+python -m oregraph query "what tests cover credit default swaps"
+python -m oregraph query "which pricing engine prices a Swaption trade"
 ```
 
 - `query-symbol` - a ranked exact-symbol neighborhood (all incoming/outgoing
@@ -34,13 +36,23 @@ python -m oregraph query "What builds ConvertibleBond?" --mode bfs --depth 2
   (README, "Field mapping"); `--xpath TEXT` filters the fields, and a pricing
   product lists one field set per Model/Engine pair. Fields are not nodes, so
   this - not `query` - is how to look one up.
-- `query` - free-text BFS/DFS over the graph, same engine as the MCP server.
+- `query` - a prose question, answered exactly as the MCP server's
+  `query_graph` answers it: graphify's retrieval fused with oregraph's, under
+  one token budget. Unlike the commands above it needs no symbol, and it routes a
+  question by the kind of artifact it names - tests ("what tests cover credit
+  default swaps"), the user guide ("what does the guide say about default
+  curves"), the XSD ("which complexType defines a barrier option"), the field
+  mapping ("which pricing engine prices a Swaption", "which conventions does a
+  yield curve config use") - and follows trade -> engine builder -> engine for a
+  pricing question. See [RETRIEVAL.md](RETRIEVAL.md). (Before 2026-09-25 this
+  command printed graphify's half alone.)
 
-All of these need a real symbol as the entry point - `"portfolio/swap.hpp"`
-finds nothing, `"TradeFactory"` works. Start from a class or function name,
-not a path. See README.md's "What it answers well, and what it doesn't" for
-the current gaps (documentation-to-code questions are unfounded; DFS on
-broad questions returns thousands of loosely related nodes).
+All of the other commands need a real symbol as the entry point -
+`"portfolio/swap.hpp"` finds nothing, `"TradeFactory"` works. Start from a class
+or function name, not a path. See README.md's "What it answers well, and what it
+doesn't" for the current gaps (documentation-to-code questions are unfounded, as
+docs and code have no edges between them; DFS on broad questions returns
+thousands of loosely related nodes).
 
 ## Limitations
 

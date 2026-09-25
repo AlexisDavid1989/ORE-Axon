@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import heapq
 import re
+from dataclasses import dataclass
 from itertools import product
 from pathlib import PurePosixPath
 from pathlib import Path
@@ -846,13 +847,18 @@ def resolve_question(graph, question: str, limit: int = 6) -> list:
     if not scored:
         return []
     # Equal score and key means one label on several nodes: a forward
-    # declaration in a .cpp, a stub, and the class itself. Take the best
-    # connected, not the one whose id sorts first - graphify 0.9.51+ emits a
-    # class node for a forward declaration, and `OREAnalytics::` sorts before
+    # declaration in a .cpp, a stub, and the class itself. Take the one in the
+    # file named after the label (`DayCounter` in time/daycounter.hpp), then the
+    # best connected, not the one whose id sorts first - graphify 0.9.51+ emits
+    # a class node for a forward declaration, and `OREAnalytics::` sorts before
     # `QuantExt::`, so `AmcCalculator` seeded on the declaration and the real
-    # class dropped out of the answer.
+    # class dropped out of the answer. Degree alone is not enough: every header
+    # that holds a `DayCounter` member gets its own node for the type, and one of
+    # them (callablebond.hpp, degree 70) out-connects the class (degree 11), so
+    # "how is a day count convention implemented" seeded on a bond header.
     ranked = sorted(scored.items(),
                     key=lambda kv: (-kv[1][0], len(kv[1][1]),
+                                    not _defines_label(graph.nodes[kv[0]], kv[1][1]),
                                     -graph.degree(kv[0]), str(kv[0])))
     floor = ranked[0][1][0] * 0.25
     seeds, seen = [], set()
@@ -864,6 +870,12 @@ def resolve_question(graph, question: str, limit: int = 6) -> list:
         seen.add(key)
         seeds.append(node_id)
     return seeds
+
+
+def _defines_label(data: dict, key: str) -> bool:
+    """Whether the node lives in the file that C++ convention names after it."""
+    source = data.get("source_file")
+    return bool(source) and _norm_key(PurePosixPath(source).stem) == key
 
 
 def _neighbours(graph, node_id) -> list:
@@ -901,18 +913,48 @@ def query_question(graph, question: str, *, mode: str = "bfs", depth: int = 3,
     Output is the same `NODE <label> [src=... loc=... community=...]` shape
     graphify's `query_graph` emits, so callers and the bench rubric parse both
     identically.
-    """
-    seeds = resolve_question(graph, question)
-    if not seeds:
-        return f"NO MATCH for {question!r}"
-    reached = _reach(graph, seeds, max(1, min(int(depth), 6)), mode)
 
-    # Discovery order, not "classes first": a question like "how is a swap
-    # priced" needs `Swap::build` and `Swap::fromXML` as much as the class, and
-    # promoting every class ahead of them pushes the methods past the budget.
-    ordered = list(reached)
+    Order is what the budget cuts, so it is the answer: the nodes of a kind the
+    question asks for (`channels`), the lexical seeds, what completes an answer
+    about them (typed fieldmap links, engine builders, base classes, siblings),
+    and then everything the traversal reaches, hop by hop.
+    """
+    from . import channels
+
+    seeds = resolve_question(graph, question)
+    lead, tail = channels.plan(graph, question, seeds)
+    priority = list(dict.fromkeys(lead + seeds + tail))
+    if not priority:
+        return f"NO MATCH for {question!r}"
+    # Only the kind channels and the lexical seeds are expanded: their neighbours
+    # are the context. The tail is already the completion; expanding it too
+    # reorders answers that never asked for it.
+    reached = _reach(graph, list(dict.fromkeys(lead + seeds)), max(1, min(int(depth), 6)), mode)
+    for node_id in tail:
+        reached.setdefault(node_id, 1)
+    # Within a hop, nodes whose label says more of the question come first, then the
+    # members of a seed class that other code calls most (its API, not its fields);
+    # ties keep the traversal's own order, so a question with no such node is
+    # answered as before. This is what puts `DefaultCurveConfig` behind
+    # `FXVolatilityCurveConfig` for a question about FX, and `isBusinessDay` among
+    # the first members of `Calendar` rather than the fifty-fourth. A seed's derived
+    # classes come after its other neighbours (`Trade` has 32, and a question that names
+    # it is not about them); channels.derived_classes lists the best known of a small family.
+    stems = channels.content_stems(question)
+    stems = channels.unaccounted_stems(graph, stems, seeds)
+    position = {node_id: i for i, node_id in enumerate(reached)}
+    seen = set(priority)
+    use = channels.member_usage(graph, seeds)
+    derived = channels.derived_of(graph, seeds)
+    rest = sorted((n for n in reached if n not in seen),
+                  key=lambda n: (reached[n],
+                                 -channels.label_overlap(_label(n, graph.nodes[n]), stems),
+                                 n in derived,
+                                 -use.get(n, 0),
+                                 position[n]))
+    ordered = priority + rest
     head = (f"Traversal: {mode.upper()} depth={depth} | Start: "
-            f"{[_label(s, graph.nodes[s]) for s in seeds]} | "
+            f"{[_label(s, graph.nodes[s]) for s in lead + seeds]} | "
             f"{len(ordered)} nodes found")
     lines, used, shown = [], len(_TOKEN_RE.findall(head)), 0
     for node_id in ordered:
@@ -935,27 +977,25 @@ def query_question(graph, question: str, *, mode: str = "bfs", depth: int = 3,
     return "\n".join(out)
 
 
-def merge_answers(primary: str, secondary: str, token_budget: int = 2000) -> str:
-    """Interleave two answers' nodes under a single budget, best-first on both.
+def _answer_nodes(text: str) -> list[str]:
+    return [line for line in text.splitlines() if line.startswith("NODE ")]
 
-    The two seeders reach substantially different nodes - measured over the
-    bench rubric, graphify's reaches 51 of 119 required nodes and this module's
-    70, but together they reach 85 - so the useful thing is not to choose
-    between them but to spend one budget across both. Strict alternation keeps
-    each side's own ranking and needs no cross-engine score, which there is no
-    principled way to compute.
+
+def fuse_ranked(primary: str, secondary: str) -> list[str]:
+    """Every node either answer returned, best first, before any budget cut.
+
+    Reciprocal-rank fusion. Strict alternation spends half the budget on each
+    side, which drops nodes either side ranked mid-list - it cost `LegData` on
+    "how is a swap priced". Summing 1/(k+rank) keeps each side's top picks and
+    additionally lifts anything both sides found, without needing a score that
+    means the same thing in both engines.
+
+    Split from `take_budget` so the benchmark can say where a node ranked and
+    how far it sits from the cut, which the truncated text cannot tell it.
     """
-    def nodes(text: str) -> list[str]:
-        return [line for line in text.splitlines() if line.startswith("NODE ")]
-
-    # Reciprocal-rank fusion. Strict alternation spends half the budget on each
-    # side, which drops nodes either side ranked mid-list - it cost `LegData` on
-    # "how is a swap priced". Summing 1/(k+rank) keeps each side's top picks and
-    # additionally lifts anything both sides found, without needing a score that
-    # means the same thing in both engines.
     k = 10
     fused: dict[str, list] = {}
-    for side in (nodes(primary), nodes(secondary)):
+    for side in (_answer_nodes(primary), _answer_nodes(secondary)):
         for rank, line in enumerate(side):
             # Label *and* file: one label can name several nodes (`LegData` is
             # both a stub with no source and the real class), and collapsing
@@ -963,22 +1003,47 @@ def merge_answers(primary: str, secondary: str, token_budget: int = 2000) -> str
             key = line.split(" loc=", 1)[0]
             entry = fused.setdefault(key, [0.0, len(fused), line])
             entry[0] += 1.0 / (k + rank)
+    return [line for _key, (_score, _order, line) in sorted(
+        fused.items(), key=lambda kv: (-kv[1][0], kv[1][1]))]
 
+
+def take_budget(ranked: list[str], token_budget: int = 2000) -> list[str]:
+    """The prefix of `ranked` that fits the budget (always at least one line)."""
     lines, used = [], 0
-    for _key, (score, order, line) in sorted(
-            fused.items(), key=lambda kv: (-kv[1][0], kv[1][1])):
+    for line in ranked:
         cost = len(_TOKEN_RE.findall(line))
         if used + cost > token_budget and lines:
             break
         lines.append(line)
         used += cost
-    return "\n".join(lines)
+    return lines
 
 
-def query_graph_text(graph, question: str, *, mode: str = "bfs", depth: int = 3,
-                     token_budget: int = 2000,
-                     graphify_answer: str | None = None) -> str:
-    """The answer this project serves: graphify's retrieval merged with ours.
+def merge_answers(primary: str, secondary: str, token_budget: int = 2000) -> str:
+    """Fuse two answers' nodes under a single budget, best-first on both.
+
+    The two seeders reach substantially different nodes - measured over the
+    bench rubric, graphify's reaches 51 of 119 required nodes and this module's
+    70, but together they reach 85 - so the useful thing is not to choose
+    between them but to spend one budget across both. See `fuse_ranked`.
+    """
+    return "\n".join(take_budget(fuse_ranked(primary, secondary), token_budget))
+
+
+@dataclass(frozen=True)
+class Answer:
+    """One served answer together with the two halves it was fused from."""
+    text: str        # exactly what the MCP server returns
+    graphify: str    # graphify's half, as graphify rendered it
+    ours: str        # query_question's half
+    ranked: list     # fused NODE lines, best first, before the budget cut
+    shown: int       # how many of `ranked` made it into `text`
+
+
+def query_graph_answer(graph, question: str, *, mode: str = "bfs", depth: int = 3,
+                       token_budget: int = 2000,
+                       graphify_answer: str | None = None) -> Answer:
+    """The answer this project serves, with the intermediate results kept.
 
     `graphify_answer` lets a caller that has already run graphify's retrieval
     (the MCP server, which gets it from the handler it wraps) pass it in rather
@@ -994,4 +1059,15 @@ def query_graph_text(graph, question: str, *, mode: str = "bfs", depth: int = 3,
                           token_budget=token_budget)
     head = (f"Question: {question}\n"
             f"Traversal: {mode.upper()} depth={depth} | merged graphify + oregraph seeds")
-    return head + "\n\n" + merge_answers(base, ours, token_budget)
+    ranked = fuse_ranked(base, ours)
+    kept = take_budget(ranked, token_budget)
+    return Answer(head + "\n\n" + "\n".join(kept), base, ours, ranked, len(kept))
+
+
+def query_graph_text(graph, question: str, *, mode: str = "bfs", depth: int = 3,
+                     token_budget: int = 2000,
+                     graphify_answer: str | None = None) -> str:
+    """The answer this project serves: graphify's retrieval merged with ours."""
+    return query_graph_answer(graph, question, mode=mode, depth=depth,
+                              token_budget=token_budget,
+                              graphify_answer=graphify_answer).text

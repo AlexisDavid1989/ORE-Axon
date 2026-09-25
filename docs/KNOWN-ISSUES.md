@@ -480,3 +480,52 @@ confident-looking code-to-code path, never touching the 31 documentation
 nodes on the subject. Treat any docs<->code answer as unfounded until this
 is built. See README.md, "Does not work" for the user-facing version of this
 same gap.
+
+Since 2026-09-25 the docs and the schema can be *found* by topic ("what does the
+user guide say about default curves", "which complexType defines a barrier
+option"): `channels.kind_seeds` searches those nodes among themselves. That
+finds the page or the type; it does not connect it to the class, and nothing
+below it changed.
+
+## Retrieval: what `query_graph` still gets wrong (2026-09-25)
+
+The mechanisms are in [RETRIEVAL.md](RETRIEVAL.md). What they do not do:
+
+- **Three bench entries are unmet on purpose** (s09 `LGM`, s38 `src:AsianOption`,
+  s48 `src:Makefile.am`). Each is a rubric question, not a retrieval one: `LGM` matches
+  nine source-less stub nodes; `AsianOption` is one of 20 example directories, the first
+  alphabetically; QuantExt has no `Makefile.am` (its build is CMake and a vcxproj) and
+  all 120 in the checkout are QuantLib's. They have no `why`, and need a decision by
+  whoever owns the rubric - edit or replace the entry, or extend `CODE_EXTS` with a
+  build-file extractor (`CMakeLists.txt`) and rewrite s48 to name it.
+- **Two held-out questions still fail.** `g03` "how is a variance swap priced": ORE's
+  trade class is `VarSwap`, the question says "variance", and the QuantLib
+  `VarianceSwap` seed has no ORE twin under that name, so `VarSwap` and its engine builder
+  are never reached - an *abbreviation* the lexical matcher does not know.
+  `h06` "how does QuantLib represent a swaption volatility surface": a member named
+  exactly `volatilitySurface_` wins a seed on the phrase tier (score 90) over
+  `SwaptionVolatilityStructure`/`Matrix`/`Cube`, which are reached only by prefix (40).
+  Both are observations of the mechanism, not fixes; nothing was tuned to either.
+- **Intent detection is keyword matching in English.** A question that asks for tests
+  without saying "test", "regression" or "coverage" - or for the schema without "XSD",
+  "schema" or "complexType" - reaches the general seeder only. The channels are silent
+  when the topic matches nothing, so this costs nothing, but it also does nothing. The
+  fieldmap channel needs `ORE_FIELDMAP` (without a snapshot there are no entries).
+- **`inherits` edges that name several classes or none stay dangling**: of 2,146 that
+  ended at a per-header stub, `merge` resolves 1,249 and leaves 204 (a name two modules
+  define: `Bond`, `Impl`, a nested type) and 693 (a template parameter, a type the corpus
+  does not define). A wrong base is worse than a missing one, so it does not guess. The
+  stub edge is kept either way.
+- **The families it lists are capped.** A seed's derived classes are listed only for the
+  question's main subject and only for a family of 40 or fewer (10 shown, best known
+  first); a framework base such as `Trade` or `PricingEngine` lists none, and neither do
+  its ancestors (`Observer`, `XMLSerializable`). Header siblings are capped at 10.
+- **One legacy entry got thinner.** s01 `LegData` is 19 nodes from the token-budget
+  cut, was 34, and is now flagged fragile (< 25): a pricing question spends ~20 nodes on
+  builders and engines that used to be other neighbours' turn. Nine legacy entries are
+  weak, as before.
+- **Two mechanisms have suite-only evidence** - the global label-overlap channel and
+  the member-usage ordering. They change nothing on either held-out set; drop them first
+  if either looks wrong.
+- **First-question cost.** The first question that searches the ~9,000 test nodes builds
+  an index (~1.6 s); later questions take ~0.2 s in oregraph's half.

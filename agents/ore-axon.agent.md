@@ -105,7 +105,11 @@ or attempt to configure an MCP server.
    ```
    Increase depth or budget only when the narrower result is insufficient or
    explicitly reports `TRUNCATED`. Do not replace broad discovery with shortest
-   path retrieval; these modes answer different questions.
+   path retrieval; these modes answer different questions. This command also
+   answers a question that names a kind of artifact - the tests ("what tests
+   cover ..."), the user guide, the XSD ("which complexType ..."), or the field
+   mapping ("which pricing engine prices ...", "which conventions does ... use") -
+   from those nodes, so pass the whole question rather than guessing a symbol.
 9. For reverse dependencies or change impact, query the changed symbol first,
    then use its directional semantic neighborhood:
    ```powershell

@@ -55,6 +55,56 @@ def _sample(items: list[str], n: int = 4) -> str:
     return "; ".join(items[:n]) + more
 
 
+def _bench_results_checks(cfg, suite: Path, check) -> None:
+    """What the passing bench entries are worth, from the last `oregraph bench`.
+
+    verify does not re-run the suite (that takes a graph load and ~50 queries),
+    so it reads the results file - and refuses to judge it when it was produced
+    from a different question file or graph, since a weak entry that has since
+    been fixed, or one introduced since, would be reported wrongly."""
+    import hashlib
+
+    path = cfg.bench_out / "results.json"
+    if not path.exists():
+        check("bench entries discriminate", True,
+              "no bench results yet - run `oregraph bench`", severity="warn")
+        return
+    res = json.loads(path.read_text(encoding="utf-8"))
+    meta = res.get("meta", {})
+    stale = []
+    if meta.get("questions_sha256") != hashlib.sha256(suite.read_bytes()).hexdigest():
+        stale.append("the question file changed since")
+    gstat = cfg.merged_graph.stat()
+    if "graph_mtime_ns" not in meta:
+        stale.append("they predate the weak/fragile measurement")
+    elif (meta["graph_mtime_ns"], meta["graph_size"]) != (gstat.st_mtime_ns, gstat.st_size):
+        stale.append("the graph was rebuilt since")
+    if stale:
+        check("bench entries discriminate", False,
+              f"the last bench results are out of date ({'; '.join(stale)}) - run "
+              "`oregraph bench` to judge weak and fragile entries", severity="warn")
+        return
+    rows = res["vs_source"]["rows"]
+    weak = [f"{r['id']}:{e}" for r in rows for e in r.get("weak", {})]
+    fragile = [f"{r['id']}:{e}" for r in rows for e in r.get("fragile", [])]
+    stub = [f"{r['id']}:{e}" for r in rows for e in r.get("stub_only", [])]
+    controls = res["vs_source"]["totals"].get("controls_run", 0)
+    parts = []
+    if weak:
+        parts.append(f"{len(weak)} weak (also in the answer to an unrelated question, so "
+                     f"presence proves nothing): {_sample(weak)}")
+    if fragile:
+        parts.append(f"{len(fragile)} fragile (within {meta.get('fragile_margin')} nodes of "
+                     f"the token-budget cut): {_sample(fragile)}")
+    if stub:
+        parts.append(f"{len(stub)} stub-only (met only by a node with no source file): "
+                     f"{_sample(stub)}")
+    check("bench entries discriminate", not parts,
+          "; ".join(parts) if parts
+          else f"no weak, fragile or stub-only required entry ({controls} control queries)",
+          severity="warn")
+
+
 def _fieldmap_checks(cfg, graph_meta: dict, nodes: list[dict], links: list[dict],
                      check) -> None:
     """ORE_Forge's field mapping (fieldmap_link.py). It is optional, so its
@@ -597,6 +647,18 @@ def verify(cfg) -> dict:
               + ("" if not absent_gaps else ": " + _sample(absent_gaps)),
               severity="warn")
 
+    # 12b. The question file is structurally sound, and the rubric says why. A
+    # `why` naming an entry that is not there, a control that is the question
+    # itself, or a new entry with no written reason is a defect in the rubric,
+    # which bench alone reports as a strange result or not at all.
+    if suite.exists():
+        from .bench import check_suite
+        problems = check_suite(json.loads(suite.read_text(encoding="utf-8")))
+        check("bench question file well formed", not problems,
+              "every rubric entry, variant and control is well formed" if not problems
+              else f"{len(problems)} problem(s): {_sample(problems)}")
+        _bench_results_checks(cfg, suite, check)
+
     # 13. A construction written inside a class body belongs to that class. With
     # no `Class::method` span to go on, symbol_links once gave it to the node
     # with the shortest id in the header; graphify 0.9.51 began emitting nested
@@ -638,6 +700,75 @@ def verify(cfg) -> dict:
     check("question seeds prefer the defining class", amc_src.endswith("amccalculator.hpp"),
           f"'amc calculator' seeds on {amc_src or 'nothing'}; a same-label forward "
           "declaration in a .cpp must not outrank the class")
+
+    # 15. The same rule for every label, not one: where a class lives in the file
+    # named after it and other headers hold a node for the same type, the class
+    # must be the seed even when a header outranks it on degree. `DayCounter` in
+    # callablebond.hpp (degree 70) beat `DayCounter` in time/daycounter.hpp
+    # (degree 11), so "how is a day count convention implemented" seeded on a bond
+    # header. Sampled over the labels with the widest gap, where the old rule was
+    # most likely to fail.
+    from .query import _norm_key, _defines_label
+    by_key: dict = defaultdict(list)
+    for node_id, data in path_graph.nodes(data=True):
+        if data.get("_callable_class") and data.get("source_file"):
+            by_key[_norm_key(data.get("norm_label") or data.get("label", ""))].append(node_id)
+    contested = []
+    for key, ids in by_key.items():
+        definers = [i for i in ids if _defines_label(path_graph.nodes[i], key)]
+        others = [i for i in ids if i not in definers]
+        if len(definers) == 1 and others and len(key) >= 5:
+            gap = max(path_graph.degree(o) for o in others) - path_graph.degree(definers[0])
+            if gap > 0:
+                contested.append((gap, key, definers[0]))
+    contested.sort(reverse=True)
+    wrong = []
+    for _gap, key, definer in contested[:25]:
+        seeds = resolve_question(path_graph, key)
+        first = next((s for s in seeds
+                      if _norm_key(path_graph.nodes[s].get("norm_label")
+                                   or path_graph.nodes[s].get("label", "")) == key), None)
+        if first is not None and first != definer:
+            wrong.append(f"{key} -> {path_graph.nodes[first].get('source_file')}")
+    check("same-label seeds resolve to the defining file", not wrong,
+          f"{len(contested):,} labels have a class in its own file and a busier node "
+          f"elsewhere; the 25 widest gaps all seed on the class" if not wrong
+          else f"{len(wrong)} seed on the wrong node: {_sample(wrong, 3)}")
+
+    # 15b. An `inherits` edge must reach the class it names. Chunked extraction wrote a
+    # stub per header for every base class declared elsewhere, and 54% of the edges
+    # ended at one: `DayCounter` had none of its 13 concrete day counters. merge points
+    # them at the class (symbol_links.link_inheritance); what that pass would still
+    # add to this graph is what merge did not do.
+    from .symbol_links import link_inheritance
+    pending, inheritance = link_inheritance(nodes, links)
+    check("inherits edges reach the class they name", not pending,
+          f"{inheritance['to_stub']:,} of {inheritance['inherits_edges']:,} inherits edges end at a stub; "
+          + (f"{len(pending):,} of them could still be pointed at their class - re-run `merge`"
+             if pending else f"none left that name one class ({inheritance['ambiguous']:,} name several, "
+                             f"{inheritance['unknown']:,} name none)"))
+
+    # 16. What the retrieval channels search must exist. They are silent when their
+    # kind is missing - a graph built without the docs still answers, it just cannot
+    # answer "what does the user guide say" - so the absence is only visible here.
+    from .channels import KIND_REPOS
+    have = defaultdict(int)
+    for n in nodes:
+        have[n.get("repo")] += 1
+    silent = [kind for kind, repos in KIND_REPOS.items() if not any(have[r] for r in repos)]
+    fm_entries = [n for n in nodes if n.get("repo") == FIELDMAP_REPO and n.get("kind") == "entry"]
+    unreadable = [n.get("label") for n in fm_entries if not n.get("domain") or not n.get("entry")]
+    parts = []
+    if silent:
+        parts.append(f"no nodes to search for the {', '.join(silent)} channel(s)")
+    if unreadable:
+        parts.append(f"{len(unreadable)} fieldmap entr(ies) without a domain or entry name "
+                     f"the fieldmap channel matches on: {_sample(unreadable, 3)}")
+    check("retrieval channels have their kinds", not parts,
+          "; ".join(parts) if parts
+          else "tests, docs and schema nodes present"
+               + (f"; {len(fm_entries)} fieldmap entries readable" if fm_entries else ""),
+          severity="warn")
 
     return {"checks": checks, "ore": ore,
             "nodes": len(nodes), "edges": len(links),
